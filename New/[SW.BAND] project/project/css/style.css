@@ -1,0 +1,19 @@
+div {
+    color:blue;
+}
+.element {
+    color:red;
+}
+.big {
+    color:black;
+}
+#second {
+    color:yellow;
+}
+#second.element {
+    color:darkgreen;
+}
+
+.wrapper .element {
+    color: hotpink;
+}

@@ -1,0 +1,21 @@
+#ex::first-line {
+    color: rgb(255, 0, 0);
+}
+
+#link {
+    color: red;
+    ;
+}
+
+#link:hover {
+    color:rgb(80, 255, 80);
+    text-decoration: overline;
+    cursor: no-drop;
+
+
+}
+#input:active {
+    color: blue;
+
+
+}

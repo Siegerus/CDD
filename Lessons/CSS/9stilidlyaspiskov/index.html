@@ -1,0 +1,55 @@
+  <!DOCTYPE html>
+  <html lang="en" dir="ltr">            <!---->
+    <head>
+      <meta charset="utf-8">
+      <meta name="autor" content="style">
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <title></title>
+    </head>
+    <body>
+<!---->
+  <header></header>
+  <article></article>
+  <aside></aside>
+  <footer></footer>
+
+<div id="nav">
+<ul>
+
+<li>Элемент 1</li>    <!--"list-style-position: outside;" - элементы списка находятся за блоком.-->
+<li>Элемент 2</li>    <!--"list-style-position:  inside;" - в блоке.-->
+<li>Элемент 3</li>    <!--"list-style-type:" - изменить стиль скписка-->
+<li>Элемент 4</li>    <!--"list-style-image: url();" - можно вставлять в свою картинку, как стиль списка.-->
+<li>Элемент 5</li>
+
+</ul>
+</div>
+
+
+<!--"z-index" - устанавливает слои. Чем выше значение, тем "главнее слой." Что бы работало, нужно установить "posision", либо "relative" либо "dbsolute" -->
+
+<!--#nav{
+list-style: none;
+display: block;
+float: left;
+width: 50%;
+margin-left: 25%;
+text-align: center;
+margin-bottom: 50px;
+}-->
+                                         <!--Так можно создавать менюшку из списка, указывая, что элементы списка будут "in line" (в строку).-->      
+<!--#nav li {
+display: in line;
+background: #fafafa;
+border: 1px solid silver;
+padding: 0 20px;
+}-->
+
+<!--#nav li:not(:last of type) {
+margin-right: 20px;
+}-->                                    <!--"#nav li:not(:last of type)" - это значит- всё "li", кроме последнего-->
+
+
+    </body>
+
+</html>

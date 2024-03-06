@@ -1,0 +1,11 @@
+#textstyle {
+  font-size: 1.1em;
+  font-weight: bold;
+  font-family: fantasy;
+  text-align: center;
+  text-indent: 1.1;
+  text-transform: capitalize;
+  word-spacing: 10px;
+  letter-spacing: 10px;
+  line-height: normal;
+}

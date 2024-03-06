@@ -1,0 +1,13 @@
+* {
+  font-size: 20px;
+}
+
+body {
+  background-color:#2299;
+}
+#header {color:red}
+.style {color: green}
+p.style {color: yellow}
+p.ex , b {
+  font-size: 40px;
+}

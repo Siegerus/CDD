@@ -1,0 +1,12 @@
+#spis {
+    width: 50%;
+    border: 2px solide black;
+    margin-left: 100px;
+}
+
+ul {
+
+  list-style-position: outside;
+  list-style-type: georgian;
+  list-style-image: url();
+}

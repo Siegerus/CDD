@@ -1,0 +1,71 @@
+@charset "UTF-8";
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+button {
+  width: 250px;
+  height: 50px;
+  background-color: grey;
+  border: none;
+  cursor: pointer;
+  /* "outline"- св-во устанавливает тип обводки, когда элемент в фокусе (кнопка или импут и т.д.) */
+  outline: red solid;
+  /* "transition" - св-во отвечает за скорость(плавность) анимаций. */
+  -webkit-transition: 0.5s all;
+  transition: 0.5s all;
+  /* ":hover"Меняет поведение элемента при наведении мышью. */
+  /* "active"Меняет поведение элемента в период активности (когда зажали мышью и держим). */ }
+  button:hover {
+    background-color: pink;
+    color: yellow; }
+  button:active {
+    background-color: black; }
+
+.search {
+  margin-top: 15px;
+  width: 300px;
+  height: 50px;
+  outline: none;
+  /* ":focus" меняет поведение элемента, когда он в фокусе. */ }
+  .search:focus {
+    background-color: grey; }
+
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: green;
+  border-radius: 100%;
+  margin-top: 15px;
+  /* "nth-child" Меняет поведение каждого :чётного, нечётного и т.д.элемента.Сейчас "2n"-чётного.Как задавать-в документации. */
+  /* "before"- Псевдоэлемент. Размещает что либо перед элементом. По аналогии "after"  */
+  /* Должны быть всегда со св-вом "content:". */
+  /* Так можно добавлять перед нужным элеиентом,например, какой-то блок и т.д. */
+  /* И комбинировать псевдоклассы и псевдоэлементы. */
+  /* Ниже: при наведении курсора, рядом с элементом будет появляться блок. */
+  /* &:hover
+   * &:before
+   * content: ''
+   * display: block
+   * height: 2px
+   * background-color: black */
+  /* Выше: Задали что перед элементом будет блок, но его не будет видно - "width: 0%",  */
+  /* А при наведении ("hover"), он будет появляться - width: 100%. */ }
+  .circle:nth-child(2n) {
+    background-color: red; }
+  .circle:before {
+    content: "";
+    width: 0%;
+    display: block;
+    height: 2px;
+    background-color: black; }
+  .circle:hover:before {
+    content: "";
+    width: 100%;
+    display: block;
+    height: 2px;
+    background-color: black;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all; }
+
+/*# sourceMappingURL=style.css.map */

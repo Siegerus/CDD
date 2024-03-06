@@ -1,0 +1,20 @@
+  #textstyle {
+    font-size: 1.1em;
+    font-weight: bold;
+    font-family: fantasy;
+    text-align: center;
+    text-indent: 1.1;
+    text-transform: capitalize;
+    word-spacing: 10px;
+    letter-spacing: 10px;
+    line-height: normal;
+  }
+  #testblock {
+    border: 2px outset silver;
+    height: 200px;
+    width: 500px;
+    background-color: 1111;
+    margin: 50px 30px 25px 80px;
+    padding: 60px;
+    border-radius: 60px;
+  }

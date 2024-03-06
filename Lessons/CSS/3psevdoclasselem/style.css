@@ -1,0 +1,16 @@
+p#ex:first-letter {
+  color: red;
+}
+p#ex:first-line {
+  color: red;
+}
+.href {
+ color: yellow;
+ text-decoration: blink;
+}
+.href:active {
+ color: green;
+}
+.href:visited {
+ color: orange;
+}

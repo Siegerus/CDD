@@ -1,0 +1,65 @@
+* {font-size: 1em;}
+.q {font-size: 20px;color: #6600CC; text-indent: 1.2em;}
+.a {font-size: 21px;color: #339933;text-decoration: none; }
+p {text-indent: 1.1em;}
+body {background: url('img/fon3.jpg') #5533 ;}
+header {
+  width: 100%;
+  height: 150px;
+  margin-top: 50px;
+  margin-bottom: 70px;
+  background-color: #66CCFF;
+  padding-top: 30px;
+  padding-left: 400px;
+  border: ;
+}
+footer {
+  width: 100%;
+  margin-top: 100px;
+  background-color: #66CCFF;
+}
+#enter {}
+#img1 {
+       border: 1px solid blue;
+       width: 302px;
+       margin-left: 600px;
+       margin-top: 0px;
+       position: relative;
+}
+#link1 {
+ width: 17%;
+ border: 3px solid #33CCFF;
+ border-radius: 30px;
+ margin-left: 150px;
+ margin-top: 70px;
+ padding-left: 35px;
+ position:absolute;
+}
+#text1 {
+ width: 20%;
+ height: 100px;
+ margin-left: 1200px;
+ margin-top: 100px;
+ padding-left: 20px;
+ padding-right: 10px;
+ position:absolute;
+
+}
+#text2 {
+ width: 10%;
+ margin-left: 950px;
+ margin-top: 50px;
+ position:absolute;
+ font-family: cursive, sans-serif;
+}
+.img2 {
+ margin-left: 100px;
+ position: relative;
+
+}
+#img3 {
+ position: absolute;
+ margin-left: 850px;
+ margin-top: -395px;
+
+}
