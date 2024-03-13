@@ -370,3 +370,69 @@ function logging(a, b) {
 }
 
 logging(4, 5); 
+
+46.  добавление слайденра. 
+	1 - Делаем структуру в своём проекте вида - 
+	  <div class="your-class">
+	  <div>your content</div>
+ 	  <div>your content</div>
+  	  <div>your content</div>
+	  </div>                                  копируем с сайта "slick"
+	2 -  Добавляем css файл в head 
+	<link rel="stylesheet" type="text/css" href="slick/slick.css"/> - скачан с сайта.
+	3 - в конце сраницы перед "body" добавляем 2 скрипта  библиотеки и скрипт самого слика.
+	  Ссылки на библиотеки на сайте в usage разделе, а скрипт слик тоже скачан.
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script> (в пути нужно добавить "https:", что бы нормально грузилось без сервера.)
+	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="slick/slick.min.js"></script>
+	4 - И подключаем свой скрипт файл в самом конце. Пишем туда :
+	$(document).ready(function(){
+   	 $('.carousel__inner').slick();
+ 	 });
+	
+	5 - Вместо "'.carousel__inner'" пишем свой класс, который указали. Даль в фигурные скобки можно скопировать с сайта слик из раздела демо разные настройки
+                          слайдеров.
+
+$(document).ready(function(){
+    $('.carousel__inner').slick({
+       // dots: true,                     //"dots" - кружочки внизу, их можно застилизовать.
+        speed: 300,
+        slidesToShow: 1,               //  "slidesToShow" - сколько слайдов показывать за раз.
+        variableWidth: true,          // "variableWidth" - что бы слайдер сам пдстраивал картинки разной высоты внутри слайдера.
+        //autoplay: true,            // автопереключение слайдера.
+       // autoplaySpeed: 2000,
+        //fade: true,
+        //cssEase: 'linear'
+        //arrows: false               // включение и выключение стрелочек.
+        prevArrow: '<button type="button" class="slick-prev"><img src="icons/left_arrow.svg"></button>' ,  // добавляем свои стрелочки. Сами строки копируем с сайта слик.
+				И там внизу где настройки находим их, стираем текст и добавляем свои картинки.Обязательно сохранять синтаксис.
+        nextArrow: '<button type="button" class="slick-prev"><img src="icons/right_arrow.svg"></button>'
+    });
+  });
+
+46. Owl Carousel - альтернатива Slick у. 
+
+Tiny - slyder.
+
+const slider = tns({
+    container: '.carousel__inner',
+    items: 1,
+    slideBy: 'page',
+    controls: false,
+    responsive: [ {                                           - адаптация
+            992: {
+              edgePadding: 200,
+              gutter: 20,
+              items: 1
+            }
+        }
+    ]
+  }
+  );
+
+  document.querySelector('.prev').onclick = function () {                           переназначение кнопок. Так же все стандартные элементы слайдера можно стилизовать через стили
+    slider.goTo('prev');                                                                                                   которые уже заданы.
+  };
+  document.querySelector('.next').onclick = function () {
+    slider.goTo('next');
+  };
