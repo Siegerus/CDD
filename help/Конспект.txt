@@ -442,17 +442,41 @@ const slider = tns({
 48. Для элемента "hr" принято задавать отступы в две стороны, и margin top и margin bottom.
 49.overflow: hidden;               // то, что будет выходить за пределы "catalog=item", то будет скрываться,
 
-50.
+50. Применение jquery.По "$" можно обратиться ко всем элементам на странице через селекторы (классы,теги,ид)
 $(document).ready(function(){     
   });
 
 51.
-  $('ul.catalog__tabs').on('click', 'li:not(catalog__tab_active)', function() {
+$(document).ready(function(){       //$(document).ready(function(){  }); - прописывается только 1 раз. Дальше уже всё пишется внутрь её.
+    $('.carousel__inner').slick({
+       // dots: true,                     //"dots" - кружочки внизу, их можно застилизовать.
+        speed: 300,
+        slidesToShow: 1,               //  "slidesToShow" - сколько слайдов показывать за раз.
+        variableWidth: true,          // "variableWidth" - что бы слайдер сам пдстраивал картинки разной высоты внутри слайдера.
+        //autoplay: true,            // автопереключение слайдера.
+       // autoplaySpeed: 2000,
+        //fade: true,
+        //cssEase: 'linear'
+        //arrows: false               // включение и выключение стрелочек.
+        prevArrow: '<button type="button" class="slick-prev"><img src="icons/left_arrow.svg"></button>' ,  // добавляем свои стрелочки.
+        nextArrow: '<button type="button" class="slick-next"><img src="icons/right_arrow.svg"></button>' , // пути как пишем как будто мы в index html, т.к скрипты работают напрямую.
+        responsive: [                      // адаптируем слайдер для максимального разрешения в 768
+            {                             // копируем с сайта
+                breakpoint: 992,
+                settings: {
+                arrows: false,         // Для маленьких экранов убираем стрелочки и добавляем кружочки.
+                dots: true 
+                }
+            }
+        ]
+    });
+
+    $('ul.catalog__tabs').on('click', 'li:not(catalog__tab_active)', function() {
         $(this) 
           .addClass('catalog__tab_active').siblings().removeClass('catalog__tab_active')
           .closest('div.container').find('div.catalog__content').removeClass('catalog__content_active').eq($(this).index()).addClass('catalog__content_active');
       });
-  });
+  
 
   // Берём все теги "ul" с классом ".catalog__tabs" и кликаем в нём по "li" , у которых НЕ будет класс "catalog__tab_active"
   // "(this)" - это тот элемент, на который мы нажали. И для этого "li" на который мы нажали и которого нет класса активности,
@@ -463,3 +487,52 @@ $(document).ready(function(){
   //Убираем у этого блока класс активности - ".removeClass('catalog__content_active')".
   //".eq($(this).index())" - эта часть команды получает номер элемента, на который мы нажали.Нажали на 2ой таб - будет индекс 2 и т.д
   // И для соответствующего индеса назначается соответствующий номер контента, которому даём класс активности.
+    
+    $('.catalog-item__link').each(function(i){
+        $(this).on('click', function(e){
+            e.preventDefault();
+            $('.catalog-item__content').eq(i).toggleClass('catalog-item__content__active');
+            $('.catalog-item__list').eq(i).toggleClass('catalog-item__list__active');
+            })
+
+        });
+    
+
+    //Каждый "each()"Элемент, с классом ".catalog-item__link". для них будет выполняться "function".
+    //Выбранный элемент "$(this)", когда на него будут кликать ".on('click')", будет выполняться "function" "e.preventDefault()"
+    //(это отменит стандартное поведение браузера при переходе по ссылке.) и элемент с классом "catalog-item__content" будет переключать
+    //свой класс ".toggleClass()" на "catalog-item__content__active" (".toggleClass()" - переключение работает так - если класс есть,
+    //то он будет убираться, если нет, то будет добавляться).И всё тоже самое дальше для ".catalog-item__list".
+    //"eq(i)" - привязка по индексу. Говорим, что если кликаем по эелементу "i" , то переключение будет происходить только у элемента "i", 
+    // а не на всей странице.
+        // Дальше тоже самое для кнопки "НАЗАД"
+
+    $('.catalog-item__back').each(function(i){
+        $(this).on('click', function(e){
+            e.preventDefault();
+            $('.catalog-item__content').eq(i).toggleClass('catalog-item__content__active');
+            $('.catalog-item__list').eq(i).toggleClass('catalog-item__list__active');
+            })
+
+        });
+    
+
+    // ДАльше тоже самое, только оптимизированный вариант.
+    // Создаём функцию, которую назовём "toggleSlide" с аргументом "(item)"
+    // Теперь вызываем функцию и вместо "(item)" подставляем нужный нам элемент 
+    // toggleSlide('.catalog-item__link')
+    // toggleSlide('.catalog-item__back')
+    
+    function toggleSlide(item) {
+        $(item).each(function(i){
+            $(this).on('click', function(e){
+                e.preventDefault();
+                $('.catalog-item__content').eq(i).toggleClass('catalog-item__content__active');
+                $('.catalog-item__list').eq(i).toggleClass('catalog-item__list__active');
+                })
+    
+            });
+    };
+    toggleSlide('.catalog-item__link')
+    toggleSlide('.catalog-item__back')
+}); 
