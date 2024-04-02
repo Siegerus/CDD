@@ -1,0 +1,1 @@
+*{font-family:"Roboto",sans-serif}.grid-container{margin:82px auto 0 auto;width:1140px;display:grid;grid-template-columns:repeat(4, 240px);grid-template-rows:repeat(2, minmax(260px, auto));grid-auto-rows:260px;gap:60px}.grid-container__img{width:100%}.grid-container__descr{margin-top:15px;font-size:14px;font-weight:500;line-height:16.41px}/*# sourceMappingURL=style.min.css.map */
