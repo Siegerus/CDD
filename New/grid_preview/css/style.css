@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* .grid-container { */
+   /*  display: grid; */ /* Задаём грид */
+    /* grid-template-columns: 200px 200px 200px; */ /* Говорим сколько колонок мы хотим определить и задаём сразу их размеры (3 колонки по 200рх)*/
+    /* grid-template-rows: 60px 60px 60px; */ /* Строки (3 строки по 60рх) */
+    /* column-gap: 20px; */ /* Расстояние между элементами сетки (по горизонтали)*/
+    /* row-gap: 10px; */ /* Расстояние между строками (по вертикали) */
+    /* grid-template: 60px 150px 60px / 200px 200px 300px; */ /* Вместе, сначала строки, потом колонки */
+   /*  gap: 20px; */
+/* } */
+
+.grid-container {
+    /* width: 700px;*/
+    /* height: 700px; */ 
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */ /* Каждая колонка будет занимать одинаково треть контейнера */
+    /* grid-template-columns: 1fr 2fr 1fr; */ /* Каждая колонка по краям будет занимать одну еденицу, а средняя - две (25% 50% 25%) */
+    /* grid-template-rows: 1fr 1fr 1fr; */ /* Тоже самое, только строки */
+    /* grid-template-columns: repeat(3, 1fr); */ /* Более оптимизированная запись (3 колонки по 1fr) */
+    /* grid-template-columns: repeat(3, 1fr) 20px 40px; */ /* 3 колонки по 1fr, 1 по 20рх и 1 40 рх */
+   /*  grid-template-columns: repeat(3, 50px 1fr) 20px; */ /* Конструкция вида - одна колонка 50рх и одна колонка 1fr будет повторяться трижды, а уже в конце будет одна колонка в 20рх */
+   /* grid-template-columns: repeat(3, 1fr); */
+   /* grid-template-rows: 200px 200px 200px; */
+   grid-auto-rows: minmax(100px, auto); /* так указываем, какого размера будут строки, которые не поместятся в grid-container */
+   /* grid-auto-columns: 200px; */ /* тоже самое с колонками */
+   /* grid-template-columns: minmax(100px, 300px) minmax(100px, 300px) minmax(100px, 300px); */ /* 3 колонки с мин размером в 100рх и макс размером в 300рх */
+   /* grid-template-columns: repeat(3, minmax(100px, 300px)); */ /* тоже самое */
+   /* grid-template-rows: repeat(3, minmax(100px, 300px)); */ /* по аналогии со строками */
+   grid-template-rows: repeat(3, minmax(100px, auto)); /* чаще всего для строк вторым ,максимальным значением указывают "auto" - строка будет подстраиваться под кол-во контента */
+   /* auto-fill auto-fill - позволяют в автоматическом режиме расположить все элементы внутри грид-контейнера */
+   grid-template-columns: repeat(3, minmax(150px, 300px));
+   /* grid-auto-flow: row; */ /* Можно задавать порядок элементов - в столбик или в строку. Так же это влияет на то, как будут добавляться элементы, которые не влазят в контейнер (неявные гриды) */
+   gap: 10px;
+   /* grid-template-columns: [col1-s] 150px [col2-s] 150px [col3-s] 150px; */ /* Можно также задавать имена колонкам и строкам */
+   /* align-items: stretch; */ /* св-во задаёт " align-self" - сразу для всех элементов */
+   /* justify-items: stretch; */ /* св-во задаёт " justify-self" - сразу для всех элементов */
+   /* justify-content: center; */ /* Позицмонирование всех колонок сразу по горизонтали, как во флексах */
+   /* align-content: center; */ /* по вертикали (у контецнера должна быть задана высота) */
+   /* place-content: center space-around; */ /* комбинация 2х свойств в одну строку - сначала по вертикали "align-content" , потом по горизонтали "justify-content" */
+    grid-template-areas: 
+    "header header header"  /* задаём какие площади, сколько и как будут распологаться (с учётом того, что у нас в контейнере 3 колонки и 3 строки) */
+    "blog blog message"
+    "footer footer footer";   /* если нужно пустое место, то указываем его как "." */
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, minmax(100px, auto));
+        grid-template-areas: 
+        "header header" 
+        "blog blog"
+        "message message"
+        "footer footer"; 
+    }
+}
+
+.grid-elem {
+    /* height: 50px; */
+    background-color: rgb(0, 0, 126);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+.orange {
+    background-color: orange;
+}
+#first {
+    /* grid-column-start: 1; */ /* обращаемся к 1ой линии колоночной оси. Элемент будет распологаться начиная с первой линии */
+    /* grid-column-end: 3; */ /* элемент будет заканчиваться на 3ей линии */
+    /* grid-column: 1 / 3;  */ /* тоже самое, сокращённая запись */
+    /* grid-column: col1-s/col3-s; */
+    /* align-self: stretch; */ /* Свойство для позиционирование элемента внутри грида по колоночной оси*/
+    /* justify-self: end; */ /* Свойство для позиционирование элемента внутри грида по строчной оси*/
+    /* place-self: stretch center; */ /* комбинация, сначала align-self, потом justify-self */
+}
+#second {
+    /* grid-row-start: 3;  *//* элемент будет начинать расположение от 3ей строчной линии */
+    /* grid-row-end: 4; */ /* до 4ой строчной линии */
+    /* grid-row: 3/4; */ /* тоже самое, сокращённая запись */
+    /* grid-column-start: 2; */ /* и начиная со 2ой колоночной линии */
+}
+#third {
+    /* grid-row-start: 2; */
+    /* grid-row-end: 4; */
+    /* grid-row: 2/4; */
+    /* grid-column-end: 4; */   
+}
+#header {
+    grid-area: header;      /* даёи имена элементам (площадям) внутри грида контейнера */
+}
+#blog {
+    grid-area: blog;
+}
+#message {
+    grid-area: message;
+}
+#footer {
+    grid-area: footer;
+    display: grid;       /* делаем из элемента внутри грид контейнера ещё один грид контейнер */
+    grid-template-columns: repeat(3, 1fr);
+    display: subgrid; /* Свойство задаёт наследование всех св-в от родительского грида */
+}
