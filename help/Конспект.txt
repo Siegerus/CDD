@@ -967,3 +967,24 @@ AAAAA
 
 75. Что бы при адаптации нижние блоки и элементы не мешали, их можно закоментировать.
 76. max-width: 992px - это планшет, всё лучше адаптировать в 2 колонки.
+
+77. Можно задать, что бы при определённои размере экрана, загружались соответствующие изображения.
+Первый способ работает только с одним и тем же изображением, только сжатым или обрезанным (не сработал).
+Второй спосоь работает с разными изображениями.
+<img srcset="img/main-photo-min.jpg 300w, img/main-photo.jpg 400w"
+                            sizes="(max-width: 992px) 280px, (min-width: 993px) 400px"
+                            src="img/main-photo.jpg" alt="photo">
+
+           ИЛИ
+
+	<picture>
+                        <source media="(max-width: 992px)" srcset="img/main-photo-min.jpg">
+                        <source media="(min-width: 993px)" srcset="img/main-photo.jpg">
+                        <img src="img/main-photo.jpg" alt="photo">
+                    </picture>
+78.
+	<!-- <picture>
+                        <source type="image/webp" srcset="img/main-photo.webp"> 
+                        так можно загружать современные форматы изображений,если браузером они не поддерживаются, то загрузится обычная фотка по пути ниже
+                        <img src="img/main-photo.jpg" alt="photo">
+                    </picture> -->
