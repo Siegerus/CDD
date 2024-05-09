@@ -235,6 +235,7 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
  	               "git push -u origin master" - загружаем файлы с локального на удалённый репозиторий.
 	                "git clone" - клонируем проект из репозитория на другой комп. При клонировании гит сам связывает с удалённым репозиторием автоматически.
  	               "git pull" - загрузка обратно из репозитория проекта уже с изменениями, которій клонировали на другой комп.
+	            "git remote remove origin" - отвязать репозиторий.
 
 41.   npm init - инициализация менеджера пакетов.
       "npm install --global gulp-cli"  - установка утилиты, которая позволяет работать с галпом  через терминал  При первом запуске делаем сначала глобально.   
@@ -1119,3 +1120,35 @@ anchors.forEach(function(item) {
     }, animationTime / framesCount);
   });
 });
+
+88. установите NodeJS
+установите глобально:
+Yarn: npm i -g yarn
+Gulp: npm i -g gulp
+Bem Tools: npm i -g bem-tools-core
+скачайте сборку с помощью Git: git clone https://github.com/andreyalexeich/gulp-scss-starter.git
+перейдите в скачанную папку со сборкой: cd gulp-scss-starter
+введите yarn set version berry
+скачайте необходимые зависимости: yarn
+чтобы начать работу, введите команду: yarn run dev (режим разработки)
+чтобы собрать проект, введите команду yarn run build (режим сборки)
+
+89. Команды для галп-сборки.
+yarn run bem-m          - создать блок.
+import $ from "jquery";     - импорт библиотеки в начале js файла блока.
+yarn run lint:styles
+yarn run dev - запуск сервера для разработки проекта
+yarn run build - собрать проект с оптимизацией без запуска сервера
+yarn run build:views - собрать HTML-файлы
+yarn run build:styles - скомпилировать SCSS-файлы
+yarn run build:scripts - собрать JS-файлы
+yarn run build:images - собрать изображения
+yarn run build:webp - сконвертировать изображения в формат .webp
+yarn run build:sprites- собрать спрайты
+yarn run build:fonts - собрать шрифты
+yarn run build:favicons - собрать фавиконки
+yarn run build:gzip - собрать конфигурацию Apache
+yarn run bem-m - добавить БЭМ-блок
+yarn run lint:styles --fix - исправить ошибки в SCSS-файлах согласно настройкам Stylelint
+yarn run lint:scripts - проверить JS-файлы
+yarn run lint:scripts --fix - исправить ошибки в JS-файлах согласно настройкам ESLint
