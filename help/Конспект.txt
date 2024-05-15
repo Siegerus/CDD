@@ -1152,3 +1152,59 @@ yarn run bem-m - добавить БЭМ-блок
 yarn run lint:styles --fix - исправить ошибки в SCSS-файлах согласно настройкам Stylelint
 yarn run lint:scripts - проверить JS-файлы
 yarn run lint:scripts --fix - исправить ошибки в JS-файлах согласно настройкам ESLint
+
+90.
+.modal {                                                     кодгайд
+    display: none;
+    position: absolute;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    width: 610px;
+    height: 100vh;
+    overflow: auto;
+    padding: 75px 55px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+
+    &_active {
+        display: block;
+    }
+
+91. примеры
+
+let text = $('#sign-telegram:checked + .feed-form__radio-label').text();
+
+let text = $('.feed-form__radio:checked + .feed-form__radio-label').text();
+
+'#sign-form input.feed-form__radio:checked + .feed-form__radio-label' -   Внутри формы с id чекнутый  инпут с таким то классом + его лейбл
+
+
+92,                                                                                                                                               
+
+$.validator.addMethod("justtime", function(value, element) {                     задать сой метод в плагине валидатор
+        return /[a-z]+@[a-z]+\.[a-z]+/.test(value);
+        return this.optional( element ) || /^[0-9]/.test( value );
+        /* /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/ */
+      },
+      "Неверный формат")
+
+
+93. $('#sign-time').on('input', function(){                                          пример валидация без плагина (в этом примере можно вводить только цифры и некоторые символы)
+        this.value = this.value.replace(/[^0-9\.\,\:\ ]/g, '');
+    });
+
+                           
+94. form.submit(function(e){                                       Проверка на валидность формы при отправке,
+        e.preventDefault();
+        if (form.valid()) {
+            alert('Форма отправлена');
+        }
+        return;
+    });
