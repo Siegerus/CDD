@@ -226,6 +226,8 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
 	              "git config" - настройки.
  	              "git config --global user.name "Siegerus""        Установка пользователя и мейла глобально.
 	               "git config --global user.email ivanoffsiegerus@gmail.com"
+	               "git config --local user.name "Siegerus""       Установка пользователя и мейла локально в проект.
+	               "git config --local user.email ivanoffsiegerus@gmail.com"		
 	              "git status"	- статус файлов на данный момент.
  	               "git add -A" - Добавить все файлы, которые есть в папке.
 	               "git add "название файла"." - добавляет конкретный файл. Если перед точкой расширения поставить звёздочку, то добавятся все файлы этого типа.
@@ -235,7 +237,13 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
  	               "git push -u origin master" - загружаем файлы с локального на удалённый репозиторий.
 	                "git clone" - клонируем проект из репозитория на другой комп. При клонировании гит сам связывает с удалённым репозиторием автоматически.
  	               "git pull" - загрузка обратно из репозитория проекта уже с изменениями, которій клонировали на другой комп.
-	            "git remote remove origin" - отвязать репозиторий.
+	                "git remote remove origin" - отвязать репозиторий.
+
+
+	правая кнопка мыши - open git bash - открыть консоль гита в папке 
+	"echo >> README.md" -создать фай ридми через консоль в папке
+	"git add *html" - добавить файлы с форматом хтмл
+
 
 41.   npm init - инициализация менеджера пакетов.
       "npm install --global gulp-cli"  - установка утилиты, которая позволяет работать с галпом  через терминал  При первом запуске делаем сначала глобально.   
@@ -965,8 +973,8 @@ AAAAA
         max-width: 720px;
     }
 }
-@media (max-width: 768px) {  //при адаптации будем отмерять в режиме разработчика от 577рх, т.к на 576рх будут действовать 
-    .container {                                 // привила ниже.
+@media (max-width: 768px) {                      //при адаптации будем отмерять в режиме разработчика от 577рх, т.к на 576рх будут действовать 
+    .container {                                                         // привила ниже.
     .container {
         max-width: 540px;
     }
@@ -1208,3 +1216,82 @@ $.validator.addMethod("justtime", function(value, element) {                    
         }
         return;
     });
+
+
+$("#datepicker").datepicker({
+        onSelect: function(date) {                   
+            $('#sign-date').val(date) 
+        }                                                                                                                                         //всегда видимый календарь
+    });
+    $("#datepicker").datepicker("setDate", $('#sign-date').val());
+    
+    
+
+    $("#datepicker").datepicker("option", "dateFormat", "dd-mm-yy");       // формат даты       
+    $( "#datepicker" ).datepicker( "refresh" );
+
+      $.datepicker.regional['ru'] = {         // локализация
+        closeText: 'Закрыть',
+        prevText: 'Предыдущий',
+        nextText: 'Следующий',
+        currentText: 'Сегодня',
+        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+        weekHeader: 'Не',
+        dateFormat: 'dd.mm.yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);    //
+
+95.
+
+&__slider {
+        position: relative;                                            свойства для слайдера, что бы картинки были одной высоты
+        width: 966px;
+        margin: 42px 0 0 26px;  
+    }
+
+    &__img {
+        width: auto;
+        height: 689px;
+        object-fit: cover;
+    }
+
+
+
+96. Что бы позиционировать только один элемент внутри флекс контейнера, можно погираться с  margin: auto;
+
+97.
+
+&__nav {                                                                                    -  боковая фированная менюшка со скролом
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;          
+            width: 100%;
+            min-height: 932px;                                                - мин высота для всего контента
+            padding: 32px 20px 194px 20px;  
+            background-color: $main-color2;  
+            z-index: 10;
+
+            &-wrapper {                                                                 - фиксирование и прокрутку задаём именно обёртке
+                position: fixed;
+                width: 100%;
+                max-height: 100vh;                                              -  макс высота(на весь экран) , после которой будет скролл
+                overflow: scroll; 
+                top: 0;
+                left: -100%; 
+                z-index: 10;
+                transition: 0.6s all;
+
+                &_active {
+                    left: 0;
+                }
+            }
+        }

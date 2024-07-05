@@ -1,9 +1,21 @@
+
+alert($().jquery);
+
 $('input[name=phone]').focus( function() {                      //если инпут в фокусе - меняем плейсхолдер
     $(this).attr('placeholder', '+38099 / 38099 / 8099 / 099');
     $(this).focusout(function() {                               // когда нет - возвращаем как было
         $(this).attr('placeholder', 'Введите номер')
     }); 
 });
+
+$('input').focus( function() {
+    let currentPlaceholder = $(this).attr('placeholder');           // положили изначальное значение плейсхолдера в переменную
+    $(this).attr('placeholder', '');                  //говорим, что при фокусе он будет пустым
+    $(this).focusout( function(){                      // когда фокус пропадает устанавливаем переменную с исходным значением
+        $(this).attr('placeholder', currentPlaceholder);
+    })
+})
+
 
 $('.feed-form__radio').on('click', function(){
     let input = $('#sign-nickname, #reviews-nickname, #theme-nickname, #instructions-nickname');
@@ -112,7 +124,7 @@ $('#theme-form').submit((function (){              // если форма при
 }));
 
 
-if($("#checkSurfaceEnvironment-1").prop('checked') == true){
+if($("#checkSurfaceEnvironment-1").prop('checked') == true){ // если радио стоит checked
     //do something
 }
 
@@ -123,6 +135,10 @@ $.validator.addMethod("justcomment", function(value, element) {
 $.validator.addMethod("justmail", function(value, element) {
         return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test( value );
         });              // только почта
+
+$.validator.addMethod("justdate", function(value, element) {
+    return this.optional( element ) || /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/.test( value );
+    });                   // дата
 
 $('input[name=phone]').on('input', function(){  
     this.value = this.value.replace(/[^0-9\+]/g, '');      // только цифры
@@ -177,3 +193,90 @@ const isCreditCard = (str) =>
         e.preventDefault();
         location.href = $(this).attr('href');
        })
+
+
+
+$("#datepicker").datepicker({
+onSelect: function(date) {                   //всегда видимый календарь
+    $('#sign-date').val(date) 
+}
+});
+$("#datepicker").datepicker("setDate", $('#sign-date').val());
+
+
+
+$("#datepicker").datepicker("option", "dateFormat", "dd-mm-yy");       // формат даты       
+$( "#datepicker" ).datepicker( "refresh" );
+
+$.datepicker.regional['ru'] = {         // локализация
+closeText: 'Закрыть',
+prevText: 'Предыдущий',
+nextText: 'Следующий',
+currentText: 'Сегодня',
+monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+weekHeader: 'Не',
+dateFormat: 'dd.mm.yy',
+firstDay: 1,
+isRTL: false,
+showMonthAfterYear: false,
+yearSuffix: ''
+};
+$.datepicker.setDefaults($.datepicker.regional['ru']);    //
+
+
+
+$('.overlay').click(function (e) {                               // решения по закрытию модального окна при клике по оверлею
+    if ($(e.target).is('.modal__wrapper, .overlay')) {
+        $('.modal__wrapper, .overlay').fadeOut('slow');
+        $('body').removeClass('modal-open');
+    }
+
+});
+
+/* $('.overlay').mouseup(function(e){
+    let container = $(".modal, .modal__wrapper, .overlay");
+    if(!container.is(e.target) && container.has(e.target).length === 0){ container.slideUp(80); }
+  }); */
+
+/* $('.overlay').click(function (event){
+    if(!$(event.target).closest('.modal, .modal__wrapper').length && !$(event.target).is('.modal, .modal__wrapper, .overlay')) {
+        $('.modal, .modal__wrapper').hide();
+        $('body').removeClass('modal-open');
+    }
+}); */
+
+/* $(".overlay").on("click", function(e) {
+    let clicked = $(e.target);
+    let x = $(".modal, .modal__wrapper");
+    console.log(clicked);
+    if (clicked != x) {
+        $(".overlay").fadeOut("slow");
+    }
+}); */
+
+
+(function () {                                // 
+    if (typeof EventTarget !== 'undefined') {
+      let supportsPassive = false;
+      try {
+        // Test via a getter in the options object to see if the passive property is accessed
+        const opts = Object.defineProperty({}, 'passive', {
+          get: () => {
+            supportsPassive = true;
+          },
+        });
+        window.addEventListener('testPassive', null, opts);
+        window.removeEventListener('testPassive', null, opts);
+      } catch (e) {}
+      const func = EventTarget.prototype.addEventListener;
+      EventTarget.prototype.addEventListener = function (type, fn) {
+        this.func = func;
+        this.func(type, fn, supportsPassive ? { passive: false } : false);
+      };    
+    }               
+  })();
+   // Выше возможное решение с  [Violation] Added non-passive event listener to a scroll-blocking 'touchstart' event. Consider marking event handler as 'passive' to make the page more responsive.
