@@ -1,0 +1,40 @@
+.box {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-around; */
+    display: grid;
+    grid-template-columns: repeat(2, 40%);
+    justify-content: space-around;
+    align-content: stretch;
+    justify-items: center;
+    align-items: center;
+    width: 620px;
+    height: 350px;
+    background-color: #393737;
+}
+
+.box__el1 {
+    font-size: 25px;
+    color: #c5bebe;
+}
+
+.box__el2 {
+    font-size: 25px;
+    color: #c5bebe;
+}
+
+.box__el3 {
+    font-size: 25px;
+    color: #c5bebe;
+}
+
+.box__el4 {
+    font-size: 25px;
+    color: #c5bebe;
+}
+
+.box__el5 {
+    grid-column: 1 / 3;
+    font-size: 25px;
+    color: #c5bebe;
+}
