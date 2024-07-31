@@ -106,11 +106,52 @@ i = arr.join(",");
 
 console.log(arr); */
 
-let arr = [1, 43, 2 , 4];  
+/* let arr = [1, 43, 2 , 4];  
 i = arr.sort(compaireNum);        
                                         // что бы сортировать цифры по порядку используется такая callback функция
 function compaireNum(a, b) {
     return (a - b);
 }
-console.log(arr);
+console.log(arr); */
+
+
+
+
+
+
+
+let box = document.querySelectorAll('.boxC');
+
+/* box[2].style.backgroundColor = 'green'; */
+
+box.forEach(function(item, i, boxes) {
+    item.style.backgroundColor = 'green' ;
+});
+
+
+
+
+let div = document.createElement('div'); 
+let wrapper = document.querySelectorAll('.box');
+let text = document.createTextNode('Here I am');
+let test = document.querySelectorAll('p');
+
+console.log(text);
+
+div.style.width = '50px';
+div.style.height = '50px';
+div.style.backgroundColor = 'white';
+   
+
+div.classList.add('black');
+console.log(div);
+
+wrapper[0].appendChild(div);
+/* document.body.appendChild(div); */
+/* document.body.insertBefore(div, wrapper[0]); */
+
+div.textContent = 'frfr';
+
+
+
 

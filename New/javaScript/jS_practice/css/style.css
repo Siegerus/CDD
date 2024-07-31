@@ -1,7 +1,4 @@
 .box {
-    /* display: flex;
-    align-items: center;
-    justify-content: space-around; */
     display: grid;
     grid-template-columns: repeat(2, 40%);
     justify-content: space-around;
@@ -11,6 +8,10 @@
     width: 620px;
     height: 350px;
     background-color: #393737;
+}
+
+.black {
+    background-color: black;
 }
 
 .box__el1 {
