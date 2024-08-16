@@ -316,12 +316,31 @@ window.addEventListener('DOMContentLoaded', function(){
     
 
 
-let age = document.getElementById('age');
+/* let age = document.getElementById('age');
 
 function showUser(surname, name) {
   alert("Пользователь " + surname + " " + name + ", его возраст " + this.value);
 }
 
-showUser.apply(age, ["Константин", "Иванов"]);
+showUser.apply(age, ["Константин", "Иванов"]); */
 
+/* let name = "Константин",
+    yearsOld = 34,
+    mail = "ivanoff1@i.ua";
+
+    document.write(`Пользователь ${name} Возраст ${yearsOld}  Почта ${mail}`); */
+
+function makeArray() {
+    var items = [];
+
+    for (var i = 0; i < 10; i++) {
+        var item = function () {  
+            console.log(i);
+        };
+        items.push(item);
+    }
+    return items;
+}
+
+var arr = makeArray(); 
 
