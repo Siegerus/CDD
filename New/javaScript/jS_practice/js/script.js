@@ -330,7 +330,7 @@ showUser.apply(age, ["Константин", "Иванов"]); */
 
     document.write(`Пользователь ${name} Возраст ${yearsOld}  Почта ${mail}`); */
 
-function makeArray() {
+/* function makeArray() {
     var items = [];
 
     for (var i = 0; i < 10; i++) {
@@ -342,5 +342,147 @@ function makeArray() {
     return items;
 }
 
-var arr = makeArray(); 
+var arr = makeArray();  */
+let fun = () => {    
+    console.log(this);
+}
+
+fun();  
+
+
+let obj = {
+    number : 5,
+    sayName: function () {
+        let say = () => {
+            console.log(this);      
+        };
+        say();
+    }
+};
+
+obj.sayName();
+
+let btn = document.querySelector('button');
+
+btn.addEventListener('click', function() {
+    let show = () => {      //
+        console.log(this);
+    };
+    show();    
+});
+
+
+function calcOrDouble(number, basis = 2) {
+    console.log(number*basis);
+};
+
+calcOrDouble(12);
+
+
+class Rectangle {
+    constructor(height, width) { 
+        this.height = height;
+        this.width = width;
+    }
+    calcArea() {                          // метод класса. !! запятые между методами, св-вами и тд Не ставятся
+        return this.height*this.width;
+    }
+}
+
+const square = new Rectangle(10, 20);
+
+console.log(square.calcArea());
+
+
+
+let video = ['yotube', 'vimeo', 'rutube'],
+    blogs = ['wordpress', 'livejournal', 'blogger'],
+    internet = [...video, ...blogs, 'vk', 'facebook'];
+
+    console.log(internet);
+
+
+    function log(a, b, c) {   
+        console.log(a);
+        console.log(b);
+        console.log(c);
+    }
+    
+    let numbers = [5, 7 ,4];   
+    
+    log(...numbers); 
+
+
+let parent = document.querySelector('.parent'),
+    tabs = Array.from(document.querySelectorAll('.tabs')),
+    content = Array.from(document.querySelectorAll('.content'));
+
+function contentHide(b) {
+        for (let a = b; a < content.length; a++ ) {
+            content[a].classList.remove('content_show');
+            content[a].classList.add('content_hide');
+        }
+};
+
+contentHide(1);
+
+function contentShow(c) {
+    if (content[c].classList.contains('content_hide')) {
+        content[c].classList.remove('content_hide');
+        content[c].classList.add('content_show');
+    }
+};
+
+tabs.forEach(function(item) {
+    item.addEventListener('click', function (e) {
+        for (let i = 0; i < tabs.length; i++) {
+            
+            tabs[i].classList.remove('tabs_active');
+            this.classList.add('tabs_active');
+
+            if (e.target == tabs[i]) {
+                contentHide(0);
+                contentShow(i);
+            }
+        }
+    });
+});
+
+
+
+function getTimeRamining() {
+    let currentDate = new Date(),
+        seconds = currentDate.getSeconds(),
+        minutes = currentDate.getMinutes(),
+        hours = currentDate.getHours(),
+        days = currentDate.getDate();
+
+    return {
+        'seconds': seconds,
+        'minutes': minutes,
+        'hours': hours,
+        'days': days
+    }
+};
+
+function setTime() {
+    let seconds = document.querySelector('.seconds'),
+        minutes = document.querySelector('.minutes'),
+        hours = document.querySelector('.hours');
+
+    function updateTime() {
+        let TimeRamining = getTimeRamining();
+        seconds.textContent = TimeRamining.seconds;
+        minutes.textContent = TimeRamining.minutes;
+        hours.textContent = TimeRamining.hours;
+    }
+
+    let int = setInterval(updateTime, 1000);
+};
+
+setTime();
+
+
+
+
 

@@ -57,3 +57,67 @@
 .btn_active {
     background-color: black;
 }
+
+.parent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 650px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.tabs {
+    padding: 20px 40px;
+    margin: 0 20px;
+    text-align: center;
+    background-color: #bd9b9b;
+    cursor: pointer;
+}
+
+.tabs_active {
+    background-color: #bb7474;
+}
+
+.content {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 10px;
+    border: 2px solid red;
+}
+
+.content_show {
+    display: block;
+}
+
+.content_hide {
+    display: none;
+}
+
+.content span {
+    margin-right: 10px;
+    font-weight: 700;
+    color: chocolate;
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.timer span {
+    padding-bottom: 7px;
+    font-size: 50px;
+    color: coral; 
+}
+
+.hours, .minutes, .seconds {
+    margin: 0 5px;
+    font-weight: 600;
+    font-size: 50px;
+    color: coral;
+}
