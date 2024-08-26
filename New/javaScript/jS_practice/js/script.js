@@ -468,16 +468,33 @@ function getTimeRamining() {
 function setTime() {
     let seconds = document.querySelector('.seconds'),
         minutes = document.querySelector('.minutes'),
-        hours = document.querySelector('.hours');
+        hours = document.querySelector('.hours'),
+        dots = Array.from(document.querySelectorAll('.dots'));
 
     function updateTime() {
         let TimeRamining = getTimeRamining();
         seconds.textContent = TimeRamining.seconds;
         minutes.textContent = TimeRamining.minutes;
         hours.textContent = TimeRamining.hours;
+
+        function zeroSet(value, time) {
+            if ((value) < 10) {
+                (time).textContent = "0" + (value);
+            }
+        }   
+
+        zeroSet(TimeRamining.seconds, seconds);
+        zeroSet(TimeRamining.minutes, minutes);
+        zeroSet(TimeRamining.hours, hours);
     }
 
-    let int = setInterval(updateTime, 1000);
+    function dotsToggle() {
+        for (let i = 0; i < dots.length; i++)
+            dots[i].classList.toggle('dots_show');
+    }
+
+    let intTime = setInterval(updateTime, 1000),  
+        intDots = setInterval(dotsToggle, 1000);
 };
 
 setTime();

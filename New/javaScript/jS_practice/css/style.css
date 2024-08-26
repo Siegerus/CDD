@@ -1,3 +1,23 @@
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.1s;
+}
+
+@keyframes fade {
+    from {
+        transform: translateY(-10%);
+        opacity: 0.1;
+        box-shadow: 0 0 210px #ad2e2e;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+        box-shadow: 0 0 0 #bb5b5b;
+    }
+}
+
 .boxC {
     width: 60px;
     height: 50px;
@@ -101,6 +121,14 @@
     color: chocolate;
 }
 
+.dots {
+    visibility: hidden;
+}
+
+.dots_show {
+    visibility: visible;
+}
+
 .timer {
     display: flex;
     align-items: center;
@@ -121,3 +149,4 @@
     font-size: 50px;
     color: coral;
 }
+

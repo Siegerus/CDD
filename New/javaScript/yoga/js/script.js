@@ -124,5 +124,46 @@ modalFade(descr);
 
 
 
+// form
 
+
+let message = {                                  // объект с сообщениями состояния загрузки
+    loading : 'Загрузка...',
+    success : 'Спасибо, мы с Вами свяжемся!',
+    failure : 'Что то пошло не так.'
+}
+
+let form = document.querySelector('.main-form'),
+    input = form.getElementsByTagName('input'),
+    statusMessage = document.createElement('div'); // элемент. в котором будут сообщения
+
+    statusMessage.classList.add('status'); // класс со стилем
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        form.appendChild(statusMessage);  // при сабмите добавиться созданный выше элемент
+
+        let request = new XMLHttpRequest();
+        request.open('POST' , 'server.php');
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded' ); // заголовок для данных из формы
+        
+        let formData = new FormData(form); // объект, через который берём все данные инпутов для отправки (альтернатива JSON).
+        // Все данные так же будут в формате ключ : значеник
+        //В скобках вргументом указываеься форма, с которой будут браться данные. 
+        request.send(formData); //
+
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState < 4) { // если запрос будет на этапе до 4(done)
+                statusMessage.innerHTML = message.loading; // помещаем в элемент для сообщений, сообщение из объекта
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+        });
+
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        }
+    });
 });
