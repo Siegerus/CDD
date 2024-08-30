@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // Timer
 
-    let deadline = "2024-8-13";    //конечная дата
+    let deadline = "2024-9-13";    //конечная дата
     // функция , в которой определяем значения
     function getTimeRemaining(endtime) {        //"parse" переводит дату в кол -во милисекунд
         let t = Date.parse(endtime) - Date.parse(new Date()), // вычисляем разницу между конечной датой и сегодняшней. "new Date()" - дата на момкнт входа на сайт
@@ -127,43 +127,126 @@ modalFade(descr);
 // form
 
 
-let message = {                                  // объект с сообщениями состояния загрузки
-    loading : 'Загрузка...',
-    success : 'Спасибо, мы с Вами свяжемся!',
-    failure : 'Что то пошло не так.'
-}
+  /*   let message = {
+        loading: 'Загрузка...',
+        success: 'Спасибо, мы с Вами свяжемся!',
+        failure: 'Что то пошло не так.'
+    }
 
-let form = document.querySelector('.main-form'),
-    input = form.getElementsByTagName('input'),
-    statusMessage = document.createElement('div'); // элемент. в котором будут сообщения
+    let modalForm = document.querySelector('.main-form'),
+        modalInput = modalForm.getElementsByTagName('input'),
+        contactForm = document.getElementById('form'),
+        contactInput = contactForm.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
 
-    statusMessage.classList.add('status'); // класс со стилем
+    statusMessage.classList.add('status');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        form.appendChild(statusMessage);  // при сабмите добавиться созданный выше элемент
+    function formSubmit(form, input) {
 
-        let request = new XMLHttpRequest();
-        request.open('POST' , 'server.php');
-        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded' ); // заголовок для данных из формы
-        
-        let formData = new FormData(form); // объект, через который берём все данные инпутов для отправки (альтернатива JSON).
-        // Все данные так же будут в формате ключ : значеник
-        //В скобках вргументом указываеься форма, с которой будут браться данные. 
-        request.send(formData); //
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            form.appendChild(statusMessage);
 
-        request.addEventListener('readystatechange', function () {
-            if (request.readyState < 4) { // если запрос будет на этапе до 4(done)
-                statusMessage.innerHTML = message.loading; // помещаем в элемент для сообщений, сообщение из объекта
-            } else if (request.readyState === 4 && request.status == 200) {
-                statusMessage.innerHTML = message.success;
-            } else {
-                statusMessage.innerHTML = message.failure;
+            let request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            let formData = new FormData(form);
+            request.send(formData);
+
+            request.addEventListener('readystatechange', function () {
+                if (request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if (request.readyState === 4 && request.status == 200) {
+                    statusMessage.innerHTML = message.success;
+                } else {
+                    statusMessage.innerHTML = message.failure;
+                }
+            });
+
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = '';
             }
-        });
 
-        for (let i = 0; i < input.length; i++) {
-            input[i].value = '';
-        }
-    });
+        });
+    }
+
+    formSubmit(modalForm, modalInput);
+    formSubmit(contactForm, contactInput); */
+
+
+    let message = {
+        loading: 'Загрузка...',
+        success: 'Спасибо, мы с Вами свяжемся!',
+        failure: 'Что то пошло не так.'
+    }
+
+    let modalForm = document.querySelector('.main-form'),
+        modalInput = modalForm.getElementsByTagName('input'),
+        contactForm = document.getElementById('form'),
+        contactInput = contactForm.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
+
+    statusMessage.classList.add('status');
+
+    function formSubmit(form, input) {
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            form.appendChild(statusMessage);
+
+            function usePromise() {
+
+                return new Promise(function (resolve, reject) { // start promise
+                    let request = new XMLHttpRequest();
+
+                    request.open('POST', 'server.php');
+                    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                    let formData = new FormData(form);
+                    request.send(formData);
+
+                    // начать промис можно было и сдлесь
+
+                    request.addEventListener('readystatechange', function () {
+                        if (request.readyState < 4) {
+                            resolve()
+                        }
+                        else if (request.readyState === 4 && request.status == 200) {
+                            resolve()
+                        }
+                        else {
+                            reject()
+                        }
+                    });
+                });
+                
+            }                      // end promise
+
+            function clearInput() {
+                for (let i = 0; i < input.length; i++) {
+                    input[i].value = '';
+                }
+            }
+
+            usePromise()
+                .then(() => statusMessage.innerHTML = message.loading)
+                .then(() => statusMessage.innerHTML = message.success)
+                .catch(() => statusMessage.innerHTML = message.failure)
+                .then(clearInput)      // при использовании промиса, функции, которые идут после .catch( - выполняются в любомм случае
+        });
+    }
+
+    formSubmit(modalForm, modalInput);
+    formSubmit(contactForm, contactInput);
+
+
+    
+
+
+
+
+
+
+    
 });
