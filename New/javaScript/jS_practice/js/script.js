@@ -493,11 +493,65 @@ function setTime() {
             dots[i].classList.toggle('dots_show');
     }
 
-    let intTime = setInterval(updateTime, 1000),  
-        intDots = setInterval(dotsToggle, 1000);
+    setInterval(updateTime, 1000);  
+    setInterval(dotsToggle, 1000);
 };
 
 setTime();
+
+let slideIndex = 1,
+    slides = document.querySelectorAll('.slider__item'),
+    prev = document.querySelector('.slider__prev'),
+    next = document.querySelector('.slider__next');
+    
+    slideShow(slideIndex);
+
+    function slideShow() {
+
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+
+        if (slideIndex < 1) {
+            slideIndex = slides.length;
+        }
+
+        slides.forEach(function (item) {
+            item.style.display = 'none';
+        });
+
+
+        slides[slideIndex - 1].style.display = 'block'; 
+        
+    }
+
+    function plusSlide(n) {
+        slideShow(slideIndex = slideIndex + n);
+    }
+
+    prev.addEventListener('click', function() {
+        plusSlide(-1);
+        for (let i = 0; i < slides.length; i++) {
+            if (slides[i].classList.contains('slide-show')) {
+                slides[i].classList.remove('slide-show') 
+            }
+            slides[i].classList.add('slide-hide');
+        }
+        
+        
+    });
+    
+    next.addEventListener('click', function(){
+        plusSlide(1);
+        for (let i = 0; i < slides.length; i++) {
+            if (slides[i].classList.contains('slide-hide')) {
+                slides[i].classList.remove('slide-hide') 
+            }
+            slides[i].classList.add('slide-show');
+        }
+        
+    });
+
 
 
 

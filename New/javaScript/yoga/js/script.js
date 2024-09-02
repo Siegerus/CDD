@@ -241,12 +241,117 @@ modalFade(descr);
     formSubmit(contactForm, contactInput);
 
 
+    // slider
+
+    let slideIndex = 1,  // переменная, которая отвечает за тот слайд, который показывается в текущий момент
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'), // ообёртка с точками
+        dots = document.querySelectorAll('.dot');
+
+        
+       
+    function showSlides(n) { //аргументом "n" будет номер нашего слайда
+
+        if (n > slides.length) {  //если слайды закончились, то перемещамся к 1му слайду
+            slideIndex = 1;
+        }
+
+        if (n < 1) { // наоборот. если листаем назад, перемещаемся к последнему
+            slideIndex = slides.length;
+        }
+
+        slides.forEach((item) => item.style.display = 'none'); //скрываем все слайды
+        /* for(let i = 0; i < slides.length; i++) { // тоже самое, старый вариант до "forEach"
+            slides[i].style.display = 'none';
+        } */
+       dots.forEach((item) => item.classList.remove('dot-active'));
+
+       slides[slideIndex - 1].style.display = 'block'; // показываем слайд по индексу.Вычитаем 1Ю что ьы получился 0 - т.е первый слайд
+       dots[slideIndex - 1].classList.add('dot-active');// так же добавляем по индексу класс точкам
+    }
+
+    showSlides(slideIndex); // первый раз вызываем функциюю с slideIndex, после она уже будет сама вызываться с "n",
+    // через функцию "plusSlides", которую вызываем при нажатии на срелки
+    
+
+    
+    function plusSlides(n) {        // функция показа следующего слайда
+        showSlides(slideIndex += n); // прибавляем к слайдиндексу номер нашего слайда
+    }
+
+    function currentSlide(n) {         //функция показв текущего слайда
+        showSlides(slideIndex = n);     // слайдиндекс = номкру нвшего слайда
+    }
+    
+
+    prev.addEventListener('click', function() {  // при клике на назад, от текущего илайда отнимаем 1
+        plusSlides(-1);                          // и таким образом перелистываем назад
+    });
+
+    next.addEventListener('click', function() {
+        plusSlides(1);                 
+    });
+
+    dotsWrap.addEventListener('click', function(e) {
+        for (let i = 0; i < dots.length + 1; i++)  // -1 и +1  связанно с тем, что в showSlides есть [slideIndex - 1]
+            if (e.target.classList.contains('dot') && e.target == dots[i - 1]) {
+                currentSlide(i);
+            }
+    });
     
 
 
 
+    // calculator
+
+    let persons = document.querySelectorAll('.counter-block-input')[0],
+        restDays = document.querySelectorAll('.counter-block-input')[1],
+        place = document.getElementById('select'),
+        totalValue = document.getElementById('total'),
+        personsSum = 0,  // переменные, в которые будут записываться вводимые данные
+        daysSum = 0,
+        total = 0; 
+
+console.log(place);
+
+        totalValue.innerHTML = '0';
+
+        persons.addEventListener('change', function() {
+            personsSum = +this.value; //унарный плюс
+            total = (daysSum + personsSum) * 4000; // формула расчёта, обычно у заказчика
+            
+            
+            if (restDays.value == '' || persons.value == '') {         // если второй инпут пустой, то инпут с общей суммой, тоже делаем пустым
+                totalValue.innerHTML = 0;
+            } else {
+                totalValue.innerHTML = total;
+            }  
+        });
+
+        restDays.addEventListener('change', function() { // тоже самое со вторым инпутом
+            daysSum = +this.value; 
+            total = (daysSum + personsSum) * 4000; 
+            
+            if (persons.value == '' || restDays.value == '') {     
+                totalValue.innerHTML = 0;
+            } else {
+                totalValue.innerHTML = total;
+            }  
+        });
+
+        place.addEventListener('change', function() {
+            if (restDays.value == '' || persons.value == '') {
+                totalValue.innerHTML = 0;
+            } else {
+                let a = total; // промежуточная переменная, для корректного расчёта, без неё сумма будет показана не верно
+                totalValue.innerHTML = a * this.options[this.selectedIndex].value; // так млжно достучаться до value элем. списка
+            }                                                                     // обращаемся как к св-вам объекта
+        });
 
 
+        
 
-    
+
 });
