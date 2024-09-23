@@ -248,7 +248,7 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
 	git checkout -b new_branch 9df7f87d27c849cb80614833f5ea539726129b62 - созлать новую ветку от комита (сразу переключится на неё)
 	git checkout master - вернуться на главную ветку
 	git checkout -b new_branch - переключиться обратно на созданную
-
+	git log --pretty=oneline 
 
 41.   npm init - инициализация менеджера пакетов.
       "npm install --global gulp-cli"  - установка утилиты, которая позволяет работать с галпом  через терминал  При первом запуске делаем сначала глобально.   
@@ -1280,7 +1280,7 @@ $("#datepicker").datepicker({
             align-items: flex-start;
             justify-content: space-between;          
             width: 100%;
-            min-height: 932px;                                                - мин высота для всего контента
+            min-height: 932px;                                                - обязательно мин высота для всего контента
             padding: 32px 20px 194px 20px;  
             background-color: $main-color2;  
             z-index: 10;

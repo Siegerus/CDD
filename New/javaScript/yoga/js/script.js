@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     // Timer
 
-    let deadline = "2024-9-13";    //конечная дата
+    let deadline = "2024-9-8";    //конечная дата
     // функция , в которой определяем значения
     function getTimeRemaining(endtime) {        //"parse" переводит дату в кол -во милисекунд
         let t = Date.parse(endtime) - Date.parse(new Date()), // вычисляем разницу между конечной датой и сегодняшней. "new Date()" - дата на момкнт входа на сайт
@@ -85,9 +85,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 if (t.total <=0) {        // останавливаем таймер, когда разница между конечной датой и сегодняшней будет 0
                     clearInterval(timeInterval);
-                    hours.textContent = '00';
+                    /* hours.textContent = '00';
                     minutes.textContent = '00';
-                    seconds.textContent = '00';
+                    seconds.textContent = '00'; */
                 }
             }
         }   
