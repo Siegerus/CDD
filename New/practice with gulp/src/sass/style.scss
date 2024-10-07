@@ -1,0 +1,26 @@
+@import "libs/normalize";
+@import "libs/fonts";
+@import "libs/sprite";
+@import "libs/tiny-slider";
+
+@import "main/mixins";
+@import "main/variables";
+
+* {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 1220px;
+    margin: 0 auto;
+}
+
+
+@import "blocks/header";
+@import "blocks/slide";
+@import "blocks/feed-form";
+@import "blocks/_box";
+@import "blocks/footer";
+@import "blocks/animation";

@@ -1,0 +1,18 @@
+.header {
+    padding-top: 30px;
+
+    &__menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style-type: none;
+
+        &-item {
+            margin-right: 40px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

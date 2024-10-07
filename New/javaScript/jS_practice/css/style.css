@@ -250,10 +250,29 @@
     background-color: green;
 }
 
+.testBox_active {
+    box-shadow: 10px 0 23px rgb(176, 11, 38);
+}
+
 .testBox2 {
     margin: 10px;
     width: 60px;
     height: 60px;
     background-color: coral;
+}
+.testBox3 {
+    display: inline-block;
+    margin: 10px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(36, 31, 29);
+}
+
+.show {
+    display: flex;
+}
+
+.hide {
+    display: none;
 }
 

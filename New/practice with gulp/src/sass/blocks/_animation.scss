@@ -1,0 +1,16 @@
+.animation {
+    animation-duration: 10s;
+    animation-name: scale;
+}
+
+@keyframes scale {
+    from {
+        
+        transform: scale(50%);
+    }
+
+    to {
+        
+        transform: scale(100%);
+    }
+}

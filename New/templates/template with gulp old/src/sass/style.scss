@@ -1,0 +1,23 @@
+@import "libs/fonts";
+@import "libs/normalize.css";
+
+@import "main/variables";
+@import "main/mixins";
+
+* {
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 1440px;
+    margin: 0 auto;
+}
+
+
+@import "blocks/header";
+@import "blocks/footer";
+
+
+
