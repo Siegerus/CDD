@@ -8,7 +8,9 @@ const imagemin = require('gulp-imagemin');
 const autoprefixer = require('gulp-autoprefixer');
 const svgSprite = require('gulp-svg-sprite');
 const webpack = require('webpack-stream');
-
+const del = require("del");
+const uglify = require('gulp-uglify');
+const pipeline = require('readable-stream').pipeline;
 
 gulp.task("server", function() {
     browserSync({
@@ -43,12 +45,11 @@ gulp.task("watch", function(){
 	gulp.watch("src/img/**/*").on("all", gulp.parallel("images"));
 	gulp.watch("src/icons/**/*").on("all", gulp.parallel("icons"));
 	gulp.watch("src/fonts/**/*").on("all", gulp.parallel("fonts"));
-	gulp.watch("src/fonts/**/*").on("all", gulp.parallel("fonts"));
 });
 
 
 gulp.task("html", function() {
-	return gulp.src("src/*.html")
+	return gulp.src("src/**/*.html")
 		.pipe(gulp.dest("dist"))
 		.pipe(browserSync.stream());
 });
@@ -62,6 +63,12 @@ gulp.task("scripts", function() {
 
 gulp.task("images", function() {
 	return gulp.src("src/img/**/*", { encoding: false })
+		.pipe(gulp.dest("dist/img"))
+		.pipe(browserSync.stream());
+});
+
+gulp.task("images-min", function() {
+	return gulp.src("src/img/**/*", { encoding: false })
 		.pipe(imagemin())
 		.pipe(gulp.dest("dist/img"))
 		.pipe(browserSync.stream());
@@ -74,7 +81,7 @@ gulp.task("icons", function() {
 });
 
 gulp.task("fonts", function() {
-	return gulp.src("src/fonts/**/*")
+	return gulp.src("src/fonts/**/*" , { encoding: false })
 		.pipe(gulp.dest("dist/fonts"))
 		.pipe(browserSync.stream());
 });
@@ -94,9 +101,21 @@ gulp.task("sprites", function() {
 				}
 			}
 		}))
-		.pipe(gulp.dest("src"));
-		
+		.pipe(gulp.dest("src"));	
 });
 
+gulp.task("clean", function(){
+	return del(["./dist/*"]);
+});
 
-gulp.task("default", gulp.parallel("server", "html", "styles", "scripts" , "images", "icons", "watch"));
+gulp.task("compress", function () {
+	return pipeline(
+		  gulp.src("dist/js/*.js"),
+		  uglify(),
+		  gulp.dest("dist/js/")
+	);
+  });
+
+gulp.task("default", gulp.series("clean", gulp.parallel("server", "html", "styles", "scripts" , "images", "icons", "watch")));
+
+gulp.task("build", gulp.series("clean", "scripts", "compress", gulp.parallel("server", "html", "styles", "fonts", "images-min", "icons", "watch")));

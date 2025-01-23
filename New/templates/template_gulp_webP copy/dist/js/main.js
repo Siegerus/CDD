@@ -16,7 +16,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _module1_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module1.js */ \"./src/js/module1.js\");\n/* harmony import */ var _module2_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module2.js */ \"./src/js/module2.js\");\n/* harmony import */ var _module3_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./module3.js */ \"./src/js/module3.js\");\n\n\n\n\n(0,_module1_js__WEBPACK_IMPORTED_MODULE_1__.firstModule)();\n(0,_module2_js__WEBPACK_IMPORTED_MODULE_2__.secondModule)();\n(0,_module3_js__WEBPACK_IMPORTED_MODULE_3__.thirdModule)();\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _module1_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module1.js */ \"./src/js/module1.js\");\n/* harmony import */ var _module2_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module2.js */ \"./src/js/module2.js\");\n/* harmony import */ var _module3_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./module3.js */ \"./src/js/module3.js\");\n\n\n\n\n(0,_module1_js__WEBPACK_IMPORTED_MODULE_1__.getFirstModule)();\n(0,_module2_js__WEBPACK_IMPORTED_MODULE_2__.getSecondModule)();\n(0,_module3_js__WEBPACK_IMPORTED_MODULE_3__.getThirdModule)();\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/index.js?");
 
 /***/ }),
 
@@ -27,7 +27,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var loda
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   firstModule: () => (/* binding */ firstModule)\n/* harmony export */ });\nfunction firstModule() {\n  window.addEventListener(\"DOMContentLoaded\", function () {\n    console.log(\"Hellow world\");\n  });\n}\n\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/module1.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getFirstModule: () => (/* binding */ getFirstModule)\n/* harmony export */ });\nfunction getFirstModule() {\n  window.addEventListener(\"DOMContentLoaded\", function () {\n    console.log(\"Hellow world\");\n  });\n}\n\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/module1.js?");
 
 /***/ }),
 
@@ -38,7 +38,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   secondModule: () => (/* binding */ secondModule)\n/* harmony export */ });\nfunction secondModule() {\n  window.addEventListener(\"DOMContentLoaded\", function () {\n    console.log(\"Hellow world\");\n  });\n}\n\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/module2.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getSecondModule: () => (/* binding */ getSecondModule)\n/* harmony export */ });\nfunction getSecondModule() {\n  window.addEventListener(\"DOMContentLoaded\", function () {\n    console.log(\"Hellow world\");\n  });\n}\n\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/module2.js?");
 
 /***/ }),
 
@@ -49,7 +49,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   thirdModule: () => (/* binding */ thirdModule)\n/* harmony export */ });\nfunction thirdModule() {\n  window.addEventListener(\"DOMContentLoaded\", function () {\n    console.log(\"Hellow world\");\n  });\n}\n\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/module3.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getThirdModule: () => (/* binding */ getThirdModule)\n/* harmony export */ });\nfunction getThirdModule() {\n  window.addEventListener(\"DOMContentLoaded\", function () {\n    console.log(\"Hellow world\");\n  });\n}\n\n\n//# sourceURL=webpack://template_gulp_webp/./src/js/module3.js?");
 
 /***/ }),
 

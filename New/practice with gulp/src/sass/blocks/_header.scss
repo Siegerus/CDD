@@ -1,17 +1,55 @@
 .header {
     padding-top: 30px;
+    padding-bottom: 60px;
 
-    &__menu {
+    &__nav {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    &__list {
+        display: flex;
+        margin-top: 40px;
+        padding: 0 11px;
+        background-color: #cfcfcf;
         list-style-type: none;
+        border-radius: 100px;
+    }
+
+    &__list-item {
+        padding: 10px 23px;
+        cursor: pointer;
+
+        &_dropdown {
+            position: relative;
+        }
+    }
+
+    &__dropdown {
+        display: none;
+        position: absolute;
+        top: 43px;
+        left: 0;
+        width: calc(100% - 23px);
+        padding: 11px 13px 10px 13px ; 
+        list-style-type: none;
+        background-color: #cfcfcf;
+        
 
         &-item {
-            margin-right: 40px;
+            display: none;
+            padding: 12px 0;
+            text-align: center;
 
-            &:last-child {
-                margin-right: 0;
+            a {
+                text-decoration: none;
+                color: #000;
+
+                &:hover {
+                    color:#6b6a6a;
+                    transition: all 0.6s;
+                }
             }
         }
     }

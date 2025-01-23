@@ -8,6 +8,9 @@ const imagemin = require('gulp-imagemin');
 const autoprefixer = require('gulp-autoprefixer');
 const svgSprite = require('gulp-svg-sprite');
 const webpack = require('webpack-stream');
+const del = require("del");
+const uglify = require('gulp-uglify');
+const pipeline = require('readable-stream').pipeline;
 
 
 gulp.task("server", function() {
@@ -16,7 +19,7 @@ gulp.task("server", function() {
 			baseDir : "dist"
 			},
 			browser : "chrome"
-  	})
+  	});
 });
 
 gulp.task("styles", function (){
@@ -34,7 +37,7 @@ gulp.task("styles", function (){
 		}))
 		.pipe(gulp.dest("dist/css"))
 		.pipe(browserSync.stream());
-})
+});
 
 gulp.task("watch", function(){
 	gulp.watch(("src/sass/**/*.+(scss|sass)"), gulp.parallel("styles"));
@@ -56,11 +59,18 @@ gulp.task("html", function() {
 gulp.task("scripts", function() {
 	return gulp.src("src/js/index.js")
 		.pipe(webpack( require('./webpack.config.js') ))
+		.pipe(rename({suffix: ".min"}))
 		.pipe(gulp.dest("dist/js"))
 		.pipe(browserSync.stream());
 });
 
 gulp.task("images", function() {
+	return gulp.src("src/img/**/*", { encoding: false })
+		.pipe(gulp.dest("dist/img"))
+		.pipe(browserSync.stream());
+});
+
+gulp.task("images-min", function() {
 	return gulp.src("src/img/**/*", { encoding: false })
 		.pipe(imagemin())
 		.pipe(gulp.dest("dist/img"))
@@ -106,9 +116,22 @@ gulp.task("sprites", function() {
 				}
 			}
 		}))
-		.pipe(gulp.dest("src"))
-		
+		.pipe(gulp.dest("src"));
 });
 
+gulp.task("clean", function(){
+	return del(["./dist/*"]);
+});
 
-gulp.task("default", gulp.parallel("server", "html", "styles", "scripts" , "images", "icons", "watch"));
+gulp.task("compress", function () {
+	return pipeline(
+		  gulp.src("dist/js/*.js"),
+		  uglify(),
+		  gulp.dest("dist/js/")
+	);
+  });
+
+
+gulp.task("default", gulp.series("clean", gulp.parallel("server", "html", "styles", "scripts" , "images", "icons", "watch")));
+
+gulp.task("build", gulp.series("clean", "scripts", "compress", gulp.parallel("server", "html", "styles", "fonts", "images-min", "icons", "watch")));

@@ -57,7 +57,7 @@ gulp.task("scripts", function() {
 });
 
 gulp.task("images", function() {
-	return gulp.src("src/img/**/*")
+	return gulp.src("src/img/**/*", { encoding: false })
 		.pipe(gulp.dest("dist/img"))
 		.pipe(browserSync.stream());
 });
@@ -69,7 +69,7 @@ gulp.task("icons", function() {
 });
 
 gulp.task("fonts", function() {
-	return gulp.src("src/fonts/**/*")
+	return gulp.src("src/fonts/**/*", { encoding: false })
 		.pipe(gulp.dest("dist/fonts"))
 		.pipe(browserSync.stream());
 });

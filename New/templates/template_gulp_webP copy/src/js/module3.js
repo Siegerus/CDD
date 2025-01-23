@@ -1,8 +1,8 @@
-function thirdModule() {
+function getThirdModule() {
     window.addEventListener("DOMContentLoaded", function () {
         
         console.log("Hellow world");
     });
 }
 
-export { thirdModule }
+export { getThirdModule }

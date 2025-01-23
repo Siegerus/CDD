@@ -14,19 +14,27 @@
         </svg>
 
         <nav class="header__nav">
-            <ul class="header__menu">
-                <li class="header__menu-item">Lorem</li>
-                <li class="header__menu-item">Lorem</li>
-                <li class="header__menu-item">Lorem</li>
-                <li class="header__menu-item">Lorem</li>
-                <li class="header__menu-item">Lorem</li>
-                <li class="header__menu-item">Lorem</li>
+            <ul class="header__list">
+                <li class="header__list-item">Lorem</li>
+                <li class="header__list-item">Lorem</li>
+                <li class="header__list-item header__list-item_dropdown">Lorem
+                    <ul class="header__dropdown animation-fade">
+                        <li class="header__dropdown-item animation-height"><a href="#">Ipsum</a></li>
+                        <li class="header__dropdown-item animation-height"><a href="#">Ipsum</a></li>
+                        <li class="header__dropdown-item animation-height"><a href="#">Ipsum</a></li>
+                        <li class="header__dropdown-item animation-height"><a href="#">Ipsum</a></li>
+                    </ul>
+                </li>
+                <li class="header__list-item">Lorem</li>
+                <li class="header__list-item">Lorem</li>
+                <li class="header__list-item">Lorem</li>
             </ul>
         </nav>
+
+
+
     </div>
-
 </header>
-
 <section class="slide">
     <div class="container">
         <div class="slider__wrapper">
@@ -68,7 +76,6 @@
         </div>
     </div>
 </section>   
-
 <section class="box">
     <div class="container">
         <div class="box__wrapper">
@@ -79,12 +86,20 @@
         </div>
     </div>
 </section>
-
-
-
-
-
-
-<script src="js/main.js" type="module"></script>
+<section class="form">
+    <form id="test-form" action="" class="feed-form">
+        <input class="test-form__input" name="user" type="text">
+        <input class="test-form__input" name="email" type="mail">
+        <input class="test-form__input" name="pass" type="password">
+        <button class="test-form__button">button</button>
+    </form>
+    <form id="test-form2" action="" class="feed-form">
+        <input class="test-form2__input" name="user" type="text">
+        <input class="test-form2__input" name="email" type="mail">
+        <input class="test-form2__input" name="pass" type="password">
+        <button class="test-form2__button">button</button>
+    </form>
+</section>
+<script src="js/main.min.js" type="module"></script>
 </body>
 </html>
