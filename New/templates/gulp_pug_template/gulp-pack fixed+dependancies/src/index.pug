@@ -1,0 +1,14 @@
+extends base/pug/base
+
+append variables
+	- var title = 'Главная страница сайта'
+	- var pageClass = 'homepage'
+	- var menuHref = '/'
+
+block content  
+		
+		include components/test/test
+		
+block script
+	script(src=`${baseDir}js/main.js`)
+ 

@@ -1,0 +1,41 @@
+.close {
+    position: absolute;
+    z-index: 25;
+    top: 20px;
+    right: 39px;
+    width: 30px;
+    height: 30px;
+    transform: rotate(45deg);
+    border-radius: 100px;
+    cursor: pointer;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 28px;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        background-color: red;
+    }
+        
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 28px;
+        height: 2px;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        background-color: red;
+    }
+}
+
+    
+
+    
+        
+        

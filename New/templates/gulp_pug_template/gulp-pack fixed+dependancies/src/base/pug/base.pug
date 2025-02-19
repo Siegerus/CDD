@@ -1,0 +1,21 @@
+include ../../mixins/pug/index.pug
+block variables
+    -
+        var baseDir = './';
+
+doctype html
+html(lang="ru")
+
+    include ./head
+
+    body(class=pageClass)
+
+        include ../../components/header/header
+
+        block content
+
+        include ../../components/footer/footer
+
+    
+
+        block script
