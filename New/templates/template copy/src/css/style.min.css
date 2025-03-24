@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 p {
@@ -83,3 +85,44 @@ p {
   box-shadow: 2px 3px 6px #2d2323;
   border-radius: 10px;
 }
+
+.any-section {
+  padding: 20px 40px;
+  background-color: #f9f9f9;
+}
+
+.any-section__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 581px;
+  margin-top: 59px;
+}
+
+.any-section__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  background-color: green;
+  border-radius: 13px;
+}
+
+.any-section__item svg {
+  fill: red;
+}
+
+.any-section__button {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 35px;
+  background-color: mediumorchid;
+  cursor: pointer;
+  border: none;
+}
+
+.any-section__button span {
+  font-size: 16px;
+}
+
