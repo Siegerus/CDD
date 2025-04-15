@@ -1,4 +1,4 @@
-//Рекурсивная функция для подсчёта вложенных свойств оюекта
+//Рекурсивная функция для подсчёта вложенных свойств объекта
 let company = {
     sales: [{
       name: 'John',
@@ -42,6 +42,40 @@ let getSum = (item) => {
     }
 };
 console.log(getSum(company));
+
+
+// Простейшая рекурсия
+function setRecourse(n) {
+	console.log(n)
+	if (n == 1) return n;
+	else setRecourse(n - 1);
+	
+}
+setRecourse(10);
+
+
+// рекурсия с замыканием
+let setRecourse = () => {
+	let any = 0;
+	function recourse(n) {
+		any += 11;
+		if (n == 1) return n;
+		recourse(n - 1);
+		return any;
+	}
+	return recourse
+};
+let func = setRecourse()
+console.log(func(15));
+
+
+// Пример рекурсии
+function setRecourse(n) {
+	clickBox.forEach(item => item.style.backgroundColor = "blue");
+	if (n <= 1) return;
+	setRecourse(n - 1);
+}
+setRecourse(clickBox.length);
 
 
 // Факториал рекурсия
@@ -148,6 +182,19 @@ console.log(users)
 }
 users.sort(byField);
 console.log(users) */
+
+
+// Пример замыкания
+function fun() {
+	let sum = 0;
+	function toGetAny(a, b) {
+		return sum = sum + (a + b);
+	}
+	return toGetAny;
+}
+let fo = fun();
+console.log(fo(4, 7));
+console.log(fo(4, 7));
 
 
 //счётчик, который делался через замыкание - теперь вариант через установку пользовательского св-ва ф-ии
@@ -274,6 +321,78 @@ setTimeout( () => f("c"), 500);
 
 
 
+//Замыкание и декоратор для него
+let fun = () => {
+	let sum = 0;
+	return function (a, b) {
+		return console.log(sum = sum + (a + b));
+	}
+}
+let fooo = fun();
+// fooo(4, 7);
+// fooo(4, 7);
+// fooo(4, 7);
+
+let decorate = (f, ms) => {
+	let wrapper = (a, b) => {
+		return setTimeout(() => f(a, b), ms);
+	}
+	return wrapper;
+}
+let final = decorate(fooo, 3000);
+final(4, 8);
+final(4, 8);
+final(4, 8);
+
+
+// Практика с замыканием
+let out = [];
+let toPlus = (x) => {
+	return x + 5;
+}
+let toTimes = (x) => {
+	return x * 5;
+}
+let closer = (f) => {
+	let any = 0;
+	function wrapper(x) {
+		any += f(x);
+		out.push(any);
+		return f(x);
+	}
+	return wrapper;	
+};
+let fPlus = closer(toPlus);
+let fTimes = closer(toTimes);
+
+clickBox.addEventListener("click", () => {
+	fPlus(2);
+	console.log(out);
+});
+btn.addEventListener("click", (e) => {
+	e.preventDefault();
+	fTimes(2);
+	console.log(out);
+});
+
+
+
+// Декоратор как метод объекта - прототипа
+function f(a, b) {
+	console.log(a + b);
+}
+Function.prototype.defer = function(ms) {
+	let ctx = this;
+	function wrapper(...args) {
+		let launch =  setTimeout(() => ctx.call(this, ...args), ms) 
+		return launch;
+	}
+	return wrapper
+}
+f.defer(1000)(7, 2);
+
+
+
 // Практика с декоратором
 let showAny = (any) => {
 	console.log(any);
@@ -316,3 +435,60 @@ let obj = {
 }
 obj.getName = " changed";
 obj.getName;
+
+
+
+// Скрипт загрузки скрипта и колбэк с первым аргументом-ошибкой.
+let loadScript = (url, callback) => {
+	let script = document.createElement("script");
+	script.src = url;
+	script.onload = () => {
+		try {
+			callback(null, script);
+		}
+		catch(err) {
+			callback(new Error("Ошибка! " + err.name));
+		}
+	}
+	document.body.append(script);
+}
+let toCallback = (error, arg) => {
+	if(error) console.log(error);
+	else {
+		console.log(arg);
+		console.log(_);
+	}
+}
+loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js", toCallback);
+
+
+//Тот же скрипт через промисы
+let loadScriptt = (url) => {
+	return new Promise((resolve, reject) => {
+		let script = document.createElement("script");
+		script.src = url;
+		script.onload = () => {
+			resolve(script);
+			reject(new Error("Ошибка!"));
+		}
+		document.body.append(script);
+	})
+  };
+  loadScriptt("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js")
+  	.then((val) => console.log(val))
+	.then(() => console.log(_))
+	.catch((err) => console.log(err));
+
+
+
+// Промисс последовательными асинхроными ф-ями
+  let toPromise = (x) => {
+    return new Promise((resolve, reject) => {
+      resolve(console.log(3 + x));
+    })
+  }
+  toPromise(7)
+    .then((res) => toPromise(74))
+    .then((res) => toPromise(8))
+    .then(() => console.log(5 + 5))
+    .then(() => alert("!"));

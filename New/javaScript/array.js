@@ -1,9 +1,163 @@
-// newArr.at(-1); возвращают последний элемент массива
-// newArr.pop(); возвращают последний элемент массива и удаляет его
-// newArr.push(); Добавляет элемент в конец массива
-// newArr.shift(); Удаляет из массива первый элемент и возвращает его
-// newArr.unshift(); Добавляет элемент в начало массива
-// console.log(newArr.at(-1));
+//ВСЕ ЗАДАЧИ ИЗ УЧЕБНИКА
+//
+/* let toCamelize = (str) => {
+	let arr = str.split("-");
+	let maped = arr.map((item) => item.slice(0, 1).toUpperCase() + item.slice(1));
+	let res = maped.join("");
+	return res.slice(0, 1).toLowerCase() + res.slice(1);
+}; */
+
+/* let toCamelize = (str) => {
+	let arr = str.split("-");
+	let maped = arr.map((item, i) => {
+		if(i !== 0) {
+			return item.slice(0, 1).toUpperCase() + item.slice(1)
+		} else {
+			return item;
+		}
+	});
+	return maped.join("");
+}; */
+
+/* console.log(toCamelize("-webkit-transition"));
+console.log(toCamelize("list-style-image"));
+console.log(toCamelize("background-color")); */
+
+
+//
+/* let arr = [5, 3, 8, 1];
+let filterRange = (array, a, b) => {
+	 let filter = array.filter((item) => item >= a && item <= b);
+	 return filter
+};
+console.log( arr ); 
+let filtered = filterRange(arr, 1, 4);
+console.log( filtered );  */
+
+
+//
+/* let arr = [5, 3, 8, 1]; 
+	let filterRangeInPlace = (array, a, b) => {
+		for(let i = 0; i < array.length; i++) {
+			if (array[i] < a || array[i] > b) {
+				array.splice(i, 1);
+			}
+		}
+	// array.forEach((item, i, arr) => {
+	// 	if(item < a || item > b) {
+	// 		arr.splice(i, 1);
+	// 	}
+	// });
+	};
+filterRangeInPlace(arr, 1, 4); 
+console.log( arr ); */
+
+
+//
+/* let arr = [5, 2, 1, -10, 8];
+	arr.sort((a,b) => b - a)
+console.log( arr ); */ 
+
+
+//
+/* 
+let arr = ["HTML", "JavaScript", "CSS"];
+let copySorted = (array) => {
+	let newArr = array.concat();
+	return newArr.sort();
+}
+let sorted = copySorted(arr);
+console.log( sorted );
+console.log( arr );  */
+
+
+//
+/* let vasya = { name: "Вася", age: 25 };
+let petya = { name: "Петя", age: 30 };
+let masha = { name: "Маша", age: 28 };
+
+let users = [ vasya, petya, masha ];
+let names = users.map((item) => item.name);
+console.log( names );  */
+
+
+//
+/* let vasya = { name: "Вася", surname: "Пупкин", id: 1 };
+let petya = { name: "Петя", surname: "Иванов", id: 2 };
+let masha = { name: "Маша", surname: "Петрова", id: 3 };
+let users = [ vasya, petya, masha ];
+
+let usersMapped = users.map((item) => {
+	return {
+		"fullName": `${item.name} ${item.surname}`,
+		"id" : item.id,
+	}
+});
+console.log(usersMapped); */
+
+
+//
+/* let vasya = { name: "Вася", age: 25 };
+let petya = { name: "Петя", age: 30 };
+let masha = { name: "Маша", age: 28 };
+let arr = [ vasya, petya, masha ];
+
+let sortByAge = (array) => {
+	return array.sort((a, b) => a.age - b.age )
+};
+console.log(arr);
+console.log(sortByAge(arr)); */
+
+
+//
+/* let shuffle = (array) => {
+	return array.sort((a,b) => Math.random(a) - Math.random(b));
+}; */
+
+
+//
+/* let vasya = { name: "Вася", age: 25 };
+let petya = { name: "Петя", age: 30 };
+let masha = { name: "Маша", age: 29 };
+let arr = [ vasya, petya, masha ];
+
+let getAverageAge = (array) => {
+	let summed = array.reduce((sum, next) => sum + next.age, 0);
+	return summed / array.length;
+};
+console.log( getAverageAge(arr) ); */ 
+
+
+//
+/* let strings = ["кришна", "кришна", "харе", "харе",
+	"харе", "харе", "кришна", "кришна", ":-O"];
+function unique(arr) {
+	let result = [];
+	for(let items of arr) {
+		if (!result.includes(items)) {
+			result.push(items);
+		}
+	}
+	return result;
+}
+console.log(unique(strings));  */
+
+
+//
+/* let users = [
+	{id: 'john', name: "John Smith", age: 20},
+	{id: 'ann', name: "Ann Smith", age: 24},
+	{id: 'pete', name: "Pete Peterson", age: 31},
+  ];
+  let groupById = (arr) => {
+	let result = arr.reduce((obj, el) => {
+		obj[el.id] = el;
+		return obj
+	}, {})
+	return result;
+  };
+let usersById = groupById(users);
+console.log(usersById); */
 
 
 // один из методов перебора массива
@@ -431,6 +585,17 @@ console.log(getTopSalary(salarieуs)); */
     }
 };
 console.log(getTopSalary(salarieуs)); */
+
+
+// Вернуть случайный элемент из массива
+let myArray = [true, 4, "str", {key : "value"}];
+let toRandomize = (arr) => {
+	let res = arr.map((item, i, arr) => arr[Math.floor(Math.random(i) * arr.length)]); 
+	return res.splice(0, 1);
+}
+console.log(toRandomize(myArray));
+
+
 
 
 

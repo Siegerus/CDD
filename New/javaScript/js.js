@@ -499,3 +499,397 @@ user.sayAge();
 user22.sayAge();
 console.log(user.man.walk);
 console.log(user22.man.eat);
+
+
+// Изменение встроенного прототипа - по методу "defer" все функции буду вызываться с задержкой
+Function.prototype.defer = function () {
+	setTimeout(()=> this(), 2000);
+}
+function func() {
+	console.log("Hi");
+}
+func.defer();
+
+
+// Одни и теже часы через ф.конструктор и класс 
+function Clock({ template }) {
+    let timer;
+    function render() {
+      let date = new Date();
+      let hours = date.getHours();
+      if (hours < 10) hours = '0' + hours;
+      let mins = date.getMinutes();
+      if (mins < 10) mins = '0' + mins;
+      let secs = date.getSeconds();
+      if (secs < 10) secs = '0' + secs;
+      let output = template
+        .replace('h', hours)
+        .replace('m', mins)
+        .replace('s', secs);
+      console.log(output);
+    }
+    this.stop = function() {
+      clearInterval(timer);
+    };
+    this.start = function() {
+      render();
+      timer = setInterval(render, 1000);
+    };
+  }
+  let clockkkk = new Clock({template: 'h:m:s'});
+  clockkkk.start();
+
+  //
+class Clock {
+	constructor({ template }) {
+	  this.template = template;
+	}
+	render() {
+	  let date = new Date();
+	  let hours = date.getHours();
+	  if (hours < 10) hours = '0' + hours;
+	  let mins = date.getMinutes();
+	  if (mins < 10) mins = '0' + mins;
+	  let secs = date.getSeconds();
+	  if (secs < 10) secs = '0' + secs;
+	  let output = this.template
+		.replace('h', hours)
+		.replace('m', mins)
+		.replace('s', secs);
+	  console.log(output);
+	}
+	stop() {
+	  clearInterval(this.timer);
+	}
+	start() {
+	  this.render();
+	  this.timer = setInterval(() => this.render(), 1000);
+	}
+  }
+  let clockkk = new Clock({template: 'h:m:s'});
+//   clockkk.start();
+
+// И класс часы, которые наследуют основные часы
+  class ExtendedClock extends Clock {
+	constructor(template, precision = 500) {
+		super(template);
+		this.precision  = precision;
+	}
+	start() {
+		super.render();
+		this.timer = setInterval(() => super.render(), this.precision);
+	}
+  }
+let exClock = new ExtendedClock({template: 'h:m:s'});
+exClock.start();
+
+
+
+// Пример со класса со статическим св-вом
+class Article {
+	constructor(name, title) {
+		this.name = name;
+		this.title = title;
+		this.date = new Date();
+	}
+	static createArticle() {
+		return new this("New Page", "News") ;
+	}
+	getTime() {
+		let day = this.date.getDate();
+		console.log(day);
+	}
+}
+let page = Article.createArticle();
+class NewArticle extends Article {
+
+}
+let page1 = new NewArticle("New Page", "Stars");
+page1.getTime();
+console.log(page);
+console.log(page1);
+
+
+//Защищённые св-ва для класса
+class CoffeeMachine {
+	_water = 0;
+	#waterLimit = 200;
+	constructor(power) {
+		this._power = power
+	}
+	setWater(value) {
+		if(value < 0) throw new Error("Ошибка!");
+		return this._water = value;
+	}
+	getWater() {
+		return this._water;
+	  }
+	getPower() {
+		return this._power;
+	}
+	#checkWater(value) {
+		if (value < 0) throw new Error("Отрицательный уровень воды");
+		if (value > this.#waterLimit) throw new Error("Слишком много воды");
+	  }
+	  getLimit() {
+		return this.#waterLimit;
+	}
+}	
+
+let machine = new CoffeeMachine("120w");
+machine.setWater(300); // задать "_water" через ф-цию. Не удасться установить меньше 0
+console.log(machine.getWater());// получить значение через ф-цию.
+console.log(machine.getPower()); // можно только получить значение через ф-цию.Для установки ф-ции нет
+/* machine.#checkWater() */ // приватный метод. обращение снаружи вызовет ошибку
+console.log(machine.getLimit());
+
+
+// Error
+let anya = true;
+try {
+	console.log(anya) ;
+	if(!anya) throw new SyntaxError("My error!");
+	console.log(anya + "smth");
+	// blabla();
+	console.log(anya + "smth else");
+}
+catch(err) {
+	if(err.name == "SyntaxError") {
+		console.log("This is my SyntaxError. Any not true");
+	} 
+	else  {
+		console.log("Another error: " + err.message);
+		throw err;
+	}	
+}
+finally {console.log("Finally");}
+
+
+
+//Error. Пример наследования класса ошибки. Создание своего класса Error.
+/* class Error {
+	constructor(message) {
+	  this.message = message;
+	  this.name = "Error"; // 
+	  this.stack = "<стек вызовов>"; 
+	}
+  } */
+class MyError extends Error {
+    constructor() {
+        super();
+        this.name = this.constructor.name;
+    }
+}
+class CustomError extends MyError {
+    constructor(message) {
+        super();
+        this.message = message;
+    }
+}
+class SpecialCustomError extends CustomError {
+    constructor(property) {
+        super();
+        this.message = "Нет св-ва " + property;
+        this.property = property;
+    }
+}
+
+let toValidate = (user) => {
+    let result = JSON.parse(user);
+    if(!result.age) {
+        throw new SpecialCustomError("age");
+    }
+    return result;
+};
+try {
+    toValidate(`{ "name" : "Alex" }`)
+} catch(err) {
+    if(err instanceof CustomError) {
+        console.log("This is Error: " + err.message);
+        console.log("Error name: " + err.name);
+        console.log("Missing property: " + err.property);
+    } else if(err instanceof SyntaxError) {
+        console.log("Wrong Syntax!" + err.message);
+    } else {
+        console.log(err);
+    }
+}
+
+
+
+//Proxy
+// get ловушка
+let obj = {};
+obj = new Proxy(obj, {
+	get(target, prop) {
+		if (target[prop] == undefined) console.log("has not")
+	}
+});
+obj.property = 10;
+obj.anotherProperty = 11;
+obj.method = () => {
+	console.log("hi!");
+} 
+
+// set ловушка
+let anyObj = {
+	key : "smth",
+	key2 : "smth else",
+	key3 : true
+};
+anyObj = new Proxy(anyObj, {
+	set(anyObj, prop, val) {
+		if(!val) {
+			console.log("catch false property");
+			return anyObj[prop] = "changed from `false`";
+		} else {
+			return anyObj[prop] = val;
+		}
+	}
+});
+anyObj.key4 = "";
+console.log(anyObj);
+	
+// Ловушка с перебором
+let objj = {
+	key1 : "qqq",
+	key2 : 11,
+	_key1 : false,
+	_key2 : true
+};
+objj = new Proxy(objj, {
+	ownKeys(target) {
+		return Object.keys(target).filter((item) => !item.startsWith("_"));
+	}
+});
+for(let keys in objj) {
+	console.log(keys);
+}
+
+let myObject = {
+	name : "username",
+	_password : "*****",
+};
+
+//ловушка has
+let range = {
+	start: 1,
+	end: 10
+  };
+  range = new Proxy(range, {
+	has(target, prop) {
+		return prop >= target.start && prop <= target.end
+	}
+  });
+  
+// декоратор на прокси
+let sayHi = (user) => {
+	console.log("Hi " + user);
+}
+let delay = (f, ms) => {
+	return new Proxy(f, {
+		apply(target, thisArg, ...args) {
+			setTimeout(() => target.call(thisArg, ...args), ms);
+		}
+	});
+};
+let sayHiDecor = delay(sayHi, 3000);
+sayHiDecor("Alex");
+
+//Обёртка с прокси, которая на обращение к несуществующему св-ву выдаёт свою ошибку
+let userr = {
+	name: "Alex",
+	age: 35,
+	married: false,
+};
+function wrap(target) {
+	return new Proxy(target, {
+		get(target,prop) {
+			if(target[prop] == undefined) {
+				throw new Error("Ошибка: такого свойства не существует")
+			} else {
+				return target[prop];
+			}
+		}
+	});
+}
+userr = wrap(userr);
+console.log(userr.nam);
+
+//  Прокси для вывода по отрицательным индексам массива
+let arraya = [1, 2, 3]; 
+let arra = new Proxy(arraya, {
+	get(target, prop) {
+		if (prop < 0) {
+			prop = +prop + target.length;
+		}
+		return target[prop];
+	}
+});
+console.log(arra[-1]);
+
+
+// При установке нового св-ва,объекту добавляется новый метод(геттер) и выполняется
+let obj = {}
+let makeObservable = (target) => {
+	/* target["observe"] = function (key, val) {
+		console.log(`${key} : ${val}`);
+	} */
+	Object.defineProperty(target, "observe", {
+		set: function ([key, val]) {
+			console.log(`${key} : ${val}`);
+		}
+		});
+	return new Proxy(target, {
+		set(target, prop, value, receiver) {
+			target.observe = ([prop, value]);
+            return target[prop] = value;
+			// return Reflect.set(target, prop, value, receiver);
+		}
+	});
+}
+obj = makeObservable(obj)
+obj.name = "Alex";
+
+//вариант с возможностью задать аргументом другой обработчик и без геттера, просто устанавливаем св-во
+/* let obj = {}
+let makeObservable = (target) => {
+	target["observe"] = function(handler) {
+		return this.handler = handler;
+	}
+	return new Proxy(target, {
+		set(target, prop, value) {
+			if (typeof target.handler == "function") {
+				target.handler(prop, value);
+			}
+			return target[prop] = value;
+		}
+	});
+}
+obj = makeObservable(obj)ж
+obj.observe((key, value) => {
+	console.log(`SET ${key}=${value}`);
+  });
+obj.name = "Alex";
+obj.age = 99; */
+
+
+
+//Пример карирования
+function curring(f) {
+	return function(a) {
+		return function(b) {
+			return f(a, b);
+		}
+	}
+}
+let func = (a, b) => {
+	return a + b;
+}
+func = curring(func);
+console.log(func(1)(2));
+
+
+
+
+
