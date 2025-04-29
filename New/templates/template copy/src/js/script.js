@@ -538,7 +538,6 @@ table.tBodies[0].append(...result); */
 
 
 
-
 console.log();
 console.log();
 console.log();
