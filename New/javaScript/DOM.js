@@ -289,9 +289,9 @@ function positionAt(anchor, position, elem) {
 		console.log(elem.style.top);
 	}
 	if(position.toLowerCase() == "bottom") {
-		elem.style.bottom = anchBottom + "px";
+		elem.style.top = anchTop + anchor.offsetHeight + "px";
 		elem.style.left = anchLeft + "px";
-		console.log(elem.style.bottom);
+		console.log(elem.style.top);
 	}
 	if(position.toLowerCase() == "right") {
 		elem.style.left = anchLeft + anchor.offsetWidth + "px";
@@ -299,7 +299,6 @@ function positionAt(anchor, position, elem) {
 		console.log(elem.style.left);
 	}
 }
-
 function showNote(anchor, position, html) {
   let note = document.createElement('div');
   note.className = "note";
@@ -312,5 +311,13 @@ let blockquote = document.querySelector('blockquote');
 showNote(blockquote, "top", "note above");
 showNote(blockquote, "right", "note at the right");
 showNote(blockquote, "bottom", "note below");
+
+
+//Сортировка таблицы по аервому сторбику
+let result = Array.from(table.rows).sort((a,b) => {
+    if (a.cells[0] > b.cells[0]) return 1;
+    else return -1;
+});
+table.tBodies[0].append(...result);
 
 
