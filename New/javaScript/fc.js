@@ -1,4 +1,64 @@
-//Рекурсивная функция для подсчёта вложенных свойств объекта
+//рекурсия для перебора вложенных объектов
+let data = {
+	"Рыбы": {
+		"форель": {},
+		"лосось": {}
+	},
+
+	"Деревья": {
+		"Огромные": {
+			"секвойя": {},
+			"дуб": {}
+		},
+		"Цветковые": {
+			"яблоня": {},
+			"магнолия": {}
+		}
+	}
+};
+function showValues(obj) {
+	for(let items in obj) {
+		console.log(items);
+		if(typeof obj[items] == "object") showValues(obj[items]);
+	}	
+}
+showValues(data);
+
+
+//Рекурсивная функция для подсчёта вложенных свойств объекта #1
+const tree = {
+  value: 'A',
+  children: [
+    {
+      value: 'B',
+      children: [
+        {
+          value: 'C',
+          children: []
+        },
+        {
+          value: 'D',
+          children: []
+        }
+      ]
+    },
+    {
+      value: 'E',
+      children: []
+    }
+  ]
+};
+let getValue = (obj) => {
+  console.log(obj.value);
+
+  if (obj.children) {
+    obj.children.forEach(item => getValue(item))
+  }
+};
+getValue(tree);
+
+
+//Рекурсивная функция для подсчёта вложенных свойств объекта #2
 let company = {
     sales: [{
       name: 'John',
@@ -393,6 +453,20 @@ f.defer(1000)(7, 2);
 
 
 
+// Пример добавления полифила(в IE нет св-в "x,y", Вместо них будут показываться left)
+let anyItem = document.querySelectorAll(".any-section__item")[0];
+let newDom = anyItem.getBoundingClientRect();
+DOMRect.prototype.xForIe = function() {
+	return this.left;
+}
+DOMRect.prototype.yForIe = function() {
+	return this.left + this.width;
+}
+console.log(newDom.xForIe());
+console.log(newDom.yForIe());
+
+
+
 // Практика с декоратором
 let showAny = (any) => {
 	console.log(any);
@@ -492,3 +566,8 @@ let loadScriptt = (url) => {
     .then((res) => toPromise(8))
     .then(() => console.log(5 + 5))
     .then(() => alert("!"));
+
+
+// Безымянная async, которая сразу вызывается
+(async () => {
+})();

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,18 +7,24 @@
     <link rel="stylesheet" href="css/style.min.css">
 </head>
     <body>
-        <div class="box">
-            <div class="box__inner">Lorem, ipsum dolor.</div>
+        <div class="box" data-color-bg="blue-backgrond">
             <div class="box__inner">
+                <div></div>
+                Lorem, ipsum dolor.</div>
+            <div class="box__inner">
+                <div></div>
                 <p class="box__p">Lorem, ipsum dolor.</p>
             </div>
-            <div class="box__inner">Lorem, ipsum dolor.</div>
-            <div class="box__inner">Lorem, ipsum dolor.</div>
+            <div class="box__inner">
+                <div></div>
+                Lorem, ipsum dolor.</div>
+            <div class="box__inner">
+                <div></div>
+                Lorem, ipsum dolor.</div>
         </div>
         <div class="box">
-            <div class="box__input" style="min-width: 150px; font-size: 34px; color: black;"></div>
+            <input class="box__input"></input>
         </div>
-
         <div class="form-wrapper">
             <form class="feed-form">
                 <input type="text" class="feed-form__input" name="user">
@@ -28,6 +34,17 @@
                 <button class="feed-form__button">Отправить</button>
             </form>
         </div>
+        <div class="scroll-box">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Facilis molestias provident quaerat voluptatum voluptatem 
+            aut illum nemo quis, rerum optio autem fuga quos architecto 
+            tempora tenetur ducimus et iusto ut obcaecati quas laborum.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Facilis molestias provident quaerat voluptatum voluptatem 
+            aut illum nemo quis, rerum optio autem fuga quos architecto 
+            tempora tenetur ducimus et iusto ut obcaecati quas laborum.
+        </div>
+        <div class="count-box">0</div>
         <section class="any-section">
             <div class="any-section__wrapper">
                 <div class="any-section__item"> 
@@ -47,8 +64,130 @@
             </div>
             <button type="button" class="any-section__button"><span>Click!</span></button>
         </section>
-        <!-- <script type="module">console.log(import.meta.url)</script> -->
+        <section class="new-section">
+            <table class="new-section__table">
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                </tr>
+            </table>
+            <div class="clock">
+                <div class="clock__hours">hh</div>
+                <div class="clock__dots">:</div>
+                <div class="clock__minutes">mm</div>
+                <div class="clock__dots">:</div>
+                <div class="clock__seconds">ss</div>
+            </div>
+            <div class="button-wrapper">
+                <button class="button clock-start" type="button"><span>Start</span></button>
+                <button class="button clock-stop" type="button"><span>Stop</span></button>
+            </div>
+        </section>
+		<div class="spec-wrapper">
+			<div class="right-scroll-block">
+				<div class="inner">
+					Lorem ipsum dolor sit amet  elit. Numquam, nisi itaque velit cupiditate 
+					expedita possimus, animi ullam dolorum iusto quibusdam iure quos. 
+					Cum aliquid consequatur iste quo ut voluptas quas reprehenderit totam enim quam amet rem, 
+					nobis et labore, sequi placeat? Deleniti laborum assumenda quod pariatur quis 
+					beatae repellat eaque!
+				</div>
+				<div class="right-scroll-block__btn">Tap</div>
+			</div>
+		</div>
+        
         <script type="module" src="js/script.js"></script>
         <script type="module" src="js/module.js"></script>
     </body>
+</html> -->
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit sint atque dolorum fuga ad incidunt voluptatum error fugiat animi amet! Odio temporibus nulla id unde quaerat dignissimos enim nisi rem provident molestias sit tempore omnis recusandae
+    esse sequi officia sapiente.</p>
+
+  <blockquote>
+    Teacher: Why are you late?
+    Student: There was a man who lost a hundred dollar bill.
+    Teacher: That's nice. Were you helping him look for it?
+    Student: No. I was standing on it.
+  </blockquote>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit sint atque dolorum fuga ad incidunt voluptatum error fugiat animi amet! Odio temporibus nulla id unde quaerat dignissimos enim nisi rem provident molestias sit tempore omnis recusandae
+    esse sequi officia sapiente.</p>
+
+
+  <script>
+    /**
+     * Позиционирует элемент elem относительно элемента anchor в соответствии со значением position.
+     *
+     * @param {Node} anchor     элемент, около которого позиционируется другой элемент
+     * @param {string} position одно из: top/right/bottom
+     * @param {Node} elem       элемент, который позиционируется
+     *
+     * Оба элемента elem и anchor должны присутствовать в документе
+     */
+    function positionAt(anchor, position, elem) {
+		let anchTop = anchor.getBoundingClientRect().top;
+		let anchRight = anchor.getBoundingClientRect().right;
+		let anchLeft = anchor.getBoundingClientRect().left;
+		let anchBottom = anchor.getBoundingClientRect().bottom;
+
+		if(position.toLowerCase() == "top") {
+			elem.style.top = anchTop - elem.offsetHeight + "px";
+			elem.style.left = anchLeft + "px";
+			console.log(elem.style.top);
+		}
+		if(position.toLowerCase() == "bottom") {
+			elem.style.bottom = anchBottom + "px";
+			elem.style.left = anchLeft + "px";
+			console.log(elem.style.bottom);
+		}
+		if(position.toLowerCase() == "right") {
+			elem.style.left = anchLeft + anchor.offsetWidth + "px";
+			elem.style.top = anchTop + (anchor.clientHeight/2) + "px";
+			console.log(elem.style.left);
+		}
+    }
+	
+    function showNote(anchor, position, html) {
+      let note = document.createElement('div');
+      note.className = "note";
+      note.innerHTML = html;
+      document.body.append(note);
+
+      positionAt(anchor, position, note);
+    }
+
+    let blockquote = document.querySelector('blockquote');
+
+    showNote(blockquote, "top", "note above");
+    showNote(blockquote, "right", "note at the right");
+    showNote(blockquote, "bottom", "note below");
+  </script>
+
+
+</body>
 </html>

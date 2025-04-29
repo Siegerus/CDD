@@ -1,128 +1,294 @@
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 p {
-  margin: 0;
+	margin: 0;
 }
+
 .box {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 40px 0;
-  
-  background-color: rebeccapurple;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	padding: 40px 0;
+	background-color: rebeccapurple;
+}
+
+.box[data-color-bg="blue-backgrond"] {
+	background-color: blue;
+}
+
+.box[data-color-bg="crimson-backgrond"] {
+	background-color: crimson;
+}
+
+.box[data-color-bg="khaki-backgrond"] {
+	background-color: khaki;
+}
+
+.box__input {
+	position: relative;
+	width: 333px;
+	height: 50px;
+	z-index: 10;
 }
 
 .box__inner {
-  position: sticky;
-  top: 20px;
-  width: 140px;
-  height: 60px;
-  margin-right: 36px;
-  background-color: tomato;
-  text-align: center;
+	position: sticky;
+	top: 20px;
+	width: 140px;
+	height: 60px;
+	margin-right: 36px;
+	background-color: tomato;
+	text-align: center;
 }
 
 .box__inner:has(.box__p) {
-  background-color: coral
+	background-color: coral
 }
 
 .form-wrapper {
-  padding: 30px 0;
+	padding: 30px 0;
 }
 
 .feed-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 430px;
-  margin: 0 auto;
-  padding: 20px 10px;
-  border-radius: 10px;
-  background-color: #b3a8a8;
-  box-shadow: 2px 3px 6px #2d2323;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 430px;
+	margin: 0 auto;
+	padding: 20px 10px;
+	border-radius: 10px;
+	background-color: #b3a8a8;
+	box-shadow: 2px 3px 6px #2d2323;
 }
 
 .feed-form__input {
-  padding: 10px 16px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
+	padding: 10px 16px;
+	margin-top: 15px;
+	border: none;
+	border-radius: 8px;
+	outline: none;
 }
 
 .feed-form__input:focus {
-  outline: 1px solid #000;
+	outline: 1px solid #000;
 }
 
 .feed-form__button {
-  margin-top: 30px;
-  padding: 14px 27px;;
-  font-size: 17px;
-  line-height: 110%;
-  border: none;
-  border-radius: 10px;
-  background-color: tomato;
-  cursor: pointer;
+	margin-top: 30px;
+	padding: 14px 27px;
+	font-size: 17px;
+	line-height: 110%;
+	border: none;
+	border-radius: 10px;
+	background-color: tomato;
+	cursor: pointer;
 }
 
 .message-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 250px;
-  padding-top: 33px;
-  padding-bottom: 43px;
-  padding-right: 10px;
-  padding-left: 10px;
-  font-size: 24px;
-  text-align: center;
-  background-color: #b3a8a8;
-  box-shadow: 2px 3px 6px #2d2323;
-  border-radius: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 250px;
+	padding-top: 33px;
+	padding-bottom: 43px;
+	padding-right: 10px;
+	padding-left: 10px;
+	font-size: 24px;
+	text-align: center;
+	background-color: #b3a8a8;
+	box-shadow: 2px 3px 6px #2d2323;
+	border-radius: 10px;
 }
 
 .any-section {
-  padding: 20px 40px;
-  background-color: #f9f9f9;
+	padding: 20px 40px;
+	background-color: #f9f9f9;
 }
 
 .any-section__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 581px;
-  margin-top: 59px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 581px;
+	margin-top: 59px;
 }
 
 .any-section__item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 58px;
-  height: 58px;
-  background-color: green;
-  border-radius: 13px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 58px;
+	height: 58px;
+	background-color: green;
+	border-radius: 13px;
 }
 
 .any-section__item svg {
-  fill: red;
+	fill: red;
 }
 
 .any-section__button {
-  display: block;
-  margin: 0 auto;
-  padding: 12px 35px;
-  background-color: mediumorchid;
-  cursor: pointer;
-  border: none;
+	display: block;
+	margin: 0 auto;
+	padding: 12px 35px;
+	background-color: mediumorchid;
+	cursor: pointer;
+	border: none;
 }
 
 .any-section__button span {
-  font-size: 16px;
+	font-size: 16px;
 }
 
+.alert-message {
+	padding: 15px;
+	border: 1px solid #d6e9c6;
+	border-radius: 4px;
+	color: #3c763d;
+	background-color: #dff0d8;
+}
+
+.new-section {
+	padding: 40px 0;
+}
+
+.new-section__table td {
+	padding: 23px;
+	text-align: center;
+}
+
+/* .datepicker td, th {
+	padding: 20px;
+	font-size: 14px;
+	border: 1px solid;
+} */
+
+
+.clock {
+	display: flex;
+	align-items: center;
+	justify-self: center;
+	margin-top: 36px;
+}
+
+.clock__minutes, .clock__seconds, .clock__hours {
+	font-size: 38px;
+}
+
+.clock__hours {
+	color: red;
+}
+
+.clock__minutes {
+	color: green;
+}
+
+.clock__seconds {
+	color: blue;
+}
+
+.clock__dots {
+	margin: 0 12px;
+	font-size: 34px;
+}
+
+.button-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	justify-self: center;
+	margin-top: 21px;
+}
+
+.button {
+	padding: 5px 18px;
+	cursor: pointer;
+}
+
+.button:nth-child(1) {
+	margin-right: 16px;
+}
+
+.button span {
+	font-size: 23px;
+}
+
+.scroll-box {
+	display: flex;
+	justify-self: center;
+	width: 20%;
+	max-height: 140px;
+	margin-top: 37px;
+	overflow: auto;
+}
+
+.count-box {
+	display: flex;
+	justify-self: center;
+	font-size: 34px;
+	color: rgba(215, 61, 10, 0.975);
+}
+
+.right-scroll-block {
+	padding: 51px 7px 0 7px;
+	overflow-x: auto;
+}
+
+.spec-wrapper {
+	position: relative;
+}
+
+.right-scroll-block__btn {
+	position: absolute;
+	width: 60px;
+	top: 0;
+	right: 24px;
+	padding: 5px;
+	font-size: 33px;
+	color: rgb(210, 14, 14);
+	border-radius: 60px;
+	background-color: gray;
+	cursor: pointer;
+
+}
+
+.inner {
+	width: 2800px;
+	padding: 10px 0;
+	background-color: aqua;
+}
+
+
+.note {
+	position: fixed;
+	z-index: 1000;
+	padding: 5px;
+	border: 1px solid black;
+	background: white;
+	text-align: center;
+	font: italic 14px serif;
+  }
+  
+  blockquote {
+	background: #f9f9f9;
+	border-left: 10px solid #ccc;
+	margin: 0 0 0 100px;
+	padding: .5em 10px;
+	quotes: "\201C""\201D""\2018""\2019";
+	display: inline-block;
+	white-space: pre;
+  }
+  
+  blockquote:before {
+	color: #ccc;
+	content: open-quote;
+	font-size: 4em;
+	line-height: .1em;
+	margin-right: .25em;
+	vertical-align: -.4em;
+  }

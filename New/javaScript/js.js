@@ -890,6 +890,10 @@ func = curring(func);
 console.log(func(1)(2));
 
 
+//
+/* console.log(window.navigator.mediaDevices.getUserMedia({ audio: true, video: true })); */
+
+
 
 
 
