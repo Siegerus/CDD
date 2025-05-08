@@ -249,7 +249,7 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
 	git checkout -b new_branch просто новая ветка от мастера и переключение на неё
 	git checkout master - вернуться на главную ветку
 	git checkout -b new_branch - переключиться обратно на созданную
-	git log --pretty=oneline 
+	
 	Слияние веток.
 	Переключится на ветку В которую будем сливать(например master), потом пишем "git merge (название ветки которую сливаем)". 
 	Будут применены изменения слитой ветки (а не master), 
@@ -260,6 +260,15 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
 	git checkout "название ветки" - Вернуть Head  к последнему комиту
 	Для переключения между внтками лучше использовать git switch, Для переключения между коммитами - git checkout
 	git switch -c "название ветки" - новая ветка   от коммита, в котором сейчас смотришь(Head)
+
+	git branch -d "name"  - удалить ветку (если с "-D" удаляет принудительно).
+	git branch -v  -  Список всех веток с последним комитом
+
+	Добавить разные форматы лога
+	git log --pretty=oneline - односточный лог.
+	git config --add format.pretty oneline
+	git config --add format.pretty "%h %an: %s"
+	git config --add format.pretty "%h%x09%an%x09%ad%x09%s"
 
 	git rebase -i HEAD~3 -сжать коммиты
 

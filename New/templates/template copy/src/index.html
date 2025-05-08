@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    </style>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
     <body>
@@ -27,8 +29,8 @@
         </div>
         <div class="form-wrapper">
             <form class="feed-form">
-                <input type="text" class="feed-form__input" name="user">
-                <input type="text" class="feed-form__input" name="phone">
+                <input type="text" class="feed-form__input" name="user" value="1" data-counter="1">
+                <input type="text" class="feed-form__input" name="phone" value="2" data-counter="1">
                 <input type="text" class="feed-form__input" name="social">  
                 <input type="text" class="feed-form__input" name="review">
                 <button class="feed-form__button">Отправить</button>
@@ -109,7 +111,52 @@
 				<div class="right-scroll-block__btn">Tap</div>
 			</div>
 		</div>
-        
+        <section class="drop-menu" style="padding: 58px 0;">
+            <div class="drop-menu__header"><span>▶</span><span>▼</span>Сладости (нажми меня)!</div>
+            <ul>
+              <li>Пирожное</li>
+              <li>Пончик</li>
+              <li>Мёд</li>
+            </ul>
+        </section>
+        <section class="event-section">
+            <div class="events">
+                <div class="Event-item"><span>Event</span></div>
+                <div class="Event-item">Event</div>
+                <div class="Event-item">Event</div>
+                <div class="Event-item">Event</div>
+                <div class="Event-item">Event</div>
+            </div>
+            <div>
+                <a href="#my href" class="event-section__link" data-context="true">Link</a>
+                <a href="#my href" class="event-section__link">Link</a>
+                <a href="#my href" class="event-section__link" data-context="true">Link</a>
+            </div>
+        </section>
+        <section class="slider">
+            <div class="slider__wrapper">
+                <ul>
+                    <li><img src="https://ru.js.cx/carousel/1.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/2.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/3.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/4.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/5.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/6.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/7.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/8.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/9.png"></li>
+                    <li><img src="https://ru.js.cx/carousel/10.png"></li>
+                </ul>
+                <button class="arrow">⇦</button>
+                <button class="arrow">⇨</button>
+            </div>
+        </section>
+        <section class="menu">
+            <button class="menu__button" data-action="save">Save</button>
+            <button class="menu__button" data-action="load">Load</button>
+            <button class="menu__button" data-action="search">Search</button>
+        </section>
+
         <script type="module" src="js/script.js"></script>
         <script type="module" src="js/module.js"></script>
     </body>

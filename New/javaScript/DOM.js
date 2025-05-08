@@ -313,11 +313,20 @@ showNote(blockquote, "right", "note at the right");
 showNote(blockquote, "bottom", "note below");
 
 
-//Сортировка таблицы по аервому сторбику
+//Сортировка таблицы по первому сторбику
 let result = Array.from(table.rows).sort((a,b) => {
     if (a.cells[0] > b.cells[0]) return 1;
     else return -1;
 });
 table.tBodies[0].append(...result);
+
+
+
+//Массив с ячейками всей таблицы
+let cellsCollection = Array.from(table.rows).map(item => item.cells);
+let cellsArr = cellsCollection.reduce((a, b) => Array.from(a).concat(Array.from(b)));
+
+//Первые ячейки каждой строки таблицы
+let firstCells = Array.from(table.rows).map(item => item.firstElementChild);
 
 

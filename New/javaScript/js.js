@@ -894,6 +894,12 @@ console.log(func(1)(2));
 /* console.log(window.navigator.mediaDevices.getUserMedia({ audio: true, video: true })); */
 
 
+// Простой тренарник
+let f = () => {
+    let any = 0;
+    typeof any == "number" ? console.log(true) : console.log(false);
+    }
+f();
 
 
 

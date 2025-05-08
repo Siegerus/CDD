@@ -6,6 +6,9 @@
 let input = document.querySelectorAll(".feed-form__input"),
 	parentBox = document.querySelector(".box"),
 	clickBox = document.querySelectorAll(".box__inner")[0],
+    eventParent = document.querySelector(".events"),
+    eventItem = document.querySelectorAll(".Event-item"),
+    eventSpan = document.querySelector(".Event-item:nth-child(1) > span"),
 	newElement = document.createElement("input"),
 	btn = document.querySelector(".feed-form__button"),
 	form = document.querySelector("form"),
@@ -15,6 +18,16 @@ let input = document.querySelectorAll(".feed-form__input"),
 	anyBtn = document.querySelector(".any-section__button"),
 	scrollBtn = document.querySelector(".right-scroll-block__btn"),
 	table = document.querySelector(".new-section__table");
+
+let dropList = document.querySelector(".drop-menu > ul"),
+    dropLi = document.querySelectorAll(".drop-menu > li"),
+    dropHead = document.querySelector(".drop-menu__header"),
+    arrowRight = document.querySelector(".drop-menu__header > span:nth-child(1)"),
+    arrowDown = document.querySelector(".drop-menu__header > span:nth-child(2)");
+
+let links = document.querySelectorAll(".event-section > div:nth-child(2) > a")[0];
+    
+    
 
 let anyItems = document.querySelectorAll(".any-section__item");
 document.querySelector(".any-section__button").style.marginTop = 67 + "px";
@@ -89,6 +102,17 @@ function setClock() {
 setClock();
 
 
+scrollBox.addEventListener("scroll", function() {
+	let scroll =  Math.abs((this.clientHeight - this.scrollHeight) + this.scrollTop);
+	document.querySelector(".count-box").textContent = scroll;
+});
+
+form.addEventListener("click", (e) => {
+	if (!e.target.closest(".feed-form__input")) return;
+	if (e.target.dataset.counter) {
+		e.target.value++;
+	}
+});
 
 
 messageInput.addEventListener("input", (e) => {
@@ -109,7 +133,125 @@ if(parentBox.dataset.colorBg == "crimson-backgrond") {
 	parentBox.removeAttribute("data-color-bg");
 }
 
-// console.log(inputs[inputs.length-1]);
+function setRightScroll() {
+	scrollBtn.addEventListener("click", (e) => {
+		if(document.querySelector(".right-scroll-block").scrollLeft >= document.querySelector(".inner").clientWidth - window.innerWidth) {
+			document.querySelector(".right-scroll-block").scrollLeft = 0
+			return
+		}
+		if (e.target.closest(".right-scroll-block__btn")) {
+			document.querySelector(".right-scroll-block").scrollLeft += 100;
+		} 
+	});
+}
+setRightScroll();
+
+
+clickBox.addEventListener("click", () => {
+	window.scrollBy(0, 1200);
+	setTimeout(() => window.scrollTo(0, 0), 1500);
+	setTimeout(() => scrollBox.scrollIntoView({behavior : "smooth"}), 1000);
+	console.log(window.scrollY);
+});
+
+
+
+let slides = document.querySelectorAll(".slider > .slider__wrapper > ul > li"),
+    wrapper = document.querySelector(".slider__wrapper"),
+    track = document.querySelector(".slider > .slider__wrapper > ul"),
+    arrows = document.querySelectorAll(".slider > .slider__wrapper > button"),
+    position = 0,
+    count = 3;
+    
+let mooveTrack = () => {
+    track.style.transform = `translateX(${position}px)`;
+};
+
+arrows[0].addEventListener("click", () => {
+    position += slides[0].clientWidth * count;
+    position = Math.min(position, 0)
+    mooveTrack();
+});
+
+
+
+arrows[1].addEventListener("click", () => {
+    position -= slides[0].clientWidth * count;
+    position =  Math.max(position, -slides[0].clientWidth * (slides.length - count));
+    mooveTrack();
+});
+
+
+
+let anyItem = document.querySelectorAll(".any-section__item")[0];
+let getPosition = (elem) => {
+	let topY =  elem.getBoundingClientRect().top + window.scrollY,
+		leftX = elem.getBoundingClientRect().left + window.scrollX,
+		rightX = elem.getBoundingClientRect().right + window.scrollX,
+		bottomY =  elem.getBoundingClientRect().bottom + window.scrollY;
+		return {
+			top: topY,
+			left: leftX,
+			right: rightX,
+			bottom: bottomY,
+		}
+}
+
+let coord = getPosition(anyItem);
+let div = document.createElement("div");
+div.innerHTML = "This is DIV";
+
+div.style.cssText = "position: absolute; color: red; font-size = 28px";
+div.style.top = (coord.top + 60) + "px";
+div.style.left = (coord.left + 60)+ "px";
+// div.style.right = (coord.right + 60) + "px";
+// div.style.bottom = (coord.bottom + 60)+ "px";
+document.body.append(div);
+
+
+
+document.querySelectorAll(".drop-menu__header > span").forEach(item => item.style.color = "green");
+dropHead.style.cssText = "cursor: pointer";
+dropList.style.cssText = "list-style-type: none;  margin: 0";
+dropList.hidden = true;
+arrowDown.hidden = true;
+arrowRight.hidden = false;
+dropHead.addEventListener("click", (e) => {
+    if (e.target.closest(".drop-menu__header")) {
+        if(arrowRight.hidden == true) arrowRight.hidden = false;
+        else arrowRight.hidden = true;
+        if(arrowDown.hidden == true) arrowDown.hidden = false;
+        else arrowDown.hidden = true;
+        if(dropList.hidden == true) dropList.hidden = false;
+        else dropList.hidden = true;
+    }
+});
+
+
+let menu = document.querySelector(".menu"),
+	buttonss = document.querySelectorAll(".menu__button");
+class Menu {
+	constructor(elem) {
+		elem.addEventListener('click', this.onClick.bind(this))
+	}
+	save() {
+		console.log("save");
+	}
+	load() {
+		console.log("load");
+	}
+	search() {
+		console.log("search")
+	}
+	onClick(e) {
+		let action = e.target.dataset.action;
+		if(action) {
+			this[action]();
+		}
+	}
+}
+new Menu(menu);
+
 
 /* let arr = [];
 for(let i = 0; i < clickBox.length; i++) {
@@ -369,31 +511,6 @@ showNotification({
 }); */
 
 
-/* let styleObj = getComputedStyle(parentBox);
-let obj = {
-	key1: "val",
-	key2: "val",
-	key3: "val",
-	key4: "val",
-} */
-
-let data = {
-	"Рыбы": {
-		"форель": {},
-		"лосось": {}
-	},
-
-	"Деревья": {
-		"Огромные": {
-		"секвойя": {},
-		"дуб": {}
-		},
-		"Цветковые": {
-		"яблоня": {},
-		"магнолия": {}
-		}
-	}
-};
 
 
 /* function wrapper() {
@@ -412,27 +529,6 @@ let replicate = wrapper(); */
 // console.log(getComputedStyle(document.body).position);
 // console.log(clickBox.clientWidth);
 // console.log(clickBox.offsetWidth);
-
-
-
-scrollBox.addEventListener("scroll", function() {
-	let scroll =  Math.abs((this.clientHeight - this.scrollHeight) + this.scrollTop);
-	document.querySelector(".count-box").textContent = scroll;
-});
-
-
-clickBox.addEventListener("click", () => {
-	window.scrollBy(0, 1200);
-	setTimeout(() => window.scrollTo(0, 0), 1500);
-	setTimeout(() => scrollBox.scrollIntoView({behavior : "smooth"}), 1000);
-	console.log(window.scrollY);
-});
-
-
-
-// let x = anyItem.getBoundingClientRect().x;
-// let y = anyItem.getBoundingClientRect().y;
-// let elem = document.elementFromPoint(x, y)
 
 
 
@@ -457,30 +553,7 @@ setTimeout(() => messageBox.remove(), 3000); */
 
 
 // Добавление элемента с абсолютом относительно другого элемента
-let anyItem = document.querySelectorAll(".any-section__item")[0];
-let getPosition = (elem) => {
-	let topY =  elem.getBoundingClientRect().top + window.scrollY,
-		leftX = elem.getBoundingClientRect().left + window.scrollX,
-		rightX = elem.getBoundingClientRect().right + window.scrollX,
-		bottomY =  elem.getBoundingClientRect().bottom + window.scrollY;
-		return {
-			top: topY,
-			left: leftX,
-			right: rightX,
-			bottom: bottomY,
-		}
-}
 
-let coord = getPosition(anyItem);
-let div = document.createElement("div");
-div.innerHTML = "This is DIV";
-
-div.style.cssText = "position: absolute; color: red; font-size = 28px";
-div.style.top = (coord.top + 60) + "px";
-div.style.left = (coord.left + 60)+ "px";
-// div.style.right = (coord.right + 60) + "px";
-// div.style.bottom = (coord.bottom + 60)+ "px";
-document.body.append(div);
 
 
 /* let field = document.getElementById("field");
@@ -501,21 +574,8 @@ console.log(topInner + " : " + leftInner);
 console.log(topRightOuter + " : " + leftRightOuter);
 console.log(topRightInner + " : " + leftRightInner); */
 
-//Если боковой скролл дошёл до конца ширины блока, который скролился, то скролл слева =0(начинается сначала)
-/* function setRightScroll() {
-	scrollBtn.addEventListener("click", (e) => {
-		if(document.querySelector(".right-scroll-block").scrollLeft >= document.querySelector(".inner").clientWidth - window.innerWidth) {
-			document.querySelector(".right-scroll-block").scrollLeft = 0
-			return
-		}
-		if (e.target.closest(".right-scroll-block__btn")) {
-			document.querySelector(".right-scroll-block").scrollLeft += 100;
-		} 
-	});
-}
-setRightScroll(); */
 
-let tabRow = table.querySelectorAll("tbody > tr");
+/* let tabRow = table.querySelectorAll("tbody > tr");
 
 anyBtn.addEventListener("click", () => {
 
@@ -524,20 +584,138 @@ anyBtn.addEventListener("click", () => {
 		item.append(td);
 		td.textContent = "new td";
 	});
+}); */
+
+
+/* // Делегирование. Внутри одного из целевых блоков есть спан(eventSpan). Вариант, что бы событие срабатывало и на нём 
+eventParent.addEventListener("click" ,(e) => {
+    if(e.target || e.target.matches(".Event-item")) {
+        for(let i = 0; i < eventItem.length; i++) {
+            if (e.target == eventItem[i] ) {
+                console.log("!");
+            }
+            if (e.target == eventSpan) {
+                console.log("!");
+                break
+            }
+        }
+    }
+}); */
+
+
+
+// Slider
+
+/* let i = 1;
+    for(let li of document.querySelectorAll('.slider > ul > li')) {
+      li.style.position = 'relative';
+      li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
+      i++;
+    } */
+
+/* let slides = document.querySelectorAll(".slider > .slider__wrapper > ul > li"),
+    wrapper = document.querySelector(".slider__wrapper"),
+    ul = document.querySelector(".slider > .slider__wrapper > ul"),
+    arrows = document.querySelectorAll(".slider > .slider__wrapper > button"),
+    position = 0,
+    currentIndex = 3;
+    
+let mooveTrack = () => {
+    ul.style.transform = `translateX(${position}px)`;
+};
+
+arrows[0].addEventListener("click", () => {
+    position += 100;
+    mooveTrack();
+    console.log();
 });
 
-//Сортировка таблицы по аервому сторбику
-/* let result = Array.from(table.rows).sort((a,b) => {
-    if (a.cells[0] > b.cells[0]) return 1;
-    else return -1;
-    // return b.cells[0] - a.cells[0];
+arrows[1].addEventListener("click", () => {
+    position -= 100;
+    mooveTrack();
+    console.log();
+}); */
+
+
+
+/* let slides = document.querySelectorAll(".my-slider__slide"),
+    arrows = document.querySelectorAll(".my-slider__arrows"),
+    track = document.querySelector(".my-slider__track"),
+    
+    position = 0;
+
+
+let mooveTrack = () => {
+    track.style.transform = `translateX(${position}px)`;
+};
+
+arrows[0].addEventListener("click", ()=> {
+    let slideWidth = Array.from(slides).map(item => item.clientWidth);
+    for(let width of slideWidth) {
+        position += width
+    }
+    mooveTrack()
+    console.log(slideWidth.join());
 });
-table.tBodies[0].append(...result); */
+
+arrows[1].addEventListener("click", ()=> {
+    position -= 100;
+    mooveTrack()
+    console.log();
+}); */
 
 
+/* let arr = [[1, 3], [[1, 3], [1, 3]], ["smth"], [true], [{name: "Alex"}]];
+let opened = arr.reduce((a, b) => {
+	return a.concat(b);
+});
+let anyEvent = (e) => {
+	console.log("Event! " + e.type + " ");
+}; */
 
 
+document.querySelector(".event-section").addEventListener("click", (e) => {
+	if (e.target.nodeName != "A") return;
+	console.log(e.target.href);
+	e.preventDefault();
+});
 
+
+/* let contextMenu;
+document.querySelector(".event-section").addEventListener("contextmenu", (e) => {
+	if(document.querySelector(".contextmenu")) return;
+	if(!e.target.dataset.context) return;
+	e.preventDefault();
+	contextMenu = document.createElement("div");
+	contextMenu.className = "contextmenu";
+	document.body.append(contextMenu);
+
+	let coords = e.target.getBoundingClientRect();
+	contextMenu.style.position = "absolute";
+	contextMenu.style.width = 200 + "px";
+	contextMenu.style.padding = 20 + "px";
+	contextMenu.style.backgroundColor = "darkred";
+	contextMenu.style.top = coords.top + window.scrollY + "px";
+	contextMenu.style.left = coords.left + e.target.offsetWidth + "px";
+	contextMenu.innerHTML = "This is context menu";
+});
+let removeItem = (item, e) => {
+	if(document.querySelector(".contextmenu")) {
+		if(e.target.dataset.context) return;
+		if(e.target == contextMenu) return;
+		item.remove();
+		item = null;
+	}
+};
+document.addEventListener("contextmenu", (e) => {
+	removeItem(contextMenu, e);
+});
+document.addEventListener("click", (e) => {
+	removeItem(contextMenu, e);
+}) */
+
+
+console.log();
 console.log();
 console.log();
 console.log();
