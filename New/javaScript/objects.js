@@ -1,3 +1,23 @@
+//Способы добаление и обращения к св-вам
+let myAge = 35;
+let obj = {
+	name : "alex",
+	age: 28,
+	man : true,
+};
+for(let key in obj) {
+	console.log(obj[key]);
+}
+obj["name"] = "John";   
+obj.name = "Patric";  
+console.log(obj["name"]);
+console.log(obj.name);
+
+obj.age = myAge;
+obj["age"] = myAge;
+console.log(obj);
+
+
 // Перебор объекта 
 let ob = {
     width: 300, 
@@ -286,4 +306,20 @@ for(let prop in admin) {
 		console.log(prop + ":" + admin[prop]);
 	}
 }
+
+
+//прототипное наследования современным методом setPrototypeOf
+let objj = {
+	name : "alex",
+	age: 28,
+	man : true,
+	sayHi(q) {
+		console.log(q);
+	}
+}
+let anotherObj = {
+	name: "John",
+	surname: "Smith",
+}
+Object.setPrototypeOf(anotherObj, objj); // утановить прототип для anotherObj от объекта obj
 

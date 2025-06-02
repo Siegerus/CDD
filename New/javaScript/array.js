@@ -595,6 +595,24 @@ let toRandomize = (arr) => {
 }
 console.log(toRandomize(myArray));
 
+// тоже случайный элеиент из массива ( мой вариант)
+let arrq = ["text", 1, true, [5, 1], false, {}];
+let i = Math.floor(Math.random(arrq.length) * arrq.length);
+console.log(arrq[i] + " i = " + i);
+// ниже проверка случайностей
+let obj = {
+	"0": 0,
+	"1": 0,
+	"2": 0,
+	"3": 0,
+	"4": 0,
+	"5": 0,
+}
+for (let i = 0; i < 10000; i++) {
+	let i = Math.floor(Math.random(arrq.length) * arrq.length);
+	obj[i]++;
+}
+
 
 
 

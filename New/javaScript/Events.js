@@ -237,6 +237,25 @@ new Menu(menu);
     menu[event.target.dataset.action]();
   }); */
 
+// тоже объект обработчик handleEvent
+/* eventParent.addEventListener("click", {
+	handleEvent(e) {
+		if (e.target.dataset && e.target.nodeName == "DIV") {
+			console.log("to handle...");
+			switch(e.target.dataset.action) {
+				case "save": console.log("handled save!");
+				break;
+				case "load": console.log("handled load!");
+				break;
+				case "search": console.log("handled search!");
+				break;
+				case "reload": console.log("handled reload!");
+				break;
+			}
+		}
+	}
+}); */
+
 
 
 // делегирование
@@ -401,7 +420,7 @@ document.onmouseout = function(e) {
 
 
 // Контекстное меню
-let contextMenu;
+/* let contextMenu;
 document.querySelector(".event-section").addEventListener("contextmenu", (e) => {
 	if(document.querySelector(".contextmenu")) return;
 	if(!e.target.dataset.context) return;
@@ -418,18 +437,910 @@ document.querySelector(".event-section").addEventListener("contextmenu", (e) => 
 	contextMenu.style.top = coords.top + window.scrollY + "px";
 	contextMenu.style.left = coords.left + e.target.offsetWidth + "px";
 	contextMenu.innerHTML = "This is context menu";
+
+	if (document.querySelector(".contextmenu")) {
+		document.addEventListener("contextmenu", removeItem);
+		document.addEventListener("click", removeItem);
+	} else {
+		// document.removeEventListener("contextmenu", removeItem);
+		// document.removeEventListener("click", removeItem);
+	}
 });
-let removeItem = (item, e) => {
-	if(document.querySelector(".contextmenu")) {
-		if(e.target.dataset.context) return;
-		if(e.target == contextMenu) return;
-		item.remove();
-		item = null;
+let removeItem = (e) => {
+	if(e.target.dataset.context) return;
+	if(e.target == contextMenu) return;
+	document.removeEventListener("contextmenu", removeItem);
+	document.removeEventListener("click", removeItem);
+	contextMenu.remove();
+	contextMenu = null;
+};
+
+let list = document.querySelector(".event-list"),
+	li = document.querySelectorAll(".event-list > li");
+	let context; */
+// Контекстное меню2
+let createElem = (coords, target) => {
+	if(document.querySelector(".context-menu")) return
+	context = document.createElement("div");
+	context.className = "context-menu";
+	context.style.position = "absolute";
+	context.style.width = 200 + "px";
+	context.style.padding = 20 + "px";
+	context.style.backgroundColor = "darkred";
+	context.style.top = coords.top + target.offsetHeight + window.scrollY + "px";
+	context.style.left = coords.left  + "px";
+	context.innerHTML = "This is context menu";
+	document.body.append(context);
+}
+
+let removeElement = (e) => {
+	if (e.target.closest("li")) return;
+	if (e.target.closest(".context-menu")) return;
+	li.forEach(item => item.classList.remove("active"));
+	context.remove();
+	context = null;
+	document.removeEventListener("contextmenu", removeElement);
+	document.removeEventListener("click", removeElement);
+}
+list.addEventListener("click", (e)=> {
+	if(e.target.closest("li")) e.preventDefault();
+	
+});
+list.addEventListener("contextmenu", (e) => {
+	let target = e.target.closest("li");
+	e.preventDefault();
+	if (target && list.contains(target)) {
+		let coords = target.getBoundingClientRect();
+		target.classList.add("active");
+		createElem(coords, target);
+	}
+	li.forEach(item => {
+		if(document.querySelector(".context-menu") && item.classList.contains("active")) {
+			document.addEventListener("contextmenu", removeElement);
+			document.addEventListener("click", removeElement);
+		}
+	});
+});
+
+
+
+//Поймать переходы по ссылкам
+let parent = document.querySelector("#contents");
+parent.addEventListener("click", (e) => {
+	function toConfirm(link) {
+		let answer = confirm("Leave for " + link);
+		if (!answer) e.preventDefault();
+	}
+	if(e.target.closest("a") && parent.contains(e.target)) {
+		toConfirm(e.target.closest("a").getAttribute("href"));
+	} 
+});  
+// выриант из решения	
+parent.onclick = function(event) {
+	function handleLink(href) {
+	  let isLeaving = confirm(`Leave for ${href}`);
+	  if (!isLeaving) return false;
+	}
+	let target = event.target.closest('a');
+	if (target && parent.contains(target)) {
+	  return handleLink(target.getAttribute('href'));
+	}
+  };
+
+
+  
+//Галерея 
+let image = document.getElementById("largeImg"),
+imagesParent = document.getElementById("thumbs");
+imagesParent.addEventListener("click", (e) => {
+if(e.target.closest("a")) {
+	e.preventDefault();
+	image.src = e.target.closest("a").href;
+	console.log(e.target);
+}
+});
+// вариант ешения
+thumbs.onclick = function(event) {
+let thumbnail = event.target.closest('a');
+if (!thumbnail) return;
+showThumbnail(thumbnail.href, thumbnail.title);
+event.preventDefault();
+}
+function showThumbnail(href, title) {
+largeImg.src = href;
+largeImg.alt = title;
+}
+
+
+// Контекстное меню табы
+let list = document.querySelector(".event-list"),
+	li = document.querySelectorAll(".event-list > li"),
+	context = document.querySelectorAll(".event-list > li > ul");
+let hideMenu = () => {
+	for(let i = 0; i < context.length; i++) {
+		if(getComputedStyle(context[i]).display == "block") context[i].style.display = "none";
 	}
 };
-document.addEventListener("contextmenu", (e) => {
-	removeItem(contextMenu, e);
+let showMenu = (i) => {
+	if(getComputedStyle(context[i]).display == "none") context[i].style.display = "block";
+};
+let removeEvent = (e) => {
+	list.classList.remove("active");
+	document.removeEventListener("click", removeEvent);
+	hideMenu();
+};
+list.addEventListener("contextmenu", (e) => {
+	let target = e.target.closest("li");
+	e.preventDefault();
+	if(target) {
+		e.currentTarget.classList.add("active");
+		li.forEach((item, i) => {
+			if(target == item) {
+				hideMenu();
+				showMenu(i);
+			} 
+			item.classList.toggle("testClass", item === target);
+		});
+	}
+	if(e.currentTarget.classList.contains("active")) {
+		document.addEventListener("click", removeEvent);
+	}
 });
-document.addEventListener("click", (e) => {
-	removeItem(contextMenu, e);
-})
+/* // Контекстное меню, которое динамически создаётся для каждого элемента меню
+let list = document.querySelector(".event-list"),
+	li = document.querySelectorAll(".event-list > li");
+let context;
+let createElem = (target) => {
+	if(document.querySelector(".context-menu")) return;
+	list.classList.add("active");
+	let coords = target.getBoundingClientRect();
+	context = document.createElement("div");
+	context.className = "context-menu";
+	context.style.position = "absolute";
+	context.style.width = 200 + "px";
+	context.style.padding = 20 + "px";
+	context.style.backgroundColor = "darkred";
+	context.style.top = coords.top + target.offsetHeight + window.scrollY + "px";
+	context.style.left = coords.left  + "px";
+	context.innerHTML = "This is context menu";
+	document.body.append(context);
+};
+let removeElem = (e) => {
+	if(!document.querySelector(".context-menu")) return;
+	if(e.target.closest(".context-menu")) return;
+	list.classList.remove("active");
+	context.remove();
+	context = null;
+}
+list.addEventListener("contextmenu", (e) => {
+	let target = e.target.closest("li");
+	e.preventDefault();
+	if(target) {
+		li.forEach((item) => {
+			if(item !== target){
+				if(document.querySelector(".context-menu")) context.remove();
+			} 
+			createElem(target);
+		});
+	}
+	if(e.currentTarget.classList.contains("active")) {
+		document.addEventListener("click", removeElem);
+	}
+}); */
+
+// Задача на события мыши
+let ul = document.querySelector("ul"),
+	lii = ul.querySelectorAll("li");
+let spans;
+
+lii.forEach((item, i) => {
+	item.prepend(document.createElement("span"));
+	spans = document.querySelectorAll("span");
+	spans[i].append(spans[i].nextSibling);
+});
+ul.addEventListener("click", (e) => {
+	let target = e.target.closest("span");
+	e.currentTarget.classList.add("active");
+	if(target && ul.contains(target)) {
+		target.addEventListener("mousedown", (e) => e.preventDefault());
+		spans.forEach((item) => {
+			if(e.ctrlKey || e.metaKey) target.classList.toggle("selected");
+			if(!e.ctrlKey || e.metaKey) {
+				if(item == target) {
+					item.classList.add("selected");
+				} else item.classList.remove("selected");
+			} 	
+		});
+	}
+	let removeEvent = (e) => {
+		if(e.target.closest("span")) return;
+		spans.forEach(item => item.classList.remove("selected"));
+		ul.classList.remove("active");
+		document.removeEventListener("click", removeEvent);
+	}
+	if(ul.classList.contains("active")) setTimeout(() => {
+		document.addEventListener("click", removeEvent)
+	});
+});  
+// мой 2ой вариант
+ul.addEventListener("mousedown", (e) => e.preventDefault());
+ul.addEventListener("click", (e) => {
+	let target = e.target.closest("li");
+	if(!target) return;
+	if(e.ctrlKey || e.metaKey) {
+		target.classList.toggle("selected")
+	} else {
+		li.forEach(item => {
+			if (item == target) item.classList.remove("selected")
+		});
+		target.classList.add("selected");
+	}
+});
+/* // Вариант из решения
+ul.onclick = function (event) {
+	if (event.target.tagName != "LI") return;
+	if (event.ctrlKey || event.metaKey) {
+		toggleSelect(event.target);
+	} else {
+		singleSelect(event.target);
+	}
+}
+// предотвращает ненужное выделение элементов списка при клике
+ul.onmousedown = function () {
+	return false;
+};
+function toggleSelect(li) {
+	li.classList.toggle('selected');
+}
+function singleSelect(li) {
+	let selected = ul.querySelectorAll('.selected');
+	for (let elem of selected) {
+		elem.classList.remove('selected');
+	}
+	li.classList.add('selected');
+} */
+
+
+//Задача с подсказкой при вложенных элементах
+let house = document.getElementById("house"),
+	roof = document.getElementById("roof"),
+	eelem;
+document.addEventListener("mouseover", (e) => {
+	if (e.target.closest(".tooltip")) return;
+	let target = e.target.closest("[data-tooltip]");
+	if (!target) return;
+	if(target.dataset.tooltip) {
+		let coords = target.getBoundingClientRect();
+
+		eelem = document.createElement("div");
+		eelem.className = "tooltip";
+		document.body.append(elem);
+		eelem.innerHTML = target.dataset.tooltip;
+		let top = coords.top - eelem.offsetHeight - 5;
+		if (top < 0) top = coords.top + target.offsetHeight + 5;
+		eelem.style.top = top + "px"
+		eelem.style.left = coords.left + (target.offsetWidth - eelem.offsetWidth) / 2 + "px";
+	}
+});
+document.addEventListener("mouseout", (e) => {
+	if (e.target.closest(".tooltip")) return;
+	if (!document.querySelector(".tooltip")) return;
+	eelem.remove();
+});
+// Вариант из решения
+let tooltip;
+    document.onmouseover = function(event) {
+      // важно: быстро движущийся курсор может прыгнуть сразу к дочернему элементу, пропустив родительский
+      // так что событие mouseover произойдёт сразу на дочернем элементе.
+      let anchorElem = event.target.closest('[data-tooltip]');
+      if (!anchorElem) return;
+      // показываем подсказку и запоминаем её
+      tooltip = showTooltip(anchorElem, anchorElem.dataset.tooltip);
+    }
+    document.onmouseout = function() {
+      // возможно такое, что произошло событие mouseout, но мы всё ещё внутри элемента
+      // (оно было где-то внутри и всплыло)
+      // но в этом случае сразу же последует событие mouseover,
+      // то есть подсказка исчезнет и потом снова покажется
+      //
+      // к счастью, этого не будет видно,
+      // так как оба события происходят почти одновременно
+      if (tooltip) {
+        tooltip.remove();
+        tooltip = false;
+      }
+    }
+    function showTooltip(anchorElem, html) {
+      let tooltipElem = document.createElement('div');
+      tooltipElem.className = 'tooltip';
+      tooltipElem.innerHTML = html;
+      document.body.append(tooltipElem);
+      let coords = anchorElem.getBoundingClientRect();
+      // позиционируем подсказку над центром элемента
+      let left = coords.left + (anchorElem.offsetWidth - tooltipElem.offsetWidth) / 2;
+      if (left < 0) left = 0;
+      let top = coords.top - tooltipElem.offsetHeight - 5;
+      if (top < 0) {
+        top = coords.top + anchorElem.offsetHeight + 5;
+      }
+      tooltipElem.style.left = left + 'px';
+      tooltipElem.style.top = top + 'px';
+      return tooltipElem;
+    }
+
+
+	
+// Делегирование при mouseover/mouseout
+let currentElem = null;
+function toTestMouseEvent() {
+	let menu = document.querySelector(".menu");
+	menu.addEventListener("mouseover", (e) => {
+		if (currentElem) return;
+		let target = e.target.closest(".menu__button");
+		if (!target) return;
+
+		currentElem = target;
+		e.target.style.backgroundColor = "darkgreen";
+	});
+	menu.addEventListener("mouseout", (e) => {
+		if (!currentElem) return;
+		let relatedTarget = e.relatedTarget;
+		
+		// if(currentElem.contains(relatedTarget)) return; проверить
+
+		while(relatedTarget) {
+			if (relatedTarget == currentElem) return;
+			relatedTarget = relatedTarget.parentNode;
+		}
+		e.target.style.backgroundColor = "";
+		currentElem = null;
+	});
+}
+toTestMouseEvent();
+
+
+// Умная подсказка с задержкой, которая пропадает, когда движется курсор
+class HoverIntent {
+  constructor({
+    elem,
+    over,
+    out
+  }) {
+    this.elem = elem;
+    this.over = over;
+    this.out = out;
+	this.timer;
+	this.currentElem = null;
+    // убедитесь, что "this" сохраняет своё значение для обработчиков.
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    // назначаем обработчики
+    elem.addEventListener("mouseover", this.onMouseOver);
+    elem.addEventListener("mouseout", this.onMouseOut);
+	elem.addEventListener("mousemove", this.onMouseMove);
+  }
+  onMouseOver(event) {
+	if(this.currentElem) return;
+	let target = event.target.closest(".clock");
+	if(!target) return;
+	this.timer = setTimeout(() => this.over(), 1000);
+	this.currentElem = target;
+  }
+  onMouseOut(event) {
+	if(!this.currentElem) return;
+	if (!event.relatedTarget) return;
+	let relatedTarget = event.relatedTarget;
+	if (relatedTarget == this.currentElem || relatedTarget.tagName == "SPAN") return;
+	this.out();
+	this.currentElem = null;
+	clearTimeout(this.timer);
+  }
+  onMouseMove(event) {
+	if (this.timer) clearTimeout(this.timer);
+	this.timer = null
+	this.out();
+	this.timer = setTimeout(() => this.over(), 1000);
+  }
+  destroy() {
+    elem.removeEventListener("mouseover", this.onMouseOver);
+    elem.removeEventListener("mouseout", this.onMouseOut);
+	elem.removeEventListener("mousemove", this.onMouseMove);
+  }
+
+}
+let tooltipp = document.createElement('div');
+tooltip.className = "tooltip";
+tooltip.innerHTML = "Tooltip";
+let hover = new HoverIntent({
+  elem,
+  over() {
+    tooltip.style.left = elem.getBoundingClientRect().left + 'px';
+    tooltip.style.top = elem.getBoundingClientRect().bottom + 5 + 'px';
+    document.body.append(tooltip);
+  },
+  out() {
+    tooltipp.remove();
+  }
+});
+// из Решения
+class HoverIntent {
+  constructor({
+    sensitivity = 0.1, // скорость ниже 0.1px/ms значит "курсор на элементе"
+    interval = 100,    // измеряем скорость каждые 100ms
+    elem,
+    over,
+    out
+  }) {
+    this.sensitivity = sensitivity;
+    this.interval = interval;
+    this.elem = elem;
+    this.over = over;
+    this.out = out;
+    // убедитесь, что "this" сохраняет своё значение для обработчиков.
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    // и в функции, измеряющей время (вызываемой из setInterval)
+    this.trackSpeed = this.trackSpeed.bind(this);
+    elem.addEventListener("mouseover", this.onMouseOver);
+    elem.addEventListener("mouseout", this.onMouseOut);
+  }
+  onMouseOver(event) {
+    if (this.isOverElement) {
+      // Игнорируем событие над элементом,
+      // так как мы уже измеряем скорость
+      return;
+    }
+    this.isOverElement = true;
+    // после каждого движения измеряем дистанцию
+    // между предыдущими и текущими координатами курсора
+    // если скорость меньше sensivity, то она считается медленной
+    this.prevX = event.pageX;
+    this.prevY = event.pageY;
+    this.prevTime = Date.now();
+    elem.addEventListener('mousemove', this.onMouseMove);
+    this.checkSpeedInterval = setInterval(this.trackSpeed, this.interval);
+  }
+  onMouseOut(event) {
+    // если ушли с элемента
+    if (!event.relatedTarget || !elem.contains(event.relatedTarget)) {
+      this.isOverElement = false;
+      this.elem.removeEventListener('mousemove', this.onMouseMove);
+      clearInterval(this.checkSpeedInterval);
+      if (this.isHover) {
+        // если была остановка движения на элементе
+        this.out.call(this.elem, event);
+        this.isHover = false;
+      }
+    }
+  }
+  onMouseMove(event) {
+    this.lastX = event.pageX;
+    this.lastY = event.pageY;
+    this.lastTime = Date.now();
+  }
+
+  trackSpeed() {
+    let speed;
+    if (!this.lastTime || this.lastTime == this.prevTime) {
+      // курсор не двигался
+      speed = 0;
+    } else {
+      speed = Math.sqrt(
+        Math.pow(this.prevX - this.lastX, 2) +
+        Math.pow(this.prevY - this.lastY, 2)
+      ) / (this.lastTime - this.prevTime);
+    }
+    if (speed < this.sensitivity) {
+      clearInterval(this.checkSpeedInterval);
+      this.isHover = true;
+      this.over.call(this.elem);
+    } else {
+      // скорость высокая, запоминаем новые координаты
+      this.prevX = this.lastX;
+      this.prevY = this.lastY;
+      this.prevTime = this.lastTime;
+    }
+  }
+  destroy() {
+    elem.removeEventListener('mousemove', this.onMouseMove);
+    elem.removeEventListener('mouseover', this.onMouseOver);
+    elem.removeEventListener('mouseout', this.onMouseOut);
+  }
+}
+
+
+
+//всплывающая подсказка
+let message = document.createElement("div");
+	let timerId;
+	let currentElemm;
+	let onElement;
+
+	let toShowMessage = (e) => {
+		let target = e.target.closest(".mouse-event__parent");
+		if(!target) return;
+		if(currentElemm) return;
+		currentElemm = target;
+		onElement = true;
+		timerId = setTimeout(() => appendElem(), 500);
+
+		function appendElem() {
+			if(onElement) {
+				let coords = target.getBoundingClientRect()
+				message.innerHTML = "my DIV";
+				message.style.position = "absolute";
+				message.style.paddind = 10 + "px";
+				message.style.backgroundColor = "darkred";
+				message.style.transition = "all 0.3s";
+				message.style.display = "block";
+				document.body.append(message);
+				message.style.top = coords.top + scrollY - div.offsetHeight + "px";
+				message.style.left = coords.left + "px";
+			}
+		}
+	}; 
+
+	let toHideMessage = (e) => {
+		let target = e.target.closest(".mouse-event__parent");
+		if(!target) return;
+		
+		let relatedTarget = e.relatedTarget;
+		while(relatedTarget) {
+			if (relatedTarget == currentElemm) return;
+			relatedTarget = relatedTarget.parentNode;
+		}
+		onElement = false;
+		clearTimeout(timerId);
+		timerId = null;
+		message.style.display = "none";
+		currentElemm = null;
+	}
+	wrapper.addEventListener("mouseover", toShowMessage);
+	wrapper.addEventListener("mouseout", toHideMessage);
+	wrapper.addEventListener("mousemove", (e) => {
+		let target = e.target.closest(".mouse-event__parent");
+		if (!target) return;
+		toHideMessage(e);
+		clearTimeout(timerId);
+		timerId = null;
+		toShowMessage(e);
+	});
+// Вариант подсказки из коментариев
+/* let cursor_hover;
+let timeout_id;
+let current_elem = document.querySelectorAll(".mouse-event__parent")[0];
+let tooltip = document.getElementById("tooltip");
+function cursor_on_element() {
+  cursor_hover = true;
+  timeout_id = setTimeout(hover_check, 1000);
+  function hover_check() {
+    if (cursor_hover) {
+      tooltip.style.left = current_elem.getBoundingClientRect().left + 5 + "px";
+      tooltip.style.top = current_elem.getBoundingClientRect().bottom + scrollY + 5 + "px";
+      tooltip.hidden = false;
+    }
+  }
+}
+function cursor_out() {
+  tooltip.hidden = true;
+  cursor_hover = false;
+  clearTimeout(timeout_id);
+}
+current_elem.addEventListener("mouseover", cursor_on_element);
+current_elem.addEventListener("mouseout", cursor_out); */
+
+
+
+// dragndrop Круга по документу
+let anyDiv = document.querySelector(".any-div");
+anyDiv.style.padding = 30 + "px";
+anyDiv.style.position = "absolute";
+anyDiv.style.backgroundColor = "coral";
+anyDiv.style.width = 64 + "px";
+anyDiv.style.height = 64 + "px";
+anyDiv.style.borderRadius = 100 + "px";
+anyDiv.style.textAlign = "center";
+anyDiv.style.display = "flex";
+anyDiv.style.justifyContent = "center";
+anyDiv.style.alignItems = "center";
+// anyDiv.style.transition = "all 0.3s";
+anyDiv.style.left = 0;
+
+
+anyDiv.addEventListener("mousedown", (e) => {
+	let shiftLeft =  e.clientX - anyDiv.getBoundingClientRect().left;
+	let shiftTop =  e.clientY - anyDiv.getBoundingClientRect().top;
+	
+	let toMove = (e, shiftLeft, shiftTop) => {
+		anyDiv.style.left = e.pageX - shiftLeft + "px";
+		anyDiv.style.top = e.pageY - shiftTop + "px";
+	};
+	toMove(e, shiftLeft, shiftTop);
+
+	let onMove = (e) => {
+		toMove(e, shiftLeft, shiftTop)
+	};
+	document.addEventListener("mousemove", onMove);
+	anyDiv.addEventListener("mouseup", () => {
+		document.removeEventListener("mousemove", onMove);
+	});
+});
+anyDiv.addEventListener("dragstart", (e) => e.stopPreventDefault());
+
+//Ниже релизация с изменением фона элемента, на который дропаем круг
+function testDrop() {
+	let ball = document.querySelector(".test-dropp__item"),
+		dropable = document.querySelector(".test-dropp__target");
+	let current = null;
+
+	ball.addEventListener("mousedown", (e) => {
+		let shiftY = e.clientY - ball.getBoundingClientRect().top;
+		let shiftX = e.clientX - ball.getBoundingClientRect().left;
+
+		let toMove = (e) => {
+			ball.style.top = e.pageY - shiftY + "px";
+			ball.style.left = e.pageX - shiftX + "px";
+
+			ball.hidden = true;
+			let deeper = document.elementFromPoint(e.clientX, e.clientY);
+			ball.hidden = false;
+			if(!deeper) return;
+
+			let dropTarget = deeper.closest(".test-dropp__target");
+			if(current != dropTarget) { //условие выполняется и при заходе на элемент и при выходе с него
+				if(current) dropable.style.backgroundColor = "purple";
+				current = dropTarget;
+// когда курсор находится внутри элемента dropable(target), то current = .test-dropp__target (т.е. target)
+// при выходе сначала выполняется условие "if(current != target)" т.к. target становиться null ,
+// потом выполняется "if(current)" и цвет dropable меняется.
+// И дальше current снова становится null, т.к "current = target", а target = null
+				if(current) dropable.style.backgroundColor = "rebeccapurple";
+			}
+		}
+		document.addEventListener("mousemove", toMove);
+		ball.addEventListener("mouseup", (e) => {
+			document.removeEventListener("mousemove", toMove);
+		});
+	});
+ball.addEventListener("dragstart", (e) => {
+		e.preventDefault();
+	});
+}
+testDrop();
+
+
+// Ползунок
+let slider = document.querySelector("#slider"),
+	thumb = document.querySelector(".thumb");
+thumb.addEventListener("mousedown", (e) => {
+	let shiftX = e.clientX - thumb.getBoundingClientRect().left;
+	let toMove = (e) => {
+		let left = e.clientX - shiftX - slider.getBoundingClientRect().left;
+		if(left > slider.offsetWidth - thumb.offsetWidth) left = slider.offsetWidth - thumb.offsetWidth;
+		if(left < 0) left = 0 ;
+		thumb.style.left = left + "px";
+	}
+	let removeOnUp = (e) => {
+		document.removeEventListener("mousemove", toMove);
+		document.removeEventListener("mousemove", removeOnUp);
+	}
+	document.addEventListener("mousemove", toMove);
+	document.addEventListener("mouseup", removeOnUp)
+	
+	thumb.addEventListener("dragstart", (e) => {
+		e.preventDefault();
+	});
+});
+
+
+
+//Задача с героями и полем. Изменение позиционирования при "mousemove" 
+// и скролл при приблежении к краю экрана.Скролл вниз почему то не работает.Элемент заходит за край экрана
+let isDragging = false;
+document.addEventListener("mousedown", (e) => {
+	let dragElement = e.target.closest(".draggable");
+	if (!dragElement) return;
+	dragElement.addEventListener("dragstart", (e) => e.preventDefault());
+	let shiftY;
+	let shiftX;
+	startDrag();
+
+	function onMouseUp() {
+		finishDrag();
+	}
+	function onMouseMove(e) {
+		moveAt(e);
+	}
+	function moveAt(e) {
+		let newY = e.clientY - shiftY;
+		let newX = e.clientX - shiftX;
+		let newBottom = newY + dragElement.offsetHeight;
+		if(newBottom > document.documentElement.clientHeight) {
+			let docBottom = document.documentElement.getBoundingClientRect().bottom;
+			let scrollY = Math.min(docBottom - newBottom, 10);
+			if (scrollY < 0) scrollY = 0;
+			window.scrollBy(0, scrollY);
+			newY = Math.min(newY, document.documentElement.clientHeight - dragElement.offsetHeight);
+		}
+		if (newY < 0) {
+			let scroll = Math.min(-newY, 10);
+			window.scrollBy(0, -scroll);
+			newY = Math.max(newY, 0);
+		}
+		if (newX < 0) newX = 0;
+		if (newX > document.documentElement.clientWidth - dragElement.offsetWidth) {
+			newX = document.documentElement.clientWidth - dragElement.offsetWidth;
+		}
+		dragElement.style.top = newY + "px";
+		dragElement.style.left = newX + "px";
+	}
+	function startDrag() {
+		if(isDragging) return;
+		isDragging = true;
+		shiftY = e.clientY - dragElement.getBoundingClientRect().top;
+		shiftX = e.clientX - dragElement.getBoundingClientRect().left;
+		document.addEventListener("mousemove", onMouseMove);
+		document.addEventListener("mouseup", onMouseUp);
+		dragElement.style.position = "fixed";
+		moveAt(e);
+	}
+	function finishDrag() {
+		if(!isDragging) return;
+		isDragging = false;
+		dragElement.style.position = "absolute";
+		dragElement.style.top = parseInt(getComputedStyle(dragElement).top) + scrollY;
+		document.removeEventListener("mousemove", onMouseMove);
+		document.removeEventListener("mouseup", onMouseUp);
+	}
+});
+
+
+// Мой вариант, но с не совсем правильным скролом. Но с работающим скроллом вниз
+let isDraggin = false;
+function toPractice() {
+	let ball = document.querySelector(".test-dropp__item");
+	document.addEventListener("mousedown", (e) => {
+		let target = e.target.closest(".test-dropp__item");
+		if(!target) return;
+		document.addEventListener("dragstart", (e) => e.preventDefault());
+		let shiftY;
+		let shiftX;
+		startDrag();
+		function onMouseMove(e) {
+			toMove(e);
+		}
+		function onMouseUp() {
+			stopDrag();
+		}
+		function toMove(e) {
+			let newTop = e.clientY - shiftY;
+			let newLeft = e.clientX - shiftX;
+			if(newTop < 0) {
+				newTop = 0;
+				window.scrollBy(0, -10);
+			} 
+			if(newTop > document.documentElement.clientHeight - target.offsetHeight) {
+				newTop = document.documentElement.clientHeight - target.offsetHeight;
+				window.scrollBy(0, 10);
+			} 
+			if(newLeft < 0) newLeft = 0;
+			if(newLeft > document.documentElement.clientWidth - target.offsetWidth) {
+				newLeft = document.documentElement.clientWidth - target.offsetWidth;
+			} 
+			target.style.top = newTop + "px";
+			target.style.left = newLeft + "px";
+		}
+		function startDrag() {
+			if(isDraggin) return
+			isDraggin = true;
+			shiftY = e.clientY - target.getBoundingClientRect().top;
+			shiftX = e.clientX - target.getBoundingClientRect().left;
+			target.style.position = "fixed";
+			document.addEventListener("mousemove", onMouseMove);
+			document.addEventListener("mouseup", onMouseUp);
+			toMove(e);
+		}
+		function stopDrag() {
+			if(!isDraggin) return
+			isDraggin = false;
+			target.style.position = "absolute";
+			target.style.top = parseInt(getComputedStyle(target).top) + scrollY  + "px";
+			document.removeEventListener("mousemove", onMouseMove);
+			document.removeEventListener("mouseup", onMouseUp);
+		}
+	});
+}
+toPractice();
+
+//Ниже решение из учебника с коментариями
+/* ////////////////////////////////////////////////////
+let isDragging = false;
+document.addEventListener('mousedown', function(event) {
+	let dragElement = event.target.closest('.draggable');
+	if (!dragElement) return;
+	event.preventDefault();
+	dragElement.ondragstart = function() {
+			return false;
+	};
+	let coords, shiftX, shiftY;
+	startDrag(dragElement, event.clientX, event.clientY);
+	function onMouseUp(event) {
+		finishDrag();
+	};
+	function onMouseMove(event) {
+		moveAt(event.clientX, event.clientY);
+	}
+	// в начале перемещения элемента:
+	//   запоминаем место клика по элементу (shiftX, shiftY),
+	//   переключаем позиционирование элемента (position:fixed) и двигаем элемент
+	function startDrag(element, clientX, clientY) {
+		if(isDragging) {
+			return;
+		}
+		isDragging = true;
+		document.addEventListener('mousemove', onMouseMove);
+		element.addEventListener('mouseup', onMouseUp);
+		shiftX = clientX - element.getBoundingClientRect().left;
+		shiftY = clientY - element.getBoundingClientRect().top;
+		element.style.position = 'fixed';
+		moveAt(clientX, clientY);
+	};
+	// переключаемся обратно на абсолютные координаты
+	// чтобы закрепить элемент относительно документа
+	function finishDrag() {
+		if(!isDragging) {
+			return;
+		}
+		isDragging = false;
+		dragElement.style.top = parseInt(dragElement.style.top) + pageYOffset + 'px';
+		dragElement.style.position = 'absolute';
+		document.removeEventListener('mousemove', onMouseMove);
+		dragElement.removeEventListener('mouseup', onMouseUp);
+	}
+	function moveAt(clientX, clientY) {
+		// вычисляем новые координаты (относительно окна)
+		let newX = clientX - shiftX;
+		let newY = clientY - shiftY;
+		// проверяем, не переходят ли новые координаты за нижний край окна:
+		// сначала вычисляем гипотетический новый нижний край окна
+		let newBottom = newY + dragElement.offsetHeight;
+		// затем, если новый край окна выходит за пределы документа, прокручиваем страницу
+		if (newBottom > document.documentElement.clientHeight) {
+			// координата нижнего края документа относительно окна
+			let docBottom = document.documentElement.getBoundingClientRect().bottom;
+			// простой скролл документа на 10px вниз имеет проблему -
+			// он может прокручивать документ за его пределы,
+			// поэтому используем Math.min(расстояние до конца, 10)
+			let scrollY = Math.min(docBottom - newBottom, 10);
+			// вычисления могут быть не совсем точны - случаются ошибки при округлении,
+			// которые приводят к отрицательному значению прокрутки. отфильтруем их:
+			if (scrollY < 0) scrollY = 0;
+			window.scrollBy(0, scrollY);
+			// быстрое перемещение мыши может поместить курсор за пределы документа вниз
+			// если это произошло -
+			// ограничиваем новое значение Y максимально возможным исходя из размера документа:
+			newY = Math.min(newY, document.documentElement.clientHeight - dragElement.offsetHeight);
+		}
+		// проверяем, не переходят ли новые координаты за верхний край окна (по схожему алгоритму)
+		if (newY < 0) {
+			// прокручиваем окно вверх
+			let scrollY = Math.min(-newY, 10);
+			if (scrollY < 0) scrollY = 0; // проверяем ошибки точности
+			window.scrollBy(0, -scrollY);
+			// быстрое перемещение мыши может поместить курсор за пределы документа вверх
+			newY = Math.max(newY, 0); // newY не может быть меньше нуля
+		}
+		// ограничим newX размерами окна
+		// согласно условию, горизонтальная прокрутка отсутствует, поэтому это не сложно:
+		if (newX < 0) newX = 0;
+		if (newX > document.documentElement.clientWidth - dragElement.offsetWidth) {
+			newX = document.documentElement.clientWidth - dragElement.offsetWidth;
+		}
+		dragElement.style.left = newX + 'px';
+		dragElement.style.top = newY + 'px';
+	}
+}); */
+
+//

@@ -122,16 +122,49 @@
         <section class="event-section">
             <div class="events">
                 <div class="Event-item"><span>Event</span></div>
-                <div class="Event-item">Event</div>
-                <div class="Event-item">Event</div>
-                <div class="Event-item">Event</div>
-                <div class="Event-item">Event</div>
+                <div class="Event-item" data-action="save">Event</div>
+                <div class="Event-item" data-action="load">Event</div>
+                <div class="Event-item" data-action="search">Event</div>
+                <div class="Event-item" data-action="reload">Event</div>
             </div>
             <div>
                 <a href="#my href" class="event-section__link" data-context="true">Link</a>
                 <a href="#my href" class="event-section__link">Link</a>
                 <a href="#my href" class="event-section__link" data-context="true">Link</a>
             </div>
+            <ul class="event-list">
+                <li>
+                    <a href="" class="event-list__link">Click</a>
+                    <ul class="event-list__context">
+                        <li>Context1</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" class="event-list__link">Click</a>
+                    <ul class="event-list__context">
+                        <li>Context2</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" class="event-list__link">Click</a>
+                    <ul class="event-list__context">
+                        <li>Context3</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" class="event-list__link">Click</a>
+                    <ul class="event-list__context">
+                        <li>Context4</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" class="event-list__link">Click</a>
+                    <ul class="event-list__context">
+                        <li>Context5</li>
+                    </ul>
+                </li>
+
+            </ul>
         </section>
         <section class="slider">
             <div class="slider__wrapper">
@@ -156,7 +189,53 @@
             <button class="menu__button" data-action="load">Load</button>
             <button class="menu__button" data-action="search">Search</button>
         </section>
-
+        <section class="test-target">
+        <div class="parent" style="padding: 50px 50px; background-color: red;">Parent
+            <ul style="padding: 20px 20px; background-color: rgb(255, 234, 0);"> Ul
+                <li style="padding: 40px 40px; background-color: rgb(65, 33, 33);">Li
+                    <a style="display: block; padding: 26px 92px; background-color: rgb(81, 0, 255);" href="">
+                        <p style="width: 30px; padding: 11px 11px; background-color: rgb(255, 0, 98)">qqq</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        </section>
+        <section class="mouse-event">
+            <div class="mouse-event__wrapper">
+                <div class="mouse-event__parent">
+                    <p class="mouse-event__inner-p">Child</p>
+                    <p class="mouse-event__inner-p">Child</p>
+                    <p class="mouse-event__inner-p">Child<a href="">Child-link</a></p>
+                </div>
+                <div class="mouse-event__parent">
+                    <p class="mouse-event__inner-p">Child</p>
+                    <p class="mouse-event__inner-p">Child</p>
+                    <p class="mouse-event__inner-p">Child<a href="">Child-link</a></p>
+                </div>
+                <div class="mouse-event__parent">
+                    <p class="mouse-event__inner-p">Child</p>
+                    <p class="mouse-event__inner-p">Child</p>
+                    <p class="mouse-event__inner-p">Child<a href="">Child-link</a></p>
+                </div>
+            </div>
+            <div id="tooltip" hidden>Подсказка</div>
+        </section>
+        <div class="any-div">Ball</div>
+        <div class="ball"><span>New ball</span></div>
+        <section class="some-items">
+            <ul class="some-items__list" data-property = "any-ptoperty">
+                <li class="some-items__elem">Elem</li>
+                <li class="some-items__elem">Elem</li>
+                <li class="some-items__elem">Elem</li>
+                <li class="some-items__elem">Elem</li>
+                <li class="some-items__elem">Elem</li>
+            </ul>
+        </section>
+        <section class="test-dropp">
+            <div class="test-dropp__item"><span>Item</span></div>
+            <div class="test-dropp__target"><span>Target</span></div>
+        </section>
+        <div class="test" style="position: absolute; bottom: 0; padding: 20px;">TEST</div>
         <script type="module" src="js/script.js"></script>
         <script type="module" src="js/module.js"></script>
     </body>
