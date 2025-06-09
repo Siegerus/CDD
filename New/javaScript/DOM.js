@@ -1,3 +1,12 @@
+let divсс = document.querySelector(".test-div");
+document.body.insertAdjacentHTML("beforeend", 
+	"<div class=`wrapper><div class=active>DIV</div><div class=active>DIV</div></div>")
+let created = document.querySelectorAll(".active");
+divсс.addEventListener("click", (e) => {
+	created.forEach((item) => item.remove());
+});
+
+
 // Вывели массив из первых доч. элементов коробок.Добавили им св-ва копированием св-ва объекта 
 let arr = Array.from(clickBox).map(item => item.firstElementChild);
 for(let i = 0; i < arr.length; i++) {
@@ -165,7 +174,51 @@ function setClock() {
 	}); */
 }
 setClock();
+// Ещё часы
+function setSecondClock() {
+	let clock = document.querySelector(".test-clock"),
+		secondsElem = clock.children[0],
+		minutesElem = clock.children[1],
+		hoursElem = clock.children[2],
+		isOn = true,
+		interval;
+	function getValue() {
+		let date = new Date(),
+		seconds = date.getSeconds(),
+		minutes = date.getMinutes(),
+		hours = date.getHours();
+		return {seconds,minutes,hours};
+	}
+	function setValue() {
+		function plusZero(val) {
+				if(val < 10) {
+				return val = "0" + val;
+				} else return val;
+			}
+		plusZero(getValue().seconds);
+		plusZero(getValue().minutes);
+		plusZero(getValue().hours);
+		secondsElem.innerHTML = plusZero(getValue().seconds);
+		minutesElem.innerHTML = plusZero(getValue().minutes);
+		hoursElem.innerHTML = plusZero(getValue().hours);
+	}
+	setValue();
+	interval = setInterval(setValue, 1000);
 
+	document.addEventListener("click", (e) => {
+		if(isOn) {
+			isOn = false;
+			clearInterval(interval);
+			interval = null;
+		} else {
+			if(!e.ctrlKey || e.metaKey) return;
+			clearInterval(interval);
+			interval = setInterval(setValue, 1000);
+			isOn = true;
+		}
+	});
+}
+setSecondClock();
 
 
 

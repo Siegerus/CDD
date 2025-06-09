@@ -224,19 +224,40 @@
         <div class="ball"><span>New ball</span></div>
         <section class="some-items">
             <ul class="some-items__list" data-property = "any-ptoperty">
-                <li class="some-items__elem">Elem</li>
-                <li class="some-items__elem">Elem</li>
-                <li class="some-items__elem">Elem</li>
-                <li class="some-items__elem">Elem</li>
-                <li class="some-items__elem">Elem</li>
+                <li tabindex="0" class="some-items__elem">Elem</li>
+                <li tabindex="4" class="some-items__elem">Elem</li>
+                <li tabindex="3" class="some-items__elem">Elem</li>
+                <li tabindex="2" class="some-items__elem">Elem</li>
+                <li tabindex="1"class="some-items__elem">Elem</li>
             </ul>
         </section>
         <section class="test-dropp">
             <div class="test-dropp__item"><span>Item</span></div>
             <div class="test-dropp__target"><span>Target</span></div>
         </section>
-        <div class="test" style="position: absolute; bottom: 0; padding: 20px;">TEST</div>
+		<section class="form-section">
+			<form action="" class="form-section__form" name="formName" id="thisIsFormId">
+				<input type="text" class="form-section__input" name="one" id="one">
+				<fieldset class="form-secton__fieldset">
+					<input class="" type="text" name="fieldsetInput">
+				</fieldset>
+				<input type="text" class="form-section__input" name="two" id="two">
+				<input type="text" class="form-section__input" name="three" id="three">
+				<select name="selectName" id="" class="form-section__input form-section__select">
+					<option class="">Option1</option>
+					<option class="">Option2</option>
+					<option class="">Option3</option>
+				</select>
+			</form>
+		</section>
+		<div class="test-clock clock">
+			<div class="test-clock__hours clock__hours" style="padding: 10px;">00</div>
+			<div class="test-clock__minutes clock__minutes" style="padding: 10px;">00</div>
+			<div class="test-clock__seconds clock__seconds" style="padding: 10px;">00</div>
+		</div>
         <script type="module" src="js/script.js"></script>
         <script type="module" src="js/module.js"></script>
     </body>
 </html>
+
+

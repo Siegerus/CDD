@@ -538,7 +538,6 @@ li.testClass {
  	background-color: peru;
 	text-align: center;
 	font-size: 16px;
-	transition: all 0.2s;
 }
 
 .ball span {
@@ -569,6 +568,10 @@ li.testClass {
 	padding: 20px;
 	font-size: 18px;
 	background-color: purple;
+}
+
+.some-items__elem:focus {
+	border: 1px solid red;
 }
 
 
@@ -605,6 +608,47 @@ li.testClass {
 	font-size: 39px;
 	line-height: 39px;
 	background-color: aqua;
+}
+
+.form-section {
+	padding: 36px 0;
+}
+
+.form-section__form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-self: left;
+	padding: 40px 25px;
+	border-radius: 9%;
+	background-color: lightgrey;
+}
+
+.form-section__input {
+	margin-top: 23px;
+	max-width: 213px;
+	padding: 5px 0;
+	outline: none;
+}
+
+.form-secton__fieldset {
+	margin-top: 23px;
+}
+
+.form-section__input:nth-child(1) {
+	margin-top: 0;
+}
+
+.form-section__input:focus {
+	border: 1px, solid, lightgreen;
+}
+
+.form-section__select{
+	width: 100%;
+}
+
+.form-section__select option {
+	color: lightseagreen;
 }
 
 

@@ -79,27 +79,52 @@ function setClock() {
 			clearInterval(int);
 		}
 	});
-	//
-	/* setTimeout(function updateClock() {
-		setValue();
-		int = setTimeout(updateClock,1000)
-	});
-	start.addEventListener("click", (e) => {
-		if(e.target.closest(".clock-start")) {
-			setTimeout(function updateClock() {
-				setValue();
-				if(int !== null) clearTimeout(int);
-				int =  setTimeout(updateClock,1000)
-			});
-		}
-	});
-	stop.addEventListener("click", (e) => {
-		if(e.target.closest(".clock-stop")) {
-			clearTimeout(int);
-		}
-	}); */
 }
 setClock();
+function setSecondClock() {
+	let clock = document.querySelector(".test-clock"),
+		secondsElem = clock.children[0],
+		minutesElem = clock.children[1],
+		hoursElem = clock.children[2],
+		isOn = true,
+		interval;
+	function getValue() {
+		let date = new Date(),
+		seconds = date.getSeconds(),
+		minutes = date.getMinutes(),
+		hours = date.getHours();
+		return {seconds,minutes,hours};
+	}
+	function setValue() {
+		function plusZero(val) {
+				if(val < 10) {
+				return val = "0" + val;
+				} else return val;
+			}
+		plusZero(getValue().seconds);
+		plusZero(getValue().minutes);
+		plusZero(getValue().hours);
+		secondsElem.innerHTML = plusZero(getValue().seconds);
+		minutesElem.innerHTML = plusZero(getValue().minutes);
+		hoursElem.innerHTML = plusZero(getValue().hours);
+	}
+	setValue();
+	interval = setInterval(setValue, 1000);
+
+	document.addEventListener("click", (e) => {
+		if(isOn) {
+			isOn = false;
+			clearInterval(interval);
+			interval = null;
+		} else {
+			if(!e.ctrlKey || e.metaKey) return;
+			clearInterval(interval);
+			interval = setInterval(setValue, 1000);
+			isOn = true;
+		}
+	});
+}
+setSecondClock();
 
 
 scrollBox.addEventListener("scroll", function() {
@@ -387,7 +412,7 @@ function toDragging() {
 		}
 	});
 }
-toDragging();
+// toDragging();
 
 
 /* let contextMenu;
@@ -536,6 +561,54 @@ function toDrag() {
 	anyDiv.addEventListener("dragstart", (e) => e.stopPreventDefault());
 }
 toDrag();
+
+// Реализация drugnDrop с изменение позиционирования бросаемого элемента 
+function dragNdrop() {
+	let dropItem = document.querySelector(".test-dropp__item");
+	let dropTarget = document.querySelector(".test-dropp__target");
+	let current = null;
+
+	dropItem.addEventListener("mousedown", (e) => {
+		let shiftY = e.clientY - dropItem.getBoundingClientRect().top;
+		let shiftX = e.clientX - dropItem.getBoundingClientRect().left
+		toDraggin();
+
+		function toMove(e) {
+			dropItem.style.top = e.clientY - shiftY + "px";
+			dropItem.style.left = e.clientX - shiftX + "px";
+
+			function toDrop() { 
+				dropItem.hidden = true;
+				let deeper = document.elementFromPoint(e.clientX, e.clientY);
+				dropItem.hidden = false;
+				if(!deeper) return
+				let dropable = deeper.closest(".test-dropp__target");
+
+				if(current != dropable) { 
+					if(current) dropTarget.style.backgroundColor = "aqua";
+					current = dropable;
+					if(current) dropTarget.style.backgroundColor = "blue";
+				};
+			}
+			toDrop();
+		}
+		function toDraggin() {
+			dropItem.style.position = "fixed";
+			document.addEventListener("mousemove", toMove);
+			document.addEventListener("mouseup", endDraggin);
+			toMove(e)
+		}
+		function endDraggin(e) { 
+			dropItem.style.position = "absolute";
+			dropItem.style.top = e.pageY - shiftY + "px";
+			if(current) dropTarget.firstElementChild.innerHTML = "Dropping done!";
+			else dropTarget.firstElementChild.innerHTML = "Target";
+			document.removeEventListener("mousemove", toMove);
+			document.removeEventListener("mouseup", endDraggin);
+		}
+	});
+}
+dragNdrop();
 
 
 /* let arr = [];
@@ -779,21 +852,190 @@ let removeElement = () => {
 document.addEventListener("contextmenu",removeElement);
 document.addEventListener("click",removeElement); */
 
-let toPractice = () => {
 
+// Обработка события при нажатии на 2 клавиши одновременно. Мой вариант + из гугла
+/* let keys = {};
+function onKeyUp(e) { 
+	keys[e.code] = false;
+}
+function onKeyDown(e) {
+	function runOnKeys(func, code1, code2, ... code_n) {
+		keys[e.code] = true;
+		if(keys[code1] && keys[code2]) {
+			func();
+		}  
+		document.addEventListener("keyup", onKeyUp); 
+	}
+	runOnKeys(() => console.log("Привет!"), "KeyZ", "KeyQ");
+}
+document.addEventListener("keydown", onKeyDown); */
+
+/* function runOnKeys(func, ...codes) {
+		let pressed = new Set();
+		document.addEventListener('keydown', function (event) {
+			pressed.add(event.code);
+			for (let code of codes) { // все ли клавиши из набора нажаты?
+				if (!pressed.has(code)) {
+					return;
+				}
+			}
+			pressed.clear(); 
+			func();
+		});
+		document.addEventListener('keyup', function (event) {
+			pressed.delete(event.code);
+		});
+	}
+	runOnKeys(
+		() => alert("Привет!"),
+		"KeyQ",
+		"KeyW"
+	); */
+
+
+/* let select = document.getElementById("genres");
+let options = select.options;
+Array.from(options).forEach(item => {
+	if(item.selected == true) console.log(`Текст:${item.text} Значение:${item.value}`);
+});
+let newSelect = document.createElement("option");
+newSelect.textContent = "Классика";
+select.append(newSelect);
+newSelect.value = "classic";
+newSelect.selected = true;
+console.log(select.options[select.selectedIndex]); */
+
+/* let myInput =  document.forms[1].one;
+
+myInput.addEventListener("focus", (e) => {
+	if(e.target.tagName == "INPUT") myInput.value = "Any value!";
+	function onBlur(e) {
+		myInput.value = "";
+		myInput.removeEventListener("blur", onBlur);
+	}
+	myInput.addEventListener("blur", onBlur);
+}); */
+
+/* let arr = ["Key1","Key2","Key3","Key4","Key5","Key6","Key7"];
+let res = arr.map((item, i, array) => { 
+	return {
+		["number " + item] : i + 1,
+	}
+}); */
+
+
+/* let useers = [
+    {id: 'john', name: "John Smith", age: 20},
+    {id: 'ann', name: "Ann Smith", age: 24},
+    {id: 'pete', name: "Pete Peterson", age: 31},
+  ];
+  let toGrouped = (arr) => {
+    let grouped = arr.reduce((obj, curent) => {
+        obj[curent.id] = curent;
+        return obj;
+    }, {} );
+    return grouped;
+  };
+  console.log(toGrouped(useers)); */
+
+function toFocusBlur() {
+	let form = document.forms[1];
+		input = form.elements.one;
+	
+		/* input.addEventListener("blur", (e) => {
+			if(!input.value.includes("@")) {
+				input.style.cssText = "border-color: red";
+				input.value = "Enter your Email";
+				input.focus();
+			} else {
+				input.style.borderColor = "";
+				input.value = "";
+			} 
+		}); */
+	form.addEventListener("focusin", (e) => {
+		e.currentTarget.style.cssText = "border: 1px solid red";
+	} );
+
+	/* form.addEventListener("blur", (e) => {
+		e.currentTarget.style.cssText = "";
+	}); */
+}
+toFocusBlur();
+
+
+
+
+/* // Вариант из решения
+let table = document.getElementById('bagua-table');
+let editingTd;
+table.onclick = function(event) {
+  // 3 возможных цели
+  let target = event.target.closest('.edit-cancel,.edit-ok,td');
+  if (!table.contains(target)) return;
+  
+  if (target.className == 'edit-cancel') {
+    finishTdEdit(editingTd.elem, false);
+  } else if (target.className == 'edit-ok') {
+    finishTdEdit(editingTd.elem, true);
+  } else if (target.nodeName == 'TD') {
+    if (editingTd) return; // уже редактируется
+
+    makeTdEditable(target);
+  }
 };
+function makeTdEditable(td) {
+  editingTd = {
+    elem: td,
+    data: td.innerHTML
+  };
 
-toPractice();
+  td.classList.add('edit-td'); // td в состоянии редактирования, CSS применятся к textarea внутри ячейки
+
+  let textArea = document.createElement('textarea');
+  textArea.style.width = td.clientWidth + 'px';
+  textArea.style.height = td.clientHeight + 'px';
+  textArea.className = 'edit-area';
+
+  textArea.value = td.innerHTML;
+  td.innerHTML = '';
+  td.appendChild(textArea);
+  textArea.focus();
+
+  td.insertAdjacentHTML("beforeEnd",
+    '<div class="edit-controls"><button class="edit-ok">OK</button><button class="edit-cancel">CANCEL</button></div>'
+  );
+}
+function finishTdEdit(td, isOk) {
+  if (isOk) {
+    td.innerHTML = td.firstChild.value;
+  } else {
+    td.innerHTML = editingTd.data;
+  }
+  td.classList.remove('edit-td');
+  editingTd = null;
+} */
 
 
 
 
 
 
+let element = document.querySelector(".any-section__button");
+
+function viewPlace(elem) {
+	let coords = elem.getBoundingClientRect();
+	if(document.documentElement.clientHeight > coords.top) console.log();
+}
+viewPlace(element);
 
 
 
-
+console.log();
+console.log();
+console.log();
+console.log();
+console.log();
+console.log();
 console.log();
 console.log();
 console.log();

@@ -1111,6 +1111,52 @@ ball.addEventListener("dragstart", (e) => {
 testDrop();
 
 
+// Реализация drugnDrop с изменение позиционирования бросаемого элемента 
+function dragNdrop() {
+	let dropItem = document.querySelector(".test-dropp__item");
+	let dropTarget = document.querySelector(".test-dropp__target");
+	let current = null;
+	dropItem.addEventListener("mousedown", (e) => {
+		let shiftY = e.clientY - dropItem.getBoundingClientRect().top;
+		let shiftX = e.clientX - dropItem.getBoundingClientRect().left
+		toDraggin();
+
+		function toMove(e) {
+			dropItem.style.top = e.clientY - shiftY + "px";
+			dropItem.style.left = e.clientX - shiftX + "px";
+
+			function toDrop() { 
+				dropItem.hidden = true;
+				let deeper = document.elementFromPoint(e.clientX, e.clientY);
+				dropItem.hidden = false;
+				if(!deeper) return
+				let dropable = deeper.closest(".test-dropp__target");
+
+				if(current != dropable) { 
+					if(current) dropTarget.style.backgroundColor = "aqua";
+					current = dropable;
+					if(current) dropTarget.style.backgroundColor = "blue";
+				};
+			}
+			toDrop();
+		}
+		function toDraggin() {
+			dropItem.style.position = "fixed";
+			document.addEventListener("mousemove", toMove);
+			document.addEventListener("mouseup", endDraggin);
+			toMove(e)
+		}
+		function endDraggin(e) { 
+			dropItem.style.position = "absolute";
+			dropItem.style.top = e.pageY - shiftY + "px";
+			if(current) dropTarget.innerHTML = "Dropping done!";
+			else dropTarget.innerHTML = "Target";
+			document.removeEventListener("mousemove", toMove);
+		}
+	});
+}
+
+
 // Ползунок
 let slider = document.querySelector("#slider"),
 	thumb = document.querySelector(".thumb");
@@ -1343,4 +1389,189 @@ document.addEventListener('mousedown', function(event) {
 	}
 }); */
 
-//
+
+// dragndrop с помощью событий указателя. Приимущество в том, что не надо вешать обработчик на весь документ
+function movePointer() {
+	let ball = document.querySelector(".ball");
+	ball.addEventListener("dragstart", (e) => e.preventDefault());
+	ball.addEventListener("pointerdown", (e) => {
+		ball.setPointerCapture(e.pointerId);
+		function onMove(e) {
+			ball.style.top = e.pageY - ball.offsetHeight/2 + "px";
+			ball.style.left = e.pageX - ball.offsetWidth/2 + "px";
+		}
+		ball.addEventListener("pointermove", onMove);
+		function onUp() {
+			ball.removeEventListener("pointermove", onMove);
+			ball.removeEventListener("pointerup", onMove);
+		}
+		ball.addEventListener("pointerup", onUp);
+	});
+}
+movePointer();
+
+
+
+//Обработка события при нажатии на 2 клавиши одновременно. Мой вариант + из гугла
+let keys = {};
+function onKeyUp(e) { 
+	keys[e.code] = false;
+}
+function onKeyDown(e) {
+	function runOnKeys(func, code1, code2, ... code_n) {
+		keys[e.code] = true;
+		if(keys[code1] && keys[code2]) {
+			func();
+		}  
+		document.addEventListener("keyup", onKeyUp); 
+	}
+	runOnKeys(() => console.log("Привет!"), "KeyZ", "KeyQ");
+}
+document.addEventListener("keydown", onKeyDown);
+// Вариант через массивы
+function runOnKeys(func, ...args) {
+	let pressed = [];
+	function onKeyDown(e) {
+		if(!e.repeat) pressed.push(e.code);
+		if(pressed.includes(...args) && pressed.length == args.length) {
+			func();
+		} 
+	}
+	function onKeyUp() {
+		pressed.splice(0);
+	}
+	document.addEventListener("keydown", onKeyDown);
+	document.addEventListener("keyup", onKeyUp);
+}
+runOnKeys(()=> alert("Привет"), "KeyQ", "KeyW");
+//Вариант из решения
+function runOnKeys(func, ...args) {
+	let set = new Set();
+	function OnKeyDown(e) {
+		set.add(e.code);
+		for(let arg of args) {
+			if(!set.has(arg)) return
+		}
+		set.clear();
+		func();
+	}	
+	function OnKeyUp(e) {
+		set.delete(e.code);
+	}
+	document.addEventListener("keydown", OnKeyDown);
+	document.addEventListener("keyup", OnKeyUp);
+}
+runOnKeys(() => alert("Hi"), "KeyQ", "KeyW");
+
+
+
+// Бесконечная прокрутка вниз с добавлением элемента
+let date = new Date();
+let createElemm = (html) => {
+	let dateBox = document.createElement("div");
+	dateBox.innerHTML = html;
+	document.body.append(dateBox);
+};
+let addDate = () => {
+	let coords = document.documentElement.getBoundingClientRect();
+	let bottomFringe = document.documentElement.clientHeight + scrollY + 50;
+	let docHeight = document.documentElement.offsetHeight;
+
+	//можно реализовать через координаты окна относительно документа и высоты окна
+	// let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom; 
+	// let fringe = document.documentElement.clientHeight + 100;
+	
+	if (bottomFringe < docHeight) return;
+	// if (windowRelativeBottom > fringe) return;
+	
+	console.log("fringe");
+	window.scrollTo(0, Math.abs(coords.top));
+	createElemm(date);
+};
+document.addEventListener("scroll", addDate);
+//Вариант из решения
+/*   function populate() {
+    while(true) {
+      let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+      if (windowRelativeBottom > document.documentElement.clientHeight + 100) break;
+      document.body.insertAdjacentHTML("beforeend", `<p>Date: ${new Date()}</p>`);
+    }
+  }
+  window.addEventListener('scroll', populate);
+  populate(); */
+
+
+
+// Скролл по нажатию стрелки вверх
+function scrollTop() {
+	let arrow = document.getElementById("arrowTop");
+	arrow.hidden = true;
+	function toTop(e) {
+		let target = e.target.id = "arrowTop";
+		if(!target) return;
+		window.scrollTo(0, 0);
+	}
+	window.addEventListener("scroll", (e) => {
+		if(window.scrollY >= document.documentElement.clientHeight) {
+			arrow.hidden = false;
+			arrow.addEventListener("click", toTop);
+		} 
+		else {
+			arrow.hidden = true;
+			arrow.removeEventListener("click", toTop); 
+		}
+	});
+}
+scrollTop();
+// Вариант из решения
+arrowTop.onclick = function() {
+	window.scrollTo(pageXOffset, 0);
+	// после scrollTo возникнет событие "scroll", так что стрелка автоматически скроется
+};
+window.addEventListener('scroll', function() {
+	arrowTop.hidden = (pageYOffset < document.documentElement.clientHeight);
+});
+
+
+
+// //Элемент загружается, когда к до него доходит скролл окна
+function isVisible(elem) {
+      let coords = elem.getBoundingClientRect();
+      let windowHeight = document.documentElement.clientHeight;
+      // видны верхний ИЛИ нижний край элемента
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+      return topVisible || bottomVisible;
+    }
+    /**
+    Вариант проверки, считающий элемент видимым,
+    если он не более чем -1 страница назад или +1 страница вперед.
+    function isVisible(elem) {
+      let coords = elem.getBoundingClientRect();
+      let windowHeight = document.documentElement.clientHeight;
+      let extendedTop = -windowHeight;
+      let extendedBottom = 2 * windowHeight;
+      // top visible || bottom visible
+      let topVisible = coords.top > extendedTop && coords.top < extendedBottom;
+      let bottomVisible = coords.bottom < extendedBottom && coords.bottom > extendedTop;
+      return topVisible || bottomVisible;
+    }
+    */
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+        if (isVisible(img)) {
+          // отключение кеширования
+          // эта строка должна быть удалена в "боевом" коде
+          realSrc += '?nocache=' + Math.random();
+          img.src = realSrc;
+          img.dataset.src = '';
+        }
+      }
+    }
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+
+
+
