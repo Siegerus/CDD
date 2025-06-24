@@ -327,3 +327,176 @@ moveElement(mouse);
           return false;
       }
     };
+
+
+
+ // Калькулятор
+    let form = document.forms.calculator;
+    let elements = form.elements;
+    let initialText = document.querySelector("#diagram > tbody > tr:nth-child(1) > th:nth-child(1)");
+    let resultText = document.querySelector("#diagram > tbody > tr:nth-child(1) > th:nth-child(2)");
+    let hightAfter = document.getElementById("height-after");
+    function toCalculate(e) {
+        let initial = +elements[0].value;
+        let years = elements[1].value / 12;
+        let interest = elements[2].value * 0.01;
+        let result = Math.round(initial * (1 + interest) ** years);
+        initialText.innerHTML = "Было: " + initial;
+        resultText.innerHTML = "Станет: " + result;
+        hightAfter.style.height = result/initial*100 + "px";
+    }
+    toCalculate();
+    Array.from(elements).forEach(item => {
+        item.addEventListener("input", toCalculate);
+    });
+
+	// Из решения
+    /* let form = document.forms.calculator;
+	form.money.oninput = calculate;
+    form.months.onchange = calculate;
+    form.interest.oninput = calculate;
+
+     function calculate() {
+      let initial = +form.money.value;
+      if (!initial) return;
+      let interest = form.interest.value * 0.01;
+      if (!interest) return;
+      let years = form.months.value / 12;
+      if (!years) return;
+      let result = Math.round(initial * (1 + interest) ** years);
+      let height = result / form.money.value * 100 + 'px';
+      document.getElementById('height-after').style.height = height;
+      document.getElementById('money-before').innerHTML = form.money.value;
+      document.getElementById('money-after').innerHTML = result;
+    }
+    calculate(); */
+
+
+//Модальное окно с коллбэком
+let container = document.getElementById("prompt-form-container"),
+	myForm = document.forms[0],
+	message = document.getElementById("prompt-message"),
+	text = myForm.elements.text,
+	buttonCancel = myForm.elements.cancel,
+	isFocus = false;
+function showPrompt(html, callback) {
+	container.style.display = "block";
+	message.innerHTML = html;
+	text.focus();
+
+	function onSubmit(e) {
+		e.preventDefault();
+		if(text.value == "") callback(null);
+		else callback(text.value);
+		container.style.display = "none";
+		myForm.removeEventListener("submit", onSubmit);
+		buttonCancel.removeEventListener("click", onCancle);
+		document.removeEventListener("keydown", onEscape);
+	}
+	myForm.addEventListener("submit", onSubmit);
+
+	function onCancle() {
+		container.style.display = "none";
+		callback(null);
+		buttonCancel.removeEventListener("click", onCancle);
+		document.removeEventListener("keydown", onEscape);
+		myForm.removeEventListener("submit", onSubmit);
+	}
+	buttonCancel.addEventListener("click", onCancle);
+
+	function onEscape(e) {
+		if(e.code == "Escape") {
+			container.style.display = "none";
+			callback(null);
+			document.removeEventListener("keydown", onEscape);
+			buttonCancel.removeEventListener("click", onCancle);
+			myForm.removeEventListener("submit", onSubmit);
+		};
+	}
+	document.addEventListener("keydown", onEscape);
+}
+let firstElem = myForm.elements[0];
+let lastElem = myForm.elements[myForm.elements.length - 1];
+firstElem.addEventListener("keydown", (e) => {
+	if(e.code == "Tab" && e.shiftKey) {
+		e.preventDefault();
+		lastElem.focus();
+	}
+});
+lastElem.addEventListener("keydown", (e) => {
+	if(e.code == "Tab" && !e.shiftKey) {
+		e.preventDefault();
+		firstElem.focus();
+	}
+});
+document.querySelector("#show-button").addEventListener("click", (e) => {
+	showPrompt("html", (value) => alert(`Вы ввели: ${value}`));
+});
+
+//Вариант из решения
+// Показать полупрозрачный DIV, чтобы затенить страницу
+// (форма располагается не внутри него, а рядом, потому что она не должна быть полупрозрачной)
+function showCover() {
+	let coverDiv = document.createElement('div');
+	coverDiv.id = 'cover-div';
+	// убираем возможность прокрутки страницы во время показа модального окна с формой
+	document.body.style.overflowY = 'hidden';
+	document.body.append(coverDiv);
+}
+function hideCover() {
+	document.getElementById('cover-div').remove();
+	document.body.style.overflowY = '';
+}
+function showPrompt(text, callback) {
+	showCover();
+	let form = document.getElementById('prompt-form');
+	let container = document.getElementById('prompt-form-container');
+	document.getElementById('prompt-message').innerHTML = text;
+	form.text.value = '';
+
+	function complete(value) {
+		hideCover();
+		container.style.display = 'none';
+		document.onkeydown = null;
+		callback(value);
+	}
+
+	form.onsubmit = function() {
+		let value = form.text.value;
+		if (value == '') return false; // игнорируем отправку пустой формы
+
+		complete(value);
+		return false;
+	};
+
+	form.cancel.onclick = function() {
+		complete(null);
+	};
+
+	document.onkeydown = function(e) {
+		if (e.key == 'Escape') {
+			complete(null);
+		}
+	};
+	let lastElem = form.elements[form.elements.length - 1];
+	let firstElem = form.elements[0];
+	lastElem.onkeydown = function(e) {
+	if (e.key == 'Tab' && !e.shiftKey) {
+		firstElem.focus();
+		return false;
+	}
+	};
+	firstElem.onkeydown = function(e) {
+	if (e.key == 'Tab' && e.shiftKey) {
+		lastElem.focus();
+		return false;
+	}
+	};
+	container.style.display = 'block';
+	form.elements.text.focus();
+}
+document.getElementById('show-button').onclick = function() {
+	showPrompt("Введите что-нибудь<br>...умное :)", function(value) {
+	alert("Вы ввели: " + value);
+	});
+};

@@ -6,6 +6,7 @@
     <title>Document</title>
     <style>
     </style>
+    <link href="css/prism.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
     <body>
@@ -237,7 +238,7 @@
         </section>
 		<section class="form-section">
 			<form action="" class="form-section__form" name="formName" id="thisIsFormId">
-				<input type="text" class="form-section__input" name="one" id="one">
+				<input type="text" class="form-section__input" name="one" id="one" data-test="!">
 				<fieldset class="form-secton__fieldset">
 					<input class="" type="text" name="fieldsetInput">
 				</fieldset>
@@ -249,15 +250,80 @@
 					<option class="">Option3</option>
 				</select>
 			</form>
+            <div class="test-div"></div>
+            <div class="test-div"></div>
+            <div class="test-div"></div>
+            <div class="test-div"></div>
+            <div class="test-div"></div>
 		</section>
+        <section class="accordeon-section">
+            <div class="accordeon">
+                <div class="accordeon__item">
+                    <div class="accordeon__click">Click</div>
+                    <div class="accordeon__content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                        Nisi eligendi molestias deserunt 
+                        libero numquam porro sint repellendus distinctio. 
+                        Ex, dolore.
+                    </div>
+                </div>
+                <div class="accordeon__item">
+                    <div class="accordeon__click">Click</div>
+                    <div class="accordeon__content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                        Nisi eligendi molestias deserunt 
+                        libero numquam porro sint repellendus distinctio. 
+                        Ex, dolore.
+                    </div>
+                </div>
+                <div class="accordeon__item">
+                    <div class="accordeon__click">Click</div>
+                    <div class="accordeon__content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                        Nisi eligendi molestias deserunt 
+                        libero numquam porro sint repellendus distinctio. 
+                        Ex, dolore.
+                    </div>
+                </div>
+                <div class="accordeon__item">
+                    <div class="accordeon__click">Click</div>
+                    <div class="accordeon__content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                        Nisi eligendi molestias deserunt 
+                        libero numquam porro sint repellendus distinctio. 
+                        Ex, dolore.
+                    </div>
+                </div>
+        </section>
+        <div class="item">Item</div>
 		<div class="test-clock clock">
 			<div class="test-clock__hours clock__hours" style="padding: 10px;">00</div>
 			<div class="test-clock__minutes clock__minutes" style="padding: 10px;">00</div>
 			<div class="test-clock__seconds clock__seconds" style="padding: 10px;">00</div>
 		</div>
-        <script type="module" src="js/script.js"></script>
+        <div class="link-wrap">
+            <div class="" style="cursor: pointer; padding: 10px; margin-top: 10px;">link</div>
+            <div class="" style="cursor: pointer; padding: 10px; margin-top: 10px;">link</div>
+            <div class="" style="cursor: pointer; padding: 10px; margin-top: 10px;">link</div>
+        </div>
+        <div contenteditable="true" class="my-div"><i>My DIV</i><b style="display: inline-block; margin-left: 21px;">Bold</b></div>
+        <div class="count" style="margin: 20px 0;"></div>
+        <pre class="language-javascript">
+            <code>let hello = "world";</code>
+        </pre>
+        <section class="dialog-section">
+            <dialog class="dialog">
+                <div class="dialog__inner-content">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi voluptatem eos quaerat molestias mollitia fuga dolorum eius vero ipsum nihil laudantium iure sequi autem consequatur sit dolorem sapiente nobis, corporis velit, deleniti, ut eveniet?
+                </div>
+            </dialog>
+        </section>
+        <iFrame class="iframe">Iframe</iFrame>
+        <div class="any-item1">Item1</div>
+        <div class="any-item2">Item2</div>
+        <script src="js/prism.js" data-manual></script>
         <script type="module" src="js/module.js"></script>
+        <script src="js/script.js"></script>
     </body>
 </html>
-
 

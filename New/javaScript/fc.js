@@ -1,3 +1,21 @@
+// разбивка сложной задачи рекурсией
+let countBox = document.querySelector(".count");
+let i = 0;
+function toCount() { 
+	do {
+		i++;
+		console.log(i);
+		countBox.innerHTML = i;
+	} while(i % 1000 != 0);
+	 
+	if(i < 2000) {
+		console.log("recourse");
+		setTimeout(toCount);
+	}
+}
+toCount();
+
+
 //рекурсия для перебора вложенных объектов
 let data = {
 	"Рыбы": {

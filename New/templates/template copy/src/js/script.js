@@ -32,6 +32,101 @@ let links = document.querySelectorAll(".event-section > div:nth-child(2) > a")[0
 let anyItems = document.querySelectorAll(".any-section__item");
 document.querySelector(".any-section__button").style.marginTop = 67 + "px";
 
+
+function scrollDown() {
+	let item = document.querySelector(".item");
+	window.onload = () => item.scrollIntoView();
+}
+// scrollDown();
+
+
+//window
+function setWindow() {
+	let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
+	let win;
+	let isOpen = false;
+	launchItem.addEventListener("click", ()	=> { 
+		if(isOpen) {
+			if(win) win.focus();
+			console.log("Window is already opened!");
+			return;
+		} 
+		isOpen = true;
+		let params = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
+		win = open("popup.html", "window", params);
+		win.focus();
+		win.postMessage("test", "*");
+		function setPopup() { 
+			let link = win.document.createElement("link");
+			link.href = "css/style.min.css";
+			link.rel = "stylesheet";
+			win.document.head.append(link);
+
+			let div = win.document.createElement("div");
+			div.innerHTML = "popups DIV";
+			div.className = "popup";
+			win.document.body.append(div);
+			win.addEventListener("beforeunload", () => isOpen = false);
+		}
+		function onLoad() {
+			setPopup();
+			win.removeEventListener("load", onLoad);
+		}
+		win.addEventListener("load", onLoad);
+		win.addEventListener("message", (e) => win.console.log(e.data));
+	});
+}
+setWindow();
+
+
+//модалка
+function setModal() {
+	let dialog = document.querySelector("body > section.dialog-section > dialog");
+	let openItem = document.querySelector("body > section.accordeon-section > div > div:nth-child(4)");
+	openItem.addEventListener("click", (e) => {		
+		if(dialog.open) return;
+		dialog.showModal();	
+
+		function toClose(e) {
+			if(e.target.closest(".dialog__inner-content")) return;
+			dialog.close();
+			dialog.removeEventListener("click", toClose);
+		}
+		dialog.addEventListener("click", toClose);
+	});
+}
+setModal();
+
+
+//Изменение размера контейнера при зажатой нопке мыши
+function resizeContainer() {
+	let item = document.querySelector(".item");
+	let coords = item.getBoundingClientRect();
+
+	item.addEventListener("mousemove", (e) => {
+		if(e.clientX < item.clientWidth + coords.left - 3) item.style.cursor = "pointer";
+		else item.style.cursor = "col-resize";
+	});
+	item.addEventListener("mousedown", (e) => {
+		e.preventDefault();
+		if(e.clientX > item.clientWidth + coords.left - 3) document.addEventListener("mousemove", toMove);;
+
+		function toMove(e) {
+			let newWidth = Math.min(document.documentElement.clientWidth - coords.left, e.clientX - coords.left);
+			if(newWidth < parseInt(getComputedStyle(item).minWidth)) newWidth = parseInt(getComputedStyle(item).minWidth);
+			item.style.width = newWidth + "px";
+			item.style.cursor = "col-resize";
+		}
+		function endMove(e) {
+			document.removeEventListener("mousemove", toMove);
+			document.removeEventListener("mouseup", endMove);
+		}
+		
+		document.addEventListener("mouseup", endMove);
+	});
+}
+resizeContainer();
+
 // Часы
 let getTime = () => {
 	let date = new Date();
@@ -611,6 +706,42 @@ function dragNdrop() {
 dragNdrop();
 
 
+// аккордеон
+function setAccordeon() {
+	let accordeon = document.querySelector(".accordeon"),
+	 	clickItem = accordeon.querySelectorAll(".accordeon__click");
+
+	function hideContent(e) {
+		if(e.target.closest(".accordeon")) return;
+		for(let item of clickItem) {
+			item.classList.remove("active");
+			item.parentElement.style.maxHeight = 50 + "px";	
+		}
+		accordeon.classList.remove("active");
+		document.removeEventListener("click", hideContent);
+	}
+	
+	function clickHandler(e) {
+		let target = e.target.closest(".accordeon__click");
+		if(!target) return;
+		e.currentTarget.classList.add("active");
+		target.classList.toggle("active");
+
+		clickItem.forEach((item) => {
+			function setHeight(height) {
+				/* item.classList.remove("active");*/ //что бы закрывались все вкладки
+				item.parentElement.style.maxHeight = height + "px";	
+			}
+			if(item.classList.contains("active")) setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
+			else setHeight(50);
+			if(e.currentTarget.classList.contains("active")) document.addEventListener("click", hideContent);
+		});
+	}
+	accordeon.addEventListener("click", clickHandler);
+}
+setAccordeon();
+
+
 /* let arr = [];
 for(let i = 0; i < clickBox.length; i++) {
 	arr.push(clickBox[i].clientWidth + 200);
@@ -1016,22 +1147,139 @@ function finishTdEdit(td, isOk) {
 } */
 
 
+let inps = document.forms[1].elements;
+let tests = document.querySelectorAll(".test-div");
+
+let divv = document.querySelector(".my-div"),
+	b = divv.getElementsByTagName("b")[0];
+
+
+let range = new Range();
+
+range.setStart(divv, 0);
+range.setEnd(b, 1);
 
 
 
+/* document.addEventListener("dblclick", () => {
+	document.getSelection().removeAllRanges();
+	document.getSelection().addRange(range);
+	
+}); */
 
-let element = document.querySelector(".any-section__button");
+let inp = document.forms[1].elements[0];
 
-function viewPlace(elem) {
-	let coords = elem.getBoundingClientRect();
-	if(document.documentElement.clientHeight > coords.top) console.log();
+let selected = document.getSelection();
+let x;
+
+/* document.onkeydown = () => {
+	x = selected.getRangeAt(0).cloneContents();
+	inp.value += x.firstChild.data;
+} */
+
+	/* document.onkeydown = () => {
+	selected.setBaseAndExtent(divv, 0, divv, 1);
+} */
+
+/* setTimeout( () => console.log('timeout'), 0);
+
+Promise.resolve('promise').then(console.log);
+
+console.time('loop');
+for (let i = 1; i < 1000000000; i++) {}
+console.timeEnd('loop'); */
+
+/* let i = 0;
+let start = Date.now();
+function countt() {
+  // делаем тяжёлую работу
+  for (let j = 0; j < 1e9; j++) {
+    i++;
+  }
+  console.log("Done in " + (Date.now() - start) + 'ms');
 }
-viewPlace(element);
+countt(); */
 
 
+/* function setPopup() {
+	let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
+    let param = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
+    let myWinwod;
+    function setPopup() {
+            let link = myWinwod.document.createElement("link");
+            link.href = "css/style.min.css";
+            link.rel = "stylesheet";
+            myWinwod.document.head.append(link);
 
-console.log();
-console.log();
+            let div = myWinwod.document.createElement("div");
+            div.innerHTML = "popups DIV";
+            div.className = "popup";
+            myWinwod.document.body.append(div);
+			myWinwod.addEventListener("message", (e) => {
+				console.log(myWinwod.document);
+				console.log("+")
+			});
+    }
+    launchItem.addEventListener("click", () => {
+        myWinwod = open("popup.html", "wind", param);
+		let message = myWinwod.postMessage("message", "*");
+		
+        myWinwod.focus();
+		let doc = myWinwod.document
+		console.log(myWinwod.document);
+        myWinwod.addEventListener("DOMContentLoaded", setPopup);
+    });
+}
+setPopup(); */
+
+/* 
+class myClass {
+	constructor({elem, width, padding, func}) {
+		this.elem = elem;
+		this.width = width;
+		this.padding = padding;
+		this.func = func;
+
+		this.elem.style.width = this.width + "px";
+		this.elem.style.padding = this.padding + "px";
+
+		elem.addEventListener("click", (e) => {
+			this.toConsole();
+		});
+	}
+	toConsole() {
+		this.func(this.elem);
+	}
+}
+	
+let func = (arg) => console.log(arg)
+let z = new myClass({
+	elem: item, 
+	width: 120, 
+	padding: 20,
+	func: func,
+}); */
+
+
+/* let url = "https://api.github.com/users/iliakan";
+async function toGetResponse(url) {
+	let response = await fetch(url);
+	let json = await response.json();
+	let avatar = document.createElement("img");
+	setTimeout(() => avatar.src = json.avatar_url, 2000)
+	document.body.append(avatar);
+
+	avatar.addEventListener("load", () => alert("loaded!"));
+}
+toGetResponse(url).then(() => console.log("done!")); */
+
+
+let item = document.querySelector("body > div.item");
+let select = document.querySelector("select");
+
+select.options[1].selected = true;
+
+console.log(select.options.selectedIndex);
 console.log();
 console.log();
 console.log();

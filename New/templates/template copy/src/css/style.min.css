@@ -2,8 +2,8 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	-webkit-user-select: none;
-	user-select: none;
+	/* -webkit-user-select: none;
+	user-select: none; */
 }
 
 p {
@@ -156,6 +156,7 @@ p {
 	background-color: mediumorchid;
 	cursor: pointer;
 	border: none;
+	transition: all 0.2s;
 }
 
 .any-section__button span {
@@ -650,6 +651,160 @@ li.testClass {
 .form-section__select option {
 	color: lightseagreen;
 }
+
+.my-form {
+	display: flex;
+	justify-self: left;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	min-height: 202px;
+	padding: 20px;
+	background-color: darkgrey;
+}
+
+.field {
+	display: inline-block;
+	padding: 10px;
+	max-width: 106px;
+}
+
+/* .acoordeon-section {
+	padding: 60px 0;
+}
+
+.acoordeon-section__accordeon {
+	display: flex;
+	flex-direction: column;
+	max-width: 402px;
+	padding: 12px;
+	background-color: lightgray;
+}
+
+.accordeon__item {
+	margin: 5px 0;
+	border: 1px solid black;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.accordeon__inner {
+	margin-top: 15px;
+	max-height: 33px;
+	padding: 0 17px;
+	padding-bottom: 12px;
+	overflow: hidden;
+	transition: all, 0.6s;
+}
+
+span {
+	padding: 7px;
+	font-size: 24px;
+}
+
+.accordeon__content-item {
+	margin-top: 15px;
+	font-size: 21px;
+} */
+
+.accordeon-section {
+	padding: 54px 0;
+}
+
+.accordeon {
+	max-width: 420px;
+	background-color: lightgray;
+}
+
+.accordeon__item {
+	max-height: 50px;
+	overflow: hidden;
+	transition: all, 0.6s;
+}
+
+.accordeon__click {
+	display: flex;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid blue;
+	cursor: pointer;
+}
+
+.accordeon__content {
+	padding: 10px;
+}
+
+.form-section {
+	padding-top: 43px;;
+}
+
+.feedform {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 322px;
+	padding: 40px;
+	border-radius: 10px;
+	background-color: lightgray;
+}
+
+.feedform__input {
+	margin-top: 21px;
+	padding: 6px 7px;
+	border: 1px solid grey;
+	outline: none;
+}
+
+.item {
+	width: 151px;
+	height: 130px;
+	min-width: 121px;
+	margin-left: 41px;
+	font-size: 32px;
+	border: 1px solid black;
+	border-radius: 21px;
+	text-align: center;
+}
+
+.popup {
+	color: green;
+}
+
+.dialog-section {
+	padding: 40px 0;
+}
+
+dialog {
+	padding: 0;
+}
+
+.dialog {
+	max-width: 452px;
+	border: none;
+	border-radius: 10px;
+	outline: none;
+	font-size: 23px;
+}
+
+.dialog::backdrop {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog__inner-content {
+	padding: 30px;
+}
+
+.any-item1, .any-item2 {
+	display: flex;
+	justify-self: left;
+	margin-bottom: 10px;
+	padding: 20px;
+	font-size: 23px;
+	background-color: gray;
+}
+	
+
+
 
 
 

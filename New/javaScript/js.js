@@ -902,4 +902,171 @@ let f = () => {
 f();
 
 
+// Обект-наблюдатель зс изменнениями 
+let observer = new MutationObserver((changes) => console.log(changes));
+observer.observe(divv, {
+	childList: true, 
+	subtree: true, 
+	characterDataOldValue: true ,
+});
+
+
+
+
+//Получить выделение:
+let selection = document.getSelection();
+let cloned  /* элемент, в который мы хотим скопировать выделенные узлы */;
+// затем применяем методы Range к selection.getRangeAt(0)
+// или, как здесь, ко всем диапазонам, чтобы поддерживать множественное выделение
+for (let i = 0; i < selection.rangeCount; i++) {
+  cloned.append(selection.getRangeAt(i).cloneContents());
+}
+//пример
+/* document.onkeydown = () => {
+	x = selected.getRangeAt(0).cloneContents();
+	inp.value += x.firstChild.data;
+} */
+
+
+//Установить выделение:
+let selectionn = document.getSelection();
+// напрямую:
+// selectionn.setBaseAndExtent(...from...to...);
+// или можно создать диапазон range и:
+selectionn.removeAllRanges();
+selectionn.addRange(range);
+//пример
+/* document.onkeydown = () => {
+	selected.setBaseAndExtent(divv, 0, divv, 1);
+} */
+
+
+    
+//попап
+function setPopup() {
+    let param = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
+    let myWinwod;
+    function setPopup() {
+            let link = myWinwod.document.createElement("link");
+            link.href = "css/style.min.css";
+            link.rel = "stylesheet";
+            myWinwod.document.head.append(link);
+
+            let div = myWinwod.document.createElement("div");
+            div.innerHTML = "popups DIV";
+            div.className = "popup";
+            myWinwod.document.body.append(div);
+    }
+    document.addEventListener("click", () => {
+        myWinwod = open("popup.html", "window", param);
+        myWinwod.focus();
+        myWinwod.addEventListener("DOMContentLoaded", setPopup);
+    });
+}
+setPopup();
+
+
+
+//модалка с dialog
+function setModal() {
+	let dialog = document.querySelector("body > section.dialog-section > dialog");
+	let openItem = document.querySelector("body > section.accordeon-section > div > div:nth-child(4)");
+	openItem.addEventListener("click", (e) => {		
+		if(dialog.open) return;
+		dialog.showModal();	
+
+		function toClose(e) {
+			if(e.target.closest(".dialog__inner-content")) return;
+			dialog.close();
+			dialog.removeEventListener("click", toClose);
+		}
+		dialog.addEventListener("click", toClose);
+	});
+}
+setModal();
+
+//модалка с dialog. Закоментирован вариант с переменной(true/false).
+//Он тут не нужен, т.к. есть св-во dialog.open и методы showModal()
+let dialog = document.querySelector("body > section.dialog-section > dialog");
+// let isOpened = false;
+document.addEventListener("click", (e) => {
+	if(e.target.closest(".dialog__inner-content")) return;
+	if(!dialog.open) {
+		dialog.showModal();
+		// isOpened = true;
+	} else {
+		dialog.close();
+		// isOpened = false;
+	}
+});
+
+
+
+//Окрытие нового окна popup.html, заранее созданного в корне и динамически изменённого;
+//При попытке повторного открытия окна, фокусируется на уже открытом окне.
+let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
+let win;
+let isOpen = false;
+launchItem.addEventListener("click", ()	=> { 
+	if(isOpen) {
+		if(win) win.focus();
+		console.log("Window is already opened!");
+		return;
+	} 
+	isOpen = true;
+	let params = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
+	win = open("popup.html", "window", params);
+	win.focus();
+	win.postMessage("test", "*");
+	function setPopup() { 
+		let link = win.document.createElement("link");
+		link.href = "css/style.min.css";
+		link.rel = "stylesheet";
+		win.document.head.append(link);
+
+		let div = win.document.createElement("div");
+		div.innerHTML = "popups DIV";
+		div.className = "popup";
+		win.document.body.append(div);
+		win.addEventListener("beforeunload", () => isOpen = false);
+    }
+	function onLoad() {
+		setPopup();
+		win.removeEventListener("load", onLoad);
+	}
+	win.addEventListener("load", onLoad);
+	win.addEventListener("message", (e) => win.console.log(e.data));
+});
+
+
+
+
+//содание типизированного бинарного массива.
+let buffer = new ArrayBuffer(16);
+let view = new Uint8Array(buffer);
+//Можно сразу. Тогда buffer создаётся сам
+let view1 = new Uint8Array(16);
+// console.log(view1.buffer);
+
+//кодирование/раскодирование строк 
+let binarView = new Uint8Array([72, 101, 108, 108, 111]);
+let decodeObj = new TextDecoder();
+let decoded = decodeObj.decode(binarView);
+
+let str = "Hellow world!!!";
+let encoderObj = new TextEncoder();
+let encoded = encoderObj.encode(str);
+
+//Blob
+// let blob = new Blob(["<html></html>"], {type: "text/html"}); пример блоба
+//делаем Blob для url ссылки
+let link = document.querySelector(".any-link");
+/* let strr = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, delectus!";
+let encodedd = new TextEncoder().encode("Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, delectus!");
+let blobForLink = new Blob([encodedd], {type: "text/plain"}); */
+// blobForLink = new Blob(["Lorem ipsum"], {type: "text/plain"});
+
+let blobForLink = new Blob(["./../img/icon_card-heart.svg"], {type: "image/png"});
+link.download = URL.createObjectURL(blobForLink);
+// link.click();
 

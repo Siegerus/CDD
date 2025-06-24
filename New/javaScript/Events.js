@@ -951,6 +951,55 @@ class HoverIntent {
 }
 
 
+//пдсказка tooltip через класс + класс с delay, наследующий оснвной класс
+class MyMenu {
+	constructor(elem) {
+		this.elem = elem;
+		this.coords = this.elem.getBoundingClientRect();
+		this.onElement = false;
+		this.tooltip;
+		elem.addEventListener("mouseenter", this.onMouseEnter.bind(this));
+		elem.addEventListener("mouseleave", this.onMouseLeave.bind(this));
+	}
+	onMouseEnter() {
+		if(this.onElement) return;
+		this.onElement = true;
+		setTimeout(this.createElement.bind(this), 1000);
+	}
+	onMouseLeave() {
+		if(!this.onElement) return;
+		this.onElement = false;
+		if(this.tooltip) this.tooltip.remove();
+		this.tooltip = null;
+	}
+	createElement() {
+		if(!this.onElement) return
+		this.tooltip = document.createElement("div");
+		document.body.append(this.tooltip);
+		this.tooltip.style.position = "absolute";
+		this.tooltip.style.padding = 15 + "px";
+		this.tooltip.style.backgroundColor = "coral";
+		this.tooltip.style.transition = "all 0.6s";
+		this.tooltip.innerHTML = "tooltip";
+		this.tooltip.style.top = this.coords.top + window.scrollY + "px";
+		this.tooltip.style.left = this.coords.left + this.elem.offsetWidth + 15 + "px";
+	}
+}
+new MyMenu(document.querySelector(".any-item1"));
+class NewMyMenu extends MyMenu {
+	constructor(elem, delay) {
+		super(elem);
+		this.delay = delay;
+	}
+	onMouseEnter() {
+		if(this.onElement) return;
+		this.onElement = true;
+		setTimeout(super.createElement.bind(this), this.delay);
+	}
+}
+new NewMyMenu(document.querySelector("body > div.any-item2"), 500);
+
+
 
 //всплывающая подсказка
 let message = document.createElement("div");
@@ -1572,6 +1621,124 @@ function isVisible(elem) {
     }
     window.addEventListener('scroll', showVisible);
     showVisible();
+
+
+// задача с событиями на load/onerror
+let sources = [
+	"https://en.js.cx/images-load/1.jpg",
+	"https://en.js.cx/images-load/2.jpg",
+	"https://en.js.cx/images-load/3.jpg"
+];
+function preloadImages(sources, callback) {
+	let arr = [];
+	let count = 0;
+	function createElement(elem) {
+	for(let i = 0; i < sources.length; i++) {
+			let img = document.createElement(elem);
+			arr.push(img);
+		}
+	}
+	createElement("img");
+	arr.forEach((item, i) => {
+		item.src = sources[i];
+		item.onload = function() {
+			count += 1;
+			if(count == arr.length) callback();
+		}
+		item.onerror = function() {
+			count += 1;
+			if(count == arr.length) callback();
+		}
+	});
+	document.body.append(...arr);
+	// вариант из решения
+	let counter = 0;
+	function onLoad() {
+		counter++;
+		if (counter == sources.length) callback();
+	}
+	for(let source of sources) {
+		let img = document.createElement('img');
+		img.onload = img.onerror = onLoad;
+		img.src = source;
+	}
+	//Вариант на промисах из комментариев
+	function preloadImages(sources, callback) {
+			Promise.all(sources.map(source => {
+				return new Promise(resolve => {
+				const img = document.createElement('img');
+				img.src = source;
+				img.onload = img.onerror = resolve;
+			});
+		})).then(callback);
+	}
+}
+
+
+// аккордеон
+function setAccordeon() {
+	let accordeon = document.querySelector(".accordeon"),
+	 	clickItem = accordeon.querySelectorAll(".accordeon__click");
+
+	function hideContent(e) {
+		if(e.target.closest(".accordeon")) return;
+		for(let item of clickItem) {
+			item.classList.remove("active");
+			item.parentElement.style.maxHeight = 50 + "px";	
+		}
+		accordeon.classList.remove("active");
+		document.removeEventListener("click", hideContent);
+	}
+	
+	function clickHandler(e) {
+		let target = e.target.closest(".accordeon__click");
+		if(!target) return;
+		e.currentTarget.classList.add("active");
+		target.classList.toggle("active");
+
+		clickItem.forEach((item) => {
+			function setHeight(height) {
+				/* item.classList.remove("active");*/ //что бы закрывались все вкладки
+				item.parentElement.style.maxHeight = height + "px";	
+			}
+			if(item.classList.contains("active")) setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
+			else setHeight(50);
+			if(e.currentTarget.classList.contains("active")) document.addEventListener("click", hideContent);
+		});
+	}
+	accordeon.addEventListener("click", clickHandler);
+}
+setAccordeon();
+
+
+//Изменение размера контейнера при зажатой кнопке мыши
+function resizeContainer() {
+	let item = document.querySelector(".item");
+	let coords = item.getBoundingClientRect();
+
+	item.addEventListener("mousemove", (e) => {
+		if(e.clientX < item.clientWidth + coords.left - 3) item.style.cursor = "pointer";
+		else item.style.cursor = "col-resize";
+	});
+	item.addEventListener("mousedown", (e) => {
+		e.preventDefault();
+		if(e.clientX > item.clientWidth + coords.left - 3) document.addEventListener("mousemove", toMove);;
+
+		function toMove(e) {
+			let newWidth = Math.min(document.documentElement.clientWidth - coords.left, e.clientX - coords.left);
+			if(newWidth < item.offsetHeight) newWidth = item.offsetHeight;
+			item.style.width = newWidth + "px";
+			item.style.cursor = "col-resize";
+		}
+		function endMove(e) {
+			document.removeEventListener("mousemove", toMove);
+			document.removeEventListener("mouseup", endMove);
+		}
+		
+		document.addEventListener("mouseup", endMove);
+	});
+}
+resizeContainer();
 
 
 
