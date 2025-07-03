@@ -1167,10 +1167,6 @@ range.setEnd(b, 1);
 	
 }); */
 
-let inp = document.forms[1].elements[0];
-
-let selected = document.getSelection();
-let x;
 
 /* document.onkeydown = () => {
 	x = selected.getRangeAt(0).cloneContents();
@@ -1199,7 +1195,6 @@ function countt() {
   console.log("Done in " + (Date.now() - start) + 'ms');
 }
 countt(); */
-
 
 /* function setPopup() {
 	let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
@@ -1231,7 +1226,6 @@ countt(); */
     });
 }
 setPopup(); */
-
 /* 
 class myClass {
 	constructor({elem, width, padding, func}) {
@@ -1261,25 +1255,127 @@ let z = new myClass({
 }); */
 
 
-/* let url = "https://api.github.com/users/iliakan";
-async function toGetResponse(url) {
+/* let link = document.querySelector("body > section.mouse-event > div.mouse-event__wrapper > div:nth-child(1) > p:nth-child(3) > a");
+let blob = new Blob(["any text"],{type: "text, plain"});
+let file = new File(["../img/facebook.svg"], "file-name");
+let reader = new FileReader();
+// reader.readAsText(blob);
+reader.readAsText(file);
+// reader.readAsDataURL(blob);
+// reader.readAsArrayBuffer(blob);
+reader.onload = () => {
+	console.log(reader.result);
+} 
+reader.onerror = () => {
+	console.log(reader.result);
+}  */
+
+
+// Получаем данные с сервера в blob
+let response = fetch("https://jsonplaceholder.typicode.com/posts");
+response.then((response) => {
+	let headers = response.headers;
+	console.log(headers);
+});
+		
+
+/* async function f() {
+	let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
 	let response = await fetch(url);
-	let json = await response.json();
-	let avatar = document.createElement("img");
-	setTimeout(() => avatar.src = json.avatar_url, 2000)
-	document.body.append(avatar);
 
-	avatar.addEventListener("load", () => alert("loaded!"));
+	let commits = await response.json(); // читаем ответ в формате JSON
+
+	console.log(commits);
 }
-toGetResponse(url).then(() => console.log("done!")); */
+f(); */
+
+// задача с получением массива объектов пользователей гитхаб по массиву из логинов
+let clickItem = document.querySelector("body > div.any-item1");
+/* // моё решение.
+async function getUsers(users) {
+	let res = [];
+	let responses = await Promise.all(users.map((item) => {
+		return fetch(`https://api.github.com/users/${item}`);
+	})).then((responses) => {
+			responses.forEach(item => {
+			let json = item.json();
+			if(item.status !== 200) {
+				res.push(null)
+			} else {
+				res.push(json);
+			} 
+		});
+	})
+	.catch((responses) => {return null});
+	let results = await Promise.all(res);
+	console.log(results);
+	return results;
+} */
+/* // решение из учебника
+async function getUsers(names) {
+  let jobs = [];
+  for(let name of names) {
+    let job = fetch(`https://api.github.com/users/${name}`).then(
+      successResponse => {
+        if (successResponse.status != 200) {
+          return null;
+        } else {
+          return successResponse.json();
+        }
+      },
+      failResponse => {
+        return null;
+      }
+    );
+    jobs.push(job);
+  }
+  let results = await Promise.all(jobs);
+  console.log(jobs);
+  return results;
+} */
 
 
-let item = document.querySelector("body > div.item");
-let select = document.querySelector("select");
+/* async function getUsers(users) {
+	let arr = [];
+	for(let user of users) {
+		let urls = await fetch(`https://api.github.com/users/${user}`)
+		.then((responses) => {
+			if(responses.status !== 200) return null;
+			else return responses.json();
+		})
+		.catch(responses => {return null});
+		arr.push(urls);
+	}
+	
+	let results = await Promise.all(arr);
+	console.log(results);
+	return results;
+} */
 
-select.options[1].selected = true;
+async function getUsers(users) {
+	let arr = [];
+	let urls = await users.map(item => {
+		return fetch(`https://api.github.com/users/${item}`)
+		.then((responses) => {
+			if(responses.status !== 200) arr.push(null);
+			else arr.push(responses.json());
+		})
+		.catch((responses) => {return null});
+	});
+	let results = await Promise.all(arr).then((results) => console.log(results));
+}
 
-console.log(select.options.selectedIndex);
+
+
+clickItem.addEventListener("click", () => getUsers(["mojombo", "defunkt", "qwqqqwwq"]));
+
+
+
+
+
+
+ 
+
 console.log();
 console.log();
 console.log();

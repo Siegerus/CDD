@@ -107,7 +107,6 @@ f('https://api.github.com/users/iliakan');
 f('https://api.github.com/users/si');
 
 
-
 //
 let toCachedFn = () => {
 	let cache = new Map();
@@ -132,3 +131,120 @@ fd('https://api.github.com/users/remy');
 fd('https://api.github.com/users/iliakan');
 fd('https://api.github.com/users/jeresig');
 
+
+
+// Получаем данные с сервера в json
+let response = fetch("https://jsonplaceholder.typicode.com/posts");
+let resObj;
+response.then((response) => {return response.json()})
+		.then((json) => {
+			resObj = json.map((item, i) => {
+				return {
+					["Number " + (i + 1)]: item.title,
+				}
+			});
+	console.log(resObj);
+});
+
+
+// Получаем данные с сервера в blob
+let responsee = fetch("https://jsonplaceholder.typicode.com/posts");
+response.then((response) => {return responsee.blob()})
+		.then((blob) => {	
+			let a = document.createElement("a");
+			a.href = URL.createObjectURL(blob);
+			a.download = "fileName.txt";
+			a.click();
+		});
+
+
+// отправка объекта на сервер
+let submitButton = document.querySelector("body > button");
+let obj = {
+	user : "Alex",
+	age: 28,
+}
+submitButton.addEventListener("click", () => { 
+	async function toSend(obj) {
+		let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+			method: "POST",
+			headers: {
+				"Content-Type" : "application/json;charset=utf-8",
+			},
+			body: JSON.stringify(obj),
+		});
+		let result = await response.json();
+		console.log(result);
+	}
+	toSend(obj);
+});
+
+
+//Отправка изображения на сервер через blob
+let canvasImg = document.querySelector("body > img");
+let canvas = document.getElementById("canvas");
+let clickItem = document.querySelector("body > div.any-item1");
+async function toFetch() {
+	function crateCanvas() {
+		let context = canvas.getContext("2d");
+    	context.drawImage(canvasImg, 100, 100);
+	}
+	crateCanvas();
+	let blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+	let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+		method: "POST",
+		body: blob,
+	});
+	let result = await response.json();
+	console.log(result);
+}
+clickItem.addEventListener("click", toFetch)
+
+
+
+// задача с получением массива объектов пользователей гитхаб по массиву из логинов
+let clickItemm = document.querySelector("body > div.any-item1");
+// моё решение.
+async function getUsers(users) {
+	let res = [];
+	let responses = await Promise.all(users.map((item) => {
+		return fetch(`https://api.github.com/users/${item}`);
+	})).then((responses) => {
+			responses.forEach(item => {
+			let json = item.json();
+			if(item.status !== 200) {
+				res.push(null)
+			} else {
+				res.push(json);
+			} 
+		});
+		
+	})
+	.catch((responses) => {return null});
+	let results = await Promise.all(res);
+	console.log(results);
+	return results;
+}
+/* // решение из учебника
+async function getUsers(names) {
+  let jobs = [];
+  for(let name of names) {
+    let job = fetch(`https://api.github.com/users/${name}`).then(
+      successResponse => {
+        if (successResponse.status != 200) {
+          return null;
+        } else {
+          return successResponse.json();
+        }
+      },
+      failResponse => {
+        return null;
+      }
+    );
+    jobs.push(job);
+  }
+  let results = await Promise.all(jobs);
+  console.log(jobs);
+  return results;
+} */
+clickItemm.addEventListener("click", () => getUsers(["mojombo", "defunkt", "qwqqqwwq"]));

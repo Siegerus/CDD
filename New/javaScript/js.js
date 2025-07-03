@@ -943,7 +943,7 @@ selectionn.addRange(range);
 
     
 //попап
-function setPopup() {
+function Popup() {
     let param = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
     let myWinwod;
     function setPopup() {
@@ -963,7 +963,7 @@ function setPopup() {
         myWinwod.addEventListener("DOMContentLoaded", setPopup);
     });
 }
-setPopup();
+Popup();
 
 
 
@@ -1069,4 +1069,73 @@ let blobForLink = new Blob([encodedd], {type: "text/plain"}); */
 let blobForLink = new Blob(["./../img/icon_card-heart.svg"], {type: "image/png"});
 link.download = URL.createObjectURL(blobForLink);
 // link.click();
+
+
+
+//canvas
+let canvasImg = document.querySelector(".canvas__img");
+let canvas = document.getElementById("canvas");
+
+canvas.addEventListener("click", () => {
+    let context = canvas.getContext("2d");
+    context.drawImage(canvasImg, 100, 100);
+    canvas.toBlob((blob) => {
+        let link = document.createElement("a");
+        link.download = "img.png";
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }, "image/png");
+});
+
+// canvas пример через асинхронные функции + промис
+async function f() {
+	let blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png")
+).then((arg) => {
+		let context = canvas.getContext("2d");
+		context.drawImage(canvasImg, 100, 100);
+	 	let link = document.createElement("a");
+        link.download = "img.png";
+        link.href = URL.createObjectURL(arg);
+        link.click();
+        URL.revokeObjectURL(link.href);
+	});
+}
+canvas.addEventListener("click", f);
+// canvas пример через асинхронные функции
+async function f() {
+	let blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+	let createLink = await function(blob) {
+		let context = canvas.getContext("2d");
+		context.drawImage(canvasImg, 100, 100);
+	 	let link = document.createElement("a");
+        link.download = "img.png";
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+	}
+	createLink(blob);
+}
+canvas.addEventListener("click", f);
+
+
+
+//File, FileReader()
+let blob = new Blob(["any text"],{type: "text, plain"});
+let file = new File(["../img/facebook.svg"], "file-name");
+let reader = new FileReader();
+
+// reader.readAsText(blob);
+reader.readAsText(file);
+// reader.readAsDataURL(blob);
+// reader.readAsArrayBuffer(blob);
+reader.onload = () => {
+	console.log(reader.result);
+} 
+reader.onerror = () => {
+	console.log(reader.result);
+} 
+
+
+
 
