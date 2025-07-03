@@ -1354,15 +1354,19 @@ async function getUsers(names) {
 
 async function getUsers(users) {
 	let arr = [];
-	let urls = await users.map(item => {
-		return fetch(`https://api.github.com/users/${item}`)
-		.then((responses) => {
-			if(responses.status !== 200) arr.push(null);
-			else arr.push(responses.json());
+	let urls = await Promise.all(
+		users.map(item => {
+			return fetch(`https://api.github.com/users/${item}`)
+			.then((responses) => {
+				if(responses.status !== 200) arr.push(null);
+				else arr.push(responses.json());
+			})
+			.catch((responses) => {return null});
 		})
-		.catch((responses) => {return null});
-	});
-	let results = await Promise.all(arr).then((results) => console.log(results));
+	) 
+	let results = await Promise.all(arr);
+	console.log(results);
+	return results;
 }
 
 
