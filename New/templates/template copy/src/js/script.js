@@ -1289,89 +1289,28 @@ response.then((response) => {
 }
 f(); */
 
-// задача с получением массива объектов пользователей гитхаб по массиву из логинов
-let clickItem = document.querySelector("body > div.any-item1");
-/* // моё решение.
-async function getUsers(users) {
-	let res = [];
-	let responses = await Promise.all(users.map((item) => {
-		return fetch(`https://api.github.com/users/${item}`);
-	})).then((responses) => {
-			responses.forEach(item => {
-			let json = item.json();
-			if(item.status !== 200) {
-				res.push(null)
-			} else {
-				res.push(json);
-			} 
-		});
-	})
-	.catch((responses) => {return null});
-	let results = await Promise.all(res);
-	console.log(results);
-	return results;
-} */
-/* // решение из учебника
-async function getUsers(names) {
-  let jobs = [];
-  for(let name of names) {
-    let job = fetch(`https://api.github.com/users/${name}`).then(
-      successResponse => {
-        if (successResponse.status != 200) {
-          return null;
-        } else {
-          return successResponse.json();
-        }
-      },
-      failResponse => {
-        return null;
-      }
-    );
-    jobs.push(job);
-  }
-  let results = await Promise.all(jobs);
-  console.log(jobs);
-  return results;
-} */
-
-
-/* async function getUsers(users) {
-	let arr = [];
-	for(let user of users) {
-		let urls = await fetch(`https://api.github.com/users/${user}`)
-		.then((responses) => {
-			if(responses.status !== 200) return null;
-			else return responses.json();
-		})
-		.catch(responses => {return null});
-		arr.push(urls);
-	}
-	
-	let results = await Promise.all(arr);
-	console.log(results);
-	return results;
-} */
-
-async function getUsers(users) {
-	let arr = [];
-	let urls = await Promise.all(
-		users.map(item => {
-			return fetch(`https://api.github.com/users/${item}`)
-			.then((responses) => {
-				if(responses.status !== 200) arr.push(null);
-				else arr.push(responses.json());
+async function getUsersFromGh() {
+	let clickItem = document.querySelector("body > div.any-item1");
+	async function getUsers(users) {
+		let arr = [];
+		let urls = await Promise.all(
+			users.map(item => {
+				return fetch(`https://api.github.com/users/${item}`)
+				.then((responses) => {
+					if(responses.status !== 200) arr.push(null);
+					else arr.push(responses.json());
+				})
+				.catch((responses) => {return null});
 			})
-			.catch((responses) => {return null});
-		})
-	) 
-	let results = await Promise.all(arr);
-	console.log(results);
-	return results;
-}
-
-
-
+		) 
+		let results = await Promise.all(arr);
+		console.log(results);
+		return results;
+	}
 clickItem.addEventListener("click", () => getUsers(["mojombo", "defunkt", "qwqqqwwq"]));
+}
+getUsersFromGh();
+
 
 
 
