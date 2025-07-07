@@ -1441,6 +1441,7 @@ function toDropItem() {
 	ball.style.display = "flex";
 	ball.style.alignItems = "center";
 	ball.style.justifyContent = "center";
+	ball.style.position = "absolute";
 	ball.style.width = 133+ "px";
 	ball.style.height = 133 +"px";
 	ball.style.textAlign = "center";
@@ -1448,43 +1449,46 @@ function toDropItem() {
 	ball.style.backgroundColor = "darkgray"
 	ball.style.color = "darkgreen";
 
+	let currentTop = getComputedStyle(ball).top;
+	console.log(currentTop)
+
 
 	ball.addEventListener("mousedown",(e) => {
 		let target = e.target.closest(".any-section__frop-ball");
 		if(!target) return;
 
-		function getShift(elem, e) {
-			let coords = elem.getBoundingClientRect();
-			let shifts = {
-				shiftX : e.clientX - coords.top,
-				shiftY : e.clientY,
-			}
-			console.log(shifts.shiftX);
-			return shifts;
+		let coords = ball.getBoundingClientRect();
+
+		let shiftX = e.clientX - coords.left;
+		let shiftY = e.clientY - coords.top;
+
+		function toMove(e) {
+			ball.style.position = "fixed";
+			let newY = e.clientY - shiftY;
+			let newX = e.clientX - shiftX;
+			if(newX > document.documentElement.clientWidth - ball.offsetWidth) newX = document.documentElement.clientWidth - ball.offsetWidth;
+			if(newX < 0) newX = 0;
+			if(newY > document.documentElement.clientHeight - ball.offsetHeight) newY = document.documentElement.clientHeight - ball.offsetHeight;
+			if(newY < 0) newY = 0;
+			ball.style.top = newY + "px";
+			ball.style.left = newX + "px";
+			
+			ball.addEventListener("mouseup", toStop)
 		}
-		// getShift(ball, e);
+		toMove(e);	
 
-
-		function toMove() {
-			console.log("to move!")
+		function toStop(e) {
 			ball.style.position = "absolute";
-			ball.style.top = getShift(ball, e).shiftY + scrollY + "px";
-			ball.style.left = getShift(ball, e).shiftX + "px";
-			console.log(getShift(ball, e))
-			document.addEventListener("mouseup", toStop)
-		}
-
-		function toStop() {
-			console.log("to stop!")
+			ball.style.top = e.pageY - shiftY + "px";
 			document.removeEventListener("mousemove", toMove);
 		}
-
 		document.addEventListener("mousemove", toMove);
 	});
 
-	
-
-	
+	ball.addEventListener("dragstart", (e) => {
+		/* if(!e.target.closest(".any-section__frop-ball")) return; */
+		e.stopPreventDefault();
+	});
 }
 
 toDropItem();
@@ -1492,6 +1496,30 @@ toDropItem();
 
 
 
+
+
+
+/* let text = "any text"
+
+function toTestPromisetext() {
+	console.log("not in promise")
+	return new Promise((resolve, reject) => {
+		resolve(text);
+	}).then((text) => console.log(text))
+	.then(() => console.log("1 in promise"))
+	.then(() => console.log("2 in promise"));
+}
+toTestPromisetext()
+console.log("outer") */
+
+/* async function toTestAsync() {
+	let a = await console.log("await1");
+	let b = await console.log("await2");
+	console.log("not await");
+	let c = await console.log("await3");
+	console.log("not await");
+}
+toTestAsync(); */
 
 console.log();
 console.log();
