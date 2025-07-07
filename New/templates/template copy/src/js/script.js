@@ -1491,30 +1491,63 @@ toDropItem();
 
 
 
+/* ['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`] */
 
 
-/* let text = "any text"
 
-function toTestPromisetext() {
-	console.log("not in promise")
-	return new Promise((resolve, reject) => {
-		resolve(text);
-	}).then((text) => console.log(text))
-	.then(() => console.log("1 in promise"))
-	.then(() => console.log("2 in promise"));
+let urls = ['https://api.github.com/users/remy', `https://api.github.com/users/iliakan`, `https://api.github.com/users/si`];
+function loadData(url) {
+	function createCards() {
+		for(let i = 0; i < 3; i++) {
+			let cards = document.createElement("div");
+			cards.className = "any-cards";
+			cards.style.display = "flex";
+			cards.style.flexDirection = "column";
+			cards.style.maxWidth = 300 + "px";
+			cards.style.margin = "0 auto";
+			cards.style.marginBottom = 32 + "px";
+			document.body.append(cards);
+		}
+	}
+	createCards(); 
+	function createElements(nodeName, className) {
+		for(let i = 0; i < 3; i++) {
+			let elem = document.createElement(nodeName);
+			elem.classList.add(className);
+			document.body.append(elem)
+			document.querySelectorAll(".any-cards")[i].append(document.querySelectorAll("." + className)[i]);
+		} 
+	}
+	createElements("img", "any-img");
+	createElements("div", "any-divs");
+	
+	function toRequest(url) {
+			let requests = Promise.all(url.map(item => {
+				return fetch(item);
+			})).then((responses) => {
+				let jsons = Promise.all(responses.map(item => item.json()))
+				console.log(jsons)
+				return jsons
+			})
+				.then((jsons) => {
+					jsons.forEach((item, i) => {
+						let imgs = document.querySelectorAll(".any-img");
+						let divs = document.querySelectorAll(".any-divs");
+						imgs[i].src = item.avatar_url;
+						divs[i].textContent = item.location;
+					});
+				})
+	}
+	setTimeout(() => toRequest(urls), 2000);  
 }
-toTestPromisetext()
-console.log("outer") */
 
-/* async function toTestAsync() {
-	let a = await console.log("await1");
-	let b = await console.log("await2");
-	console.log("not await");
-	let c = await console.log("await3");
-	console.log("not await");
-}
-toTestAsync(); */
 
+
+
+
+document.addEventListener("scroll", () => {
+	if(document.documentElement.getBoundingClientRect().bottom < document.documentElement.clientHeight + 10) loadData(urls);
+});
 console.log();
 console.log();
 console.log();
