@@ -1449,10 +1449,7 @@ function toDropItem() {
 	ball.style.backgroundColor = "darkgray"
 	ball.style.color = "darkgreen";
 
-	let currentTop = getComputedStyle(ball).top;
-	console.log(currentTop)
-
-
+	
 	ball.addEventListener("mousedown",(e) => {
 		let target = e.target.closest(".any-section__frop-ball");
 		if(!target) return;
@@ -1485,10 +1482,7 @@ function toDropItem() {
 		document.addEventListener("mousemove", toMove);
 	});
 
-	ball.addEventListener("dragstart", (e) => {
-		/* if(!e.target.closest(".any-section__frop-ball")) return; */
-		e.stopPreventDefault();
-	});
+	
 }
 
 toDropItem();
