@@ -1316,8 +1316,182 @@ getUsersFromGh();
 
 
 
+async function toSubmit(form, e) {
+		if (!e.target.closest(".feed-form")) return;
+		e.preventDefault();
+		let formData = new FormData(form);
+	try {
+		let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+			method: "POST",
+			body : formData,
+		});
+		let json = await response.json();
+		return json;
+	}
+	catch(e) {
+		throw new Error(e.message);
+	}
+		
+		/* let result = await console.log(json); */
+	
+}
+function onSubmit(e) {
+	toSubmit(form, e).then((result) => console.log(result));
+}
+form.addEventListener("submit", onSubmit);
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* function loadData() {
+	let cache = new Map();
+	function wrapper(...url) {
+		let arr = Promise.all(url.map(item => {
+			return fetch(item);
+		}))
+		.then((responses) => {
+			let jsons = Promise.all(responses.map(item => item.json())) 
+			return jsons;
+		})
+		.then((jsons) => {
+			for(let json of jsons) {
+				if(cache.has(json.url)) {
+					console.log("get!");
+					return cache.get(json.url);
+				} else {
+					console.log("set!")
+					return cache.set(json.url);
+				}
+			}
+		})
+		.catch((e) => {
+			throw new Error(e.message)
+		});
+	}
+	return wrapper
+}
+let f = loadData();
+f(['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`]);
+f(['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`]); */
+
+
+function getData() {
+	let cache = new Map();
+	let arr = [];
+	function wrapper(...url) {
+		let promises = Promise.all(url.map(item => fetch(item)
+			.then((responses) => {
+				arr.push(responses.json())
+			})
+			.then((jsons) => {
+				/* console.log(jsons) */
+				/* for(let json of jsons) {
+					if(cache.has(json.url)) {
+						console.log("get!");
+						return cache.get(json.url);
+					} else {
+						console.log("set!")
+						return cache.set(json.url);
+					}
+				} */
+			})
+		)).then(() => {
+			let res = Promise.all(arr.map(item => item)) ;
+			return res
+		})
+		.then((res) => console.log(res))
+	}
+	return wrapper;
+}
+
+/* let foo = getData();
+foo(['https://jsonplaceholder.typicode.com/posts'], [`https://jsonplaceholder.typicode.com/posts`], [`https://jsonplaceholder.typicode.com/posts`]); */
+
+
+
+
+
+
+function toDropItem() {
+	let ball = document.querySelector(".any-section__frop-ball");
+	ball.style.display = "flex";
+	ball.style.alignItems = "center";
+	ball.style.justifyContent = "center";
+	ball.style.width = 133+ "px";
+	ball.style.height = 133 +"px";
+	ball.style.textAlign = "center";
+	ball.style.borderRadius = 100 + "%";
+	ball.style.backgroundColor = "darkgray"
+	ball.style.color = "darkgreen";
+
+
+	ball.addEventListener("mousedown",(e) => {
+		let target = e.target.closest(".any-section__frop-ball");
+		if(!target) return;
+
+		function getShift(elem, e) {
+			let coords = elem.getBoundingClientRect();
+			let shifts = {
+				shiftX : e.clientX - coords.top,
+				shiftY : e.clientY,
+			}
+			console.log(shifts.shiftX);
+			return shifts;
+		}
+		// getShift(ball, e);
+
+
+		function toMove() {
+			console.log("to move!")
+			ball.style.position = "absolute";
+			ball.style.top = getShift(ball, e).shiftY + scrollY + "px";
+			ball.style.left = getShift(ball, e).shiftX + "px";
+			console.log(getShift(ball, e))
+			document.addEventListener("mouseup", toStop)
+		}
+
+		function toStop() {
+			console.log("to stop!")
+			document.removeEventListener("mousemove", toMove);
+		}
+
+		document.addEventListener("mousemove", toMove);
+	});
+
+	
+
+	
+}
+
+toDropItem();
+
+
+
+
 
 console.log();
 console.log();

@@ -106,6 +106,38 @@ f('https://api.github.com/users/remy');
 f('https://api.github.com/users/iliakan');
 f('https://api.github.com/users/si');
 
+// Тоже самое что и выше, только с массивом url
+function loadData() {
+	let cache = new Map();
+	function wrapper(...url) {
+		let arr = Promise.all(url.map(item => {
+			return fetch(item);
+		}))
+		.then((responses) => {
+			let jsons = Promise.all(responses.map(item => item.json())) 
+			return jsons;
+		})
+		.then((jsons) => {
+			for(let json of jsons) {
+				if(cache.has(json.url)) {
+					console.log("get!");
+					return cache.get(json.url);
+				} else {
+					console.log("set!")
+					return cache.set(json.url);
+				}
+			}
+		})
+		.catch((e) => {
+			throw new Error(e.message)
+		});
+	}
+	return wrapper
+}
+let ff = loadData();
+ff(['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`]);
+ff(['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`]);
+
 
 //
 let toCachedFn = () => {
