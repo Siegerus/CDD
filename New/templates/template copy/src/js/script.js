@@ -1488,9 +1488,8 @@ function submitForm(form) {
 		let formData = new FormData(myForm);
 
 		let request = fetch("../reviews-form_telegram.php", {
-			headers:"" , 
 			method: "POST",
-			data: formData,
+			body: formData,
 		}).then((response) => console.log(response))
 	});
 }
