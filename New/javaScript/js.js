@@ -122,7 +122,7 @@ let toDo = () => {
 toDo();
 
 
-// "promise" в действии
+// "" в действии
 
 let anyVar = 5;
 let toTestPromise = function() {

@@ -1289,7 +1289,7 @@ response.then((response) => {
 }
 f(); */
 
-async function getUsersFromGh() {
+/* async function getUsersFromGh() {
 	let clickItem = document.querySelector("body > div.any-item1");
 	async function getUsers(users) {
 		let arr = [];
@@ -1309,61 +1309,7 @@ async function getUsersFromGh() {
 	}
 clickItem.addEventListener("click", () => getUsers(["mojombo", "defunkt", "qwqqqwwq"]));
 }
-getUsersFromGh();
-
-
-
-
-
-
-async function toSubmit(form, e) {
-		if (!e.target.closest(".feed-form")) return;
-		e.preventDefault();
-		let formData = new FormData(form);
-	try {
-		let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-			method: "POST",
-			body : formData,
-		});
-		let json = await response.json();
-		return json;
-	}
-	catch(e) {
-		throw new Error(e.message);
-	}
-		
-		/* let result = await console.log(json); */
-	
-}
-function onSubmit(e) {
-	toSubmit(form, e).then((result) => console.log(result));
-}
-form.addEventListener("submit", onSubmit);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+getUsersFromGh(); */
 
 
 
@@ -1433,9 +1379,6 @@ foo(['https://jsonplaceholder.typicode.com/posts'], [`https://jsonplaceholder.ty
 
 
 
-
-
-
 function toDropItem() {
 	let ball = document.querySelector(".any-section__frop-ball");
 	ball.style.display = "flex";
@@ -1449,16 +1392,12 @@ function toDropItem() {
 	ball.style.backgroundColor = "darkgray"
 	ball.style.color = "darkgreen";
 
-	
 	ball.addEventListener("mousedown",(e) => {
 		let target = e.target.closest(".any-section__frop-ball");
 		if(!target) return;
-
 		let coords = ball.getBoundingClientRect();
-
 		let shiftX = e.clientX - coords.left;
 		let shiftY = e.clientY - coords.top;
-
 		function toMove(e) {
 			ball.style.position = "fixed";
 			let newY = e.clientY - shiftY;
@@ -1484,18 +1423,9 @@ function toDropItem() {
 
 	
 }
-
 toDropItem();
 
-
-
-
-
-/* ['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`] */
-
-
-
-let urls = ['https://api.github.com/users/remy', `https://api.github.com/users/iliakan`, `https://api.github.com/users/si`];
+/* let urls = ['https://api.github.com/users/remy', `https://api.github.com/users/iliakan`, `https://api.github.com/users/si`];
 function loadData(url) {
 	function createCards() {
 		for(let i = 0; i < 3; i++) {
@@ -1541,13 +1471,31 @@ function loadData(url) {
 	setTimeout(() => toRequest(urls), 2000);  
 }
 
-
-
-
-
 document.addEventListener("scroll", () => {
 	if(document.documentElement.getBoundingClientRect().bottom < document.documentElement.clientHeight + 10) loadData(urls);
-});
+}); */
+
+
+
+let myForm = document.forms[0];
+
+
+
+
+function submitForm(form) {
+	form.addEventListener("submit", (e) => {
+		e.preventDefault();
+		let formData = new FormData(myForm);
+
+		let request = fetch("../reviews-form_telegram.php", {
+			headers:"" , 
+			method: "POST",
+			data: formData,
+		}).then((response) => console.log(response))
+	});
+}
+
+submitForm(myForm)
 console.log();
 console.log();
 console.log();
