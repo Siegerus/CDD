@@ -1480,17 +1480,22 @@ document.addEventListener("scroll", () => {
 let myForm = document.forms[0];
 
 
-
+let urls = ["https://webhook.site/b4b25183-2460-4744-9ab9-402b3907d146", "https://jsonplaceholder.typicode.com/posts", "../reviews-form_telegram.php"];
 
 function submitForm(form) {
 	form.addEventListener("submit", (e) => {
 		e.preventDefault();
 		let formData = new FormData(myForm);
 
-		let request = fetch("../reviews-form_telegram.php", {
-			method: "POST",
-			body: formData,
-		}).then((response) => console.log(response))
+		let requests = Promise.all(urls.map(item => {
+			return fetch(item, {
+				method: "POST",
+				body: formData,
+			})
+		})).then((responses) => {
+			let results =  Promise.all(responses.map(item => item.text()))
+			return results;
+		}).then((results) => console.log(results));
 	});
 }
 
