@@ -1,4 +1,4 @@
-footer
+﻿footer
 	padding: 14px 23px 39px 23px
 	position: relative
 	.footer_line
@@ -260,6 +260,8 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
 	git checkout "название ветки" - Вернуть Head  к последнему комиту
 	Для переключения между внтками лучше использовать git switch, Для переключения между коммитами - git checkout
 	git switch -c "название ветки" - новая ветка   от коммита, в котором сейчас смотришь(Head)
+
+	git reset --hard HEAD~1 - удалить коммит и изменения в файле (~ на сколько коммитов от Head. Если ~1, то удалит текущий, где сейчас Head)
 
 	git branch -d "name"  - удалить ветку (если с "-D" удаляет принудительно).
 	git branch -v  -  Список всех веток с последним комитом
