@@ -298,3 +298,92 @@ async function getUsers(names) {
   return results;
 } */
 clickItemm.addEventListener("click", () => getUsers(["mojombo", "defunkt", "qwqqqwwq"]));
+
+
+// Отаправка формы на разные url
+let myForm = document.forms[0];
+let urlss = ["https://webhook.site/b4b25183-2460-4744-9ab9-402b3907d146", "https://jsonplaceholder.typicode.com/posts", "../reviews-form_telegram.php"];
+function submitForm(form) {
+	form.addEventListener("submit", (e) => {
+		e.preventDefault();
+		let formData = new FormData(myForm);
+
+		let requests = Promise.all(urlss.map(item => {
+			return fetch(item, {
+				method: "POST",
+				body: formData,
+			})
+		})).then((responses) => {
+			let results =  Promise.all(responses.map(item => item.status))
+			return results;
+		}).then((results) => console.log(results));
+	});
+}
+submitForm(myForm);
+
+
+
+// Код, который читает специальный объект response.body, который в свою очередь предоставляет тело ответа по частям, по мере поступления
+async function getData() {
+	let response = await fetch("https://jsonplaceholder.typicode.com/posts");
+	let reader = response.body.getReader();
+
+	let receivedLength = 0;
+	let receivedDataArr = [];
+
+	while(true) {
+		let result = await reader.read();
+		if(result.done) {
+			break;
+		}
+		receivedLength += result.value.length;
+		receivedDataArr.push(result.value)
+
+		console.log(receivedLength + " байт ;" + receivedDataArr);
+	}
+}
+getData();
+
+// Вот полный рабочий пример, который получает ответ сервера и в процессе получения выводит в консоли длину полученных данных
+/* 
+	async function readState() {
+	// Шаг 1: начинаем загрузку fetch, получаем поток для чтения
+	let response = await fetch('https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100');
+
+	const reader = response.body.getReader();
+
+	// Шаг 2: получаем длину содержимого ответа
+	const contentLength = +response.headers.get('Content-Length');
+
+	// Шаг 3: считываем данные:
+	let receivedLength = 0; // количество байт, полученных на данный момент
+	let chunks = []; // массив полученных двоичных фрагментов (составляющих тело ответа)
+	while(true) {
+	const {done, value} = await reader.read();
+
+	if (done) {
+		break;
+	}
+
+	chunks.push(value);
+	receivedLength += value.length;
+
+	console.log(`Получено ${receivedLength} из ${contentLength}`)
+	}
+
+	// Шаг 4: соединим фрагменты в общий типизированный массив Uint8Array
+	let chunksAll = new Uint8Array(receivedLength); // (4.1)
+	let positionn = 0;
+	for(let chunk of chunks) {
+	chunksAll.set(chunk, positionn); // (4.2)
+	positionn += chunk.length;
+	}
+
+	// Шаг 5: декодируем Uint8Array обратно в строку
+	let result = new TextDecoder("utf-8").decode(chunksAll);
+
+	// Готово!
+	let commits = JSON.parse(result);
+	alert(commits[0].author.login);
+}
+readState(); */
