@@ -1527,7 +1527,7 @@ async function getData() {
 	}
 }
 	
-getData();
+/* getData(); */
 
 
 /* 
@@ -1575,6 +1575,22 @@ getData();
 readState(); */
 
 
+let urlss = ['https://api.github.com/users/remy', `https://api.github.com/users/iliakan`, `https://api.github.com/users/si`];
+async function getResponse(url) {
+	let responses = await Promise.all(url.map(item => fetch(item)));
+	let jsons = await Promise.all(responses.map(item => item.json()));
+	for(let i = 0; i < jsons.length; i++) {
+		let imgNode = document.createElement("img");
+		imgNode.className = "avatar";
+		document.body.append(imgNode);
+		let avatars = document.querySelectorAll(".avatar");
+		console.log(avatars);
+		avatars[i].src = jsons[i].avatar_url;
+	}
+	
+}
+
+getResponse(urlss);
 
 
 console.log();
