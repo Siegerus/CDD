@@ -802,6 +802,50 @@ dialog {
 	font-size: 23px;
 	background-color: gray;
 }
+
+.tabs-section {
+	padding: 30px;
+}
+
+.tabs-section__wrapper {
+	display: flex;
+	flex-direction: column;
+	max-width: 631px;
+	padding: 10px;
+	margin: 0 auto;
+	background-color: rgb(236, 240, 241);
+	border-radius: 8px;
+}
+
+.tabs-section__wrapper > div:nth-child(1) {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
+.tabs-section__wrapper > div:nth-child(2) {
+	margin-top: 31px;
+	font-size: 18px;
+}
+
+.tabs-section__wrapper span {
+	font-size: 21px;
+}
+
+.tabs-section__tabs {
+	padding: 10px 41px;
+	background-color: rgb(123, 189, 69);
+	border-radius: 11px;
+	cursor: pointer;
+}
+.tabs-section__tabs:hover {
+	background-color: rgb(136, 206, 79);
+}
+
+.tabs-section__content span {
+	color: rgb(161, 18, 18);
+	font-size: 24px;
+}
 	
 
 

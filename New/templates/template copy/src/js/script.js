@@ -729,10 +729,12 @@ function setAccordeon() {
 
 		clickItem.forEach((item) => {
 			function setHeight(height) {
-				/* item.classList.remove("active");*/ //что бы закрывались все вкладки
 				item.parentElement.style.maxHeight = height + "px";	
 			}
-			if(item.classList.contains("active")) setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
+			if(item.classList.contains("active")) {
+				item.classList.remove("active"); //что бы закрывались все вкладки
+				setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
+			} 
 			else setHeight(50);
 			if(e.currentTarget.classList.contains("active")) document.addEventListener("click", hideContent);
 		});
@@ -740,6 +742,39 @@ function setAccordeon() {
 	accordeon.addEventListener("click", clickHandler);
 }
 setAccordeon();
+
+// табы
+function tabSet() {
+	let parent = document.querySelector("body > section.tabs-section > div > div:nth-child(1)"),
+		tabs = document.querySelectorAll(".tabs-section__tabs"),
+		contentBoxes = document.querySelectorAll(".tabs-section__content");
+
+	function hideContent(a) {
+		for(let i = a; i < contentBoxes.length; i++) {
+			contentBoxes[i].style.display = "none";
+		}
+	}
+	hideContent(1);
+	
+	function showContent(j) {
+		contentBoxes[j].style.display = "block";
+	}
+
+	function onClickTabs(e) {
+		let target = e.target.closest(".tabs-section__tabs");
+		if(!target) return;
+		tabs.forEach((item, i) => {
+			item.classList.remove("active");
+			target.classList.add("active");
+			if(item == target && target.classList.contains("active")) {
+				hideContent(0);
+				showContent(i);
+			} 
+		});
+	}
+	parent.addEventListener("click", onClickTabs);
+}
+tabSet();
 
 
 /* let arr = [];
@@ -1562,26 +1597,22 @@ async function getDataa() {
 	let receivedDataArr = [];
 	while(true) {
 		let result = await reader.read();
-
 		if(result.done) break;
-		
 		receivedDataLength += result.value.length;
 		receivedDataArr.push(result.value);
 	}
-
 	let arrayBuffer = new Uint8Array(receivedDataLength);
 	for (let data of receivedDataArr) {
 		arrayBuffer.set(data);
 	}
-	
-	
 	let decoded = new TextDecoder("utf-8").decode(arrayBuffer);
 	let result = JSON.parse(decoded);
 	console.log(result[0].author.login);
 }
-getDataa().catch((e) => {
-	throw new Error(e.message + " my error!")
-});
+/* getDataa().catch((e) => {throw new Error(e.message)}); */
+
+
+
 
 console.log();
 console.log();
