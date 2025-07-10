@@ -1507,27 +1507,7 @@ function submitHandler(form, e) {
 fileForm.addEventListener("submit", (e) => submitHandler(fileForm, e)); */
 
 
-// Код, который читает специальный объект response.body, который в свою очередь предоставляет тело ответа по частям, по мере поступления
-async function getData() {
-	let response = await fetch("https://jsonplaceholder.typicode.com/posts");
-	let reader = response.body.getReader();
 
-	let receivedLength = 0;
-	let receivedDataArr = [];
-
-	while(true) {
-		let result = await reader.read();
-		if(result.done) {
-			break;
-		}
-		receivedLength += result.value.length;
-		receivedDataArr.push(result.value)
-
-		console.log(receivedLength + " байт ;" + receivedDataArr);
-	}
-}
-	
-/* getData(); */
 
 
 /* 
@@ -1575,23 +1555,33 @@ async function getData() {
 readState(); */
 
 
-let urlss = ['https://api.github.com/users/remy', `https://api.github.com/users/iliakan`, `https://api.github.com/users/si`];
-async function getResponse(url) {
-	let responses = await Promise.all(url.map(item => fetch(item)));
-	let jsons = await Promise.all(responses.map(item => item.json()));
-	for(let i = 0; i < jsons.length; i++) {
-		let imgNode = document.createElement("img");
-		imgNode.className = "avatar";
-		document.body.append(imgNode);
-		let avatars = document.querySelectorAll(".avatar");
-		console.log(avatars);
-		avatars[i].src = jsons[i].avatar_url;
+async function getDataa() {
+	let response = await fetch("https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100");
+	let reader = response.body.getReader();
+	let receivedDataLength = 0;
+	let receivedDataArr = [];
+	while(true) {
+		let result = await reader.read();
+
+		if(result.done) break;
+		
+		receivedDataLength += result.value.length;
+		receivedDataArr.push(result.value);
+	}
+
+	let arrayBuffer = new Uint8Array(receivedDataLength);
+	for (let data of receivedDataArr) {
+		arrayBuffer.set(data);
 	}
 	
+	
+	let decoded = new TextDecoder("utf-8").decode(arrayBuffer);
+	let result = JSON.parse(decoded);
+	console.log(result[0].author.login);
 }
-
-getResponse(urlss);
-
+getDataa().catch((e) => {
+	throw new Error(e.message + " my error!")
+});
 
 console.log();
 console.log();
