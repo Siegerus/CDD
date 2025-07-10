@@ -766,6 +766,7 @@ function tabSet() {
 		tabs.forEach((item, i) => {
 			item.classList.remove("active");
 			target.classList.add("active");
+			// if(item.classList.contains("active")) это условие тоже работает
 			if(item == target && target.classList.contains("active")) {
 				hideContent(0);
 				showContent(i);
