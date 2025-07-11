@@ -1631,14 +1631,11 @@ controller.abort(); */
 let testItem = document.querySelector(".feed-form__button");
 let coords = testItem.getBoundingClientRect();
 testItem.style.border = "13px solid black";
-
 testItem.addEventListener("mousemove", (e) => {
-	if(e.clientX < coords.left || e.clientX > coords.right) console.log("left/right borders!");
-	/* console.log(coords.top)
-	console.log(e.clientY) */
-	console.log(scrollY + coords.top)
-	console.log(e.pageY)
-	if(e.pageY == testItem.offsetTop + scrollY ) console.log("!")
+	// console.log( "e.offsetY " + e.offsetY)
+	// console.log( "e.offsetX " + e.offsetX)
+	if(e.offsetY > testItem.clientHeight || e.offsetY < 0) console.log("!");
+	if(e.offsetX > testItem.clientWidth || e.offsetX < 0) console.log("!");
 });
 
 console.log();

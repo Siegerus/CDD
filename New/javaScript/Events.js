@@ -1740,5 +1740,16 @@ function resizeContainer() {
 }
 resizeContainer();
 
+// Правильные координаты бордеров. *нужно переделать функцию выше
+let testItem = document.querySelector(".feed-form__button");
+let coords = testItem.getBoundingClientRect();
+testItem.style.border = "13px solid black";
+testItem.addEventListener("mousemove", (e) => {
+	// console.log( "e.offsetY " + e.offsetY)
+	// console.log( "e.offsetX " + e.offsetX)
+	if(e.offsetY > testItem.clientHeight || e.offsetY < 0) console.log("!");
+	if(e.offsetX > testItem.clientWidth || e.offsetX < 0) console.log("!");
+});
+
 
 
