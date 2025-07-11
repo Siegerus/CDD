@@ -1612,8 +1612,20 @@ async function getDataa() {
 }
 /* getDataa().catch((e) => {throw new Error(e.message)}); */
 
-
-
+// объект AbortController для отмены fetch и других асинхронных задач.
+let controller = new AbortController();
+let promise = new Promise((resolve, reject) => {
+			resolve(console.log("done!"));
+			controller.signal.addEventListener("abort", () => reject(console.log("denied!") ))
+		});
+let responseee = fetch("https://jsonplaceholder.typicode.com/posts", {
+	signal: controller.signal,
+}).then((response) => console.log(response))
+	.catch((err) => {
+		if(err.name == "AbortError") console.log("Aborted!")
+			else throw err;
+	});
+controller.abort();
 
 console.log();
 console.log();
