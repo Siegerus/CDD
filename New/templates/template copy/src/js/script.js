@@ -1612,7 +1612,7 @@ async function getDataa() {
 }
 /* getDataa().catch((e) => {throw new Error(e.message)}); */
 
-// объект AbortController для отмены fetch и других асинхронных задач.
+/* // объект AbortController для отмены fetch и других асинхронных задач.
 let controller = new AbortController();
 let promise = new Promise((resolve, reject) => {
 			resolve(console.log("done!"));
@@ -1625,7 +1625,21 @@ let responseee = fetch("https://jsonplaceholder.typicode.com/posts", {
 		if(err.name == "AbortError") console.log("Aborted!")
 			else throw err;
 	});
-controller.abort();
+controller.abort(); */
+
+
+let testItem = document.querySelector(".feed-form__button");
+let coords = testItem.getBoundingClientRect();
+testItem.style.border = "13px solid black";
+
+testItem.addEventListener("mousemove", (e) => {
+	if(e.clientX < coords.left || e.clientX > coords.right) console.log("left/right borders!");
+	/* console.log(coords.top)
+	console.log(e.clientY) */
+	console.log(scrollY + coords.top)
+	console.log(e.pageY)
+	if(e.pageY == testItem.offsetTop + scrollY ) console.log("!")
+});
 
 console.log();
 console.log();
