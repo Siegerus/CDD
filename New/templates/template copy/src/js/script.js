@@ -1507,7 +1507,7 @@ document.addEventListener("scroll", () => {
 
 
 let myForm = document.forms[0];
-let urls = ["https://webhook.site/b4b25183-2460-4744-9ab9-402b3907d146", "https://jsonplaceholder.typicode.com/posts", "../reviews-form_telegram.php"];
+let urls = ["https://webhook.site/5555a98f-c3d9-407d-9fab-523daf038bd6", "https://jsonplaceholder.typicode.com/posts", "../reviews-form_telegram.php"];
 function submitForm(form) {
 	form.addEventListener("submit", (e) => {
 		e.preventDefault();
@@ -1524,7 +1524,7 @@ function submitForm(form) {
 		}).then((results) => console.log(results));
 	});
 }
-submitForm(myForm);
+/* submitForm(myForm); */
 
 
 /* let fileForm  = document.forms[1];
@@ -1639,7 +1639,7 @@ testItem.addEventListener("mousemove", (e) => {
 }); */
 
 
-async function getResponse() {
+/* async function getResponse() {
 	let controller = new AbortController();
 	try {
 		let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -1674,8 +1674,22 @@ async function getResponse() {
 		}
 	}
 }
-getResponse();
+getResponse(); */
 
+/* let targetForm = document.forms[0];
+async function formSumbmit(e) {
+	e.preventDefault();
+		let formData = new FormData(targetForm);
+		let response = await fetch("https://webhook.site/5579d741-145a-4bf0-9c6a-3ec9f39f8b87", {
+			method: "POST",
+			body: formData,
+		});
+		if(response.ok) alert("Succes!");
+		
+		let promise = await new Promise(resolve => resolve(console.log("in promise")));
+		console.log("sync code..");
+}
+targetForm.addEventListener("submit", (e) => formSumbmit(e).catch((err) => console.log(err.message))); */
 
 console.log();
 console.log();

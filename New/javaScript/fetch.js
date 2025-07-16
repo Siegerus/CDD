@@ -344,6 +344,27 @@ async function getData() {
 }
 getData();
 
+// Вариант с декодировкой
+/* async function getDataa() {
+	let response = await fetch("https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100");
+	let reader = response.body.getReader();
+	let receivedDataLength = 0;
+	let receivedDataArr = [];
+	while(true) {
+		let result = await reader.read();
+		if(result.done) break;
+		receivedDataLength += result.value.length;
+		receivedDataArr.push(result.value);
+	}
+	let arrayBuffer = new Uint8Array(receivedDataLength);
+	for (let data of receivedDataArr) {
+		arrayBuffer.set(data);
+	}
+	let decoded = new TextDecoder("utf-8").decode(arrayBuffer);
+	let result = JSON.parse(decoded);
+	console.log(result[0].author.login);
+} */
+
 // Вот полный рабочий пример, который получает ответ сервера и в процессе получения выводит в консоли длину полученных данных
 /* 
 	async function readState() {
@@ -387,6 +408,7 @@ getData();
 	alert(commits[0].author.login);
 }
 readState(); */
+
 
 
 // объект AbortController для отмены fetch и других асинхронных задач.
