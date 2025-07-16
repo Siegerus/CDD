@@ -1628,7 +1628,7 @@ let responseee = fetch("https://jsonplaceholder.typicode.com/posts", {
 controller.abort(); */
 
 
-let testItem = document.querySelector(".feed-form__button");
+/* let testItem = document.querySelector(".feed-form__button");
 let coords = testItem.getBoundingClientRect();
 testItem.style.border = "13px solid black";
 testItem.addEventListener("mousemove", (e) => {
@@ -1636,7 +1636,46 @@ testItem.addEventListener("mousemove", (e) => {
 	// console.log( "e.offsetX " + e.offsetX)
 	if(e.offsetY > testItem.clientHeight || e.offsetY < 0) console.log("!");
 	if(e.offsetX > testItem.clientWidth || e.offsetX < 0) console.log("!");
-});
+}); */
+
+
+async function getResponse() {
+	let controller = new AbortController();
+	try {
+		let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+		signal : controller.signal,
+	});
+	controller.abort();
+		let reader = response.body.getReader();
+		let resArray = [];
+		let receivedDataLength = 0;
+		while(true) {
+			let {done, value} = await reader.read();
+			
+			if(done) {
+				break;
+			}
+			resArray.push(value);
+			receivedDataLength += value.length;
+			console.log(receivedDataLength);
+		}
+
+		let arrayBuffer = new Uint8Array(receivedDataLength);
+
+		resArray.forEach(item => arrayBuffer.set(item));
+		let result = new TextDecoder("utf-8").decode(arrayBuffer);
+		let final = JSON.parse(result)
+		console.log(final[0].title);
+	} 
+	catch(err) {
+		if(err.name == "AbortError") console.log("Aborted")
+		else {
+			throw err;
+		}
+	}
+}
+getResponse();
+
 
 console.log();
 console.log();
