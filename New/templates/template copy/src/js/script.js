@@ -1691,17 +1691,17 @@ async function formSumbmit(e) {
 }
 targetForm.addEventListener("submit", (e) => formSumbmit(e).catch((err) => console.log(err.message))); */
 
-let response = fetch("https://webhook.site/bbca2f30-22e9-45dc-b6be-62ae81fd1cb2", {
-	method: "GET",
+/* let response = fetch("https://webhook.site/60f3f9fe-2195-4d53-ae59-79087e0409e4", {
+	method: "PATCH",
 	headers: {
 		"Content-Type" : "application/json",
 		
 	}
 })
-	.then((response) => response.arrayBuffer())
+	.then((response) => response)
 	.then((result) => {
 		console.log(result);
-	});
+	}); */
 
 
 console.log();
