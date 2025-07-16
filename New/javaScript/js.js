@@ -1138,4 +1138,13 @@ reader.onerror = () => {
 
 
 
-
+//Примеры работы с JSON
+let obj = {
+	"key1": "value1",
+	"key2": "value2",
+	"key3": "value3",
+}
+let json = JSON.stringify(obj);
+let string = JSON.parse(`{"key1":"value1","key2":"value2","key3":"value3"}`);
+console.log(json);
+console.log(string);

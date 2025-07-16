@@ -1691,11 +1691,19 @@ async function formSumbmit(e) {
 }
 targetForm.addEventListener("submit", (e) => formSumbmit(e).catch((err) => console.log(err.message))); */
 
+let response = fetch("https://webhook.site/bbca2f30-22e9-45dc-b6be-62ae81fd1cb2", {
+	method: "GET",
+	headers: {
+		"Content-Type" : "application/json",
+		
+	}
+})
+	.then((response) => response.arrayBuffer())
+	.then((result) => {
+		console.log(result);
+	});
 
 
-
-console.log();
-console.log();
 console.log();
 console.log();
 console.log();
