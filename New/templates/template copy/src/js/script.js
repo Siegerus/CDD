@@ -1691,14 +1691,21 @@ async function formSumbmit(e) {
 }
 targetForm.addEventListener("submit", (e) => formSumbmit(e).catch((err) => console.log(err.message))); */
 
-/* let response = fetch("https://webhook.site/60f3f9fe-2195-4d53-ae59-79087e0409e4", {
-	method: "PATCH",
+/* let obj = {
+	"key1": "value1",
+	"key2": "value2",
+	"key3": "value3",
+}
+let json = JSON.stringify(obj);
+
+let response = fetch("https://webhook.site/60f3f9fe-2195-4d53-ae59-79087e0409e4", {
+	method: "POST",
 	headers: {
-		"Content-Type" : "application/json",
-		
-	}
+		"Content-Type" : "application/json;charset=utf-8",
+	},
+	body: json,
 })
-	.then((response) => response)
+	.then((response) => response.ok)
 	.then((result) => {
 		console.log(result);
 	}); */
