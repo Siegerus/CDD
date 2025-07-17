@@ -425,3 +425,32 @@ let responseee = fetch("https://jsonplaceholder.typicode.com/posts", {
 			else throw err;
 	});
 controller.abort();
+
+
+
+// XMLHttpRequest
+function getResponse() {
+	let request = new XMLHttpRequest();
+	request.open("GET", "https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d");
+	request.responseType = "text";
+	request.setRequestHeader('Content-Type', 'text/html');
+	request.send();
+	
+	request.onload = () => console.log("ReadyState: " + request.readyState + " Status: " + request.status + " Response: " + request.response);
+	request.onprogress = (e) => console.log("Receined: " + e.loaded + " From: " + e.total);
+	request.onerror = () => console.log(request.statusText + " Error!");
+
+	request.onreadystatechange = () => {
+		if(request.readyState == 0) console.log("UNSENT - исходное состояние");
+		if(request.readyState == 1) console.log("OPENED - вызван метод open");
+		if(request.readyState == 2) console.log("HEADERS_RECEIVED - получены заголовки ответа");
+		if(request.readyState == 3) console.log("LOADING - ответ в процессе передачи (данные частично получены)");
+		if(request.readyState == 4) console.log("DONE - запрос завершён");
+	}
+	
+	setTimeout(() => {
+		let headers = request.getAllResponseHeaders();
+		console.log(headers);
+	}, 1000);
+}
+getResponse();

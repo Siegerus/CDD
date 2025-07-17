@@ -1710,33 +1710,44 @@ let response = fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d"
 		console.log(result);
 	}); */
 
-function getResponse() {
-	let request = new XMLHttpRequest();
-	request.open("GET", "https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d");
-	request.responseType = "text";
-	request.setRequestHeader('Content-Type', 'text/html');
-	request.send();
-	
-	request.onload = () => console.log("ReadyState: " + request.readyState + " Status: " + request.status + " Response: " + request.response);
-	request.onprogress = (e) => console.log("Receined: " + e.loaded + " From: " + e.total);
-	request.onerror = () => console.log(request.statusText + " Error!");
+// file.name + '-' + file.size + '-' + +file.lastModifiedDate;
+let targetForm = document.forms[1]; 
+let targetInput = targetForm.elements.two;
 
-	request.onreadystatechange = () => {
-		if(request.readyState == 0) console.log("UNSENT - исходное состояние");
-		if(request.readyState == 1) console.log("OPENED - вызван метод open");
-		if(request.readyState == 2) console.log("HEADERS_RECEIVED - получены заголовки ответа");
-		if(request.readyState == 3) console.log("LOADING - ответ в процессе передачи (данные частично получены)");
-		if(request.readyState == 4) console.log("DONE - запрос завершён");
+targetForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+	getResponse();
+});
+
+/* targetInput.addEventListener("input", () => {
+	let fileId = targetInput.files[0].name;
+	console.log(fileId);
+}); */
+
+async function getResponse() {
+	if(!targetInput.files[0]) {
+		alert("There is no any file...");
+		return;
 	}
-	
-	setTimeout(() => {
-		let headers = request.getAllResponseHeaders();
-		console.log(headers);
-	}, 1000);
+	let data = new FormData(targetForm);
+	let fileId = targetInput.files[0].name + '-' + targetInput.files[0].size + '-' + targetInput.files[0].lastModifiedDate;
+	console.log(fileId);
+	  
+	try {
+		let response = await fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d", {
+			/* headers: {
+				"X-File-Id": fileId,
+			}, */
+			method: "POST",
+			body: data,
+		});
+		let responseText = await response.text();
+		console.log(responseText);
+	}
+	catch(err) {
+		console.log(err);
+	}
 }
-/* getResponse(); */
-
-
 
 console.log();
 console.log();
