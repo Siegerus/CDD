@@ -159,6 +159,14 @@ console.log(unique(strings));  */
 let usersById = groupById(users);
 console.log(usersById); */
 
+/* let str = "John Smith";
+let arr = str.split(" "); // ['John', 'Smith']
+let result = arr.reduce((res, current, i, array) => {
+		res["Key# " + [i]] = current;
+		return res
+}, {})
+console.log(result); //  {Key# 0: 'John', Key# 1: 'Smith'} */
+
 
 // один из методов перебора массива
 for (let inputs of newArr) {          
