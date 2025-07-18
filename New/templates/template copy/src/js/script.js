@@ -1716,7 +1716,8 @@ let targetInput = targetForm.elements.two;
 
 targetForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-	getResponse();
+	subscribe();
+	/* getResponse(); */
 });
 
 /* targetInput.addEventListener("input", () => {
@@ -1734,7 +1735,7 @@ async function getResponse() {
 	console.log(fileId);
 	  
 	try {
-		let response = await fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d", {
+		let response = await fetch("https://webhook.site/8c589265-cf7b-4b76-b862-0c40fd414820", {
 			/* headers: {
 				"X-File-Id": fileId,
 			}, */
@@ -1748,6 +1749,49 @@ async function getResponse() {
 		console.log(err);
 	}
 }
+
+
+async function subscribe() {
+	let response = await fetch("https://webhook.site/5579d741-145a-4bf0-9c6a-3ec9f39f8b87");
+	console.log(response.status);
+	if(response.status == 502) await subscribe();
+	else if(response.status != 200) {
+		await new Promise(resolve => setTimeout(resolve, 1000));
+		alert(response.statusText + " - " + "Smth went wrong!");
+		await subscribe();
+	} 
+	else {
+		let responseText = await response.text();
+		console.log(response.ok);
+		console.log(responseText);
+		await subscribe();
+	}
+}
+/* subscribe(); */
+
+async function subscribe() {
+    let response = await fetch("https://webhook.site/8c589265-cf7b-4b76-b862-0c40fd414820");
+
+    if (response.status == 502) {
+      // Таймаут подключения
+      // случается, когда соединение ждало слишком долго.
+      // давайте восстановим связь
+      await subscribe();
+    } else if (response.status != 200) {
+      // Показать ошибку
+      showMessage(response.statusText);
+      // Подключиться снова через секунду.
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await subscribe();
+    } else {
+      // Получить сообщение
+      let message = await response.text();
+      console.log(message);
+      await subscribe();
+    }
+  }
+
+  subscribe();
 
 console.log();
 console.log();
