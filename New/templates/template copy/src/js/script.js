@@ -1710,7 +1710,7 @@ let response = fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d"
 		console.log(result);
 	}); */
 
-// file.name + '-' + file.size + '-' + +file.lastModifiedDate;
+
 let targetForm = document.forms[1]; 
 let targetInput = targetForm.elements.two;
 
@@ -1770,11 +1770,8 @@ async function getResponse() {
 // /* subscribe(); */
 
 
-
-
-async function subscribe() {
+/* async function subscribe() {
     let response = await fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d");
-
     if (response.status == 502) {
       // Таймаут подключения
       // случается, когда соединение ждало слишком долго.
@@ -1792,8 +1789,32 @@ async function subscribe() {
       console.log(message);
       await subscribe();
     }
-  }
-  /* subscribe(); */
+  } */
+
+
+//загрузка изображения через fetch запрос при клике на него
+let downloadItem = document.querySelector(".canvas__img");
+downloadItem.addEventListener("dblclick", (e) => {
+	if(!e.target.closest(".canvas__img")) return;
+	getContent("img/icon_card-heart.svg").catch((err) => alert(err));
+});
+
+async function getContent(url) {
+	let response = await fetch(url);
+	if(!response.ok) {
+		alert("Smth went wrong...");
+		return;
+	}
+	let link = document.createElement("a");
+	link.href = new URL(response.url);
+	link.download = "icon.svg";
+	link.click();
+	link = null;
+} 
+
+
+
+
 
 console.log();
 console.log();
