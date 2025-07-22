@@ -1792,25 +1792,6 @@ async function getResponse() {
   } */
 
 
-//загрузка изображения через fetch запрос при клике на него
-let downloadItem = document.querySelector(".canvas__img");
-downloadItem.addEventListener("dblclick", (e) => {
-	if(!e.target.closest(".canvas__img")) return;
-	getContent("img/icon_card-heart.svg").catch((err) => alert(err));
-});
-
-async function getContent(url) {
-	let response = await fetch(url);
-	if(!response.ok) {
-		alert("Smth went wrong...");
-		return;
-	}
-	let link = document.createElement("a");
-	link.href = new URL(response.url);
-	link.download = "icon.svg";
-	link.click();
-	link = null;
-} 
 
 
 
