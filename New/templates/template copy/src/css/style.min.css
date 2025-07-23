@@ -848,7 +848,23 @@ dialog {
 }
 	
 
+.table table {
+	border-spacing: 2px;
+}
 
+.table table {
+	/* border-collapse: collapse; */
+}
+
+.table table tr td, .table table tr th {
+	padding: 13px;
+	text-align: center;
+	border: 1px solid black;
+}
+
+.table table tr td {
+	cursor: pointer;
+}
 
 
 

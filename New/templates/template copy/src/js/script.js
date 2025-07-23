@@ -1794,10 +1794,26 @@ async function getResponse() {
 
 
 
+/* let eSource = new EventSource("https://webhook.site/594c4fac-425b-4c39-a265-2c36adc63f61"); */
+// console.log(eSource);
+
+/* eSource.onopen = () => console.log(eSource.readyState); */
+
+/* window.addEventListener("visibilitychange", () => {
+	if(document.visibilityState == "hidden") alert("Вы всё ещё на станице?");
+	
+}); */
+
+let tab = document.querySelector(".table > table");
+let cells = tab.rows[1].cells;
+let sorted = Array.from(cells).sort((a,b) => {
+	if(a > b) return 1;
+	else return -1;
+});
+tab.rows[1].append(...sorted)
 
 
-
-console.log("+");
+console.log();
 console.log();
 console.log();
 console.log();
