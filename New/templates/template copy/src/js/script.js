@@ -1804,16 +1804,65 @@ async function getResponse() {
 	
 }); */
 
-let tab = document.querySelector(".table > table");
-let cells = tab.rows[1].cells;
-let sorted = Array.from(cells).sort((a,b) => {
-	if(a > b) return 1;
-	else return -1;
-});
-tab.rows[1].append(...sorted)
+// let url = [
+// 	'https://api.github.com/users/iliakan',
+// 	'https://api.github.com/users/rem',
+// 	'https://api.github.com/users/jeresig'
+// ];
+// let counter = 0;
 
+// function createElem() {
+// 	let arr = [];
+// 	for(let i = 0; i < url.length; i++) {
+// 		let img = document.createElement("img");
+// 		arr.push(img);
+// 	}
+// 	return arr;
+// }
 
-console.log();
+// async function getAvatars() {
+// 	let responses = await Promise.all(url.map(item => fetch(item)));
+// 	responses.forEach(response => {
+// 		if(response.ok) {
+// 			console.log(`${response.status} Success responses!`);
+// 		} 
+// 		else {
+// 			console.log(`Response failed! Reason: ${response.status}`);
+// 			/* throw new Error("Response failed!"); */
+// 		}
+// 	});
+// 	let jsons = await Promise.all(responses.map(item => item.json()));
+// 	let avatarLinks = jsons.map(item => item.avatar_url);
+
+// 	function setImages() {
+// 		let images = createElem();
+// 		Promise.all(
+// 			images.map((item, i) => {
+// 				return new Promise((resolve) => {
+// 					if(!avatarLinks[i]) return;
+// 					else item.src = avatarLinks[i];
+// 					resolve(item);
+// 				});
+// 			})
+// 		).then((images) => {
+// 			images.forEach(img => img.onload = () => {
+// 				counter += 1;
+// 				if(counter == images.length) console.log("All avatars loaded!");
+// 				else console.log(`${counter} avatars loaded!` );
+// 			});
+// 			document.body.append(...images);
+// 		})
+// 		.catch((err) => console.log(err));
+// 	}
+// }
+// getAvatars().catch((err) => {throw new Error("!!!")});
+
+let name = "my name";
+let value = "John Smith"
+
+document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+console.log(document.cookie);
 console.log();
 console.log();
 console.log();
