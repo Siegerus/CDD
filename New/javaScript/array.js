@@ -168,6 +168,18 @@ let result = arr.reduce((res, current, i, array) => {
 console.log(result); //  {Key# 0: 'John', Key# 1: 'Smith'} */
 
 
+/* let strrr = "name1=Alex;name2=Smith;name3=John";
+let arrayyy = strrr.split(";");
+
+let reduced = arrayyy.reduce((obj, item) => {
+	let key = item.slice(0, 5);
+	let value = item.slice(6);
+	obj[key] = value;
+	return obj;
+},{})
+console.log(reduced); //{name1: 'Alex', name2: 'Smith', name3: 'John'} */
+
+
 // один из методов перебора массива
 for (let inputs of newArr) {          
     console.log(inputs);

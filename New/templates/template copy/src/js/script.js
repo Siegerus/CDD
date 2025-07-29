@@ -1410,6 +1410,7 @@ foo(['https://jsonplaceholder.typicode.com/posts'], [`https://jsonplaceholder.ty
 
 function toDropItem() {
 	let ball = document.querySelector(".any-section__frop-ball");
+	let current = null;
 	ball.style.display = "flex";
 	ball.style.alignItems = "center";
 	ball.style.justifyContent = "center";
@@ -1437,7 +1438,21 @@ function toDropItem() {
 			if(newY < 0) newY = 0;
 			ball.style.top = newY + "px";
 			ball.style.left = newX + "px";
+
+			ball.style.display = "none";
+			let deeper = document.elementFromPoint(e.clientX, e.clientY);
+			ball.style.display = "flex";
+			if(!deeper) return;
 			
+			let dropTarget = deeper.closest("body > section.tabs-section > section > table");
+			if(current != dropTarget) {
+				if(current) document.querySelector("body > section.tabs-section > section > table").style.backgroundColor = "";
+				current = dropTarget;
+				if(current) {
+					dropTarget.style.backgroundColor = "red";
+				} 
+			}
+				
 			ball.addEventListener("mouseup", toStop)
 		}
 		toMove(e);	
@@ -1896,13 +1911,25 @@ async function getData(url) {
 			})
 			.catch((err) => console.log(err + " " + "Error! Not loaded..."))
 		})
-	).catch((err) => console.log("Error! Not loaded..."));
+	).catch((err) => console.log(err));
 }
-getData(url)
+/* getData(url) */
+
+let strrr = "name1=Alex;name2=Smith;name3=John";
+let arrayyy = strrr.split(";");
+
+let obj = arrayyy.reduce((obj, item) => {
+	let key = item.slice(0, 5);
+	let value = item.slice(6);
+	obj[key] = value;
+	return obj;
+},{})
+
+let {name1, name2, name3} = {name1: 'Alex', name2: 'Smith', name3: 'John'};
 
 
 
-console.log();
+console.log(); 
 console.log();
 console.log();
 console.log();
