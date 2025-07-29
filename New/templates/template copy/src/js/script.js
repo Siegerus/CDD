@@ -1857,12 +1857,52 @@ async function getResponse() {
 // }
 // getAvatars().catch((err) => {throw new Error("!!!")});
 
-let name = "my name";
+/* let name = "my name";
 let value = "John Smith"
+document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value); */
+let counter = 0;
+let arr = [];
+let url = [
+	'https://api.github.com/users/iliakan',
+	'https://api.github.com/users/rem',
+	'https://api.github.com/users/jeresig'
+];
 
-document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+async function getData(url) {
+	let responses = await Promise.all(url.map(item => fetch(item)));
+	
+	let jsons = await Promise.all(
+		responses.map(item => {
+			if(item.ok) return item.json();
+			else {
+				throw new Error("Responses failed!");
+			}
+		}));
+	
+	await Promise.all(
+		jsons.map((item, i) => {
+			return new Promise((resolve, reject) => {
+				let img = document.createElement("img");
+				img.src = jsons[i].avatar_url;
+				img.onload = function() {
+				counter += 1;
+				arr.push(img);
+				
+				if(counter == 3) resolve();
+				else img.onerror = () => reject();
+				}
+			}).then(() => {
+				document.body.append(...arr);
+			})
+			.catch((err) => console.log(err + " " + "Error! Not loaded..."))
+		})
+	).catch((err) => console.log("Error! Not loaded..."));
+}
+getData(url)
 
-console.log(document.cookie);
+
+
+console.log();
 console.log();
 console.log();
 console.log();
