@@ -1932,8 +1932,6 @@ console.log(item1);	//Cake
 console.log(item2); //Donut
 console.log(extra); //true */
 
-document.cookie = "name=John surname=Snow"
-console.log(document.cookie); 
 
 /* let urll = new URL('https://google.com/search');
 
@@ -1944,10 +1942,41 @@ for (let [name, value] of urll.searchParams) {
 	console.log(name + " : " + value);
 } */
 
-let uRl = encodeURI("https://www.google.com/search/что-нибуть");
+// // cookie
+// let date = new Date(Date.now() + 100000);
+// date = date.toUTCString();
+
+// document.cookie = "name=John surname=Snow; path=/"; //Как правило, указывают путь path=/, чтобы куки было доступно на всех страницах
+// document.cookie = "name=John surname=Snow; domain=site.com"; // куки доступным для всех поддоменов *.site.com
+// document.cookie = "name=John surname=Snow; secure"; // куки будет доступно только через HTTPS
+// document.cookie = "name=John surname=Snow; samesite=lax"; // защита от XSRF атак, мягкий вариант. samesite=strict - жесткий
+// /* document.cookie = `name=John surname=Snow; expires=${date}`; // куки удалятся через 100000мл/сек от "сейчас"(Date.now()) */
+// document.cookie = `name=John surname=Snow; max-age=2`; // куки удалятся через 0сек (т.е сразу. Или поставить другое значение)
+// console.log(document.cookie); 
+// setTimeout(() => console.log(document.cookie), 3000);
+ 
+function f(name, surname) {
+	let obj = {
+		"key1" : true,
+		"key2" : false,
+		"key3" : 1,
+		"key4" : "smth",
+	}
+
+	let result = name + " - " + surname;
+
+	for (let key in obj) {
+		let targetKey = key;
+		let targetValue = obj[key];
+		result += "; " + targetKey + " = " + targetValue
+	}
+	return result;
+}
+f("John", "Smith");
 
 
-console.log(uRl);
+
+console.log(f("John", "Smith"));
 console.log();
 console.log();
 console.log();

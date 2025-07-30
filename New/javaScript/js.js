@@ -1175,3 +1175,18 @@ for (let [name, value] of urll.searchParams) {
 
 let link = encodeURI('http://site.com/привет'); // encodeURI – кодирует URL-адрес целиком.
 console.log(link); // http://site.com/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82
+
+
+
+// cookie
+let datee = new Date(Date.now() + 100000);
+datee = datee.toUTCString();
+
+document.cookie = "name=John surname=Snow; path=/"; //Как правило, указывают путь path=/, чтобы куки было доступно на всех страницах
+document.cookie = "name=John surname=Snow; domain=site.com"; // куки доступным для всех поддоменов *.site.com
+document.cookie = "name=John surname=Snow; secure"; // куки будет доступно только через HTTPS
+document.cookie = "name=John surname=Snow; samesite=lax"; // защита от XSRF атак, мягкий вариант. samesite=strict - жесткий
+/* document.cookie = `name=John surname=Snow; expires=${datee}`; // куки удалятся через 100000мл/сек от "сейчас"(Date.now()) */
+document.cookie = `name=John surname=Snow; max-age=2`; // куки удалятся через 0сек (т.е сразу. Или поставить другое значение)
+console.log(document.cookie); 
+setTimeout(() => console.log(document.cookie), 3000);
