@@ -1915,22 +1915,39 @@ async function getData(url) {
 }
 /* getData(url) */
 
-let strrr = "name1=Alex;name2=Smith;name3=John";
-let arrayyy = strrr.split(";");
+/* // Деструктуризация 
+let options = {
+    size: {     // переменные для size и items отсутствуют, так как мы взяли сразу их содержимое.
+        width: 100,
+        height: 200
+    },
+    items: ["Cake", "Donut"],
+    extra: true
+};
+let { size: {width, height}, items : [item1, item2], extra } = options
 
-let obj = arrayyy.reduce((obj, item) => {
-	let key = item.slice(0, 5);
-	let value = item.slice(6);
-	obj[key] = value;
-	return obj;
-},{})
+console.log(width); //100
+console.log(height); //200
+console.log(item1);	//Cake
+console.log(item2); //Donut
+console.log(extra); //true */
 
-let {name1, name2, name3} = {name1: 'Alex', name2: 'Smith', name3: 'John'};
+document.cookie = "name=John surname=Snow"
+console.log(document.cookie); 
+
+/* let urll = new URL('https://google.com/search');
+
+urll.searchParams.set("q", "test");
+urll.searchParams.set('tbs', 'qdr:y');
+
+for (let [name, value] of urll.searchParams) {
+	console.log(name + " : " + value);
+} */
+
+let uRl = encodeURI("https://www.google.com/search/что-нибуть");
 
 
-
-console.log(); 
-console.log();
+console.log(uRl);
 console.log();
 console.log();
 console.log();

@@ -338,11 +338,13 @@ let options = {
     items: ["Cake", "Donut"],
     extra: true
 };
-let { size: {anyWidth, anyHeight}, items : [item1, item2] } = options
+let { size: {width, height}, items : [item1, item2] } = options
 
-console.log(anyWidth);
-console.log(anyHeight);
-console.log(item1);
+console.log(width); //100
+console.log(height); //200
+console.log(item1);	//Cake
+console.log(item2); //Donut
+console.log(extra); //true
 
 
 // Функция спрашивает дату и выводит день недели этой даты
@@ -1137,7 +1139,6 @@ reader.onerror = () => {
 } 
 
 
-
 //Примеры работы с JSON
 let obj = {
 	"key1": "value1",
@@ -1148,3 +1149,29 @@ let json = JSON.stringify(obj);
 let string = JSON.parse(`{"key1":"value1","key2":"value2","key3":"value3"}`);
 console.log(json);
 console.log(string);
+
+
+
+
+// объект URL
+/* let url = new URL('https://javascript.info/profile/admin');
+let newUrl = new URL('tester', url);
+console.log(newUrl); // https://javascript.info/profile/tester */
+
+let urll = new URL('https://javascript.info/url');
+console.log(urll.protocol); // https:
+console.log(urll.host);     // javascript.info
+console.log(urll.pathname); // /url
+
+let url = new URL('https://google.com/search');
+url.searchParams.set("q", "test"); 
+console.log(url); // Выведет весь объект URL у которого будет - href : "https://google.com/search?q=test"
+console.log(url.searchParams.has("q")); // true
+
+url.searchParams.set('tbs', 'qdr:y');
+for (let [name, value] of urll.searchParams) {
+	console.log(name + " : " + value); //  q : test  tbs : qdr:y
+}
+
+let link = encodeURI('http://site.com/привет'); // encodeURI – кодирует URL-адрес целиком.
+console.log(link); // http://site.com/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82
