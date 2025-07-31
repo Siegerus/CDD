@@ -1955,7 +1955,7 @@ for (let [name, value] of urll.searchParams) {
 // console.log(document.cookie); 
 // setTimeout(() => console.log(document.cookie), 3000);
  
-function f(name, surname) {
+/* function f(name, surname) {
 	let obj = {
 		"key1" : true,
 		"key2" : false,
@@ -1972,11 +1972,37 @@ function f(name, surname) {
 	}
 	return result;
 }
-f("John", "Smith");
+f("John", "Smith"); */
 
 
+/* let a = 2;
+let c = 0;
+let el = document.querySelector("body > a");
+el.style.padding = 22 + "px";
+function paintBg() {
+	if(a == 1) el.style.backgroundColor = "blue";
+	else if(counter == 0) el.style.backgroundColor = "yellow";
+	else console.log("not 1");
+}
+paintBg(); */
 
-console.log(f("John", "Smith"));
+let a = 0;
+let c = false;
+
+
+/* function returnValue() {
+	let sum = 0 + 0;
+	let bull = false;
+	let str = "";
+
+	return  sum || bull || str;
+} */
+
+let any = 1;
+let any1 = 2;
+let any2 = "w";
+
+console.log(any && any1 && any2);
 console.log();
 console.log();
 console.log();

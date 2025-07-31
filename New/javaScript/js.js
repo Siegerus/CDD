@@ -1,7 +1,44 @@
+// вызвать функцию при выполнении условия
+// Простая реализация:
+const processTuesday = () => {
+  // …Полезный код
+}
+if (day === 'Вторник') {
+  processTuesday()
+}
+// Более короткая и лаконичная запись:
+day === 'Вторник' && processTuesday()
+
+
+//
+let valuee = 0;
+if (externalValue) {
+  valuee = externalValue
+}
+// Укороченный вариант записи
+const valueee = externalValue || 0;
+// Неявное приведение externalValue к логическому типу также игнорирует 
+// определённые ложные значения, возможно, вполне валидные: '', NaN, 0 , -0, 0n, false. 
+// Чтобы их не терять, вместо || используйте ?? — логический оператор nullish
+const valueeee = externalValue ?? 42;
+
+
+//
+if (manufacturer == false) {
+  manufacturer = "Неизвестный производитель";
+}
+console.log( manufacturer );  // "Неизвестный производитель"
+// тоже самое с помощью логического присваивания
+let manufacturer = ""; 
+manufacturer ||= "Неизвестный производитель";
+console.log( manufacturer );  // "Неизвестный производитель"
+
+
+
 let arr = [],
-        el1 = {},
-        el2 = {},
-        el3 = {};
+    el1 = {},
+    el2 = {},
+    el3 = {};
     
     let addToArray = function() {
         arr.push(el1,el2,el3);
@@ -14,9 +51,7 @@ let arr = [],
     };
     console.log(addToArray());
 
-
 // 
-
 let toTestFn = () => {
     let v = 8 ? console.log("Done") : console.log("Not");
     return true;
@@ -27,7 +62,6 @@ toTestFn ? console.log("toTest - true") : console.log("toTest - false");
     
 
 // Перебор объекта 
-
 Object.defineProperty(ob, "width", { /* способ менять зачение в объекте */
     value : 400,
 }); 
@@ -345,6 +379,21 @@ console.log(height); //200
 console.log(item1);	//Cake
 console.log(item2); //Donut
 console.log(extra); //true
+
+// деструктуризация
+function foo(args = {}) {
+	let obj = {
+		"key1" : true,
+		"key2" : false,
+		"key3" : 1,
+		"key4" : "smth",
+		...args,
+	}
+	for(let key in obj) {
+		console.log(`${key} : ${obj[key]}`);
+	}
+}
+foo({"key5" : 2});
 
 
 // Функция спрашивает дату и выводит день недели этой даты
@@ -896,12 +945,17 @@ console.log(func(1)(2));
 /* console.log(window.navigator.mediaDevices.getUserMedia({ audio: true, video: true })); */
 
 
-// Простой тренарник
+// Простой тернарник
+// условие ? выражение1 : выражение2
 let f = () => {
     let any = 0;
     typeof any == "number" ? console.log(true) : console.log(false);
     }
 f();
+
+// Запись в переменную с тернарником
+let day = "Вторник";
+let value = day === 'Вторник' ? 50 : 1;
 
 
 // Обект-наблюдатель зс изменнениями 
