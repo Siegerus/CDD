@@ -1975,36 +1975,44 @@ for (let [name, value] of urll.searchParams) {
 f("John", "Smith"); */
 
 
-/* let a = 2;
-let c = 0;
-let el = document.querySelector("body > a");
-el.style.padding = 22 + "px";
-function paintBg() {
-	if(a == 1) el.style.backgroundColor = "blue";
-	else if(counter == 0) el.style.backgroundColor = "yellow";
-	else console.log("not 1");
-}
-paintBg(); */
-
-let a = 0;
-let c = false;
-
-
 /* function returnValue() {
 	let sum = 0 + 0;
 	let bull = false;
 	let str = "";
-
 	return  sum || bull || str;
 } */
 
-let any = 1;
-let any1 = 2;
-let any2 = "w";
 
-console.log(any && any1 && any2);
-console.log();
-console.log();
+/* document.cookie = encodeURIComponent("user1") + "=" + encodeURIComponent("name1") + "; max-age=30";
+document.cookie = encodeURIComponent("user2") + "=" + encodeURIComponent("name2") + "; max-age=30";
+document.cookie = encodeURIComponent("user3") + "=" + encodeURIComponent("name3") + "; max-age=30";
+console.log(document.cookie); */
+
+/* let select = document.getElementById("genres");
+let options = select.options;
+Array.from(options).forEach(item => {
+	if(item.selected == true) console.log(`Текст:${item.text} Значение:${item.value}`);
+});
+let newSelect = document.createElement("option");
+newSelect.textContent = "Классика";
+select.append(newSelect);
+newSelect.value = "classic";
+newSelect.selected = true;
+console.log(select.options[select.selectedIndex]); */
+
+// Селект, который записывает выбранный option в cookie и при обновлении страницы он сохраняет выбранное значение
+let mySelect = document.getElementById("select");
+
+if(document.cookie.includes("cityValue")) {
+	let cookieCollection = document.cookie.split("; ");
+	let filtered = cookieCollection.filter(item => item.includes("cityValue"));
+	let targetArray = filtered.map(item => item.split("="));
+	
+	if(targetArray) mySelect.value = targetArray[0][1];
+}
+mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect.value}; max-age=10`);
+
+
 console.log();
 console.log();
 console.log();

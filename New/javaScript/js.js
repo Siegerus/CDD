@@ -1233,6 +1233,11 @@ console.log(link); // http://site.com/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82
 
 
 // cookie
+let userrr = "name";
+let valueeeee = "J O H N";
+let cookie = encodeURIComponent(userrr) + "=" + encodeURIComponent(valueeeee);
+document.cookie = cookie;
+
 let datee = new Date(Date.now() + 100000);
 datee = datee.toUTCString();
 
@@ -1244,3 +1249,55 @@ document.cookie = "name=John surname=Snow; samesite=lax"; // защита от X
 document.cookie = `name=John surname=Snow; max-age=2`; // куки удалятся через 0сек (т.е сразу. Или поставить другое значение)
 console.log(document.cookie); 
 setTimeout(() => console.log(document.cookie), 3000);
+
+// возвращает куки с указанным name,
+// или undefined, если ничего не найдено
+function getCookie(name) {
+  let matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+// Устанавливает куки с именем name и значением value, с настройкой path=/
+function setCookie(name, value, options = {}) {
+  options = {
+    path: '/',
+    // при необходимости добавьте другие значения по умолчанию
+    ...options
+  };
+  if (options.expires instanceof Date) {
+    options.expires = options.expires.toUTCString();
+  }
+  let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+  for (let optionKey in options) {
+    updatedCookie += "; " + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += "=" + optionValue;
+    }
+  }
+  document.cookie = updatedCookie;
+}
+// Пример использования:
+setCookie('user', 'John', {secure: true, 'max-age': 3600});
+
+// Чтобы удалить куки, мы можем установить отрицательную дату истечения срока действия:
+function deleteCookie(name) {
+  setCookie(name, "", {
+    'max-age': -1
+  })
+}
+
+
+// Селект, который записывает выбранный option в cookie и при обновлении страницы он сохраняет выбранное значение
+let mySelect = document.getElementById("select");
+if(document.cookie.includes("cityValue")) {
+	let cookieCollection = document.cookie.split("; ");
+	let filtered = cookieCollection.filter(item => item.includes("cityValue"));
+	let targetArray = filtered.map(item => item.split("="));
+	
+	if(targetArray) mySelect.value = targetArray[0][1];
+}
+mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect.value}; max-age=10`);

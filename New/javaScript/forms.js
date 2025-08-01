@@ -500,3 +500,16 @@ document.getElementById('show-button').onclick = function() {
 	alert("Вы ввели: " + value);
 	});
 };
+
+// Задача со списком select
+let select = document.getElementById("genres");
+let options = select.options;
+Array.from(options).forEach(item => {
+	if(item.selected == true) console.log(`Текст:${item.text} Значение:${item.value}`);
+});
+let newSelect = document.createElement("option");
+newSelect.textContent = "Классика";
+select.append(newSelect);
+newSelect.value = "classic";
+newSelect.selected = true;
+console.log(select.options[select.selectedIndex]);
