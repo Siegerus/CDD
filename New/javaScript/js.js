@@ -1307,3 +1307,90 @@ function setValue() {
 }
 setValue();
 mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect.value}; max-age=10`);
+
+
+
+// localStorage
+let storage = localStorage;
+let obj = {
+	"key1" : "value1",
+	"key2" : "value2",
+	"key3" : "value3",
+	"key4" : "value4",
+}
+let jsonn = JSON.stringify(obj);
+
+function setStorage() {
+	if(storage.getItem("key")) {
+		return;
+	} 
+	storage.setItem("key", true);
+	storage.setItem("myObject", jsonn);
+}
+setStorage();
+
+for(let key in storage) {
+	if (!storage.hasOwnProperty(key)) {
+		continue;
+	}
+	console.log(key + " : " + storage.getItem("key"));
+}
+
+document.addEventListener("mousedown", (e) => {
+	if(e.button == 1) storage.clear();
+})
+window.addEventListener("storage", (e) => {
+	console.log(e.key); 
+	console.log(e.url); 
+	console.log(e.newValue);
+	console.log(e.oldValue);
+});
+
+
+
+// localStorage
+let storagee = localStorage;
+let obj = {
+	"key1" : "value1",
+	"key2" : "value2",
+	"key3" : "value3",
+	"key4" : "value4",
+}
+let jsonnn = JSON.stringify(obj);  // можно добавлять объект пропустив через stringify
+
+function setStorage() {
+	if(storagee.getItem("key")) {
+		return;
+	} 
+	storagee.setItem("key", true);
+	storagee.setItem("myObject", jsonnn);
+}
+setStorage();
+
+for(let key in storagee) {          // или можно перебирать через Object.entries / Object.key
+	if (!storagee.hasOwnProperty(key)) continue;
+	console.log(key + " : " + storagee.getItem("key"));
+}
+
+document.addEventListener("mousedown", (e) => {
+	if(e.button == 1) storagee.clear();
+})
+window.addEventListener("storage", (e) => {
+	console.log(e.key); 
+	console.log(e.url); 
+	console.log(e.newValue);
+	console.log(e.oldValue);
+});
+
+
+// Задача на localStorage
+let textarea = document.getElementById("textarea");
+textarea.style.cssText = "min-width: 300px; min-height: 120px; resize: none;"
+function setArea() {
+	textarea.value = localStorage.getItem("inputValue");
+}
+window.addEventListener("load", setArea);
+
+textarea.addEventListener("input", (e) => {
+	localStorage.setItem("inputValue", textarea.value);
+});

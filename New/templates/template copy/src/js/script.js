@@ -2000,7 +2000,7 @@ newSelect.value = "classic";
 newSelect.selected = true;
 console.log(select.options[select.selectedIndex]); */
 
-// Селект, который записывает выбранный option в cookie и при обновлении страницы он сохраняется
+/* // Селект, который записывает выбранный option в cookie и при обновлении страницы он сохраняется
 let mySelect = document.getElementById("select");
 function setValue() {
 	if(!document.cookie.includes("cityValue")) return;
@@ -2009,14 +2009,16 @@ function setValue() {
 	let targetArray = filtered.map(item => item.split("="));
 	if(targetArray) mySelect.value = targetArray[0][1];
 	// Ниже превращение массива сначала в объект и только потом утановка value.
-	/* let townObject = targetArray.reduce((obj, item) => {
+	let townObject = targetArray.reduce((obj, item) => {
 	obj[item[0]] = item[1];
 	return obj;
 	}, {})
-	if(townObject) mySelect.value = townObject.cityValue; */
+	if(townObject) mySelect.value = townObject.cityValue;
 }
 setValue();
-mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect.value}; max-age=10`);
+mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect.value}; max-age=10`); */
+
+
 
 
 console.log();
