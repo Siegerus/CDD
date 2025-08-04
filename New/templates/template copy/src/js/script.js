@@ -2021,7 +2021,62 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 
 
 
-console.log();
+
+let openRequest = indexedDB.open("store", 1);// запрос
+
+openRequest.addEventListener("upgradeneeded", () => { //Обновление бд. Событие также работает, если базы ещё не существует
+	console.log("upgradeneeded event!");
+	let db = openRequest.result; // объект базы данных, с которым будем работать
+	console.log(db);
+	//Хранилище объектов можно создавать/изменять только при обновлении версии базы данных в обработчике upgradeneeded.
+	if (!db.objectStoreNames.contains("books")) { // если хранилище "objectStore" не существует
+    	db.createObjectStore("books", {keyPath: "id"}); // создаём хранилище
+  	}
+	/* db.deleteObjectStore('books') */  // удалить хранилище объектов
+})
+openRequest.addEventListener("success", (e) => { // После upgradeneeded сработает событие success	
+	// при попытке обновления на объекте базы возникает событие versionchange
+	let db = openRequest.result;
+	db.addEventListener("versionchange", () => console.log("versionchange event!"));
+	
+	//Все операции с данными в IndexedDB могут быть сделаны только внутри транзакций.
+	let transaction = db.transaction("books", "readwrite");
+	let books = transaction.objectStore("books"); // получить хранилище объектов для работы с ним
+	console.log(books);
+
+	let book = {
+		id: 'js',
+		price: 10,
+		created: new Date()
+	};
+
+	let request = books.add(book, /* "myKey" */); // Выполнить запрос на добавление элемента в хранилище объектов 
+
+	// add(value, [key]) То же, что put, но если уже существует значение с таким ключом, 
+	// то запрос не выполнится, будет сгенерирована ошибка с названием "ConstraintError".
+
+	// put(value, [key]) Добавляет значение value в хранилище. Ключ key необходимо указать, 
+	// если при создании хранилища объектов не было указано свойство keyPath или autoIncrement. 
+	// Если уже есть значение с таким же ключом, то оно будет заменено.
+
+	request.onsuccess = function() { // Обработать результат запроса
+  		console.log("Книга добавлена в хранилище", request.result);
+	};
+	request.onerror = function() {
+  		console.log("Ошибка", request.error);
+	};
+});
+openRequest.addEventListener("error", () => console.error(openRequest.error));
+
+
+/* let openRequest2 = indexedDB.open("store", 2);  // попытка открыть новоую версию хранилища вызовет "blocked", т.к открыта версия 1
+// openRequest2.addEventListener("onupgradeneeded", () => console.log("let upgrade DB!"));
+openRequest2.addEventListener("blocked", (e) => console.log("blocked!")); */
+
+/* let deleteRequest = indexedDB.deleteDatabase("store"); // удаление бд
+deleteRequest.addEventListener("success", () => console.log("deleted!"));
+deleteRequest.addEventListener("error", () => console.error(deleteRequest.error)); */
+
 console.log();
 console.log();
 console.log();
