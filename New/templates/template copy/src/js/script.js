@@ -2021,113 +2021,202 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 
 
 
-// indexedDB
-let openRequest = indexedDB.open("store", 1);// запрос
+// // indexedDB
+// let openRequest = indexedDB.open("store", 1);// запрос
 
-openRequest.addEventListener("upgradeneeded", () => { //Обновление бд. Событие также работает, если базы ещё не существует
-	console.log("upgradeneeded event!");
-	let db = openRequest.result; // объект базы данных, с которым будем работать
-	console.log(db);
-	//Хранилище объектов можно создавать/изменять только при обновлении версии базы данных в обработчике upgradeneeded.
-	if (!db.objectStoreNames.contains("books")) { // если хранилище "objectStore" не существует
-    	let books = db.createObjectStore("books", {keyPath: "id"}); // создаём хранилище
+// openRequest.addEventListener("upgradeneeded", () => { //Обновление бд. Событие также работает, если базы ещё не существует
+// 	console.log("upgradeneeded event!");
+// 	let db = openRequest.result; // объект базы данных, с которым будем работать
+// 	console.log(db);
+// 	//Хранилище объектов можно создавать/изменять только при обновлении версии базы данных в обработчике upgradeneeded.
+// 	if (!db.objectStoreNames.contains("books")) { // если хранилище "objectStore" не существует
+//     	let books = db.createObjectStore("books", {keyPath: "id"}); // создаём хранилище
 
-	// index - структура данных для посика по индексированному полю.Индексы создаються в upgradeneeded,как и хранилище объектов
-		let index = books.createIndex('price_idx', 'price'); // Индекс будет отслеживать поле price.
-  	}
-	/* db.deleteObjectStore('books') */  // удалить хранилище объектов
+// 	// index - структура данных для посика по индексированному полю.Индексы создаються в upgradeneeded,как и хранилище объектов
+// 		let index = books.createIndex('price_idx', 'price'); // Индекс будет отслеживать поле price.
+//   	}
+// 	/* db.deleteObjectStore('books') */  // удалить хранилище объектов
 
-});
-openRequest.addEventListener("success", (e) => { // После upgradeneeded сработает событие success	
-	// при попытке обновления на объекте базы возникает событие versionchange
+// });
+// openRequest.addEventListener("success", (e) => { // После upgradeneeded сработает событие success	
+// 	// при попытке обновления на объекте базы возникает событие versionchange
+// 	let db = openRequest.result;
+// 	db.addEventListener("versionchange", () => console.log("versionchange event!"));
+	
+// 	//Все операции с данными в IndexedDB могут быть сделаны только внутри транзакций.
+// 	let transaction = db.transaction("books", "readwrite");
+// 	let books = transaction.objectStore("books"); // получить хранилище объектов для работы с ним
+// 	console.log(books);
+
+// 	let book = {
+// 		id: 'js',
+// 		price: 10,
+// 		created: new Date()
+// 	};
+
+// 	let request = books.add(book, /* "myKey" */); // Выполнить запрос на добавление элемента в хранилище объектов 
+
+// 	// add(value, [key]) То же, что put, но если уже существует значение с таким ключом, 
+// 	// то запрос не выполнится, будет сгенерирована ошибка с названием "ConstraintError".
+
+// 	// put(value, [key]) Добавляет значение value в хранилище. Ключ key необходимо указать, 
+// 	// если при создании хранилища объектов не было указано свойство keyPath или autoIncrement. 
+// 	// Если уже есть значение с таким же ключом, то оно будет заменено.
+
+// 	request.onsuccess = function() { // Обработать результат запроса
+//   		console.log("Книга добавлена в хранилище", request.result);
+// 	};
+// 	request.onerror = function(e) {
+//   		console.log("Ошибка", request.error);
+// 		if (request.error.name == "ConstraintError") {
+// 			// ConstraintError возникает при попытке добавить объект с ключом, который уже существует
+// 			console.log("Книга с таким id уже существует"); // обрабатываем ошибку
+// 			e.preventDefault(); // предотвращаем отмену транзакции(иначе при ошибке она отменяется полностью)
+// 			// ...можно попробовать использовать другой ключ...
+// 		} else {
+// 			// transaction.abort(); ? Возможно это не нужно и транзакция прерывается сама
+// 			// неизвестная ошибка
+// 			// транзакция будет отменена
+//   		}
+// 		transaction.onabort = function() {
+// 			console.log("Ошибка", transaction.error);
+// 		};
+// 	};
+
+	
+// 	/* // удалить книгу с id='js'
+// 	books.delete('js'); */
+	
+
+// 	//Поиск по ключам
+// 	// получить одну книгу
+// 	books.get('js')
+// 	let getRequest = books.get('js');
+// 	getRequest.onsuccess = () => {
+// 		if(getRequest.result !== undefined) console.log(getRequest.result);
+// 		else console.log("Нет таких книг");
+// 	}
+
+// 	// получить книги с 'css' <= id <= 'html'
+// 	books.getAll(IDBKeyRange.bound('css', 'html'))
+// 	// получить книги с id < 'html'
+// 	books.getAll(IDBKeyRange.upperBound('html', true))
+// 	// получить все книги
+// 	books.getAll()
+// 	// получить все ключи, гдe id > 'js'
+// 	books.getAllKeys(IDBKeyRange.lowerBound('js', true))
+
+	
+// 	// Поиск по индексированному полю. Для этошо в событии "upgradeneeded" сначала создали структуру данных "Index"
+// 	let priceIndex = books.index("price_idx");
+// 	let indexRequest = priceIndex.getAll(10);
+
+// 	/* // Если нам нужно удалить книги, основываясь на цене или на любом другом поле
+// 		// найдём ключ, где цена = 5
+// 		let request = priceIndex.getKey(5);
+// 		request.onsuccess = function() {
+// 			let id = request.result;
+// 			let deleteRequest = books.delete(id);
+// 		}; */
+
+// 	// Чтобы удалить всё:
+// 	/* books.clear(); // очищаем хранилище. */
+
+// 	indexRequest.onsuccess = () => {
+// 		if(indexRequest.result.length !== 0) console.log(indexRequest.result);
+// 		else console.log("Нет таких книг");
+// 	} 
+
+// 	transaction.oncomplete = function() {
+//   		console.log("Транзакция выполнена");
+// 	}
+// 	/* transaction.abort(); */ // вручную отменить транзакцию. отменит все изменения, сделанные запросами в транзакции,
+// 	// и сгенерирует событие transaction.onabort
+// });
+// openRequest.addEventListener("error", () => console.error(openRequest.error));
+
+
+// /* let openRequest2 = indexedDB.open("store", 2);  // попытка открыть новоую версию хранилища вызовет "blocked", т.к открыта версия 1
+// // openRequest2.addEventListener("onupgradeneeded", () => console.log("let upgrade DB!"));
+// openRequest2.addEventListener("blocked", (e) => console.log("blocked!")); */
+
+// /* let deleteRequest = indexedDB.deleteDatabase("store"); // удаление бд
+// deleteRequest.addEventListener("success", () => console.log("deleted!"));
+// deleteRequest.addEventListener("error", () => console.error(deleteRequest.error)); */
+
+let book = {
+  id: 'js',
+  price: 10,
+  created: new Date()
+};
+
+let obj = {
+	id : "obj#1",
+	key1 : "value1",
+	key2 : "value2",
+	key3 : "value3",
+	date : new Date(),
+	number : 12,
+}
+let obj2 = {
+	id : "obj#2",
+	key1 : "value1",
+	key2 : "value2",
+	key3 : "value3",
+	date : new Date(),
+	number : 12,
+}
+let obj3 = {
+	id : "obj#3",
+	key1 : "value1",
+	key2 : "value2",
+	key3 : "value3",
+	date : new Date(),
+	number : 12,
+}
+let openRequest = indexedDB.open("store", 1);
+
+openRequest.onupgradeneeded = () => {
 	let db = openRequest.result;
-	db.addEventListener("versionchange", () => console.log("versionchange event!"));
+	let storage = db.createObjectStore("myStorage", {keyPath: "id"});
+}
+openRequest.onsuccess = () => {
+	let db = openRequest.result;
+	let transaction = db.transaction("myStorage", "readwrite");
+	let storage = transaction.objectStore("myStorage");
+
+	transaction.onabort = () => console.log("Transaction aborted! " + transaction.error)
+
+	let addRequest = {
+		1 : storage.add(obj),
+		2 : storage.add(obj2),
+		3 : storage.add(obj3),
+		4 : storage.add(book),
+	}
 	
-	//Все операции с данными в IndexedDB могут быть сделаны только внутри транзакций.
-	let transaction = db.transaction("books", "readwrite");
-	let books = transaction.objectStore("books"); // получить хранилище объектов для работы с ним
-	console.log(books);
+	for(let num in addRequest) {
+		addRequest[num].onsuccess = () => console.log("Объект добавлен");
+		addRequest[num].onerror = (e) => {
+			if(addRequest[num].error.name == "ConstraintError") {
+				console.log("Объект уже был добавлен");
+				e.preventDefault();
+			}
+		} 
+	}
 
-	let book = {
-		id: 'js',
-		price: 10,
-		created: new Date()
-	};
-
-	let request = books.add(book, /* "myKey" */); // Выполнить запрос на добавление элемента в хранилище объектов 
-
-	// add(value, [key]) То же, что put, но если уже существует значение с таким ключом, 
-	// то запрос не выполнится, будет сгенерирована ошибка с названием "ConstraintError".
-
-	// put(value, [key]) Добавляет значение value в хранилище. Ключ key необходимо указать, 
-	// если при создании хранилища объектов не было указано свойство keyPath или autoIncrement. 
-	// Если уже есть значение с таким же ключом, то оно будет заменено.
-
-	request.onsuccess = function() { // Обработать результат запроса
-  		console.log("Книга добавлена в хранилище", request.result);
-	};
-	request.onerror = function(e) {
-  		console.log("Ошибка", request.error);
-		if (request.error.name == "ConstraintError") {
-			// ConstraintError возникает при попытке добавить объект с ключом, который уже существует
-			console.log("Книга с таким id уже существует"); // обрабатываем ошибку
-			e.preventDefault(); // предотвращаем отмену транзакции(иначе при ошибке она отменяется полностью)
-			// ...можно попробовать использовать другой ключ...
-		} else {
-			// transaction.abort(); ? Возможно это не нужно и транзакция прерывается сама
-			// неизвестная ошибка
-			// транзакция будет отменена
-  		}
-		transaction.onabort = function() {
-			console.log("Ошибка", transaction.error);
-		};
-	};
-
-
-	//Поиск по ключам
-	// получить одну книгу
-	books.get('js')
-	let getRequest = books.get('js');
+	let getTransaction = db.transaction("myStorage", "readwrite");
+	let getStorage = getTransaction.objectStore("myStorage")
+	let getRequest = getStorage.get("obj#2");
 	getRequest.onsuccess = () => {
-		if(getRequest.result !== undefined) console.log(getRequest.result);
-		else console.log("Нет таких книг");
+		if(getRequest.result !== undefined) {
+			console.log(getRequest.result);
+			getStorage.delete("obj#2");
+		} 
+		else console.log("нет таких объектов");
 	}
+}
 
-	// получить книги с 'css' <= id <= 'html'
-	books.getAll(IDBKeyRange.bound('css', 'html'))
-	// получить книги с id < 'html'
-	books.getAll(IDBKeyRange.upperBound('html', true))
-	// получить все книги
-	books.getAll()
-	// получить все ключи, гдe id > 'js'
-	books.getAllKeys(IDBKeyRange.lowerBound('js', true))
-
-	
-	// Поиск по индексированному полю. Для этошо в событии "upgradeneeded" сначала создали структуру данных "Index"
-	let priceIndex = books.index("price_idx");
-	let indexRequest = priceIndex.getAll(10);
-
-	indexRequest.onsuccess = () => {
-		if(indexRequest.result.length !== 0) console.log(indexRequest.result);
-		else console.log("Нет таких книг");
-	} 
-
-	transaction.oncomplete = function() {
-  		console.log("Транзакция выполнена");
-	}
-	/* transaction.abort(); */ // вручную отменить транзакцию. отменит все изменения, сделанные запросами в транзакции,
-	// и сгенерирует событие transaction.onabort
-});
-openRequest.addEventListener("error", () => console.error(openRequest.error));
-
-
-/* let openRequest2 = indexedDB.open("store", 2);  // попытка открыть новоую версию хранилища вызовет "blocked", т.к открыта версия 1
-// openRequest2.addEventListener("onupgradeneeded", () => console.log("let upgrade DB!"));
-openRequest2.addEventListener("blocked", (e) => console.log("blocked!")); */
-
-/* let deleteRequest = indexedDB.deleteDatabase("store"); // удаление бд
-deleteRequest.addEventListener("success", () => console.log("deleted!"));
-deleteRequest.addEventListener("error", () => console.error(deleteRequest.error)); */
+ 
 
 console.log();
 console.log();
