@@ -2030,10 +2030,14 @@ openRequest.addEventListener("upgradeneeded", () => { //Обновление б�
 	console.log(db);
 	//Хранилище объектов можно создавать/изменять только при обновлении версии базы данных в обработчике upgradeneeded.
 	if (!db.objectStoreNames.contains("books")) { // если хранилище "objectStore" не существует
-    	db.createObjectStore("books", {keyPath: "id"}); // создаём хранилище
+    	let books = db.createObjectStore("books", {keyPath: "id"}); // создаём хранилище
+
+	// index - структура данных для посика по индексированному полю.Индексы создаються в upgradeneeded,как и хранилище объектов
+		let index = books.createIndex('price_idx', 'price'); // Индекс будет отслеживать поле price.
   	}
 	/* db.deleteObjectStore('books') */  // удалить хранилище объектов
-})
+
+});
 openRequest.addEventListener("success", (e) => { // После upgradeneeded сработает событие success	
 	// при попытке обновления на объекте базы возникает событие versionchange
 	let db = openRequest.result;
@@ -2044,12 +2048,6 @@ openRequest.addEventListener("success", (e) => { // После upgradeneeded с�
 	let books = transaction.objectStore("books"); // получить хранилище объектов для работы с ним
 	console.log(books);
 
-	transaction.oncomplete = function() {
-  		console.log("Транзакция выполнена");
-	}
-	/* transaction.abort(); */ // вручную отменить транзакцию. отменит все изменения, сделанные запросами в транзакции,
-	// и сгенерирует событие transaction.onabort
-	
 	let book = {
 		id: 'js',
 		price: 10,
@@ -2080,11 +2078,45 @@ openRequest.addEventListener("success", (e) => { // После upgradeneeded с�
 			// неизвестная ошибка
 			// транзакция будет отменена
   		}
-
 		transaction.onabort = function() {
 			console.log("Ошибка", transaction.error);
 		};
 	};
+
+
+	//Поиск по ключам
+	// получить одну книгу
+	books.get('js')
+	let getRequest = books.get('js');
+	getRequest.onsuccess = () => {
+		if(getRequest.result !== undefined) console.log(getRequest.result);
+		else console.log("Нет таких книг");
+	}
+
+	// получить книги с 'css' <= id <= 'html'
+	books.getAll(IDBKeyRange.bound('css', 'html'))
+	// получить книги с id < 'html'
+	books.getAll(IDBKeyRange.upperBound('html', true))
+	// получить все книги
+	books.getAll()
+	// получить все ключи, гдe id > 'js'
+	books.getAllKeys(IDBKeyRange.lowerBound('js', true))
+
+	
+	// Поиск по индексированному полю. Для этошо в событии "upgradeneeded" сначала создали структуру данных "Index"
+	let priceIndex = books.index("price_idx");
+	let indexRequest = priceIndex.getAll(10);
+
+	indexRequest.onsuccess = () => {
+		if(indexRequest.result !== undefined) console.log(indexRequest.result);
+		else console.log("Нет таких книг");
+	} 
+
+	transaction.oncomplete = function() {
+  		console.log("Транзакция выполнена");
+	}
+	/* transaction.abort(); */ // вручную отменить транзакцию. отменит все изменения, сделанные запросами в транзакции,
+	// и сгенерирует событие transaction.onabort
 });
 openRequest.addEventListener("error", () => console.error(openRequest.error));
 
