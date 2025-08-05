@@ -2021,7 +2021,7 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 
 
 
-
+// indexedDB
 let openRequest = indexedDB.open("store", 1);// запрос
 
 openRequest.addEventListener("upgradeneeded", () => { //Обновление бд. Событие также работает, если базы ещё не существует
@@ -2044,6 +2044,12 @@ openRequest.addEventListener("success", (e) => { // После upgradeneeded с�
 	let books = transaction.objectStore("books"); // получить хранилище объектов для работы с ним
 	console.log(books);
 
+	transaction.oncomplete = function() {
+  		console.log("Транзакция выполнена");
+	}
+	/* transaction.abort(); */ // вручную отменить транзакцию. отменит все изменения, сделанные запросами в транзакции,
+	// и сгенерирует событие transaction.onabort
+	
 	let book = {
 		id: 'js',
 		price: 10,
@@ -2062,8 +2068,22 @@ openRequest.addEventListener("success", (e) => { // После upgradeneeded с�
 	request.onsuccess = function() { // Обработать результат запроса
   		console.log("Книга добавлена в хранилище", request.result);
 	};
-	request.onerror = function() {
+	request.onerror = function(e) {
   		console.log("Ошибка", request.error);
+		if (request.error.name == "ConstraintError") {
+			// ConstraintError возникает при попытке добавить объект с ключом, который уже существует
+			console.log("Книга с таким id уже существует"); // обрабатываем ошибку
+			e.preventDefault(); // предотвращаем отмену транзакции(иначе при ошибке она отменяется полностью)
+			// ...можно попробовать использовать другой ключ...
+		} else {
+			transaction.abort();
+			// неизвестная ошибка
+			// транзакция будет отменена
+  		}
+
+		transaction.onabort = function() {
+			console.log("Ошибка", transaction.error);
+		};
 	};
 });
 openRequest.addEventListener("error", () => console.error(openRequest.error));
