@@ -2108,7 +2108,7 @@ openRequest.addEventListener("success", (e) => { // После upgradeneeded с�
 	let indexRequest = priceIndex.getAll(10);
 
 	indexRequest.onsuccess = () => {
-		if(indexRequest.result !== undefined) console.log(indexRequest.result);
+		if(indexRequest.result.length !== 0) console.log(indexRequest.result);
 		else console.log("Нет таких книг");
 	} 
 
