@@ -2249,34 +2249,115 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // };
 
 
-async function createDb() {
-	let db;
-	db = await idb.openDB("async-store", 1, (db) => {
-		db.createObjectStore("myStore", {keyPath: 'id'});
-	});
-	console.log(db);
-	// let transaction = db.transaction("myStore", "readwrite");
-	let objectStore = db.transaction("myStore", "readwrite").objectStore("myStore");
-	console.log(objectStore);
-}
-// createDb();
 
 
-init();
-let db;
-async function init() {
-  db = await idb.openDB('booksDb', 1, db => {
-    db.createObjectStore('books', {keyPath: 'name'});
+
+// init();
+// let db;
+// async function init() {
+//   db = await idb.openDB('booksDb', 1, db => {
+//     db.createObjectStore('books', {keyPath: 'name'});
+//   });
+
+// // let transaction = db.transaction("books", "readwrite");
+//   list();
+// }
+
+// async function list() {
+//   let tx = db.transaction('books');
+//   let bookStore = tx.objectStore('books');
+// }
+
+/* async function demo() {
+  const db = await idb.openDB('Books', 2, {
+    upgrade(db) {
+      const store = db.createObjectStore('books', {keyPath: 'id'});
+    },
   });
+  const tx = db.transaction('books', 'readwrite');
+}
+demo(); */
 
-// let transaction = db.transaction("books", "readwrite");
-  list();
+let obj1 = {
+	"id" : 1,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
 }
 
-async function list() {
-  let tx = db.transaction('books');
-  let bookStore = tx.objectStore('books');
+let obj2 = {
+	"id" : 2,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
 }
+
+let obj3 = {
+	"id" : 3,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+
+let obj4 = {
+	"id" : 4,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+
+async function createDb() {
+	let db = await idb.openDB('store', 1,  {
+		upgrade(db) {
+			db.createObjectStore('myStore', {keyPath: 'id'});
+		}
+	});
+	
+	async function addObj() {
+		let transaction = db.transaction('myStore', "readwrite");
+		try {
+		await Promise.all([
+			transaction.objectStore("myStore").add(obj1),
+			transaction.objectStore("myStore").add(obj2),
+			transaction.objectStore("myStore").add(obj3),
+			transaction.objectStore("myStore").add(obj4),
+		]);
+			let getRequests = await transaction.objectStore("myStore").getAll();
+			console.log(getRequests);
+		}
+		catch(err) {
+			if(err.name == "ConstraintError") {
+				console.log("Объект уже был добавлен");
+			} 
+		}
+	}
+	addObj();
+
+	async function getObj() {
+		let transaction = db.transaction("myStore");
+		try {
+			let objects = await transaction.objectStore("myStore").getAll();
+			for(let object of objects) {
+				console.log(object.id);
+			}
+		}
+		catch(err) {
+			console.log(err);
+		}
+	}
+	document.addEventListener("dblclick", getObj);
+}
+createDb();
+
+window.addEventListener("unhandledrejection", (e) => {
+	console.log(e.target)
+});
+
+
 
 
 console.log();
