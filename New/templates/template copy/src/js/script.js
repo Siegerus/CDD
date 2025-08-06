@@ -2144,79 +2144,140 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // deleteRequest.addEventListener("success", () => console.log("deleted!"));
 // deleteRequest.addEventListener("error", () => console.error(deleteRequest.error)); */
 
-let book = {
-  id: 'js',
-  price: 10,
-  created: new Date()
-};
+// let book = {
+//   id: 'js',
+//   price: 10,
+//   created: new Date(),
+// };
 
-let obj = {
-	id : "obj#1",
-	key1 : "value1",
-	key2 : "value2",
-	key3 : "value3",
-	date : new Date(),
-	number : 12,
-}
-let obj2 = {
-	id : "obj#2",
-	key1 : "value1",
-	key2 : "value2",
-	key3 : "value3",
-	date : new Date(),
-	number : 12,
-}
-let obj3 = {
-	id : "obj#3",
-	key1 : "value1",
-	key2 : "value2",
-	key3 : "value3",
-	date : new Date(),
-	number : 12,
-}
-let openRequest = indexedDB.open("store", 1);
-
-openRequest.onupgradeneeded = () => {
-	let db = openRequest.result;
-	let storage = db.createObjectStore("myStorage", {keyPath: "id"});
-}
-openRequest.onsuccess = () => {
-	let db = openRequest.result;
-	let transaction = db.transaction("myStorage", "readwrite");
-	let storage = transaction.objectStore("myStorage");
-
-	transaction.onabort = () => console.log("Transaction aborted! " + transaction.error)
-
-	let addRequest = {
-		1 : storage.add(obj),
-		2 : storage.add(obj2),
-		3 : storage.add(obj3),
-		4 : storage.add(book),
-	}
+// let obj = {
+// 	id : "obj#1",
+// 	key1 : "value1",
+// 	key2 : "value2",
+// 	key3 : "value3",
+// 	date : new Date(),
+// 	number : 12,
+// }
+// let obj2 = {
+// 	id : "obj#2",
+// 	key1 : "value1",
+// 	key2 : "value2",
+// 	key3 : "value3",
+// 	date : new Date(),
+// 	number : 12,
+// }
+// let obj3 = {
+// 	id : "obj#3",
+// 	key1 : "value1",
+// 	key2 : "value2",
+// 	key3 : "value3",
+// 	date : new Date(),
+// 	number : 12,
+// }
+// let openRequest = indexedDB.open("store", 1);
+// openRequest.onupgradeneeded = (e) => {
+// 	console.log(e.oldVersion);
+// 	let db;
+// 	if(e.oldVersion == 0)  {
+// 		db = openRequest.result;
+// 		console.log(db.version);
+// 		let storage = db.createObjectStore("myStorage", {keyPath: "id"});
+// 		let index = storage.createIndex("number-srch", "number");
+// 	} 
+// 	/* if(e.oldVersion == 1) {
+// 		openRequest = indexedDB.open("store", 2);
+// 		db = openRequest.result;
+// 		console.log(db.version);
+// 	}  */ 
+// }
+// openRequest.onsuccess = () => {
+// 	let db = openRequest.result;
+// 	console.log(db);
+// 	let transaction = db.transaction("myStorage", "readwrite");
+// 	let storage = transaction.objectStore("myStorage");
 	
-	for(let num in addRequest) {
-		addRequest[num].onsuccess = () => console.log("Объект добавлен");
-		addRequest[num].onerror = (e) => {
-			if(addRequest[num].error.name == "ConstraintError") {
-				console.log("Объект уже был добавлен");
-				e.preventDefault();
-			}
-		} 
-	}
+// 	transaction.onabort = () => console.log("Transaction aborted! " + transaction.error)
 
-	let getTransaction = db.transaction("myStorage", "readwrite");
-	let getStorage = getTransaction.objectStore("myStorage")
-	let getRequest = getStorage.get("obj#2");
-	getRequest.onsuccess = () => {
-		if(getRequest.result !== undefined) {
-			console.log(getRequest.result);
-			getStorage.delete("obj#2");
-		} 
-		else console.log("нет таких объектов");
-	}
+// 	let addRequest = {
+// 		1 : storage.add(obj),
+// 		2 : storage.add(obj2),
+// 		3 : storage.add(obj3),
+// 		4 : storage.add(book),
+// 	}
+// 	for(let num in addRequest) {
+// 		addRequest[num].onsuccess = () => console.log("Объект добавлен");
+// 		addRequest[num].onerror = (e) => {
+// 			if(addRequest[num].error.name == "ConstraintError") {
+// 				console.log("Объект уже был добавлен");
+// 				// благодаря preventDefault при попытке повторного добавления уже существующих объектов в хранилище
+// 				// (в данном случае при каждом последующем обновлении страницы)
+// 				// транзакция не будет прервана и событие onabort не произойдёт. И можно будет не создавать новую
+// 				//транзакцию ниже для "get"
+// 				e.preventDefault();
+// 			}
+// 		} 
+// 	}
+// 	// let getTransaction = db.transaction("myStorage", "readwrite");
+// 	// let getStorage = getTransaction.objectStore("myStorage")
+// 	let getRequest = /* getStorage */ storage.get("obj#2");
+// 	getRequest.onsuccess = () => {
+// 		if(getRequest.result !== undefined) {
+// 			console.log(getRequest.result);
+// 			/* getStorage */ storage.delete("obj#2");
+// 		} 
+// 		else console.log("нет таких объектов");
+// 	}
+
+// 	let index = storage.index("number-srch");
+// 	let indexRequest = index.getAll(12)
+// 	indexRequest.onsuccess = () => console.log(indexRequest.result);
+// 	indexRequest.onerror = () => console.log(indexRequest.error);
+
+
+// 	let cursorRequest = storage.openCursor(); // cursor идёт по хранилищу объектов и возвращает пары ключ/значение по очереди
+// 	cursorRequest.onsuccess = () => {
+// 		if(cursorRequest.result) {
+// 			console.log("key: " + cursorRequest.result.key + " value: " + cursorRequest.result.value)
+// 			cursorRequest.result.continue(); /* продвинуть курсор к следующему значению */
+// 			/* cursorRequest.result.advance(3); */ /* продвинуть курсор на count позиций, пропустив значения */
+// 		} 
+// 		else console.log("...объектов обольше нет");
+// 	}
+// }
+// openRequest.onerror = function() {
+// 	console.error("Error", openRequest.error);
+// };
+
+
+async function createDb() {
+	let db;
+	db = await idb.openDB("async-store", 1, (db) => {
+		db.createObjectStore("myStore", {keyPath: 'id'});
+	});
+	console.log(db);
+	// let transaction = db.transaction("myStore", "readwrite");
+	let objectStore = db.transaction("myStore", "readwrite").objectStore("myStore");
+	console.log(objectStore);
+}
+// createDb();
+
+
+init();
+let db;
+async function init() {
+  db = await idb.openDB('booksDb', 1, db => {
+    db.createObjectStore('books', {keyPath: 'name'});
+  });
+
+// let transaction = db.transaction("books", "readwrite");
+  list();
 }
 
- 
+async function list() {
+  let tx = db.transaction('books');
+  let bookStore = tx.objectStore('books');
+}
+
 
 console.log();
 console.log();
