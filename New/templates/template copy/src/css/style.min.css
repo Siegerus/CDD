@@ -866,5 +866,24 @@ dialog {
 	cursor: pointer;
 }
 
+.digit-window {
+	max-width: 3rem;
+	margin: 0 auto;
+	overflow: hidden;
+	cursor: pointer;
+
+}
+
+.numbers {
+	min-width: 635px;
+	font-size: 140px;
+}
+
+.animate {
+	transform: translateX(-89%);
+	color: #3c763d;
+	transition: transform 10s cubic-bezier(.0, .4, .3, .6);
+}
+
 
 

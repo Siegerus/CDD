@@ -40,6 +40,125 @@ function scrollDown() {
 // scrollDown();
 
 
+
+// indexedDB с плагином обёрткой для промисов  https://github.com/jakearchibald/idb
+
+async function createDb() {
+	let obj1 = {
+	"id" : 1,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+	let obj2 = {
+	"id" : 2,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+	let obj3 = {
+	"id" : 3,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+	let obj4 = {
+	"id" : 4,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+	let db = await idb.openDB('store', 1,  {
+		upgrade(db) {
+			db.createObjectStore('myStore', {keyPath: 'id'});
+		}
+	});
+	async function addObj() {
+		let transaction = db.transaction('myStore', "readwrite");
+		try {
+		await Promise.all([
+			transaction.objectStore("myStore").add(obj1),
+			transaction.objectStore("myStore").add(obj2),
+			transaction.objectStore("myStore").add(obj3),
+			transaction.objectStore("myStore").add(obj4),
+		]);
+			let getRequests = await transaction.objectStore("myStore").getAll();
+			console.log("В хранилище добавлены объекты: " + getRequests);
+		}
+		catch(err) {
+			if(err.name == "ConstraintError") {
+				console.log("Объект уже был добавлен");
+			} else {
+				console.log(err);
+				throw err;
+			}
+		}
+	}
+	async function clearStorage() {
+		let transaction = db.transaction("myStore", "readwrite");
+		let objects = await transaction.objectStore("myStore").getAll();
+		if(objects.length > 0) {
+			try {
+				await transaction.objectStore("myStore").clear();
+				console.log("Хранилище очищено");
+				await getObj();	
+			}
+			catch(err) {
+				console.log(err);
+				throw err;
+			} 
+			
+		} else console.log("Хранилище пустое");
+	}
+	async function getObj() {
+		let transaction = db.transaction("myStore");
+		try {
+			let objects = await transaction.objectStore("myStore").getAll();
+			console.log(objects);
+			if(objects.length == 0) return;
+			else {
+				for(let object of objects) {
+					console.log("Получен объект id: " + object.id);
+				}
+			}
+		}
+		catch(err) {
+			console.log(err);
+			throw err;
+		}
+	}
+	document.addEventListener("mousedown", (e) => {
+		if(e.button == 2 && e.ctrlKey) {
+			document.addEventListener("contextmenu", (e) => e.preventDefault());
+			addObj();
+		}
+	});
+	document.addEventListener("mousedown", (e) => {
+		if(e.button == 2 && e.altKey) {
+			document.addEventListener("contextmenu", (e) => e.preventDefault());
+			clearStorage();
+		} 
+	});
+	document.addEventListener("mousedown", (e) => {
+		if(e.button == 2 && e.shiftKey) {
+			document.addEventListener("contextmenu", (e) => e.preventDefault());
+			getObj();
+		}
+	});
+}
+createDb();
+window.addEventListener("unhandledrejection", (e) => {
+	console.log(e.target);
+	console.log(e.reason.message);
+});
+
+
+
+
 //window
 function setWindow() {
 	let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
@@ -2249,114 +2368,14 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // };
 
 
+let digitWindow = document.querySelector(".digit-window");
+let numbers = document.querySelector("body > div.digit-window > div");
+let deepest = document.querySelector("body > div.digit-window > div > div")
 
 
-
-// init();
-// let db;
-// async function init() {
-//   db = await idb.openDB('booksDb', 1, db => {
-//     db.createObjectStore('books', {keyPath: 'name'});
-//   });
-
-// // let transaction = db.transaction("books", "readwrite");
-//   list();
-// }
-
-// async function list() {
-//   let tx = db.transaction('books');
-//   let bookStore = tx.objectStore('books');
-// }
-
-/* async function demo() {
-  const db = await idb.openDB('Books', 2, {
-    upgrade(db) {
-      const store = db.createObjectStore('books', {keyPath: 'id'});
-    },
-  });
-  const tx = db.transaction('books', 'readwrite');
-}
-demo(); */
-
-let obj1 = {
-	"id" : 1,
-	"key1": "val1",
-	"key2": "val2",
-	"key3": "val3",
-	"key4": "val4",
-}
-
-let obj2 = {
-	"id" : 2,
-	"key1": "val1",
-	"key2": "val2",
-	"key3": "val3",
-	"key4": "val4",
-}
-
-let obj3 = {
-	"id" : 3,
-	"key1": "val1",
-	"key2": "val2",
-	"key3": "val3",
-	"key4": "val4",
-}
-
-let obj4 = {
-	"id" : 4,
-	"key1": "val1",
-	"key2": "val2",
-	"key3": "val3",
-	"key4": "val4",
-}
-
-async function createDb() {
-	let db = await idb.openDB('store', 1,  {
-		upgrade(db) {
-			db.createObjectStore('myStore', {keyPath: 'id'});
-		}
-	});
-	
-	async function addObj() {
-		let transaction = db.transaction('myStore', "readwrite");
-		try {
-		await Promise.all([
-			transaction.objectStore("myStore").add(obj1),
-			transaction.objectStore("myStore").add(obj2),
-			transaction.objectStore("myStore").add(obj3),
-			transaction.objectStore("myStore").add(obj4),
-		]);
-			let getRequests = await transaction.objectStore("myStore").getAll();
-			console.log(getRequests);
-		}
-		catch(err) {
-			if(err.name == "ConstraintError") {
-				console.log("Объект уже был добавлен");
-			} 
-		}
-	}
-	addObj();
-
-	async function getObj() {
-		let transaction = db.transaction("myStore");
-		try {
-			let objects = await transaction.objectStore("myStore").getAll();
-			for(let object of objects) {
-				console.log(object.id);
-			}
-		}
-		catch(err) {
-			console.log(err);
-		}
-	}
-	document.addEventListener("dblclick", getObj);
-}
-createDb();
-
-window.addEventListener("unhandledrejection", (e) => {
-	console.log(e.target)
-});
-
+digitWindow.addEventListener("click", (e) => {
+	numbers.classList.add("animate");
+})
 
 
 

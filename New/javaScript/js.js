@@ -1623,3 +1623,186 @@ openRequestt.onsuccess = () => {
 openRequestt.onerror = function() {
 	console.error("Error", openRequestt.error);
 };
+
+
+// indexedDB с плагином обёрткой для промисов  https://github.com/jakearchibald/idb
+let oobj1 = {
+	"id" : 1,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+let oobj2 = {
+	"id" : 2,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+let oobj3 = {
+	"id" : 3,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+let oobj4 = {
+	"id" : 4,
+	"key1": "val1",
+	"key2": "val2",
+	"key3": "val3",
+	"key4": "val4",
+}
+async function createDb() {
+	let db = await idb.openDB('store', 1,  {
+		upgrade(db) {
+			db.createObjectStore('myStore', {keyPath: 'id'});
+		}
+	});
+	async function addObj() {
+		let transaction = db.transaction('myStore', "readwrite");
+		try {
+		await Promise.all([
+			transaction.objectStore("myStore").add(oobj1),
+			transaction.objectStore("myStore").add(oobj2),
+			transaction.objectStore("myStore").add(oobj3),
+			transaction.objectStore("myStore").add(oobj4),
+		]);
+			let getRequests = await transaction.objectStore("myStore").getAll();
+			console.log("В хранилище добавлены объекты: " + getRequests);
+		}
+		catch(err) {
+			if(err.name == "ConstraintError") {
+				console.log("Объект уже был добавлен");
+			} else {
+				console.log(err);
+				throw err;
+			}
+		}
+	}
+	async function clearStorage() {
+		let transaction = db.transaction("myStore", "readwrite");
+		let objects = await transaction.objectStore("myStore").getAll();
+		if(objects.length > 0) {
+			try {
+				await transaction.objectStore("myStore").clear();
+				console.log("Хранилище очищено");
+				await getObj();	
+			}
+			catch(err) {
+				console.log(err);
+				throw err;
+			} 
+			
+		} else console.log("Хранилище пустое");
+	}
+	async function getObj() {
+		let transaction = db.transaction("myStore");
+		try {
+			let objects = await transaction.objectStore("myStore").getAll();
+			console.log(objects);
+			if(objects.length == 0) return;
+			else {
+				for(let object of objects) {
+					console.log("Получен объект id: " + object.id);
+				}
+			}
+		}
+		catch(err) {
+			console.log(err);
+			throw err;
+		}
+	}
+	document.addEventListener("mousedown", (e) => {
+		if(e.button == 2 && e.ctrlKey) {
+			document.addEventListener("contextmenu", (e) => e.preventDefault());
+			addObj();
+		}
+	});
+	document.addEventListener("mousedown", (e) => {
+		if(e.button == 2 && e.altKey) {
+			document.addEventListener("contextmenu", (e) => e.preventDefault());
+			clearStorage();
+		} 
+	});
+	document.addEventListener("mousedown", (e) => {
+		if(e.button == 2 && e.shiftKey) {
+			document.addEventListener("contextmenu", (e) => e.preventDefault());
+			getObj();
+		}
+	});
+}
+createDb();
+window.addEventListener("unhandledrejection", (e) => {
+	console.log(e.target);
+	console.log(e.reason.message);
+});
+
+
+
+// Демо из учебника indexedDB с плагином обёрткой для промисов
+//html
+// <!doctype html>
+// <script src="https://cdn.jsdelivr.net/npm/idb@3.0.2/build/idb.min.js"></script>
+
+// <button onclick="addBook()">Добавить книгу</button>
+// <button onclick="clearBooks()">Очистить хранилище</button>
+
+// <p>Список книг:</p>
+
+// <ul id="listElem"></ul>
+
+// js
+let db;
+init();
+async function init() {
+  db = await idb.openDb('booksDb', 1, db => {
+    db.createObjectStore('books', {keyPath: 'name'});
+  });
+
+  list();
+}
+
+async function list() {
+  let tx = db.transaction('books');
+  let bookStore = tx.objectStore('books');
+
+  let books = await bookStore.getAll();
+
+  if (books.length) {
+    listElem.innerHTML = books.map(book => `<li>
+        название: ${book.name}, цена: ${book.price}
+      </li>`).join('');
+  } else {
+    listElem.innerHTML = '<li>Книг пока нет. Пожалуйста, добавьте книги.</li>'
+  }
+}
+
+async function clearBooks() {
+  let tx = db.transaction('books', 'readwrite');
+  await tx.objectStore('books').clear();
+  await list();
+}
+
+async function addBook() {
+  let name = prompt("Название книги");
+  let price = +prompt("Цена книги");
+
+  let tx = db.transaction('books', 'readwrite');
+
+  try {
+    await tx.objectStore('books').add({name, price});
+    await list();
+  } catch(err) {
+    if (err.name == 'ConstraintError') {
+      alert("Такая книга уже существует");
+      await addBook();
+    } else {
+      throw err;
+    }
+  }
+}
+window.addEventListener('unhandledrejection', event => {
+  alert("Ошибка: " + event.reason.message);
+});
