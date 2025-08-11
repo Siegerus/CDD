@@ -150,13 +150,15 @@ p {
 }
 
 .any-section__button {
+	position: relative;
 	display: block;
 	margin: 0 auto;
+	left: 0;
 	padding: 12px 35px;
 	background-color: mediumorchid;
 	cursor: pointer;
 	border: none;
-	transition: all 0.2s;
+	transition: all 0.8s;
 }
 
 .any-section__button span {
@@ -867,22 +869,34 @@ dialog {
 }
 
 .digit-window {
-	max-width: 3rem;
+	max-width: 3.2rem;
 	margin: 0 auto;
 	overflow: hidden;
+	font-size: 140px;
 	cursor: pointer;
-
 }
 
 .numbers {
-	min-width: 635px;
+	display: inline-block;
 	font-size: 140px;
 }
 
 .animate {
-	transform: translateX(-89%);
+	transform: translateX(-90%);
 	color: #3c763d;
-	transition: transform 10s cubic-bezier(.0, .4, .3, .6);
+	transition: transform 9s steps(9, end);
+}
+
+.circlee {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-radius: 100px;
+	background-color: red;
+	font-size: 25px;
+	text-align: center;
+	visibility: hidden;
+	transition: all 3s;
 }
 
 

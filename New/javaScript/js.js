@@ -1806,3 +1806,114 @@ async function addBook() {
 window.addEventListener('unhandledrejection', event => {
   alert("Ошибка: " + event.reason.message);
 });
+
+
+
+// Анимации
+// Элемент двигается вперёд/назад при завершении соответствующей анимации
+function moveButton() {
+	let elem = document.querySelector(".any-section__button");
+	let direction = "right"; 
+	elem.addEventListener("click", () => {
+		function toMove() {
+			if(direction == "right") elem.style.left = 100 + "px";  
+			if(direction == "left") elem.style.left = -100 + "px";
+		}
+		toMove();
+
+		elem.addEventListener("transitionend", () => {
+			if(direction == "right") direction = "left";
+			else direction = "right";
+			toMove();
+		});
+	});
+}
+moveButton();
+
+
+// Задача с самолётом, который увеличивается при клике.(мой вариант + toggle)
+let plane = document.getElementById("flyjet");
+let props = [];
+
+function zoomIn(el) {
+	el.classList.toggle("zoomed");
+	function onTransitionEnd(e) {
+		props.push(e.propertyName);
+		if(props.length == 2) {
+			alert("Анимация завершена!");
+			props.splice(0);
+		} 
+	}
+	if(el.classList.contains("zoomed")) el.ontransitionend = (e) => onTransitionEnd(e);
+}
+function onZoom() {
+	zoomIn(plane); 
+}
+plane.addEventListener("click", onZoom);
+// Вариант из решения
+let ended = false;
+   flyjet.onclick = function() {
+      flyjet.addEventListener('transitionend', function() {
+        if (!ended) {
+          ended = true;
+          alert('Анимация закончилась!');
+        }
+      });
+      flyjet.classList.add('zoomed');
+    }
+
+
+
+	//задача с анимированым кругом и коллбеко
+function showCircle(cx, cy, radius, callback) {
+    let div = document.createElement('div');
+    div.style.width = 0;
+    div.style.height = 0;
+    div.style.left = cx + 'px';
+    div.style.top = cy + 'px';
+    div.className = 'circle';
+    document.body.append(div);
+    setTimeout(() => {
+      div.style.width = radius + 'px';
+      div.style.height = radius + 'px';
+    }, 0);
+
+	div.addEventListener("transitionend", function handler() {
+		div.removeEventListener('transitionend', handler); // удаляем одно из событий, т.к их повесится 2(для каждого сво-ва)
+		callback(div, radius);
+	});
+  }
+
+  document.addEventListener("keydown", (e) => {
+	if(e.key == "q") showCircle(150, 150, 200, function(div, lh) {
+		div.classList.add('message-ball');
+		div.style.lineHeight = lh + "px";
+		div.append("Hello, world!");
+	});
+}); 
+// решение из учебника
+/* function showCircle(cx, cy, radius, callback) {
+    let div = document.createElement('div');
+    div.style.width = 0;
+    div.style.height = 0;
+    div.style.left = cx + 'px';
+    div.style.top = cy + 'px';
+    div.className = 'circle';
+    document.body.append(div);
+
+    setTimeout(() => {
+      div.style.width = radius * 2 + 'px';
+      div.style.height = radius * 2 + 'px';
+
+      div.addEventListener('transitionend', function handler() {
+        div.removeEventListener('transitionend', handler); // удаляем одно из событий, т.к их повесится 2(для каждого сво-ва)
+        callback(div);
+      });
+    }, 0);
+  }
+  document.addEventListener("keydown", (e) => {
+	if(e.key == "q") showCircle(150, 150, 100, div => {
+      div.classList.add('message-ball');
+      div.append("Привет, мир!");
+    });
+  }); */

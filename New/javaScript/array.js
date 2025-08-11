@@ -635,6 +635,23 @@ for (let i = 0; i < 10000; i++) {
 
 
 
+// Раскрытие многомерного массива рекурсией
+let arrrrrrr = [1,2, [true, [4,[54, true, "111",{"key": "value"}], 6], false], ["smth", 34]];
+let newArr = [];
+function openArray(array) {
+	array.forEach((item) => {
+		if(Array.isArray(item)) {
+			openArray(item);
+		} else {
+			newArr.push(item);
+		}
+	});
+}
+openArray(arrrrrrr); 
+console.log(newArr); // [1, 2, true, 4, 54, true, '111', {…}, 6, false, 'smth', 34]
+
+
+
 
 
 
