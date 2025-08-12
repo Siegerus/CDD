@@ -2280,28 +2280,122 @@ async function list() {
  */
 
 
+/* let targetEl = document.querySelector("body > div.any-section__frop-ball");
+let int;
+function drawAnimation() {
+	let start = Date.now();
+	function onAnimate(passedTime) {
+		targetEl.style.left = passedTime / 5 + "px";
+	}
+	int = setInterval(() => {
+		let passedTime = Date.now() - start; 
+		if(passedTime >= 2000) {
+			clearInterval(int);
+			return;
+		}
+		onAnimate(passedTime);
+	}, 10)
+}
+document.addEventListener("dblclick", function handler() {
+	drawAnimation();
+	document.removeEventListener("dblclick", handler);
+}); */
+
+/* // Анимация с помощь. requestAnimationFrame
 let targetEl = document.querySelector("body > div.any-section__frop-ball");
+targetEl.addEventListener("click", () => {
+	
+	function bounce(frameUnit) {
+		for (let a = 0, b = 1; 1; a += b, b /= 2) {
+			if (frameUnit >= (7 - 4 * a) / 11) {
+				return -Math.pow((11 - 6 * a - 11 * frameUnit) / 4, 2) + Math.pow(b, 2)
+			}
+		}
+	}
+	function makeEaseOut(timing) {
+		return function(frameUnit) {
+			return 1 - timing(1 - frameUnit);
+		}
+	}
 
-
-function animate({duration, draw, timing}) {
-
-	let start = performance.now();
-  
-	requestAnimationFrame(function animate(time) {
-	  let timeFraction = (time - start) / duration;
-	  if (timeFraction > 1) timeFraction = 1;
-  
-	  let progress = timing(timeFraction)
-  
-	  draw(progress);
-  
-	  if (timeFraction < 1) {
-		requestAnimationFrame(animate);
-	  }
-  
+	animate({ 
+		duration : 1000,
+		timing: makeEaseOut(bounce),
+		draw: function(progress) {
+			targetEl.style.left = progress * 1000 + "px";
+		}
 	});
-  }
-/*   animate(); */
+});
+
+function animate({duration, timing, draw}) {
+	let start = performance.now();
+	requestAnimationFrame(function innerAnimate(time) {
+		let frameUnit = (time - start) / duration;
+		if(frameUnit > 1) frameUnit = 1;
+		
+		let progress = timing(frameUnit);
+
+		draw(progress);
+
+		if(frameUnit < 1) requestAnimationFrame(innerAnimate);
+	});
+} */
+
+
+
+// Анимация с помощь. requestAnimationFrame
+let targetEl = document.querySelector("body > div.any-section__frop-ball");
+targetEl.addEventListener("click", () => {
+
+	function bounce(frameUnit) {
+		for (let a = 0, b = 1; 1; a += b, b /= 2) {
+			if (frameUnit >= (7 - 4 * a) / 11) {
+				return -Math.pow((11 - 6 * a - 11 * frameUnit) / 4, 2) + Math.pow(b, 2)
+			}
+		}
+	}
+	function makeEaseOut(timing) {
+		return function(frameUnit) {
+			return 1 - timing(1 - frameUnit);
+		}
+	}
+	
+	animate({
+		duration: 1000,
+		timingLeft: makeEaseOut(bounce),
+		timingWidth: function(timeFraction) {
+			return timeFraction;
+		},
+		drawLeft: function(progressLeft) {
+			targetEl.style.left = progressLeft * 500 + "px";
+		},
+		drawWidth: function(progressWidth) {
+			targetEl.style.width = parseInt(getComputedStyle(targetEl).width) + progressWidth + 4 + "px";
+		}	
+	});
+});
+
+targetEl.addEventListener("transitionend", (e) => {
+	console.log("transitionend");
+});
+
+function animate({duration, timingLeft, timingWidth, drawLeft, drawWidth}) {
+	let start = performance.now();
+
+	requestAnimationFrame(function animate(time) {
+		let timeFraction = (time - start) / duration;
+		if(timeFraction > 1) timeFraction = 1;
+
+		let progressLeft = timingLeft(timeFraction);
+		let progressWidth = timingWidth(timeFraction);
+
+		drawLeft(progressLeft);
+		drawWidth(progressWidth);
+		if(timeFraction < 1) requestAnimationFrame(animate);
+	});
+}
+
+
 
 console.log();
 console.log();
