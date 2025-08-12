@@ -1917,3 +1917,27 @@ function showCircle(cx, cy, radius, callback) {
       div.append("Привет, мир!");
     });
   }); */
+
+
+
+  // Анимация с помощью js
+let targetEl = document.querySelector("body > div.any-section__frop-ball");
+let int;
+function drawAnimation() {
+	let start = Date.now();
+	function onAnimate(passedTime) {
+		targetEl.style.left = passedTime / 5 + "px";
+	}
+	int = setInterval(() => {
+		let passedTime = Date.now() - start;
+		if(passedTime >= 2000) {
+			clearInterval(int);
+			return;
+		}
+		onAnimate(passedTime);
+	}, 10)
+}
+document.addEventListener("dblclick", function handler() {
+	drawAnimation();
+	document.removeEventListener("dblclick", handler);
+});
