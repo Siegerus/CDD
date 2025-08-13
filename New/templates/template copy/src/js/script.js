@@ -2304,7 +2304,6 @@ document.addEventListener("dblclick", function handler() {
 /* // Анимация с помощь. requestAnimationFrame
 let targetEl = document.querySelector("body > div.any-section__frop-ball");
 targetEl.addEventListener("click", () => {
-	
 	function bounce(frameUnit) {
 		for (let a = 0, b = 1; 1; a += b, b /= 2) {
 			if (frameUnit >= (7 - 4 * a) / 11) {
@@ -2317,49 +2316,6 @@ targetEl.addEventListener("click", () => {
 			return 1 - timing(1 - frameUnit);
 		}
 	}
-
-	animate({ 
-		duration : 1000,
-		timing: makeEaseOut(bounce),
-		draw: function(progress) {
-			targetEl.style.left = progress * 1000 + "px";
-		}
-	});
-});
-
-function animate({duration, timing, draw}) {
-	let start = performance.now();
-	requestAnimationFrame(function innerAnimate(time) {
-		let frameUnit = (time - start) / duration;
-		if(frameUnit > 1) frameUnit = 1;
-		
-		let progress = timing(frameUnit);
-
-		draw(progress);
-
-		if(frameUnit < 1) requestAnimationFrame(innerAnimate);
-	});
-} */
-
-
-
-// Анимация с помощь. requestAnimationFrame
-let targetEl = document.querySelector("body > div.any-section__frop-ball");
-targetEl.addEventListener("click", () => {
-
-	function bounce(frameUnit) {
-		for (let a = 0, b = 1; 1; a += b, b /= 2) {
-			if (frameUnit >= (7 - 4 * a) / 11) {
-				return -Math.pow((11 - 6 * a - 11 * frameUnit) / 4, 2) + Math.pow(b, 2)
-			}
-		}
-	}
-	function makeEaseOut(timing) {
-		return function(frameUnit) {
-			return 1 - timing(1 - frameUnit);
-		}
-	}
-	
 	animate({
 		duration: 1000,
 		timingLeft: makeEaseOut(bounce),
@@ -2375,21 +2331,15 @@ targetEl.addEventListener("click", () => {
 		finalDraw : function() {
 			targetEl.style.height = getComputedStyle(targetEl).width;
 		}
-
 	});
 });
-
-
 function animate({duration, timingLeft, timingWidth, drawLeft, drawWidth, finalDraw}) {
 	let start = performance.now();
-
 	requestAnimationFrame(function animate(time) {
 		let timeFraction = (time - start) / duration;
 		if(timeFraction > 1) timeFraction = 1;
-
 		let progressLeft = timingLeft(timeFraction);
 		let progressWidth = timingWidth(timeFraction);
-
 		// Promise.all([drawLeft(progressLeft), drawWidth(progressWidth)]).then(() => console.log("done"));
 		drawLeft(progressLeft);
 		drawWidth(progressWidth);
@@ -2400,11 +2350,85 @@ function animate({duration, timingLeft, timingWidth, drawLeft, drawWidth, finalD
 			finalDraw();
 		} 
 	});
+} */
+
+/* class MyElement extends HTMLElement {
+	constructor() {
+		super();
+	}
+	connectedCallback() {
+    	console.log("my-element added!");
+		this.setAttribute("custom-attr", 100);
+		this.style.height = this.getAttribute("custom-attr") + "px";
+  	}
+	disconnectedCallback() {
+		console.log("my-element removed!");
+  	}
+	static get observedAttributes() {
+		return ["class"];
+	}
+	attributeChangedCallback(name, oldValue, newValue) {
+		console.log(`attribute ${name} changed! from ${oldValue} to ${newValue}`);
+  	}
 }
+customElements.define("my-element", MyElement);
+function createElem() {
+	let el = document.createElement("my-element");
+	document.body.prepend(el);
+	el.className = "my_element";
+	el.style.display = "block";
+	el.style.width = 100 + "%";
+	el.style.backgroundColor = "purple";
+}
+document.addEventListener("keydown", function handler(e) {
+	if(e.key == "a") createElem(); 
+});
+document.addEventListener("keydown", (e) => {
+	if(e.key == "d" && document.getElementsByTagName("my-element")[0]) document.getElementsByTagName("my-element")[0].remove(); 
+}); */
+
+
+// Чвсы с помощью пользовательских элементов (Custom Elements) 
+class CustomElement extends HTMLElement {
+	constructor() {	
+		super();
+		this.style.fontSize = 35 + "px";
+	}
+	render() {
+		let date = new Date(this.getAttribute("time") || Date.now());
+		let formatter = new Intl.DateTimeFormat("ru", {
+			year: this.getAttribute("year"),
+			month: this.getAttribute("month"),
+			day: this.getAttribute("day"),
+			hour: this.getAttribute("hour"),
+			minute: this.getAttribute("minute"),
+			second: this.getAttribute("second"),
+		});
+		this.innerHTML = formatter.format(date);
+	}
+	connectedCallback() {
+		if (!this.rendered) {
+			this.render();
+			this.rendered = true;
+    	}
+	}
+	static get observedAttributes() { 
+		return ["time", "year", "month", "day", "hour", "minute", "second"]; 
+	}
+	attributeChangedCallback(name, oldValue, newValue) {
+		 	this.render();
+		}
+}
+customElements.define("time-formatter", CustomElement);
+
+let el = document.querySelector(".time-formatter");
+setInterval(() => {
+	el.setAttribute("time", new Date());
+}, 1000);
 
 
 
-console.log();
+
 console.log();
 console.log();
 console.log();

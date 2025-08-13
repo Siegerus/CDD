@@ -2071,3 +2071,43 @@ function animate({duration, timing, draw}) {
 		if(timeFraction < 1) requestAnimationFrame(animationFrame);
 	});
 }
+
+
+
+// Чвсы с помощью пользовательских элементов (Custom Elements) 
+class CustomElement extends HTMLElement {
+	constructor() {	
+		super();
+		this.style.fontSize = 35 + "px";
+	}
+	render() {
+		let date = new Date(this.getAttribute("time") || Date.now());
+		let formatter = new Intl.DateTimeFormat("ru", {
+			year: this.getAttribute("year"),
+			month: this.getAttribute("month"),
+			day: this.getAttribute("day"),
+			hour: this.getAttribute("hour"),
+			minute: this.getAttribute("minute"),
+			second: this.getAttribute("second"),
+		});
+		this.innerHTML = formatter.format(date);
+	}
+	connectedCallback() {
+		if (!this.rendered) {
+			this.render();
+			this.rendered = true;
+    	}
+	}
+	static get observedAttributes() { 
+		return ["time", "year", "month", "day", "hour", "minute", "second"]; 
+	}
+	attributeChangedCallback(name, oldValue, newValue) {
+		 	this.render();
+		}
+}
+customElements.define("time-formatter", CustomElement);
+
+let el = document.querySelector(".time-formatter");
+setInterval(() => {
+	el.setAttribute("time", new Date());
+}, 1000);
