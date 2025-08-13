@@ -1984,3 +1984,90 @@ function animate({duration, timing, draw}) {
 		if(timeFraction < 1) requestAnimationFrame(animate);
 	});
 }
+
+
+// Анимация. Задача с мячём.Мой Вариант с одной функцией анимации на клик
+let field = document.getElementById("field");
+let ball = document.getElementById("ball");
+ball.addEventListener("click", () => {
+	function bounce(frameUnit) {
+		for (let a = 0, b = 1; 1; a += b, b /= 2) {
+			if (frameUnit >= (7 - 4 * a) / 11) {
+				return -Math.pow((11 - 6 * a - 11 * frameUnit) / 4, 2) + Math.pow(b, 2)
+			}
+		}
+	}
+	function makeEaseOut(timing) {
+		return function(frameUnit) {
+			return 1 - timing(1 - frameUnit);
+		}
+	}
+	animate({
+		duration: 2000,
+		timingBounc: makeEaseOut(bounce),
+		timingShift: function(timeFraction) {
+			return timeFraction;
+		},
+		drawBounc: function(progress) {
+			let newTop =  field.clientHeight - ball.offsetHeight ;
+			ball.style.top = progress * newTop + "px";
+		},
+		drawShift: function(progress) {
+			ball.style.left = progress * 100 + "px";
+		} 
+	});
+});
+function animate({duration, timingBounc, timingShift, drawBounc, drawShift}) {
+	let start = performance.now();
+	requestAnimationFrame(function animationFrame(time) {
+		let timeFraction = (time - start) / duration;
+		if(timeFraction > 1) timeFraction = 1;
+		let progressBounc = timingBounc(timeFraction);
+		let progressShift = timingShift(timeFraction);
+		drawBounc(progressBounc);
+		drawShift(progressShift);
+		if(timeFraction < 1) requestAnimationFrame(animationFrame);
+	});
+}
+//Ниже вариант с 2мя анимациями на клик (как в решении)
+ball.addEventListener("click", (e) => {
+	function bounce(frameUnit) {
+		for (let a = 0, b = 1; 1; a += b, b /= 2) {
+			if (frameUnit >= (7 - 4 * a) / 11) {
+				return -Math.pow((11 - 6 * a - 11 * frameUnit) / 4, 2) + Math.pow(b, 2)
+			}
+		}
+	}
+	function makeEaseOut(timing) {
+		return function(frameUnit) {
+			return 1 - timing(1 - frameUnit);
+		}
+	}
+	animate({
+		duration: 2000,
+		timing: makeEaseOut(bounce),
+		draw: function(progress) {
+			let newTop =  field.clientHeight - ball.offsetHeight ;
+			ball.style.top = progress * newTop + "px";
+		}
+	});
+	animate({
+		duration: 2000,
+		timing: function(timeFraction) {
+			return timeFraction;
+		},
+		draw: function(progress) {
+			ball.style.left = progress * 100 + "px";
+		}
+	});
+});
+function animate({duration, timing, draw}) {
+	let start = performance.now();
+	requestAnimationFrame(function animationFrame(time) {
+		let timeFraction = (time - start) / duration;
+		if(timeFraction > 1) timeFraction = 1;
+		let progress = timing(timeFraction);
+		draw(progress);
+		if(timeFraction < 1) requestAnimationFrame(animationFrame);
+	});
+}
