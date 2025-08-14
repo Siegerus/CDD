@@ -2389,7 +2389,7 @@ document.addEventListener("keydown", (e) => {
 
 
 // Чвсы с помощью пользовательских элементов (Custom Elements) 
-class CustomElement extends HTMLElement {
+/* class CustomElement extends HTMLElement {
 	constructor() {	
 		super();
 		this.style.fontSize = 35 + "px";
@@ -2424,9 +2424,73 @@ customElements.define("time-formatter", CustomElement);
 let el = document.querySelector(".time-formatter");
 setInterval(() => {
 	el.setAttribute("time", new Date());
+}, 1000); */
+
+
+let intervalId;
+class LiveTimer extends HTMLElement {
+	constructor() {
+		super();
+	}
+	connectedCallback() {
+	}
+}
+customElements.define("live-timer", LiveTimer);
+let liveTimer = document.createElement("live-timer");
+document.body.prepend(liveTimer);
+
+class TimeFormatted extends HTMLElement {
+	constructor() {
+		super();
+	}
+	render() {
+		this.date = new Date(this.getAttribute('datetime') || Date.now());
+		this.innerHTML = new Intl.DateTimeFormat("default", {
+			year: this.getAttribute('year') || undefined,
+			month: this.getAttribute('month') || undefined,
+			day: this.getAttribute('day') || undefined,
+			hour: this.getAttribute('hour') || undefined,
+			minute: this.getAttribute('minute') || undefined,
+			second: this.getAttribute('second') || undefined,
+			timeZoneName: this.getAttribute('time-zone-name') || undefined,
+		}).format(this.date);
+	}
+	connectedCallback() {
+		if (!this.rendered) {
+			this.render();
+			this.rendered = true;
+		}
+	}
+	disconnectedCallback() {
+		clearInterval(intervalId);
+		intervalId = null;
+	}
+	static get observedAttributes() {
+		return ['datetime', 'year', 'month', 'day', 'hour', 'minute', 'second', 'time-zone-name'];
+	}
+	attributeChangedCallback(name, oldValue, newValue) {
+		this.render();
+		let customEvent = new Event("tick", {bubbles: true});
+		customEvent.detail = this.date;
+		this.dispatchEvent(customEvent);
+	}
+}
+customElements.define("time-formatted", TimeFormatted);
+
+let timeFormatter = document.createElement("time-formatted");
+liveTimer.append(timeFormatter);
+
+timeFormatter.setAttribute("hour","numeric");
+timeFormatter.setAttribute("minute","numeric");
+timeFormatter.setAttribute("second","numeric");
+
+intervalId = setInterval(() => {
+	timeFormatter.setAttribute("datetime", new Date());
 }, 1000);
 
-
+liveTimer.addEventListener("tick",(e) => {
+	console.log(e.detail);
+});
 
 
 console.log();

@@ -2111,3 +2111,128 @@ let el = document.querySelector(".time-formatter");
 setInterval(() => {
 	el.setAttribute("time", new Date());
 }, 1000);
+
+
+
+
+// задача с часами с помощью пользовательских элементов (Custom Elements) 
+// мой вариант. Не соответствует условию задачи
+let intervalId;
+class LiveTimer extends HTMLElement {
+	constructor() {
+		super();
+	}
+	connectedCallback() {
+	}
+}
+customElements.define("live-timer", LiveTimer);
+let liveTimer = document.createElement("live-timer");
+document.body.prepend(liveTimer);
+
+class TimeFormatted extends HTMLElement {
+	constructor() {
+		super();
+	}
+	render() {
+		let date = new Date(this.getAttribute('datetime') || Date.now());
+		this.innerHTML = new Intl.DateTimeFormat("default", {
+			year: this.getAttribute('year') || undefined,
+			month: this.getAttribute('month') || undefined,
+			day: this.getAttribute('day') || undefined,
+			hour: this.getAttribute('hour') || undefined,
+			minute: this.getAttribute('minute') || undefined,
+			second: this.getAttribute('second') || undefined,
+			timeZoneName: this.getAttribute('time-zone-name') || undefined,
+		}).format(date);
+	}
+	connectedCallback() {
+		if (!this.rendered) {
+			this.render();
+			this.rendered = true;
+		}
+	}
+	disconnectedCallback() {
+		clearInterval(intervalId);
+		intervalId = null;
+	}
+	static get observedAttributes() {
+		return ['datetime', 'year', 'month', 'day', 'hour', 'minute', 'second', 'time-zone-name'];
+	}
+	attributeChangedCallback(name, oldValue, newValue) {
+		this.render();
+		let customEvent = new Event("tick", {bubbles: true});
+		customEvent.detail = this.getAttribute("datetime");
+		this.dispatchEvent(customEvent);
+	}
+}
+customElements.define("time-formatted", TimeFormatted);
+
+let timeFormatter = document.createElement("time-formatted");
+liveTimer.append(timeFormatter);
+
+timeFormatter.setAttribute("hour","numeric");
+timeFormatter.setAttribute("minute","numeric");
+timeFormatter.setAttribute("second","numeric");
+
+intervalId = setInterval(() => {
+	timeFormatter.setAttribute("datetime", new Date());
+}, 1000);
+
+liveTimer.addEventListener("tick",(e) => {
+	console.log(e.detail);
+});
+
+// Решение из учебника
+class LiveTimer extends HTMLElement {
+	render() {
+		this.innerHTML = `
+	  <time-formatted hour="numeric" minute="numeric" second="numeric">
+	  </time-formatted>
+	  `;
+		this.timerElem = this.firstElementChild;
+	}
+	connectedCallback() { // (2)
+		if (!this.rendered) {
+			this.render();
+			this.rendered = true;
+		}
+		this.timer = setInterval(() => this.update(), 1000);
+	}
+	update() {
+		this.date = new Date();
+		this.timerElem.setAttribute('datetime', this.date);
+		this.dispatchEvent(new CustomEvent('tick', { detail: this.date }));
+	}
+	disconnectedCallback() {
+		clearInterval(this.timer); // важно, чтобы элемент мог быть собранным сборщиком мусора
+	}
+}
+
+customElements.define("live-timer", LiveTimer);
+class TimeFormatted extends HTMLElement {
+	render() {
+		this.date = new Date(this.getAttribute('datetime') || Date.now());
+		this.innerHTML = new Intl.DateTimeFormat("default", {
+			year: this.getAttribute('year') || undefined,
+			month: this.getAttribute('month') || undefined,
+			day: this.getAttribute('day') || undefined,
+			hour: this.getAttribute('hour') || undefined,
+			minute: this.getAttribute('minute') || undefined,
+			second: this.getAttribute('second') || undefined,
+			timeZoneName: this.getAttribute('time-zone-name') || undefined,
+		}).format(this.date);
+	}
+	connectedCallback() {
+		if (!this.rendered) {
+			this.render();
+			this.rendered = true;
+		}
+	}
+	static get observedAttributes() {
+		return ['datetime', 'year', 'month', 'day', 'hour', 'minute', 'second', 'time-zone-name'];
+	}
+	attributeChangedCallback(name, oldValue, newValue) {
+		this.render();
+	}
+}
+customElements.define("time-formatted", TimeFormatted);
