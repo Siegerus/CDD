@@ -2427,7 +2427,7 @@ setInterval(() => {
 }, 1000); */
 
 
-let intervalId;
+/* let intervalId;
 class LiveTimer extends HTMLElement {
 	constructor() {
 		super();
@@ -2490,9 +2490,25 @@ intervalId = setInterval(() => {
 
 liveTimer.addEventListener("tick",(e) => {
 	console.log(e.detail);
-});
+}); */
+
+let canvas = document.getElementById("draw-canvas");
+let img = new Image();
+img.src = "img/icon_card-heart.svg";
+let ctx = canvas.getContext("2d");
+ctx.lineWidth = 3.1;
+
+img.onload = () => {
+	let pattern = ctx.createPattern(img, "repeat");
+	ctx.fillStyle = pattern;
+	ctx.fillRect(400, 200, 100, 100);
+	ctx.strokeRect(400, 200, 100, 100); 
+}
 
 
+
+
+		
 console.log();
 console.log();
 console.log();
