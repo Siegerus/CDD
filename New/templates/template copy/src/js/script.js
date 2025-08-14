@@ -2427,24 +2427,36 @@ setInterval(() => {
 }, 1000); */
 
 
-/* let intervalId;
+/* let elem = document.getElementById("elem");
 class LiveTimer extends HTMLElement {
 	constructor() {
 		super();
+		this.date = `${new Date().getFullYear()} : ${(new Date().getMonth() + 1)} : ${new Date().getDate()}`;
 	}
 	connectedCallback() {
+		elem.append(document.createElement("time-formatted"));
+		this.firstElementChild.setAttribute("hour","numeric");
+		this.firstElementChild.setAttribute("minute","numeric");
+		this.firstElementChild.setAttribute("second","numeric");
+		this.intervalId = setInterval(() => this.update(), 1000);
+	}
+	disconnectedCallback() {
+		clearInterval(this.intervalId);
+		this.intervalId = null;
+	}
+	update() {
+		this.firstElementChild.setAttribute("datetime", new Date());
+		let customEvent = new Event("tick", {bubbles: true});
+		customEvent.detail = this.date;
+		this.firstElementChild.dispatchEvent(customEvent);
 	}
 }
 customElements.define("live-timer", LiveTimer);
-let liveTimer = document.createElement("live-timer");
-document.body.prepend(liveTimer);
-
+elem.addEventListener("tick",(e) => console.log(e.detail));
 class TimeFormatted extends HTMLElement {
-	constructor() {
-		super();
-	}
 	render() {
-		this.date = new Date(this.getAttribute('datetime') || Date.now());
+		let date = new Date(this.getAttribute('datetime') || Date.now());
+
 		this.innerHTML = new Intl.DateTimeFormat("default", {
 			year: this.getAttribute('year') || undefined,
 			month: this.getAttribute('month') || undefined,
@@ -2453,7 +2465,7 @@ class TimeFormatted extends HTMLElement {
 			minute: this.getAttribute('minute') || undefined,
 			second: this.getAttribute('second') || undefined,
 			timeZoneName: this.getAttribute('time-zone-name') || undefined,
-		}).format(this.date);
+		}).format(date);
 	}
 	connectedCallback() {
 		if (!this.rendered) {
@@ -2461,43 +2473,21 @@ class TimeFormatted extends HTMLElement {
 			this.rendered = true;
 		}
 	}
-	disconnectedCallback() {
-		clearInterval(intervalId);
-		intervalId = null;
-	}
 	static get observedAttributes() {
 		return ['datetime', 'year', 'month', 'day', 'hour', 'minute', 'second', 'time-zone-name'];
 	}
 	attributeChangedCallback(name, oldValue, newValue) {
 		this.render();
-		let customEvent = new Event("tick", {bubbles: true});
-		customEvent.detail = this.date;
-		this.dispatchEvent(customEvent);
 	}
 }
-customElements.define("time-formatted", TimeFormatted);
+customElements.define("time-formatted", TimeFormatted); */
 
-let timeFormatter = document.createElement("time-formatted");
-liveTimer.append(timeFormatter);
-
-timeFormatter.setAttribute("hour","numeric");
-timeFormatter.setAttribute("minute","numeric");
-timeFormatter.setAttribute("second","numeric");
-
-intervalId = setInterval(() => {
-	timeFormatter.setAttribute("datetime", new Date());
-}, 1000);
-
-liveTimer.addEventListener("tick",(e) => {
-	console.log(e.detail);
-}); */
 
 let canvas = document.getElementById("draw-canvas");
 let img = new Image();
 img.src = "img/icon_card-heart.svg";
 let ctx = canvas.getContext("2d");
 ctx.lineWidth = 3.1;
-
 img.onload = () => {
 	let pattern = ctx.createPattern(img, "repeat");
 	ctx.fillStyle = pattern;
@@ -2508,8 +2498,6 @@ img.onload = () => {
 
 
 
-		
-console.log();
 console.log();
 console.log();
 console.log();

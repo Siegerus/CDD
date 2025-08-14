@@ -2236,3 +2236,24 @@ class TimeFormatted extends HTMLElement {
 	}
 }
 customElements.define("time-formatted", TimeFormatted);
+
+
+
+//shadow DOM
+class MyCustomElement extends HTMLElement {
+	connectedCallback() {
+		let shadow = this.attachShadow({mode: "open"});
+		shadow.innerHTML = "<p>shadow `p`</p>";
+	}
+}
+customElements.define("custom-element", MyCustomElement);
+let shadowEl = document.createElement("custom-element")
+document.body.prepend(shadowEl);
+shadowEl.shadowRoot.innerHTML = "added"
+console.log(shadowEl.shadowRoot);
+
+// template
+let tmpl = document.createElement("template");
+tmpl.innerHTML = "<div>1</div><div>2</div><div>3</div>";
+document.body.append(tmpl);
+document.body.append(tmpl.content);
