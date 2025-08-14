@@ -2497,6 +2497,31 @@ img.onload = () => {
 
 
 
+/* function firstFoo(callback) {
+	console.log("foo 1")
+	callback();
+}
+function secondFoo(callback) {
+	console.log("foo 2")
+	callback();
+}
+function thirdFoo(callback) {
+	console.log("foo 3")
+	callback();
+}
+function callbackFunction() {
+	console.log("This is callback");
+}
+let funcArr = [firstFoo, secondFoo, thirdFoo];
+Promise.all(funcArr.map(item => {
+	return new Promise(resolve => {
+		resolve(item);
+	});
+})).then((item) => {
+	item.forEach(f => f(callbackFunction));
+}); */
+
+
 
 console.log();
 console.log();
