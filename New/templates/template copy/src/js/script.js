@@ -2523,6 +2523,20 @@ Promise.all(funcArr.map(item => {
 
 
 
+customElements.define("custom-element", class extends HTMLElement{
+	connectedCallback() {
+		this.attachShadow({mode: "open"});
+		this.shadowRoot.innerHTML = `
+		<div>Имя:
+        	<slot name="username"></slot>
+      	</div>
+      	<div>Дата рождения:
+        	<slot name="birthday"></slot>
+      	</div>`
+		
+	}
+});
+
 console.log();
 console.log();
 console.log();
