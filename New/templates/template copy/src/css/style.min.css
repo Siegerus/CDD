@@ -397,6 +397,10 @@ ul img {
 	border-radius: 15px;
 }
 
+.menu__button:nth-child(1):hover, .menu__button:nth-child(1):hover ~ .menu__button {
+	color: green;
+}
+
 
 /* my-slider */
 /* .my-slider {
@@ -899,4 +903,48 @@ dialog {
 	transition: all 3s;
 }
 
+.float > p:nth-child(1) {
+	float: left;
+	max-width: 40%;
+	padding: 0 21px 21px 0;
+}
 
+
+.float__image {
+	float: left;
+	clear: right;
+}
+
+custom-element span {
+	color: red;
+}
+
+
+
+/* .form-section__form ~ div {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 15px;
+	background-color: black;
+}
+
+.form-section__form ~ div:nth-child(2) {
+	background-color: green;
+} */
+
+
+#elem {
+	color: blue;
+}
+
+
+.elem {
+	color: coral;
+}
+
+i {
+	display: block;
+	margin-top: 43px;
+	color: grey;
+	
+}

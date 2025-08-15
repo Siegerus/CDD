@@ -1382,8 +1382,6 @@ https://toapinfo.ru/mg-admin/
 
 
 Для доступа к системе аналитики, отправьте почтовый адрес yandex и gmail
-
-
 Видео-инструкций по ссылке:
 
 https://drive.google.com/file/d/10BTDVXojRjQsP54hYfsGTH9LfyLgM5Oh/view?usp=sharing
@@ -1395,4 +1393,8 @@ https://drive.google.com/file/d/10BTDVXojRjQsP54hYfsGTH9LfyLgM5Oh/view?usp=shari
 outline : 4px solid green !Important; для обнаружения выпирающих блоков при адаптиве.
 }
 
+102. Комбинированные селекторы.
+ ~  -  соседи на одном уровне вложенности и с общим родителем.
+ >  - непосредственно вложенные элементы. Прямые потомки на первом уровне вложенности.
+ +  -  сосед идущий сразу после элемента.
 

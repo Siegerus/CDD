@@ -2533,7 +2533,6 @@ customElements.define("custom-element", class extends HTMLElement{
       	<div>Дата рождения:
         	<slot name="birthday"></slot>
       	</div>`
-		
 	}
 });
 
