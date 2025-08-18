@@ -2547,7 +2547,14 @@ customElements.define("custom-element", class extends HTMLElement{
 });
 
 
-
+let tabale = document.querySelector(".new-section__table");
+document.body.insertAdjacentHTML("beforebegin", 
+"<div></div><div></div><div></div><div></div><div></div>"
+);
+let divs = document.querySelectorAll("")
+tabale.addEventListener("click", (e) => {
+	if(e.target.closest("tr") && e.currentTarget.contains(e.target.closest("tr"))) console.log("click! " + e.eventPhase)
+});
 
 console.log();
 console.log();
