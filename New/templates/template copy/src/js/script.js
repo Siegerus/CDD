@@ -2547,15 +2547,24 @@ customElements.define("custom-element", class extends HTMLElement{
 });
 
 
-let tabale = document.querySelector(".new-section__table");
-document.body.insertAdjacentHTML("beforebegin", 
-"<div></div><div></div><div></div><div></div><div></div>"
-);
-let divs = document.querySelectorAll("")
-tabale.addEventListener("click", (e) => {
-	if(e.target.closest("tr") && e.currentTarget.contains(e.target.closest("tr"))) console.log("click! " + e.eventPhase)
-});
+function setWhewer() {
+	const API_KEY = "3313eade200c1be66cd128f80caabf6e";
 
+	window.addEventListener("load", (e) => {
+		let longitude, latitude;
+
+		if(navigator.geolocation) { 
+			navigator.geolocation.getCurrentPosition((position) => {
+				latitude = position.coords.latitude;
+				longitude = position.coords.longitude;
+				// console.log(latitude,longitude);
+			});
+		} else console.log("geolocation is not available!");
+	});
+
+}
+
+setWhewer();
 console.log();
 console.log();
 console.log();

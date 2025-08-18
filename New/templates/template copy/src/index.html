@@ -405,12 +405,23 @@
                 <option value="Simferopol" class="select-section__option">Simferopol</option>
             </select>
         </section>
-        <textarea name="textarea" id="textarea"></textarea>
-        <div class="digit-window">
-            <div class="numbers">0123456789
-                <div class="deepest"></div>
+        <section class="whether">
+            <div class="container">
+                <img src="https://www.clipartmax.com/png/middle/228-2280519_rain-cloud-icon-partly-cloudy-weather-icon.png" alt="whether-image" class="whether__image" width="100" height="100">
+                <div class="whether__location">Unable to Fetch Weather</div>
+                <div class="whether__description">No Information Available</div>
+                <div class="whether__primary whether-data">
+                    <div class="whether-data__cell"><b>Error</b></div>
+                    <div class="whether-data__circle"></div>
+                    <div class="whether-data__farenheit"><b>Error</b></div>
+                </div>
+                <div class="whether__secondary whether-info">
+                    <span class="whether-info__sunrise">Information Available</span>
+                    <span class="whether-info__sunset">Information Available</span>
+                </div>
             </div>
-        </div>
+        </section>
+
         <canvas id="draw-canvas" width="800" height="400" style="border: 1px, solid, black;"></canvas>
 
         <custom-element>
