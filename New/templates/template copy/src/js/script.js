@@ -2512,15 +2512,25 @@ function thirdFoo(callback) {
 function callbackFunction() {
 	console.log("This is callback");
 }
-let funcArr = [firstFoo, secondFoo, thirdFoo];
-Promise.all(funcArr.map(item => {
+let funcArr = [firstFoo, secondFoo, thirdFoo]; */
+
+/* Promise.all(funcArr.map(item => {
 	return new Promise(resolve => {
 		resolve(item);
 	});
 })).then((item) => {
 	item.forEach(f => f(callbackFunction));
 }); */
-
+/* async function f() {
+	await Promise.all(funcArr.map(item => {
+		return new Promise(resolve => {
+			resolve(item(callbackFunction));
+		});		
+	}));	
+	let promise = await new Promise(resolve => setTimeout(() => resolve(), 1000));
+	console.log("end of script");
+}
+f(); */
 
 
 customElements.define("custom-element", class extends HTMLElement{
@@ -2535,6 +2545,9 @@ customElements.define("custom-element", class extends HTMLElement{
       	</div>`
 	}
 });
+
+
+
 
 console.log();
 console.log();
