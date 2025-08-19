@@ -78,6 +78,69 @@ function setWindow() {
 }
 setWindow();
 
+// Whether
+function setWhether() {
+	const API_KEY = "3313eade200c1be66cd128f80caabf6e";
+	let longitude, latitude;
+
+	let locationField = document.querySelector(".whether__location");
+	let descriptionField = document.querySelector(".whether__description");
+	let cells = document.querySelector(".whether-data__cell");
+	let farenheit = document.querySelector(".whether-data__farenheit");
+	let sunriseField = document.querySelector(".whether-info__sunrise");
+	let sunsetField = document.querySelector(".whether-info__sunset");
+	let whetherImage = document.querySelector(".whether__image");
+
+	function onLoad() {
+		if(navigator.geolocation) { 
+			navigator.geolocation.getCurrentPosition((position) => {
+			latitude = position.coords.latitude;
+			longitude = position.coords.longitude;
+			let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&lang=ru`;
+			
+				async function getData(url, setDataCb) {
+					try {
+						let response = await fetch(url);
+						let json = await response.json();
+						setDataCb(json);
+					}
+					catch {
+						throw new Error("Error!")
+					}
+				}
+				getData(url, setData).catch((err) => console.log(err.name));
+				
+				function setData(json) {
+					function getTargetTime(time) {
+						let date = new Date(time * 1000);
+						let hours = date.getHours();
+						if(hours < 10) hours = "0" + date.getHours();
+						let minutes = date.getMinutes();
+						if(minutes < 10) minutes = "0" + date.getMinutes();
+						let seconds = date.getSeconds();
+						if(seconds < 10) seconds = "0" + date.getSeconds();
+						return {
+							"hours": hours,
+							"minutes": minutes,
+							"seconds": seconds,
+						}
+					}
+					locationField.innerHTML = json.name;
+					descriptionField.innerHTML = json.weather[0].description;
+					cells.innerHTML = Math.round(json.main.temp - 273.15) + " C";
+					farenheit.innerHTML = Math.round((json.main.temp*9/5) - 459,67) + " f";
+					sunriseField.innerHTML = `${getTargetTime(json.sys.sunrise).hours} : ${getTargetTime(json.sys.sunrise).minutes} : ${getTargetTime(json.sys.sunrise).seconds}`;
+					sunsetField.innerHTML = `${getTargetTime(json.sys.sunset).hours} : ${getTargetTime(json.sys.sunset).minutes} : ${getTargetTime(json.sys.sunset).seconds}`;
+					whetherImage.src = `http://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
+					console.log(json);
+				}
+			});
+		} else console.log("geolocation is not available!");
+	}
+	window.addEventListener("DOMContentLoaded", onLoad);
+}
+setWhether();
+
 
 //модалка
 function setModal() {
@@ -2547,67 +2610,7 @@ customElements.define("custom-element", class extends HTMLElement{
 });
 
 
-function setWhether() {
-	const API_KEY = "3313eade200c1be66cd128f80caabf6e";
-	let longitude, latitude;
 
-	let locationField = document.querySelector(".whether__location");
-	let descriptionField = document.querySelector(".whether__description");
-	let cells = document.querySelector(".whether-data__cell");
-	let farenheit = document.querySelector(".whether-data__farenheit");
-	let sunriseField = document.querySelector(".whether-info__sunrise");
-	let sunsetField = document.querySelector(".whether-info__sunset");
-	let whetherImage = document.querySelector(".whether__image");
-
-	function onLoad() {
-		if(navigator.geolocation) { 
-			navigator.geolocation.getCurrentPosition((position) => {
-			latitude = position.coords.latitude;
-			longitude = position.coords.longitude;
-			let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&lang=ru`;
-			
-				async function getData(url, setDataCb) {
-					try {
-						let response = await fetch(url);
-						let json = await response.json();
-						setDataCb(json);
-					}
-					catch {
-						throw new Error("Error!")
-					}
-				}
-				getData(url, setData).catch((err) => console.log(err.name));
-				
-				function setData(json) {
-					function getTargetTime(time) {
-						let date = new Date(time * 1000);
-						let hours = date.getHours();
-						if(hours < 10) hours = "0" + date.getHours();
-						let minutes = date.getMinutes();
-						if(minutes < 10) minutes = "0" + date.getMinutes();
-						let seconds = date.getSeconds();
-						if(seconds < 10) seconds = "0" + date.getSeconds();
-						return {
-							"hours": hours,
-							"minutes": minutes,
-							"seconds": seconds,
-						}
-					}
-					locationField.innerHTML = json.name;
-					descriptionField.innerHTML = json.weather[0].description;
-					cells.innerHTML = Math.round(json.main.temp - 273.15) + " C";
-					farenheit.innerHTML = Math.round((json.main.temp*9/5) - 459,67) + " f";
-					sunriseField.innerHTML = `${getTargetTime(json.sys.sunrise).hours} : ${getTargetTime(json.sys.sunrise).minutes} : ${getTargetTime(json.sys.sunrise).seconds}`;
-					sunsetField.innerHTML = `${getTargetTime(json.sys.sunset).hours} : ${getTargetTime(json.sys.sunset).minutes} : ${getTargetTime(json.sys.sunset).seconds}`;
-					whetherImage.src = `http://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
-					console.log(json);
-				}
-			});
-		} else console.log("geolocation is not available!");
-	}
-	window.addEventListener("DOMContentLoaded", onLoad);
-}
-setWhether();
 
 
 
