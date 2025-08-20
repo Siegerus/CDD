@@ -128,11 +128,11 @@ function setWhether() {
 					locationField.innerHTML = json.name;
 					descriptionField.innerHTML = json.weather[0].description;
 					cells.innerHTML = Math.round(json.main.temp - 273.15) + " C";
-					farenheit.innerHTML = Math.round((json.main.temp*9/5) - 459,67) + " f";
+					farenheit.innerHTML = Math.round((json.main.temp*9/5) - 459,67) + " F";
 					sunriseField.innerHTML = `${getTargetTime(json.sys.sunrise).hours} : ${getTargetTime(json.sys.sunrise).minutes} : ${getTargetTime(json.sys.sunrise).seconds}`;
 					sunsetField.innerHTML = `${getTargetTime(json.sys.sunset).hours} : ${getTargetTime(json.sys.sunset).minutes} : ${getTargetTime(json.sys.sunset).seconds}`;
 					whetherImage.src = `http://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
-					console.log(json);
+					// console.log(json);
 				}
 			});
 		} else console.log("geolocation is not available!");
@@ -2595,19 +2595,6 @@ let funcArr = [firstFoo, secondFoo, thirdFoo]; */
 }
 f(); */
 
-
-customElements.define("custom-element", class extends HTMLElement{
-	connectedCallback() {
-		this.attachShadow({mode: "open"});
-		this.shadowRoot.innerHTML = `
-		<div>Имя:
-        	<slot name="username"></slot>
-      	</div>
-      	<div>Дата рождения:
-        	<slot name="birthday"></slot>
-      	</div>`
-	}
-});
 
 
 
