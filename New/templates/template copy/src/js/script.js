@@ -2598,12 +2598,31 @@ f(); */
 
 let wrappScrollBar = document.querySelector(".scroll-wrapp");
 
-
+let onBottom;
 wrappScrollBar.addEventListener("scroll", (e) => {
-	e.currentTarget.firstElementChild.firstElementChild.scrollBy(0, 10);
-	e.currentTarget.scrollBy(0, 0)
-	console.log(e);
+	e.currentTarget.scrollLeft = 0;
+	let bottomFringe = e.currentTarget.firstElementChild.firstElementChild.scrollHeight - e.currentTarget.firstElementChild.firstElementChild.clientHeight
+	/* onBottom = e.currentTarget.firstElementChild.firstElementChild.scrollTop == 0 ? false :  */
+	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop == 0) {
+		onBottom = false;
+		toDown();
+	} 
+	
+	function toDown() {
+		let onBottom = false;
+		e.currentTarget.firstElementChild.firstElementChild.scrollTop += 10;
+	}
+	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop < bottomFringe) {
+		toDown();
+		
+	} else e.currentTarget.firstElementChild.firstElementChild.scrollTop -= 10;
+	console.log(e.currentTarget.firstElementChild.firstElementChild.scrollTop);
+	console.log(e.currentTarget.firstElementChild.firstElementChild.clientHeight);
+	console.log(e.currentTarget.firstElementChild.firstElementChild.scrollHeight);
 });
+
+
+
 
 
 
