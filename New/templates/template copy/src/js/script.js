@@ -2597,28 +2597,26 @@ f(); */
 
 
 let wrappScrollBar = document.querySelector(".scroll-wrapp");
-
+wrappScrollBar.scrollLeft = 0;
 let onBottom;
 wrappScrollBar.addEventListener("scroll", (e) => {
-	e.currentTarget.scrollLeft = 0;
-	let bottomFringe = e.currentTarget.firstElementChild.firstElementChild.scrollHeight - e.currentTarget.firstElementChild.firstElementChild.clientHeight
-	/* onBottom = e.currentTarget.firstElementChild.firstElementChild.scrollTop == 0 ? false :  */
-	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop == 0) {
-		onBottom = false;
-		toDown();
-	} 
-	
+	e.currentTarget.scrollTo({
+		left: 0,
+	});
+	let bottomFringe = e.currentTarget.firstElementChild.firstElementChild.scrollHeight
+	 - e.currentTarget.firstElementChild.firstElementChild.clientHeight;
+
 	function toDown() {
-		let onBottom = false;
-		e.currentTarget.firstElementChild.firstElementChild.scrollTop += 10;
+		e.currentTarget.firstElementChild.firstElementChild.scrollTop += 3;
 	}
-	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop < bottomFringe) {
-		toDown();
-		
-	} else e.currentTarget.firstElementChild.firstElementChild.scrollTop -= 10;
-	console.log(e.currentTarget.firstElementChild.firstElementChild.scrollTop);
-	console.log(e.currentTarget.firstElementChild.firstElementChild.clientHeight);
-	console.log(e.currentTarget.firstElementChild.firstElementChild.scrollHeight);
+	function toUp() {
+		e.currentTarget.firstElementChild.firstElementChild.scrollTop -= 3;
+	}
+
+    if(e.currentTarget.firstElementChild.firstElementChild.scrollTop == 0) onBottom = false;
+	if(!onBottom) toDown();
+	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop == bottomFringe) onBottom = true;
+	if(onBottom) toUp();
 });
 
 
