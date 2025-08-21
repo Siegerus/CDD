@@ -1059,3 +1059,12 @@ i {
 .scroll-boxx::-webkit-scrollbar {
 	display: none;
 }
+
+.test-flex {
+	display: flex;
+	/* width: 500px; */
+}
+
+/* .test-flex img {
+	width: 100%;
+} */

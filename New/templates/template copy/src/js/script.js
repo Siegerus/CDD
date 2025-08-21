@@ -2596,7 +2596,7 @@ let funcArr = [firstFoo, secondFoo, thirdFoo]; */
 f(); */
 
 
-let wrappScrollBar = document.querySelector(".scroll-wrapp");
+/* let wrappScrollBar = document.querySelector(".scroll-wrapp");
 wrappScrollBar.scrollLeft = 0;
 let onBottom;
 wrappScrollBar.addEventListener("scroll", (e) => {
@@ -2617,7 +2617,10 @@ wrappScrollBar.addEventListener("scroll", (e) => {
 	if(!onBottom) toDown();
 	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop == bottomFringe) onBottom = true;
 	if(onBottom) toUp();
-});
+}); */
+
+
+
 
 
 
