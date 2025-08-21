@@ -2596,8 +2596,14 @@ let funcArr = [firstFoo, secondFoo, thirdFoo]; */
 f(); */
 
 
+let wrappScrollBar = document.querySelector(".scroll-wrapp");
 
 
+wrappScrollBar.addEventListener("scroll", (e) => {
+	e.currentTarget.firstElementChild.firstElementChild.scrollBy(0, 10);
+	e.currentTarget.scrollBy(0, 0)
+	console.log(e);
+});
 
 
 
