@@ -33,10 +33,10 @@ let anyItems = document.querySelectorAll(".any-section__item");
 document.querySelector(".any-section__button").style.marginTop = 67 + "px";
 
 
-function scrollDown() {
+/* function scrollDown() {
 	let item = document.querySelector(".item");
 	window.onload = () => item.scrollIntoView();
-}
+} */
 // scrollDown();
 
 
@@ -2621,12 +2621,30 @@ wrappScrollBar.addEventListener("scroll", (e) => {
 
 
 
+let str = "Какая нибудь строка. Ещё что нибудь";
+
+let res = str.match(/нибудь/);
 
 
 
+function setHeight() {
+	let valBoxGreen = document.querySelector(".value-box_green");
+	let valBoxRed = document.querySelector(".value-box_red");
+
+	valBoxGreen.style.height = valBoxGreen.nextElementSibling.value + "px";
+	valBoxRed.style.height = valBoxRed.nextElementSibling.value / 2 + "px";
+}
 
 
+document.querySelector("body > button.result-button").addEventListener("click", (e) => {
+	let target = e.target.closest("body > button.result-button");
+	if(!target) return;
 
+	setHeight();
+
+});
+
+console.log();
 console.log();
 console.log();
 console.log();

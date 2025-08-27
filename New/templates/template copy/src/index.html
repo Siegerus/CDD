@@ -528,9 +528,52 @@
                 </div>
             </div>
         </div>
-        <div class="outer-box" style="height: 700px;">
-            <div class="test-flex"><img src="/2.jpg" width="500" height="350" alt="test"></div>
+
+
+        <section id="selectors">
+            <input type="checkbox">
+            <input type="checkbox" checked>
+            <input type="text" id="message">
+            <h3 id="widget-title">Сообщения:</h3>
+            <ul id="messages">
+            <li id="message-1">Сообщение 1</li>
+            <li id="message-2">Сообщение 2</li>
+            <li id="message-3" data-action="delete">Сообщение 3</li>
+            <li id="message-4" data-action="edit do-not-delete">Сообщение 4</li>
+            <li id="message-5" data-action="edit delete">Сообщение 5</li>
+            <li><a href="#">...</a></li>
+            </ul>
+            <a href="http://site.com/list.zip">Ссылка на архив</a>
+            <a href="http://site.com/list.pdf">..И на PDF</a>
+        </section>
+
+        <ul id="target-list">
+            <h1></h1>
+            <p></p>
+            <li class="target-item" id="">Маша</li>
+            <li>lorem</li>
+            <li class="target-item">Паша</li>
+            <li>lorem</li>
+            <li class="target-item">Даша</li>
+            <li>lorem</li>
+            <li class="target-item">Женя</li>
+            <li>lorem</li>
+            <li class="target-item">Саша</li>
+            <li>lorem</li>
+            <li class="target-item">Гоша</li>
+            <li>lorem</li>
+        </ul>
+        Текст внизу без отступа от списка.
+        <div class="value-wrapper">
+            <div class="value-box value-box_green"></div>
+            <input class="value-place value-place_green"></input>
         </div>
+        <div class="value-wrapper">
+            <div class="value-box value-box_red"></div>
+            <input class="value-place value-place_red"></input>
+        </div>
+
+        <button class="result-button" type="button" aria-label="resul button">Button</button>
         <script src="js/prism.js" data-manual></script>
         <script type="module" src="js/module.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/idb@8/build/umd.js"></script>
