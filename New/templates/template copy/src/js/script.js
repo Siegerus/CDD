@@ -2626,8 +2626,7 @@ let str = "Какая нибудь строка. Ещё что нибудь";
 let res = str.match(/нибудь/);
 
 
-
-function setHeight() {
+/* function setHeight() {
 	let valBoxGreen = document.querySelector(".value-box_green");
 	let valBoxRed = document.querySelector(".value-box_red");
 
@@ -2636,13 +2635,61 @@ function setHeight() {
 }
 
 
-document.querySelector("body > button.result-button").addEventListener("click", (e) => {
-	let target = e.target.closest("body > button.result-button");
-	if(!target) return;
+function getData() {
+	let result;
+	fetch('https://jsonplaceholder.typicode.com/todos').then((response) => {
+		let json =  response.json();
+		return json;
+	}).then((json) => {
+		result = json[0].title;
+		console.log(result)
+		return result;
+	}).then((result) => {
+		document.querySelector("body > button.result-button").addEventListener("click", (e) => {
+			let target = e.target.closest("body > button.result-button");
+			if(!target) return;
+			target.innerHTML = result;
+			setHeight();
+		});
+	})
+}
+getData() */
 
-	setHeight();
+function setSliderBoxes() {
+	let slidess = document.querySelectorAll(".slide-box");
+	let prev = document.querySelector(".prev");
+	let next= document.querySelector(".next");
+	let currentIndex = 1;
 
-});
+	function showSlide() {
+		if(currentIndex > slidess.length) currentIndex = slidess.length;
+		if(currentIndex < 1) currentIndex = 1;
+		slidess.forEach((item) => item.style.display = "none");
+		slidess[currentIndex - 1].style.display = "inline-block";
+	}
+	showSlide();
+
+	function setButtonAttributte(e) {
+		next.setAttribute("aria-disabled", currentIndex == slidess.length);
+		console.log(currentIndex)
+		prev.setAttribute("aria-disabled", currentIndex <= 1);
+	}
+
+	next.addEventListener("click", (e) => {
+		if(e.target.tagName !== "BUTTON") return;
+		currentIndex++;
+		showSlide();
+		setButtonAttributte(e);
+	});
+
+	prev.addEventListener("click", (e) => {
+		if(e.target.tagName !== "BUTTON") return;
+		currentIndex--;
+		showSlide();
+		setButtonAttributte(e);
+	});
+}
+setSliderBoxes();
 
 console.log();
 console.log();
