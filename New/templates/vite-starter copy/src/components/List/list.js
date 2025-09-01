@@ -1,5 +1,13 @@
-import styles from "./List.module.scss"
+import styles from "./List.module.scss";
+import myIcon from "../../icons/javascript.svg";
 
-export default () =>  `<ul><li>1</li><li>2</li><li>3</li></ul>`
+export default () =>  `
+<ul class="${styles.root}">
+<li><span class="${styles.label}">list-item</span>
+</li><li>list-item</li>
+<li>list-item</li>
+</ul>
+<img src="${myIcon}">
+`
 
 

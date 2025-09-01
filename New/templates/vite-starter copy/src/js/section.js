@@ -1,4 +1,7 @@
-/* import "../public/data" */
+import List from "../components/List/list";
+document.querySelector(".box").innerHTML = `
+    <div>${List()}</div>
+`
 
 /* function createElem() {
     let arr = [];
