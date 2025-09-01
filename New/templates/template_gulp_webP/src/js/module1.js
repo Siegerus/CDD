@@ -1,8 +1,8 @@
-function getFirstModule() {
-    window.addEventListener("DOMContentLoaded", function () {
-        
-        console.log("Hellow world");
-    });
-}
+window.addEventListener("DOMContentLoaded", function () {
+    console.log("Hellow world");
+});
 
-export { getFirstModule }
+function f() {
+    console.log(f);
+}
+export { f }

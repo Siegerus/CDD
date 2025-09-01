@@ -75,7 +75,7 @@ gulp.task("images-min", function() {
 });
 
 gulp.task("icons", function() {
-	return gulp.src("src/icons/**/*")
+	return gulp.src("src/icons/**/*", { encoding: false })
 		.pipe(gulp.dest("dist/icons"))
 		.pipe(browserSync.stream());
 });
@@ -116,6 +116,6 @@ gulp.task("compress", function () {
 	);
   });
 
-gulp.task("default", gulp.series("clean", gulp.parallel("server", "html", "styles", "scripts" , "images", "icons", "watch")));
+gulp.task("default", gulp.series("clean", gulp.parallel("server", "html", "styles", "fonts", "scripts" , "images", "icons", "watch")));
 
 gulp.task("build", gulp.series("clean", "scripts", "compress", gulp.parallel("server", "html", "styles", "fonts", "images-min", "icons", "watch")));
