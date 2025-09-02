@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import App from './App';
+import App from './components/App';
 
-import './index.css';
+import './main.scss';
 
 /* ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,8 +13,8 @@ import './index.css';
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-<section>
-  ${App()}
-</section>
+<div>
+  {App()}
+</div>
 )
 
