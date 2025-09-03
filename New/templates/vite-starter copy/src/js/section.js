@@ -32,5 +32,3 @@ function getData(url) {
     });
 }
 getData("https://api.github.com/users/iliakan"); */
-
-

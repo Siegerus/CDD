@@ -1,0 +1,17 @@
+{
+  "name": "template-reactjs",
+  "version": "1.0.0",
+  "description": "studdy project",
+  "license": "ISC",
+  "author": "Siegerus",
+  "type": "module",
+  "main": "script.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "prettier": "^3.6.2",
+    "react": "^19.1.1",
+    "tiny-slider": "^2.9.4"
+  }
+}
