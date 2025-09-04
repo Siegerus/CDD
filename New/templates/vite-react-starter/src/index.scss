@@ -4,9 +4,7 @@
 @tailwind components;
 @tailwind utilities; */
 
-@use "libs/bootstrap-reboot.min.scss";
-
-@use "components/App.scss";
+@use './App.scss'
 
 /* .app {
   text-align: center;
@@ -47,4 +45,3 @@
     transform: rotate(360deg);
   }
 } */
-

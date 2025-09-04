@@ -1,4 +1,5 @@
-/* import logo from './assets/images/logo.svg';
+import logo from './assets/images/logo.svg';
+import './App.scss';
 
 function App() {
   return (
@@ -19,15 +20,4 @@ function App() {
   );
 }
 
-export default App; */
-
-
-function App() {
-  return (
-    <button className="button">
-      <span>Click</span>
-    </button>
-  )
-}
-
-export default App
+export default App;
