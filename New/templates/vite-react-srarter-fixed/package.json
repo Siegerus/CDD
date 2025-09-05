@@ -22,7 +22,7 @@
         "lint:stylelint": "stylelint **/*.{css,scss,jsx}",
         "fix:stylelint": "stylelint --fix  ./src/**/*.{css, scss,jsx}",
         "test": "jest",
-        "format": "npx prettier . --write"
+        "f": "npx prettier . --write"
     },
     "dependencies": {
         "@emotion/react": "^11.10.4",

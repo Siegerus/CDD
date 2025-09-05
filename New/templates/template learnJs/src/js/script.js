@@ -2691,6 +2691,16 @@ function setSliderBoxes() {
 }
 setSliderBoxes();
 
+
+
+let a = 1;
+let c = 2;
+
+if (a == 3) console.log("a==3");
+else if (a == 3 && c == 2) console.log("a==2")
+// else if (c == 2) console.log("a==3 && b==2");
+else console.log("else");
+
 console.log();
 console.log();
 console.log();
