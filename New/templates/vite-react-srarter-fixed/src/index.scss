@@ -1,0 +1,18 @@
+/* If you don't plan to use TailwindCSS in your project, you can remove these imports */
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* @use './App.scss' */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
