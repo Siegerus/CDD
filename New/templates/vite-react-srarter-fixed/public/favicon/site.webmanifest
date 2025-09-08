@@ -15,5 +15,7 @@
 	],
 	"theme_color": "#ffffff",
 	"background_color": "#ffffff",
-	"display": "standalone"
+	"display": "standalone",
+	"content_security_policy": "script-src 'self' 'unsafe-eval' http://localhost:8097; object-src 'self'; connect-src ws://localhost:5173/ ws://localhost:8097"
+
 }
