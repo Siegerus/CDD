@@ -1,0 +1,26 @@
+.app {
+	text-align: center;
+	img {
+		display: block;
+		width: 100px;
+		height: 100px;
+	}
+}
+
+/* .app__button {
+	border: 1px solid blue;
+
+	&_green {
+		background-color: green;
+		animation: app__button-animate 2.6s 1s infinite linear;
+	}
+}
+@keyframes app__button-animate {
+	from {
+		background-color: #fff;
+	}
+
+	to {
+		background-color: green;
+	}
+} */
