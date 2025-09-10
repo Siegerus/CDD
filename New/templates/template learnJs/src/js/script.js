@@ -2694,8 +2694,6 @@ setSliderBoxes();
 
 
 
- 
-
 
 
 console.log();

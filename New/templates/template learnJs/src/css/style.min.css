@@ -1157,3 +1157,18 @@ ul#messages *:last-child a {
   opacity: 0.5;
   pointer-events: none;
 }
+
+.click-box {
+	display: inline-block;
+}
+
+.visible-box {
+	display: none;
+	background-color: lightblue;
+	width: 120px;
+}
+
+.fadeIn {
+	display: inline-block;
+	transition: all 1s;
+}

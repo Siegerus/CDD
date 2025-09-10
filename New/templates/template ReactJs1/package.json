@@ -1,0 +1,24 @@
+{
+    "name": "template-reactjs",
+    "version": "1.0.0",
+    "description": "studdy project",
+    "license": "ISC",
+    "author": "Siegerus",
+    "type": "module",
+    "main": "script.js",
+    "scripts": {
+        "pretty": "npx prettier . --write",
+        "babel": "npx babel src --out-dir src"
+    },
+    "dependencies": {
+        "prettier": "^3.6.2",
+        "react": "^19.1.1",
+        "tiny-slider": "^2.9.4"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.28.3",
+        "@babel/core": "^7.28.3",
+        "@babel/plugin-syntax-jsx": "^7.27.1",
+        "@babel/preset-react": "^7.27.1"
+    }
+}

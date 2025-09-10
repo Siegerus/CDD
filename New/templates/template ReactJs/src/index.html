@@ -1,27 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/style.min.css" />
-        <title>Document</title>
-    </head>
-    <body class="body">
-        <div id="react-app"></div>
-
-        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-        <script>
-            let elem = React.createElement(
-                'h1',
-                { diplay: 'block' },
-                'Hellow World!',
-            ); // Компонент
-            let container = document.getElementById('react-app'); //Контейнейнер, в который будем добавлять компонент
-            let root = ReactDOM.createRoot(container); // Этим метододом создаём корневой элемент (объект root) для добавления компонента
-            root.render(elem); // и методом объекта root добавляем компоент
-        </script>
-        <script type="module" src="js/script.js"></script>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="apple-touch-icon" sizes="180x180" href="" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/favicon/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/favicon/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/favicon/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/favicon/site.webmanifest" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>React + Vite</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<div class="">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+			atque similique dignissimos iusto sunt adipisci?
+		</div>
+		<script type="module" src="/src/main.jsx"></script>
+	</body>
 </html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.jsx"></script>
+	</body>
+</html> -->
