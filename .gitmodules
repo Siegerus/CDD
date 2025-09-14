@@ -1,0 +1,3 @@
+[submodule "todo_project"]
+	path = todo_project
+	url = https://github.com/Siegerus/todo_project.git
