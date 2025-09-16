@@ -43,13 +43,10 @@ document.querySelector(".any-section__button").style.marginTop = 67 + "px";
 // Custom select
 function setSelect() {
 	let select = document.querySelector(".select");
-	let isEnd;
-
-	/* select.firstElementChild.nextElementSibling.addEventListener('animationend', ); */
+	let animationIsEnd;
 
 	let fadeOut = (elem) => {
-		if(!isEnd) return;
-		if(elem.style.display == 'flex') {
+		if(!animationIsEnd) return;
 			elem.style.animation = 'fade-out 0.4s';
 
 			function displayedToNone(e) {
@@ -58,32 +55,30 @@ function setSelect() {
 				elem.removeEventListener('animationend', displayedToNone);
 			}
 			elem.addEventListener('animationend', displayedToNone);	
-		}
 	}
 
 	let fadeIn = (elem) => {
-		if(elem.style.display == '') {
-			elem.style.animation = 'fade-in 0.4s';
-			elem.style.display = 'flex';
-		}
-		else {
-			fadeOut(elem)
-		}
-		elem.addEventListener('animationend', () => isEnd = true);
+		elem.style.animation = 'fade-in 0.4s';
+		elem.style.display = 'flex';
+		elem.addEventListener('animationend', () => animationIsEnd = true);
 	} 
 
 	let hideSelectBox = (e) => {
 		if(e.target.closest('.select > div')) return;
 		if(e.target.closest('.select__input')) return;
-		fadeOut(select.firstElementChild.nextElementSibling);
+		if(select.firstElementChild.nextElementSibling.style.display == 'flex') fadeOut(select.firstElementChild.nextElementSibling);
+		
 		document.removeEventListener('click', hideSelectBox);
 	}
 
 	let showSelectBox = (e) => {
-		if(e.target.closest('.select__input')) fadeIn(select.firstElementChild.nextElementSibling);
+		if(e.target.closest('.select__input')) {
+			if(select.firstElementChild.nextElementSibling.style.display == '') fadeIn(select.firstElementChild.nextElementSibling);
+			else fadeOut(select.firstElementChild.nextElementSibling);
+		} 
 
 		function setValue() {
-			fadeOut(select.firstElementChild.nextElementSibling);
+			if(select.firstElementChild.nextElementSibling.style.display == 'flex') fadeOut(select.firstElementChild.nextElementSibling);
 			let radio = select.querySelectorAll('.select__radio');
 			radio.forEach(item => {
 				if(item.checked == true) select.firstElementChild.value = item.value;
