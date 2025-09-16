@@ -1,0 +1,22 @@
+.footer {
+    padding: 120px 20px;
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__date {
+        color: var(--text-color);
+    }
+
+    &__info {
+        color: var(--text-color);
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+}
