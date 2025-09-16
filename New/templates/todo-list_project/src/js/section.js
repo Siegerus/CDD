@@ -1,13 +1,13 @@
 window.addEventListener('DOMContentLoaded',() => {
-
-    setNote();
+	setTimer();
+	setWhether();
+    setList();
     setDate();
-
 });
 
 
 
-function setNote() {
+function setList() {
     let form = document.forms[0];
     let ul = document.querySelector("ul");
     let setBox = document.querySelector(".todo__set");
@@ -20,7 +20,7 @@ function setNote() {
     function windowLoad() {
         window.addEventListener('load', (e) => { 
             for(let i = 0; i < localStorage.length; i++) {
-                onSubmit(e, localStorage.getItem(i));
+				setNotes(localStorage.getItem(i));
             }
         });
     }
@@ -173,12 +173,10 @@ function setNote() {
         };
     }
 
-    function onSubmit(e, value) {
-        e.preventDefault();
-        
-        if(value) createNoteElement(value);
-        
-        let li = document.querySelectorAll(".list__item");
+	function setNotes(value) {
+		if(value) createNoteElement(value);
+
+		let li = document.querySelectorAll(".list__item");
         let liText = document.querySelectorAll(".list__text"); 
 
         li.forEach((item, i) => {
@@ -193,6 +191,13 @@ function setNote() {
                 replaceItem(span, i);
             }
         });
+	}
+
+    function onSubmit(e) {
+        e.preventDefault();
+
+        	//...//
+
     }
 
     function setBoxHandle(e) {
@@ -220,9 +225,13 @@ function setNote() {
         };
     }
 
-    form.addEventListener("submit", (e) => onSubmit(e, form.note.value));
+    form.addEventListener("submit", (e) => {
+		onSubmit(e);
+		setNotes(form.note.value);
+	});
     setBox.addEventListener("click", setBoxHandle);
 }
+
 
 function setDate() {
     let date = new Date();
@@ -240,3 +249,84 @@ function setDate() {
     }
     dateBox.innerHTML = `${getDate(date).day} . ${getDate(date).month} . ${getDate(date).year}`;
 }
+
+
+function setTimer() {
+	function getTime() {
+		let date = new Date();
+		let hours = date.getHours() < 10 ? '0' + date.getHours()  : date.getHours(),
+			minutes = date.getMinutes() < 10 ? '0' + date.getMinutes()  : date.getMinutes(),
+			seconds = date.getSeconds() < 10 ? '0' + date.getSeconds()  : date.getSeconds();
+			
+			return {
+				hours,
+				minutes,
+				seconds,
+			}
+	}
+	function setValue() {
+		let timer = document.querySelector('.timer'),
+			hoursBox = timer.querySelector('.timer__hours'),
+			minutesBox = timer.querySelector('.timer__minutes'),
+			secondsBox = timer.querySelector('.timer__seconds');
+	
+		function setTime() {
+			hoursBox.innerHTML = getTime().hours;
+			minutesBox.innerHTML = getTime().minutes;
+			secondsBox.innerHTML = getTime().seconds;
+		}
+	
+		setTime();
+	
+		let interval = setInterval(setTime, 1000);
+	}
+	setValue();
+}
+
+
+function setWhether() {
+	const API_KEY = '3313eade200c1be66cd128f80caabf6e'; 
+	let whetherBox = document.querySelector('.whether');
+	let isLoaded = false;
+
+	function setData(locationData, imgSrc, tempData) {
+		whetherBox.firstElementChild.firstElementChild.innerHTML = locationData;
+		whetherBox.firstElementChild.firstElementChild.nextElementSibling.src = imgSrc;
+		whetherBox.firstElementChild.nextElementSibling.innerHTML = tempData;
+
+	}
+	if(!isLoaded) setData('Loading...', '/img/loading-spinner.gif','Loading...');
+
+	function getData() {
+		if(!navigator.geolocation) return;
+		
+		navigator.geolocation.getCurrentPosition((position) => {
+			
+			let {latitude, longitude} = position.coords;
+			let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+
+			async function getData(url) {
+				let response = await fetch(url);
+				let json = await response.json();
+				console.log(response)
+				if(response.ok)  return json;
+				else {
+					throw new Error('Response error! ' + response.status)
+				}
+			}
+		
+			getData(url).then((result) => {
+				isLoaded = true;
+				let cells = Math.round(result.main.temp - 273.15) + " °C"
+				if(isLoaded) setData(result.name, `https://openweathermap.org/img/wn/${result.weather[0].icon}@2x.png`, cells);
+			}).catch((error) => {
+				setData('Error', '', 'Error');
+				console.error(error.message);
+			});
+		});
+	}
+	getData();
+}
+
+
+
