@@ -308,7 +308,7 @@ function setWhether() {
 			async function getData(url) {
 				let response = await fetch(url);
 				let json = await response.json();
-				console.log(response)
+				console.log('connected: ' + '' + response.ok)
 				if(response.ok)  return json;
 				else {
 					throw new Error('Response error! ' + response.status)

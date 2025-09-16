@@ -40,6 +40,64 @@ document.querySelector(".any-section__button").style.marginTop = 67 + "px";
 // scrollDown();
 
 
+// Custom select
+function setSelect() {
+	let select = document.querySelector(".select");
+	let isEnd;
+
+	/* select.firstElementChild.nextElementSibling.addEventListener('animationend', ); */
+
+	let fadeOut = (elem) => {
+		if(!isEnd) return;
+		if(elem.style.display == 'flex') {
+			elem.style.animation = 'fade-out 0.4s';
+
+			function displayedToNone(e) {
+				elem.style.display = '';
+				elem.style.animation = 'fade-in 0.4s';
+				elem.removeEventListener('animationend', displayedToNone);
+			}
+			elem.addEventListener('animationend', displayedToNone);	
+		}
+	}
+
+	let fadeIn = (elem) => {
+		if(elem.style.display == '') {
+			elem.style.animation = 'fade-in 0.4s';
+			elem.style.display = 'flex';
+		}
+		else {
+			fadeOut(elem)
+		}
+		elem.addEventListener('animationend', () => isEnd = true);
+	} 
+
+	let hideSelectBox = (e) => {
+		if(e.target.closest('.select > div')) return;
+		if(e.target.closest('.select__input')) return;
+		fadeOut(select.firstElementChild.nextElementSibling);
+		document.removeEventListener('click', hideSelectBox);
+	}
+
+	let showSelectBox = (e) => {
+		if(e.target.closest('.select__input')) fadeIn(select.firstElementChild.nextElementSibling);
+
+		function setValue() {
+			fadeOut(select.firstElementChild.nextElementSibling);
+			let radio = select.querySelectorAll('.select__radio');
+			radio.forEach(item => {
+				if(item.checked == true) select.firstElementChild.value = item.value;
+			});
+		}
+		if(e.target.closest('.select__radio')) setValue();
+			
+		document.addEventListener('click', hideSelectBox);
+	}
+	select.addEventListener('click', showSelectBox)
+}
+setSelect();
+
+
 //window
 function setWindow() {
 	let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
