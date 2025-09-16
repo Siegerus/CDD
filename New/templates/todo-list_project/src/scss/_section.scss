@@ -69,10 +69,12 @@ body {
 .list__edit {
     width: 100%;
     height: 65px;
+    min-height: 65px;
     max-width: 300px;
     max-height: 100%;
     overflow: hidden;
     resize: vertical;
+    border-radius: 7px;
     outline: none;
 }
 

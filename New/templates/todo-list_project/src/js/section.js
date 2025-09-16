@@ -1,8 +1,11 @@
 window.addEventListener('DOMContentLoaded',() => {
 
     setNote();
+    setDate();
 
 });
+
+
 
 function setNote() {
     let form = document.forms[0];
@@ -10,6 +13,9 @@ function setNote() {
     let setBox = document.querySelector(".todo__set");
     let isEdit = false;
 
+    document.addEventListener('mousedown', (e) => {
+        if(e.detail > 1) e.preventDefault();
+    });
 
     function windowLoad() {
         window.addEventListener('load', (e) => { 
@@ -216,4 +222,21 @@ function setNote() {
 
     form.addEventListener("submit", (e) => onSubmit(e, form.note.value));
     setBox.addEventListener("click", setBoxHandle);
+}
+
+function setDate() {
+    let date = new Date();
+    let dateBox = document.querySelector('.footer__date');
+
+    function getDate(date) {
+        let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+        let month = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+        let year = date.getFullYear();
+        return {
+            day,
+            month,
+            year,
+        }
+    }
+    dateBox.innerHTML = `${getDate(date).day} . ${getDate(date).month} . ${getDate(date).year}`;
 }
