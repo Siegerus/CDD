@@ -1,0 +1,14 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+	margin-top: 23px;
+}
+
+.input {
+	padding: 2px;
+	border: 1px solid lightgray;
+	border-radius: 4px;
+	outline: none;
+}

@@ -27,24 +27,23 @@ h6 {
 
 ul,
 ol {
+	margin: 0;
+	padding: 0;
 	list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
-a:visited, 
-a:hover, 
+a:visited,
+a:hover,
 a:focus,
 a:active {
-	text-decoration: none;
 	color: inherit;
+	text-decoration: none;
 }
 
 body {
 	font-family: 'Gerbera';
+	background-color: rgb(1, 54, 104);
 }
-
-
 
 // .container {
 // 	width: 1440px;
@@ -52,35 +51,28 @@ body {
 //     padding: 0;
 // }
 
-
-
-// @media (max-width: 1440px) 
-//     .container 
+// @media (max-width: 1440px)
+//     .container
 //         max-width: 1200px
-    
 
-// @media (max-width: 1200px) 
-//     .container 
+// @media (max-width: 1200px)
+//     .container
 //         max-width: 968px
 
-
-// @media (max-width: 992px) 
-//     .container 
+// @media (max-width: 992px)
+//     .container
 //         max-width: 695px
-    
 
-// @media (max-width: 767px) 
-//     .container 
+// @media (max-width: 767px)
+//     .container
 //         max-width: 540px
-    
 
-// @media (max-width: 576px) 
-//     .container 
+// @media (max-width: 576px)
+//     .container
 //         max-width: 100%
 //         padding: 0 15px
-    
 
-// @media (max-width: 375px) 
-//     .container 
+// @media (max-width: 375px)
+//     .container
 //         max-width: 100%
 //         padding: 0 15px
