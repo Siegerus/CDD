@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded',() => {
 	setTimer();
-	setWhether();
+	setWeather();
     setList();
     setDate();
 });
@@ -284,7 +284,7 @@ function setTimer() {
 }
 
 
-function setWhether() {
+function setWeather() {
 	const API_KEY = '3313eade200c1be66cd128f80caabf6e'; 
 	let whetherBox = document.querySelector('.whether');
 	let isLoaded = false;
@@ -305,17 +305,17 @@ function setWhether() {
 			let {latitude, longitude} = position.coords;
 			let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
 
-			async function getData(url) {
+			async function fetchData(url) {
 				let response = await fetch(url);
 				let json = await response.json();
-				console.log('connected: ' + '' + response.ok)
+				console.log('connection to whether API: ' + '' + response.ok)
 				if(response.ok)  return json;
 				else {
 					throw new Error('Response error! ' + response.status)
 				}
 			}
 		
-			getData(url).then((result) => {
+			fetchData(url).then((result) => {
 				isLoaded = true;
 				let cells = Math.round(result.main.temp - 273.15) + " °C"
 				if(isLoaded) setData(result.name, `https://openweathermap.org/img/wn/${result.weather[0].icon}@2x.png`, cells);
@@ -325,8 +325,23 @@ function setWhether() {
 			});
 		});
 	}
+
 	getData();
 }
 
 
 
+/* var latLong;
+$.getJSON("http://ipinfo.io", function(ipinfo){
+    console.log("Found location ["+ipinfo.loc+"] by ipinfo.io");
+    latLong = ipinfo.loc.split(",");
+});
+console.log(latLong) */
+
+
+/* async function getNewLocation() {
+    let response = await fetch('https://api.ipinfo.io/lite/8.8.8.8?token=5c36a72a1d8203');
+    let json = await response.json();
+    console.log(json);
+}
+getNewLocation(); */

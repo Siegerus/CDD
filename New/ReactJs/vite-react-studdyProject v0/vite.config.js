@@ -17,21 +17,23 @@ export default defineConfig({
 		preprocessorOptions: {
 			scss: {
 				api: 'modern-compiler', // or "modern"
-				silenceDeprecations: ['legacy-js-api'],
+				silenceDeprecations: ['legacy-js-api']
 			}
 		},
 		modules: {
 			/* generateScopedName: '[name]__[local]--[hash:base64:5]'  '[path][name]__[local]--[hash:base64:5]'  '[name]__[local]___[hash:base64:5]' */
 			generateScopedName: (className, filePath) => {
-				const fileName = path.basename(filePath, '.module.scss' /* or '.module.css' for css */)
+				const fileName = path.basename(
+					filePath,
+					'.module.scss' /* or '.module.css' for css */
+				);
 				const hash = crypto
-				  .createHash('sha256')
-				  .update(fileName.concat(className))
-				  .digest('hex')
-				  .substring(0, 5)
-				return `${fileName}__${className}--${hash}`
-			  },
+					.createHash('sha256')
+					.update(fileName.concat(className))
+					.digest('hex')
+					.substring(0, 5);
+				return `${fileName}__${className}--${hash}`;
+			}
 		}
 	}
 });
-

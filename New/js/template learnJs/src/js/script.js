@@ -2745,11 +2745,14 @@ function setSliderBoxes() {
 setSliderBoxes();
 
 
+let array = [1 ,2 ,3 ,4, 5, 6];
+
+let result = array.filter((item, i) => item > 4)
 
 
 
 
-console.log();
+console.log(result);
 console.log();
 console.log();
 console.log();
