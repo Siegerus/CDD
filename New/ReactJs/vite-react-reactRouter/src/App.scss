@@ -15,15 +15,10 @@
 		background-color: green;
 	}
 } */
-* {
-	text-align: center;
-}
 
 body {
+	font-family: 'Gerbera';
+	background-color: rgb(1, 54, 104);
 	color: var(--bs-white);
-}
-
-.app {
-	max-width: 600px;
-	margin: 0 auto;
+	text-align: center;
 }

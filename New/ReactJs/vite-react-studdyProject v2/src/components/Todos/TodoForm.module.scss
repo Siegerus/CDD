@@ -4,33 +4,30 @@
 		align-items: center;
 		justify-content: center;
 		margin-bottom: 30px;
-	  }
-	  
-	  input {
+	}
+
+	input {
 		width: 45%;
 		height: 30px;
 		font-size: 1.3rem;
-	  }
-	  
-	  button {
-		margin-left: 20px;
+	}
+
+	button {
 		height: 50px;
-		cursor: pointer;
-		background-color: beige;
+		margin-left: 20px;
 		font-size: 1.5rem;
-	  }
-	  
-	  button:hover {
+		background-color: beige;
+		cursor: pointer;
+	}
+
+	button:hover {
 		background-color: rgb(240, 240, 155);
-	  }
-	  
-	  input,
-	  button {
+	}
+
+	input,
+	button {
 		padding: 10px 15px;
 		border: none;
 		border-radius: 5px;
-	  }
-	  
+	}
 }
-
-

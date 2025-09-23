@@ -3,6 +3,8 @@ import './App.scss';
 import TodoForm from './components/Todos/TodoForm';
 import TodoList from './components/Todos/TodoList';
 import Clock from './components/Clock/Clock';
+import Drops from './components/Drops/Drops';
+import NavMenu from './components/NavMenu/NavMenu';
 
 // function App() {
 // 	let [todos, setTodos] = useState([]);
@@ -24,6 +26,8 @@ function App() {
 	return (
 		<div className="app">
 			<Clock />
+			<Drops />
+			<NavMenu />
 		</div>
 	);
 }

@@ -25,7 +25,7 @@ function Clock() {
 		return timeObject;
 	};
 
-	let setTimes = ({hours, minutes, seconds}, isTick) => {
+	let setTimes = ({ hours, minutes, seconds }, isTick) => {
 		clearInterval(interval);
 		setValues({
 			hours,
@@ -50,11 +50,11 @@ function Clock() {
 	};
 
 	let resetClock = () => {
-		setTimes({hours:'00', minutes:'00', seconds:'00'}, false);
+		setTimes({ hours: '00', minutes: '00', seconds: '00' }, false);
 	};
 
 	return (
-		<div className="app">
+		<div className="Clock">
 			<ClockBox times={values} />
 			<ClockAction
 				onStartHandler={clearInt}

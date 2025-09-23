@@ -1,0 +1,16 @@
+.wrapper {
+	display: flex;
+	gap: 42px;
+	align-items: center;
+	justify-content: center;
+	padding: 93px;
+	text-align: center;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		> div {
+			margin-top: 10px;
+		}
+	}
+}

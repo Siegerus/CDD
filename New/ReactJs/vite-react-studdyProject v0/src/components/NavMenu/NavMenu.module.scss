@@ -1,0 +1,22 @@
+.wrapper {
+	display: flex;
+	gap: 40px;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 123px 0;
+}
+
+.dropdown {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	align-items: center;
+    padding: 10px;
+    background-color: rgb(64, 97, 79);
+    border: 1px solid gray;
+    border-radius: 7px;
+    
+    a {
+        text-decoration: none;
+    }
+}
