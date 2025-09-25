@@ -1,21 +1,33 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Contacts from './components/Contacts';
+import NotFound from './components/NotFound';
+import Courses from './components/Courses';
+import SingleCourse from './components/SingleCourse';
+import MainLayout from './layouts/MainLayout';
 import './App.scss';
 
-
 function App() {
-	let el = <p>Lorem, ipsum dolor.</p>;
-	console.log()
 	return (
-		<BrowserRouter future={{
-			v7_startTransition: true,
-			v7_relativeSplatPath: true,
-		  }}>
+		<BrowserRouter
+			future={{
+				v7_startTransition: true,
+				v7_relativeSplatPath: true
+			}}
+		>
 			<div className="app">
 				<Routes>
-					<Route path="/" element={<h1>Home</h1>}/>
+					<Route path="/" element={<MainLayout />}>
+						<Route index element={<Home />} />
+						<Route path="about" element={<About />} />
+						<Route path="contacts" element={<Contacts />} />
+						<Route path="courses" element={<Courses />} />
+						<Route path="courses/:courseSlug/:lang" element={<SingleCourse />} />
+						<Route path="*" element={<NotFound />} />
+					</Route>
 				</Routes>
 			</div>
-			
 		</BrowserRouter>
 	);
 }

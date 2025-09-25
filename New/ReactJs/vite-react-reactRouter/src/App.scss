@@ -17,8 +17,49 @@
 } */
 
 body {
-	font-family: 'Gerbera';
-	background-color: rgb(1, 54, 104);
 	color: var(--bs-white);
+	font-family: 'Gerbera';
 	text-align: center;
+	background-color: rgb(1, 54, 104);
+
+	nav {
+		padding: 14px 0;
+		background-color: rgb(39, 93, 143);
+
+		a {
+			margin-right: 10px;
+		}
+	}
+}
+
+nav a.activeLink {
+	color: lightcoral;
+	text-decoration: none;
+}
+
+
+.courses-list {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	max-width: 24%;
+	margin: 0 auto;
+	margin-top: 30px;
+
+	a {
+		margin-top: 5px;
+		text-decoration: none;
+		color: unset;
+	}
+}
+
+.single-course {
+	max-width: 40%;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 20px;
+
+	h2 {
+		margin: 17px 0;
+	}
 }

@@ -1231,3 +1231,24 @@ ul#messages *:last-child a {
 .select label, .select input[type="radio"] {
 	cursor: pointer;
 } 
+
+
+.box__inner:nth-child(3) {
+	
+}
+
+.box__inner:nth-child(3).active {
+	animation: colored infinite linear;
+}
+
+@keyframes colored {
+	from {
+		transform: scale(0);
+		background-color: tomato;
+	}
+
+	to {
+		transform: scale(100%);
+		background-color: lightyellow;
+	}
+}

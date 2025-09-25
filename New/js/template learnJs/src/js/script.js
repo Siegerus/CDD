@@ -2745,14 +2745,32 @@ function setSliderBoxes() {
 setSliderBoxes();
 
 
-let array = [1 ,2 ,3 ,4, 5, 6];
+function foo() {
+	let box = document.querySelector("body > div:nth-child(1) > div:nth-child(3)");
+	function clickHandler(e, duration) {
+		let target = e.target.closest('.box__inner');
+		if(!target) return;
+		target.classList.toggle('active');
+		if(duration) target.style.animationDuration = duration;
+		else target.style.animationDuration = '0.5s'
+	}
+	function decorator(f) {
+		function wrapper(timer, ...args) {
+			return setTimeout(() => {
+				args[1] = args[1] + 's';
+				f.call(this, ...args)
+			}, timer);
+		}
+		return wrapper
+	}
+	box.addEventListener('click', (e) => decoratedHandler(2000, e, 2));
+}
+foo(); 
 
-let result = array.filter((item, i) => item > 4)
 
 
 
-
-console.log(result);
+console.log();
 console.log();
 console.log();
 console.log();
