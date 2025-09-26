@@ -23,7 +23,7 @@ import './App.scss';
 // 		</div>
 // 	);
 // }
-// export default App;
+// export default App;b  
 
 function App() {
 	return (
@@ -40,13 +40,8 @@ function App() {
 						<Route path="navmenu" element={<NavMenu />}/>
 					</Route>
 				</Routes>
-
-				
-				
-				
 			</div>
 		</BrowserRouter>
-
 	);
 }
 export default App;

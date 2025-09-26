@@ -2745,7 +2745,7 @@ function setSliderBoxes() {
 setSliderBoxes();
 
 
-function foo() {
+/* function foo() {
 	let box = document.querySelector("body > div:nth-child(1) > div:nth-child(3)");
 	function clickHandler(e, duration) {
 		let target = e.target.closest('.box__inner');
@@ -2765,12 +2765,60 @@ function foo() {
 	}
 	box.addEventListener('click', (e) => decoratedHandler(2000, e, 2));
 }
-foo(); 
+f
+oo();  */
+/* let a = 0;
+function foo() {
+	a = a + 1;
+	function wrapper() {
+		a = a + 1;
+		function secondwrapper() {
+			a + 1;
+		}
+		return secondwrapper;
+	}
+	return wrapper;
+}
+
+console.log(foo()()()); */
 
 
+function moveVolumeTrack() {
+	let parent = document.querySelector("body > div.volume-box");
+	let volumeItem = document.querySelector("body > div.volume-box > div");
+
+	parent.addEventListener('mousedown', (e) => {
+		let target = e.target.closest('body > div.volume-box');
+		if(!target) return;
+		let coords = parent.getBoundingClientRect();
+		let newLeft;
+
+		function setLeft(e) {
+			newLeft = e.clientX - coords.left
+			if(newLeft < 0) newLeft = 0;
+			let parrentPadding = parseInt(getComputedStyle(parent).paddingLeft)*2;
+			if(newLeft > target.offsetWidth - volumeItem.offsetWidth /* - parrentPadding */ ) newLeft = target.offsetWidth - volumeItem.offsetWidth /* - parrentPadding */;
+			volumeItem.style.left = newLeft + 'px';
+		}
+		setLeft(e)
+
+		function onMove(e) {
+			setLeft(e);
+		}
+
+		function onMouseUp(e) {
+			document.removeEventListener('mousemove', onMove);
+			document.removeEventListener('mouseup', onMouseUp)
+		}
+		
+		document.addEventListener('mousemove', onMove);
+		document.addEventListener('mouseup', onMouseUp);
+		
+	});
+}
+moveVolumeTrack();
 
 
-console.log();
 console.log();
 console.log();
 console.log();
