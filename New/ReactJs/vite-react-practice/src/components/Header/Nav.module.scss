@@ -1,12 +1,12 @@
 .nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 23px;
+	display: flex;
+	gap: 23px;
+	align-items: center;
+	justify-content: center;
 
-    a {
-        text-decoration: none;
-        color: black;
-        font-size: 22px;
-    }
+	a {
+		color: black;
+		font-size: 22px;
+		text-decoration: none;
+	}
 }

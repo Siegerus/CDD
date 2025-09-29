@@ -1276,3 +1276,10 @@ ul#messages *:last-child a {
 	border-radius: 7px;
 	cursor: pointer;
 }
+
+.lazzy-image {
+	display: block;
+	margin: 0 auto;
+	margin-top: 43px;
+	padding-bottom: 300px;
+}

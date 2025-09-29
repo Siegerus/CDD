@@ -2818,6 +2818,47 @@ function moveVolumeTrack() {
 }
 moveVolumeTrack();
 
+let el = document.querySelector('.qq');
+
+// console.log(el?.length); 
+// console.log(document.documentElement.clientWidth);
+// console.log(document.documentElement.clientHeight);
+// console.log(document.documentElement.scrollHeight);
+// console.log(document.documentElement.scrollTop);
+// console.log(document.documentElement.getBoundingClientRect())
+
+// console.log(document.documentElement.)
+
+// console.log(document.querySelector("body > div:nth-child(46)").getBoundingClientRect());
+// console.log(document.documentElement.getBoundingClientRect())
+// console.log(document.documentElement.clientHeight);
+
+/* console.log(Cache.keys()); */
+
+function setLazzyImage() {
+	let image = document.querySelector("body > img.lazzy-image");
+	let isPreventCash = false;
+	window.addEventListener('scroll', e => { 
+		let docScrolltopClientHeight = document.documentElement.scrollTop + document.documentElement.clientHeight
+		let elScrollTop = image.offsetTop
+
+		if(docScrolltopClientHeight > elScrollTop + 200) {
+			if(isPreventCash) return;
+			let noCashed = "?nocache=" + Math.random();
+			image.src = 'https://yandex-images.clstorage.net/Yci96N391/b62d29qv/lDZPRcZ58BSBOCjQeQkqTeqRUA8vB8WTBLWoli-iPZFwGWJEYWK6gShqrMMDrgUG8-wWnjNS-32mf28XfRDLDhESX2TivYR15G08obxJqn26sIXbHhYAM0FkDLPqU31kkKkXR6K1nfY-Hd_0lEkSgva994oFlBpa0yq8sTtH3or3Bq4kZiuiEXB7eLbI23hd-dFG_0_lwAMzl0lTWhDI9WXOINZiJW-W339Pxsa6EFOE-IR5JpWfeUHa3AEZt8_J1FXtRpUL0aLjSPv1qEma3bqR54-fJYPwola74Tmj6DfkTVDXYlXPpq6d7cUmyRFiJQqWmvR1jTsh-12y-NUsSTZXjkZUy9CzwzlI9YopCG164JRvvzQDkjAWWGOJg-n2tV5C5OPkrwRMj8-W9EmikZS7JNmEFzy7I_ld42plDjjElA5nxyoz4KFKuOb7GBo--1KVjMwkMZAzJ8lDCRH4FhdO8xTwRZ9nfMxNp2WbcULG2JRZRldfOAMqHIDZN43bRhV-x9Sr0wFTCgm16Gv5LxiB988d9-PQ01WpcZhhSeS27wHmgacflO29bvVXaiNhpEn1-nd1LyggiJ8zOlQsqXWHTZXXShNAk8lIhohoWC14A4eurfRzkVE12PMKs_qm5k1hVgJ2zsavX9y1BsrTIMQrpat3xpy440p8Mhk1rUhWVi8WRVhzMpC5a5f5iJjOO0KXr3xEk5KSVfvguYNqdTQuI3Rj5VzkfG2shGYagAOG65Xr9AcOuzEK7eAK5Vy6NhY8VnY7k8IzGSpniaoIL9tjRJ295vBy0NXqcdkD2eYHPjFVUiWuhQyvHsbXGoIBN-lFyGbU3rsyGv9iKDZeeSaXnsQVaLBQkUpIdcvauO6II7StvbQh04Inq1FLIxr3dD-itLH1fmWdTZ4XJWjRI5SLJpvkFW74ojreUAqXfkuHpo5FhWigMpLrenT5m2k_auBkLv32EnFR9ErByhJKQ'
+			image.src += noCashed;
+
+			isPreventCash = true;
+		}
+	})
+	
+}
+setLazzyImage();
+
+
+
+
+
 
 console.log();
 console.log();

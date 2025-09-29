@@ -1,11 +1,12 @@
+import { useContext } from "react";
 import UserContext from "../context/UserContext";
 
 const UserInfo = () => {
-  return (
-     <UserContext.Consumer>
-        {value => <h1>{value}</h1> }   
-     </UserContext.Consumer>
-  )
+   let {UserName} = useContext(UserContext);
+   
+   return (
+      <h1>{UserName}</h1>
+   )
 }
 
 export default UserInfo

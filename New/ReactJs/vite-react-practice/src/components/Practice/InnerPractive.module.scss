@@ -1,0 +1,21 @@
+.wrapper {
+	text-align: center;
+}
+
+.lorems {
+	display: inline-block;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.elem {
+	width: 200px;
+	margin: 0 auto;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+
+	&_active {
+		color: red;
+	}
+}
