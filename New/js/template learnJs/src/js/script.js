@@ -2834,47 +2834,60 @@ function foo() {
 
 console.log(foo()()()); */
 
-let initialState = [];
-function reducer(state, action) {
+// let initialState = [];
+// function reducer(state, action) {
 
-	switch(action.type) {
-		case 'ADD_NAME':
-		return [...state, action.payload];
+// 	switch(action.type) {
+// 		case 'ADD_NAME':
+// 		return [...state, action.payload];
 
-		case 'DELETE_NAME':
-		return state.filter(item => item != action.payload);
+// 		case 'DELETE_NAME':
+// 		return state.filter(item => item != action.payload);
 
-		case 'CLEAR_NAMES':
-		return [];
+// 		case 'CLEAR_NAMES':
+// 		return [];
 
-		default:
-		return state;
-	}
-	/* if(action.type == 'ADD_NAME') {
-		return [...state, action.payload];
-	}
-	if(action.type == 'DELETE_NAME') {
-		return state.filter(item => item != action.payload);
-	}
-	if(action.type == 'CLEAR_NAMES') {
+// 		default:
+// 		return state;
+// 	}
+// 	/* if(action.type == 'ADD_NAME') {
+// 		return [...state, action.payload];
+// 	}
+// 	if(action.type == 'DELETE_NAME') {
+// 		return state.filter(item => item != action.payload);
+// 	}
+// 	if(action.type == 'CLEAR_NAMES') {
 		
-	}
-	return state; */
-}	
-let newState =  reducer(initialState, {type: 'ADD_NAME', payload: 'Alex'})
-console.log(newState);
-newState =  reducer(newState, {type: 'ADD_NAME', payload: 'John'})
-console.log(newState);
-newState =  reducer(newState, {type: 'DELETE_NAME', payload: 'John'})
-console.log(newState);
-newState =  reducer(newState, {type: 'CLEAR_NAMES'})
-console.log(newState);
+// 	}
+// 	return state; */
+// }	
+// let newState =  reducer(initialState, {type: 'ADD_NAME', payload: 'Alex'})
+// console.log(newState);
+// newState =  reducer(newState, {type: 'ADD_NAME', payload: 'John'})
+// console.log(newState);
+// newState =  reducer(newState, {type: 'DELETE_NAME', payload: 'John'})
+// console.log(newState);
+// newState =  reducer(newState, {type: 'CLEAR_NAMES'})
+// console.log(newState);
 
+const elems = document.querySelectorAll('.box__inner');
+let currentIndex = 1;
 
+let array = [
+	{id: 1, active: true, next: 'a'},
+	{id: 2, active: false, next: 'b'},
+	{id: 3, active: true, next: 'c'},
+	{id: 4, active: false, next: 'd'},
+	{id: 5, active: true, next: 'e'},
+];
 
+const target = array.filter((item, i) => i == currentIndex);
 
-
-
+console.log(target);
+console.log();
+console.log();
+console.log();
+console.log();
 console.log();
 console.log();
 console.log();

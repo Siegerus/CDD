@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import './BookForm.scss';
 
 const BookForm = () => {
-    const [title, setTitle] = useState('')
-    const [author, setAuthor] = useState('')
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const dispath = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault()
