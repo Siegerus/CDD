@@ -1283,3 +1283,8 @@ ul#messages *:last-child a {
 	margin-top: 43px;
 	padding-bottom: 300px;
 }
+
+.datepicker__table td {
+	padding: 15px;
+	border: 1px solid black;
+}

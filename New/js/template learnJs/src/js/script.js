@@ -2881,9 +2881,15 @@ let array = [
 	{id: 5, active: true, next: 'e'},
 ];
 
-const target = array.filter((item, i) => i == currentIndex);
 
-console.log(target);
+let days = new Date().getDate();
+let weekDay = new Date().getDay();
+
+for(let i = 0; i < days + 1; i++) {
+	
+}
+
+console.log();
 console.log();
 console.log();
 console.log();
