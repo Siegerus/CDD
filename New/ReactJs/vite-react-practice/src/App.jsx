@@ -6,6 +6,8 @@ import MainLayout from './layouts/MainLayout';
 import Practice from './components/Practice/Practice';
 import './App.scss';
 
+
+
 function App() {
 	return (
 		<BrowserRouter
