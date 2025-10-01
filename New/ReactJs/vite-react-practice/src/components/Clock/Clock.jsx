@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import ClockBox from './ClockBox';
 import ClockAction from './ClockAction';
-import { useEffect } from 'react';
 
 function Clock() {
 	console.log('render');
