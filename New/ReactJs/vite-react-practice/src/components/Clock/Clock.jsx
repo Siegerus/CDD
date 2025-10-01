@@ -3,8 +3,6 @@ import ClockBox from './ClockBox';
 import ClockAction from './ClockAction';
 
 function Clock() {
-	console.log('render');
-
 	let date = new Date();
 	let interval;
 
