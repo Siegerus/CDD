@@ -2896,7 +2896,6 @@ function setCalendar() {
 		if (date.getDay() % 7 == 6) tableBody += '<tr></tr>';
 
 		date.setDate(date.getDate() + 1);
-		console.log(date.getDay());
 	}
 
 	for(let i = date.getDay(); i < 7; i++) tableBody += '<td></td>';

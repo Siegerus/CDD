@@ -13,3 +13,10 @@ export const deleteBook = (id) => {
 		payload: id
 	};
 };
+
+export const addRandomBook = (randomBook) => {
+	return {
+		type: actionTypes.ADD_RANDOM,
+		payload: randomBook
+	};
+};

@@ -6,7 +6,7 @@ const BookList = () => {
 	const books = useSelector(state => state.books);
     const dispath = useDispatch();
 
-    let handleDeleteClick = (id) => {
+    let handleDeleteBook = (id) => {
         dispath(deleteBook(id));
     }
 
@@ -22,7 +22,9 @@ const BookList = () => {
 							<div className="book-info">
 								{++i}. {book.title} by <strong>{book.author}  </strong> 
 							</div>
-                            <button className="action-button" onClick={() => handleDeleteClick(book.id)}>Delete</button>
+                            <div className="action-button">
+                                <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
+                            </div>    
 						</li>
 					))}
 				</ul>
