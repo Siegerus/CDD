@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import './BookForm.scss';
 import { addBook } from '../../redux/books/actionCreators';
 
@@ -12,6 +13,7 @@ const BookForm = () => {
 		e.preventDefault();
 		if (title && author) {
 			const book = {
+                id: uuidv4(),
 				title: title,
 				author: author
 			};
