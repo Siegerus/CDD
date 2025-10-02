@@ -7,7 +7,9 @@ import './main.scss';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Provider store={store}>      {/* Доступ для всех компонентов к redux-store */}
-        <App />
-    </Provider>
+	<Provider store={store}>
+		{' '}
+		{/* Доступ для всех компонентов к redux-store */}
+		<App />
+	</Provider>
 );
