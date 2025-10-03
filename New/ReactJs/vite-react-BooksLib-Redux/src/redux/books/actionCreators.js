@@ -7,16 +7,23 @@ export const addBook = newBook => {
 	};
 };
 
-export const deleteBook = (id) => {
-	return {
+export const deleteBook = id => ({
 		type: actionTypes.DELETE_BOOK,
 		payload: id
-	};
-};
+	});
 
-export const addRandomBook = (randomBook) => {
+export const addRandomBook = randomBook => {
 	return {
 		type: actionTypes.ADD_RANDOM,
 		payload: randomBook
 	};
 };
+
+export const toggleFavoriteBook = id => ({
+		type: actionTypes.TOGGLE_FOVORITE,
+		payload: id
+});
+
+
+
+

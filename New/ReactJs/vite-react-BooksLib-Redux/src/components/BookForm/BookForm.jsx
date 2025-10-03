@@ -14,9 +14,10 @@ const BookForm = () => {
 		e.preventDefault();
 		if (title && author) {
 			const book = {
-                id: uuidv4(),
+				id: uuidv4(),
 				title: title,
-				author: author
+				author: author, 
+                isFavorite: false,
 			};
 			dispath(addBook(book));
 		}
@@ -24,15 +25,16 @@ const BookForm = () => {
 		setAuthor('');
 	};
 
-    const handleAddRandomBook = () => {
-        const randomIndex = Math.floor(Math.random() * bookArray.length);
-        const randomBook = bookArray[randomIndex];
-        const randomBookWithId = {
-            ...randomBook,
-            id: uuidv4()
-        }
-        dispath(addRandomBook(randomBookWithId));
-    }
+	const handleAddRandomBook = () => {
+		const randomIndex = Math.floor(Math.random() * bookArray.length);
+		const randomBook = bookArray[randomIndex];
+		const randomBookWithId = {
+			...randomBook,
+			id: uuidv4(),
+            isFavorite: false,
+		};
+		dispath(addRandomBook(randomBookWithId));
+	};
 
 	return (
 		<div className="app-block book-form">
@@ -59,7 +61,9 @@ const BookForm = () => {
 					/>
 				</div>
 				<button type="submit">Add Book</button>
-                <button type="button" onClick={handleAddRandomBook}>Add Random</button>
+				<button type="button" onClick={handleAddRandomBook}>
+					Add Random
+				</button>
 			</form>
 		</div>
 	);
