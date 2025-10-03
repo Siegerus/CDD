@@ -6,44 +6,35 @@ import createBookWithId from '../../utils/createBookWithId';
 import './BookForm.scss';
 
 
-let arr = [ 
-        {prop1: 'val1', prop2: 'val2'},
-        {prop1: 'val1', prop2: 'val2'},
-        {prop1: 'val1', prop2: 'val2'}
-    ];
+// let arr = [ 
+//     {id: 'john', name: "John Smith", age: 20},
+//     {id: 'ann', name: "Ann Smith", age: 24},
+//     {id: 'pete', name: "Pete Peterson", age: 31},
+//     ];
 
-/* let res = arr.map((item) => {
-    let obj = {
-        [Object.keys(item)[0]]: item.prop1
-    }
-    return obj;
-}); */
-// console.log(res);
-// 0: {prop1: 'val1'}
-// 1: {prop1: 'val1'}
-// 2: {prop1: 'val1'}
-
-let res = arr.reduce((obj, item) => {
-        obj.push(item.prop1)
-        return obj
-},[]);
-
-console.log(res);
+// // console.log(res);
 
 
-let useers = [
-    {id: 'john', name: "John Smith", age: 20},
-    {id: 'ann', name: "Ann Smith", age: 24},
-    {id: 'pete', name: "Pete Peterson", age: 31},
-  ];
-  let toGrouped = (arr) => {
-    let grouped = arr.reduce((obj, curent) => {
-        obj[curent.id] = curent;
-        return obj;
-    }, {} );
-    return grouped;
-  };
-//   console.log(toGrouped(useers));
+// let res = arr.reduce((obj, item) => {
+       
+// }, {});
+
+// // console.log(res);
+
+
+// let useers = [
+//     {id: 'john', name: "John Smith", age: 20},
+//     {id: 'ann', name: "Ann Smith", age: 24},
+//     {id: 'pete', name: "Pete Peterson", age: 31},
+//   ];
+//   let toGrouped = (arr) => {
+//     let grouped = arr.reduce((obj, curent) => {
+//         obj[curent.id] = curent;
+//         return obj;
+//     }, {} );
+//     return grouped;
+//   };
+// //   console.log(toGrouped(useers));
 
 
 
@@ -59,13 +50,7 @@ const BookForm = () => {
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (title && author) {
-			const book = {
-				id: uuidv4(),
-				title: title,
-				author: author, 
-                isFavorite: false,
-			};
-			dispath(addBook(book));
+			dispath(addBook(createBookWithId({title, author})));
 		}
 		setTitle('');
 		setAuthor('');
@@ -75,9 +60,7 @@ const BookForm = () => {
 		const randomIndex = Math.floor(Math.random() * bookArray.length);
 		const randomBook = bookArray[randomIndex];
 
-		const randomBookWithId = createBookWithId(randomBook);
-
-		dispath(addRandomBook(randomBookWithId));
+		dispath(addRandomBook(createBookWithId(randomBook)));
 	};
 
 	return (

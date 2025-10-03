@@ -36,7 +36,6 @@ const BookList = () => {
                                         <BsBookmarkStar className="star-icon" />
                                     )}
                                 </span>
-
 								<div className="action-button">
 									<button
 										onClick={() =>

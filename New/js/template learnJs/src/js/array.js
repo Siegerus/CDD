@@ -652,23 +652,30 @@ console.log(newArr); // [1, 2, true, 4, 54, true, '111', {…}, 6, false, 'smth'
 
 
 
-
+// внрнуть массив с объектами без одного св-ва. 3 варианта.
 let arrrrrrrr = [ 
-    {prop1: 'val1', prop2: 'val2'},
-    {prop1: 'val1', prop2: 'val2'},
-    {prop1: 'val1', prop2: 'val2'}
-];
+    {id: 'john', name: "John Smith", age: 20},
+    {id: 'ann', name: "Ann Smith", age: 24},
+    {id: 'pete', name: "Pete Peterson", age: 31},
+    ];
 
-let res = arrrrrrrr.map((item) => {
-let obj = {
-    [Object.keys(item)[0]]: item.prop1
-}
-return obj;
+let res = arrrrrrrr.map((item) => {  
+    let obj = {
+        [Object.keys(item)[0]]: item.id,       
+        [Object.keys(item)[1]]: item.name   
+    }
+    return obj;
+
+    /* delete item.age;
+    return item; */
+
+    /* Reflect.deleteProperty(item, 'age')
+    return item; */
 });
-console.log(res);
-// 0: {prop1: 'val1'}
-// 1: {prop1: 'val1'}
-// 2: {prop1: 'val1'}
+
+// 0: {id: 'john', name: 'John Smith'}
+// 1: {id: 'ann', name: 'Ann Smith'}
+// 2: {id: 'pete', name: 'Pete Peterson'}
 
 
 
