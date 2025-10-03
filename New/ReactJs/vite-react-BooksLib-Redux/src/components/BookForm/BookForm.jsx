@@ -1,9 +1,55 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import './BookForm.scss';
 import { addBook, addRandomBook } from '../../redux/books/actionCreators';
 import bookArray from '../../data/books.json';
+import createBookWithId from '../../utils/createBookWithId';
+import './BookForm.scss';
+
+
+let arr = [ 
+        {prop1: 'val1', prop2: 'val2'},
+        {prop1: 'val1', prop2: 'val2'},
+        {prop1: 'val1', prop2: 'val2'}
+    ];
+
+/* let res = arr.map((item) => {
+    let obj = {
+        [Object.keys(item)[0]]: item.prop1
+    }
+    return obj;
+}); */
+// console.log(res);
+// 0: {prop1: 'val1'}
+// 1: {prop1: 'val1'}
+// 2: {prop1: 'val1'}
+
+let res = arr.reduce((obj, item) => {
+        obj.push(item.prop1)
+        return obj
+},[]);
+
+console.log(res);
+
+
+let useers = [
+    {id: 'john', name: "John Smith", age: 20},
+    {id: 'ann', name: "Ann Smith", age: 24},
+    {id: 'pete', name: "Pete Peterson", age: 31},
+  ];
+  let toGrouped = (arr) => {
+    let grouped = arr.reduce((obj, curent) => {
+        obj[curent.id] = curent;
+        return obj;
+    }, {} );
+    return grouped;
+  };
+//   console.log(toGrouped(useers));
+
+
+
+
+/* let obj = {prop1: 'val1', prop2: 'val2'}
+console.log(Object.keys(obj));  */
 
 const BookForm = () => {
 	const [title, setTitle] = useState('');
@@ -28,11 +74,9 @@ const BookForm = () => {
 	const handleAddRandomBook = () => {
 		const randomIndex = Math.floor(Math.random() * bookArray.length);
 		const randomBook = bookArray[randomIndex];
-		const randomBookWithId = {
-			...randomBook,
-			id: uuidv4(),
-            isFavorite: false,
-		};
+
+		const randomBookWithId = createBookWithId(randomBook);
+
 		dispath(addRandomBook(randomBookWithId));
 	};
 

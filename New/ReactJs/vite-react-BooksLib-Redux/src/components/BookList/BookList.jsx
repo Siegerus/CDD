@@ -29,7 +29,7 @@ const BookList = () => {
 								<strong>{book.author} </strong>
 							</div>
 							<div className="book-actions"  >
-                                <span onClick={() => handleToggleFavorite(book.id)}>
+                                <span onClick={() => handleToggleFavorite(book.id)} >
                                     {book.isFavorite ? (
                                         <BsBookmarkStarFill className="star-icon" />
                                     ) : (
