@@ -2962,14 +2962,20 @@ setCalendar();
 let object = {
 	name: 'Alex',
 	age: 36,
-	mrried: false,
+	married: false,
+}
+
+let object2 = {
+	name: 'Smith',
+	age: 31,
+	married: false,
 }
 
 
-let names = ['Alex', 'Smith', 'John', 'Alice'];
+let names = ['Alex', 'Alex 31', 'Smith', 'John', 'Alice', '31'];
 
 let result = names.filter(item => {
-	return item.toLowerCase().includes(object.name.toLowerCase());
+	return item.toLowerCase().includes(object.name.toLowerCase()) && item.includes(object2.age);
 })
 
 console.log(result);
