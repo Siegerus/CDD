@@ -2959,8 +2959,20 @@ setCalendar();
 //   createCalendar(calendar, 2012, 9);
 
 
+let object = {
+	name: 'Alex',
+	age: 36,
+	mrried: false,
+}
 
-console.log();
+
+let names = ['Alex', 'Smith', 'John', 'Alice'];
+
+let result = names.filter(item => {
+	return item.toLowerCase().includes(object.name.toLowerCase());
+})
+
+console.log(result);
 console.log();
 console.log();
 console.log();

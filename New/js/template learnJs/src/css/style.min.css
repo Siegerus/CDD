@@ -1029,8 +1029,6 @@ i {
 
 .target-div {
 	float: right;
-	/* width: 200px;
-	height: 60px; */
 	line-height: 60px;
 	text-align: center;
 	font-size: 2rem;
@@ -1233,10 +1231,6 @@ ul#messages *:last-child a {
 } 
 
 
-.box__inner:nth-child(3) {
-	
-}
-
 .box__inner:nth-child(3).active {
 	animation: colored infinite linear;
 }
@@ -1303,19 +1297,19 @@ ul#messages *:last-child a {
 	border-radius: 18px;
 }
 
-.boxes__box:nth-child(1) {
+.boxes__box:nth-of-type(1) {
 	z-index: 30;
 	background-color: #3c763d;
 	
 }
 
-.boxes__box:nth-child(2) {
+.boxes__box:nth-of-type(2) {
 	z-index: 20;
 	background-color: burlywood;
 	right: 15px;
 }
 
-.boxes__box:nth-child(3) {
+.boxes__box:nth-of-type(3) {
 	z-index: 10;
 	background-color: cornflowerblue;
 	right: 30px;
