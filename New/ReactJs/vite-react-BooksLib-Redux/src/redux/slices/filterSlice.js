@@ -12,7 +12,7 @@ const filterSlice = createSlice({
             return {...state, title: action.payload }
         }
     }
-})
+});
 
 console.log(filterSlice.actions);
 export default filterSlice.reducer;  // св-во слайса, в котором находится редьюсер
