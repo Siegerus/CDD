@@ -2957,28 +2957,36 @@ setCalendar();
 //   }
 
 //   createCalendar(calendar, 2012, 9);
+let inputt = document.getElementById('target-input');
+let box = document.querySelector('.content-box');
+let string = "1";
+let isCreated = false;
 
+function createColorElem(arr) {
+	let span = document.createElement('span');
+	box.append(span);
+	let res = arr.filter(item => item.includes(string))
 
-let object = {
-	name: 'Alex',
-	age: 36,
-	married: false,
+	return `<span style="color: green">${res}</span>`;
 }
 
-let object2 = {
-	name: 'Smith',
-	age: 31,
-	married: false,
-}
+inputt.addEventListener('input', e => {
+	let regex = new RegExp(`(${string})`, 'gi');
+	let arr = [];
+	arr = inputt.value.split(regex);
+	box.innerHTML = arr;
+	if (arr.includes(string)) {
+	let text = arr.filter(item => item.includes(string));
+	box.innerHTML += `<span style="color: green">${text}</span>`;
+
+	} else box.innerHTML = arr;
+	
+	// box.innerHTML = inputt.value;
+	console.log(arr);
+});
 
 
-let names = ['Alex', 'Alex 31', 'Smith', 'John', 'Alice', '31'];
-
-let result = names.filter(item => {
-	return item.toLowerCase().includes(object.name.toLowerCase()) && item.includes(object2.age);
-})
-
-console.log(result);
+console.log();
 console.log();
 console.log();
 console.log();

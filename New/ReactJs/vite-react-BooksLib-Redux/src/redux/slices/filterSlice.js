@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     title: '',
     author: '',
-    justFavorite: false
+    onlyFavorite: false
 }
 
 const filterSlice = createSlice({
@@ -11,7 +11,7 @@ const filterSlice = createSlice({
     initialState,
     reducers: {
         setTitleFilter: (state, action) => {        // редьюсер
-            // return {...state, title: action.payload }
+            //    return {...state, title: action.payload}
             state.title = action.payload;   //  Благодаря библиотеке immer можно мутировать объект.А под капотом всё равно будет создаватся новый объект.
         },
         setAuthorFilter: (state, action) => {       
@@ -20,20 +20,19 @@ const filterSlice = createSlice({
         resetFilters: (state) => {
             return initialState;
         },
-        setFavoriteFilter: (state, action) => {
-            state.justFavorite = action.payload; 
+        setOnlyFavoriteFilter: (state, action) => {
+        //    return {...state, onlyFavorite: !state.onlyFavorite}
+        state.onlyFavorite = !state.onlyFavorite;
         }
 
     }
 });
 
-export const { setTitleFilter, setAuthorFilter, setFavorite, resetFilters } = filterSlice.actions; // экспорт actionCreators используя деструктуризацию
+export const { setTitleFilter, setAuthorFilter, setOnlyFavoriteFilter, resetFilters } = filterSlice.actions; // экспорт actionCreators используя деструктуризацию
 
 export const selectTitleFilter = (state) => state.filter.title;  // ф-ция для useSelector
 export const selectAuthorFilter = (state) => state.filter.author;
-export const selectFavoriteFilter = (state) => {
-    console.log(state.filter);
-    return state.filter.justFavorite;
-} 
+export const selectOnlyFavoriteFilter = (state) => state.filter.onlyFavorite;
+
 
 export default filterSlice.reducer;  // св-во слайса, в котором находится редьюсер
