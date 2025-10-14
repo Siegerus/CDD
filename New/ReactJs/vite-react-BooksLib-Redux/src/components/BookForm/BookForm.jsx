@@ -15,7 +15,7 @@ const BookForm = () => {
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (title && author) {
-			dispath(addBook(createBookWithId({ title, author })))
+			dispath(addBook(createBookWithId({ title, author }, 'manual')));
 		}
 		setTitle('');
 		setAuthor('');
@@ -25,24 +25,16 @@ const BookForm = () => {
 		const randomIndex = Math.floor(Math.random() * bookArray.length);
 		const randomBook = bookArray[randomIndex];
 
-		dispath(addRandomBook(createBookWithId(randomBook)));
+		dispath(addRandomBook(createBookWithId(randomBook, 'random')));
 	};
 
-	// const handleAddRandomBookByAPI = async () => {
-	// 	const response = await fetch('http://localhost:4000/random-book');
-	// 	const json = await response.json();
-	// 	console.log(json);
-	// }
-
-	const handleAddRandomBookByAPI = async () => {        
+	const handleAddRandomBookByAPI = async () => {        	// запрос с сервера с axios
 		try {
-			const response = await axios.get('http://localhost:4000/random-boo');
-		// if(response.status !== 200) console.log('response error')
-		console.log(response);
+			const response = await axios.get('http://localhost:4000/random-book');
+			if(response?.data?.author && response?.data?.title) dispath(addBook(createBookWithId(response.data, 'API')));
 		} catch (error) {
-			console.log(error);
-		}                   // запрос с сервера с axios
-		
+			console.log(error.message);
+		}                   
 	}
 
 	return (
