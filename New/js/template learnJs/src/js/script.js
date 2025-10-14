@@ -2957,33 +2957,51 @@ setCalendar();
 //   }
 
 //   createCalendar(calendar, 2012, 9);
+
+
 let inputt = document.getElementById('target-input');
 let box = document.querySelector('.content-box');
-let string = "1";
-let isCreated = false;
+// let string = "1";
+// let isCreated = false;
 
-function createColorElem(arr) {
-	let span = document.createElement('span');
-	box.append(span);
-	let res = arr.filter(item => item.includes(string))
+// function createColorElem(arr) {
+// 	let span = document.createElement('span');
+// 	box.append(span);
+// 	let res = arr.filter(item => item.includes(string))
 
-	return `<span style="color: green">${res}</span>`;
-}
+// 	return `<span style="color: green">${res}</span>`;
+// }
 
-inputt.addEventListener('input', e => {
-	let regex = new RegExp(`(${string})`, 'gi');
-	let arr = [];
-	arr = inputt.value.split(regex);
-	box.innerHTML = arr;
-	if (arr.includes(string)) {
-	let text = arr.filter(item => item.includes(string));
-	box.innerHTML += `<span style="color: green">${text}</span>`;
+// inputt.addEventListener('input', e => {
+// 	let regex = new RegExp(`(${string})`, 'gi');
+// 	let arr = [];
+// 	arr = inputt.value.split(regex);
+// 	box.innerHTML = inputt.value;
+// 	if (arr.includes(string)) {
+// 	let text = arr.filter(item => item.includes(string));
+// 	box.innerHTML += `<span style="color: green">${text}</span>`;
 
-	} else box.innerHTML = arr;
+// 	} else box.innerHTML = inputt.value;
 	
-	// box.innerHTML = inputt.value;
-	console.log(arr);
+// 	// box.innerHTML = inputt.value;
+// 	// console.log(arr);
+// });
+
+let arr1 = [];
+let arr2 = ['Ctrl','Alt'];
+
+inputt.addEventListener('keydown', e => {
+	if(e.repeat) return;
+	arr1.push(e.key);
+	for(let item of arr1) {
+		if(arr2.includes(item) && arr1.length == arr2.length) console.log('done!');
+	}
 });
+
+inputt.addEventListener('keyup', e => {
+	arr1.splice(0, 1);
+});
+
 
 
 console.log();
