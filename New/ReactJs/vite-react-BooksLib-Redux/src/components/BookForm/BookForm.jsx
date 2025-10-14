@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { addBook, addRandomBook } from '../../redux/slices/booksSlice';
+import { addBook, addRandomBook, thunkFunction } from '../../redux/slices/booksSlice';
 import bookArray from '../../data/books.json';
 import createBookWithId from '../../utils/createBookWithId';
 import './BookForm.scss';
@@ -10,12 +10,12 @@ import './BookForm.scss';
 const BookForm = () => {
 	const [title, setTitle] = useState('');
 	const [author, setAuthor] = useState('');
-	const dispath = useDispatch();
+	const dispatch = useDispatch();
 
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (title && author) {
-			dispath(addBook(createBookWithId({ title, author }, 'manual')));
+			dispatch(addBook(createBookWithId({ title, author }, 'manual')));
 		}
 		setTitle('');
 		setAuthor('');
@@ -25,17 +25,32 @@ const BookForm = () => {
 		const randomIndex = Math.floor(Math.random() * bookArray.length);
 		const randomBook = bookArray[randomIndex];
 
-		dispath(addRandomBook(createBookWithId(randomBook, 'random')));
+		dispatch(addRandomBook(createBookWithId(randomBook, 'random')));
 	};
 
-	const handleAddRandomBookByAPI = async () => {        	// запрос с сервера с axios
+	/* const handleAddRandomBookByAPI = async () => {        	     //  Так было бы без отправки асинхронной ф-ции через redux store, но обычно делают thunkFunction
 		try {
-			const response = await axios.get('http://localhost:4000/random-book');
-			if(response?.data?.author && response?.data?.title) dispath(addBook(createBookWithId(response.data, 'API')));
+			const response = await axios.get('http://localhost:4000/random-book');   
+			if(response?.data?.author && response?.data?.title) dispatch(addBook(createBookWithId(response.data, 'API')));
 		} catch (error) {
-			console.log(error.message);
-		}                   
+			console.log('Error fetching random-book', error);
+		} 
+	} */
+
+	// const thunkFunction = async (dispatch, getState) => { // thunkFunction. Так отправляется ф-ция через redux store. Вынесли её slices. Сюда уже импортировали.
+	// 	try {															
+	// 		const response = await axios.get('http://localhost:4000/random-book');   // запрос на сервер с помощью axios
+	// 		if(response?.data?.author && response?.data?.title) dispatch(addBook(createBookWithId(response.data, 'API')));
+	// 	} catch (error) {
+	// 		console.log('Error fetching random-book', error);
+	// 	}   
+	// 	console.log(getState());
+	// }
+
+	const handleAddRandomBookByAPI = async () => {   // вызов thunkFunction в обработчике. Вынесли её slices. Сюда уже только импортировали.
+		dispatch(thunkFunction);
 	}
+
 
 	return (
 		<div className="app-block book-form">
