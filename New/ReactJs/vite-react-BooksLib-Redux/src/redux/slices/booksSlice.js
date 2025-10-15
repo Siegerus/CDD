@@ -1,16 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 import createBookWithId from '../../utils/createBookWithId';
+import { setError } from "./errorSlice";
 
 let initialState = [];
 
 // Интеграция thunkFunction в slices
 // В результате в сост-ие будет передаваться объект сначала с panding в котором будет только сгенерированный id, а потом с fullfield, в котором будет payload или с rejected в котором будет error
 export const fetchBook = createAsyncThunk(
-    'books/fetchBook',                //'books/fetchBook' - название действия. 'books' тут - это название пирога booksSlice
-    async () => {                     // Второй параментр - сама асинхронная ф-ция
-        const response = await axios.get('http://localhost:4000/random-book'); 
-        return response.data;
+    'books/fetchBook',  //'books/fetchBook' - название действия. 'books' тут - это название пирога booksSlice // Второй параментр - сама асинхронная ф-ция
+    async (url, thuncAPI) => { // 2ой параметр асинхронной ф-ции (thuncAPI) - это объект через него можно в том числе отправлять dispatch в другое состояние    
+        try {
+            const response = await axios.get(url); 
+            return response.data;
+        } catch (error) {
+            thuncAPI.dispatch(setError(error.message));
+            throw error;
+        } 
     }
 )
 

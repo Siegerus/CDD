@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { addBook, addRandomBook, fetchBook /* thunkFunction */ } from '../../redux/slices/booksSlice';
+import { setError } from '../../redux/slices/errorSlice';
 import bookArray from '../../data/books.json';
 import createBookWithId from '../../utils/createBookWithId';
 import './BookForm.scss';
-
 
 const BookForm = () => {
 	const [title, setTitle] = useState('');
@@ -16,10 +16,12 @@ const BookForm = () => {
 		e.preventDefault();
 		if (title && author) {
 			dispatch(addBook(createBookWithId({ title, author }, 'manual')));
+			setTitle('');
+			setAuthor('');
+		} else {
+			dispatch(setError('You must fill title and author'));
 		}
-		setTitle('');
-		setAuthor('');
-	};
+	}
 
 	const handleAddRandomBook = () => {
 		const randomIndex = Math.floor(Math.random() * bookArray.length);
@@ -48,7 +50,7 @@ const BookForm = () => {
 	// }
 
 	const handleAddRandomBookByAPI = async () => {   // вызов thunkFunction в обработчике. Вынесли её slices. Сюда уже только импортировали.
-		dispatch(fetchBook() /* thunkFunction */); // или fetchBook, если thunkFunction интегрирована в slices (корректнее интегрировать)
+		dispatch(fetchBook('http://localhost:4000/random-book') /* thunkFunction */); // или fetchBook, если thunkFunction интегрирована в slices (корректнее интегрировать)
 	}
 
 
