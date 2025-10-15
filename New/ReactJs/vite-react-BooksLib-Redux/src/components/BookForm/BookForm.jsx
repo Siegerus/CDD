@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { addBook, addRandomBook, thunkFunction } from '../../redux/slices/booksSlice';
+import { addBook, addRandomBook, fetchBook /* thunkFunction */ } from '../../redux/slices/booksSlice';
 import bookArray from '../../data/books.json';
 import createBookWithId from '../../utils/createBookWithId';
 import './BookForm.scss';
@@ -48,7 +48,7 @@ const BookForm = () => {
 	// }
 
 	const handleAddRandomBookByAPI = async () => {   // вызов thunkFunction в обработчике. Вынесли её slices. Сюда уже только импортировали.
-		dispatch(thunkFunction);
+		dispatch(fetchBook() /* thunkFunction */); // или fetchBook, если thunkFunction интегрирована в slices (корректнее интегрировать)
 	}
 
 

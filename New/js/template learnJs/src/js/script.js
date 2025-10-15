@@ -2987,19 +2987,50 @@ let box = document.querySelector('.content-box');
 // 	// console.log(arr);
 // });
 
-let arr1 = [];
-let arr2 = ['Ctrl','Alt'];
 
-inputt.addEventListener('keydown', e => {
-	if(e.repeat) return;
-	arr1.push(e.key);
-	for(let item of arr1) {
-		if(arr2.includes(item) && arr1.length == arr2.length) console.log('done!');
-	}
+
+// const outer = document.querySelector("body > div.wrapp > div");
+// const inner = document.querySelector("body > div.wrapp > div > div");
+// const innerInner = document.querySelector("body > div.wrapp > div > div > div");
+
+// let current = null;
+
+// outer.addEventListener('mouseover', e => {
+// 	if(current) return;
+// 	current = e.currentTarget;
+// 	let target = e.target.closest('body > div.wrapp > div > div > div');
+// 	if(!target) return;
+// 	console.log('over');
+// });
+// outer.addEventListener('mouseout', e => { 
+// 	// if(!current) return
+// 	// console.log(current);
+// 	if(current.contains(e.relatedTarget)) return;
+// 	current = null;
+// 	console.log('out');
+// });
+
+
+const parent = document.querySelector('.target-box');
+let current = null;
+
+parent.addEventListener('mouseover', e => {
+	if(current) return;
+	const target = e.target.closest('.target-box__inner');
+	if(!target) return;
+	current = target;
+	console.log('over');	
 });
 
-inputt.addEventListener('keyup', e => {
-	arr1.splice(0, 1);
+parent.addEventListener('mouseout', e => {
+	const target = e.target.closest('.target-box__inner');
+	if(!target) return;
+	if(current.contains(e.relatedTarget)) return;
+	current = null;
+	// console.log(`e.related ${e.relatedTarget}`);
+	// console.log(`current ${current}`);
+	// console.log(current.contains(e.relatedTarget));
+	console.log('out');	
 });
 
 
