@@ -3,19 +3,23 @@ import axios from 'axios';
 import createBookWithId from '../../utils/createBookWithId';
 import { setError } from "./errorSlice";
 
-let initialState = [];
+let initialState = {
+    books: [],
+    isLoadingByAPI: false,
+};
 
 // Интеграция thunkFunction в slices
 // В результате в сост-ие будет передаваться объект сначала с panding в котором будет только сгенерированный id, а потом с fullfield, в котором будет payload или с rejected в котором будет error
 export const fetchBook = createAsyncThunk(
     'books/fetchBook',  //'books/fetchBook' - название действия. 'books' тут - это название пирога booksSlice // Второй параментр - сама асинхронная ф-ция
-    async (url, thuncAPI) => { // 2ой параметр асинхронной ф-ции (thuncAPI) - это объект через него можно в том числе отправлять dispatch в другое состояние    
+    async (url, thuncAPI) => { // 2ой параметр async ф-ции (thuncAPI) - это объект через него можно в том числе отправлять действия через dispatch в другое состояние    
         try {
             const response = await axios.get(url); 
             return response.data;
         } catch (error) {
             thuncAPI.dispatch(setError(error.message));
-            throw error;
+            throw error;     // Что бы промис в extraReducers не получился fulfilled, нужно пробросить  error
+            // return thuncAPI.rejectWithValue(error);   // Либо вернуть error через такой метод (всё работает, но в консоле у меня ошибка "A non-serializable value")
         } 
     }
 )
@@ -25,19 +29,18 @@ const booksSlice = createSlice( {
     initialState,
     reducers: {
         addBook: (state, action) => {
-            // return [...state, action.payload];
-            state.push(action.payload);        // можно так с библиотекой immer
+            return {...state, books : [...state.books, action.payload]}
+            // state.books.push(action.payload);        // можно так с библиотекой immer
         },
         deleteBook: (state, action) => {
-            const index = state.findIndex(item => item.id == action.payload) // алтернативный вариант с библиотекой immer // находим индек элемента
-            if(index !== -1) state.splice(index, 1);                         // удаляем элемент
-            // return state.filter(item => item.id != action.payload);
+            return {...state, books: state.books.filter(item => item.id != action.payload)}
         },
         addRandomBook: (state, action) => {
-            return [...state, action.payload];
+            // return {...state, books : [...state.books, action.payload]}
+            state.books.push(action.payload);
         },
         toggleFavoriteBook: (state, action) => {
-            state.forEach(item => {
+            state.books.forEach(item => {
                 if(item.id == action.payload) item.isFavorite = !item.isFavorite;    // алтернативный вариант с библиотекой immer
             });
             // return state.map(item => {
@@ -49,11 +52,20 @@ const booksSlice = createSlice( {
         // реагирование на состояние промиса при запросе в fetchBook
         builder.addCase(fetchBook.fulfilled, (state, action) => { // 1й аргумент - указываем сост-ие промиса, 2-ой ф-ция, которая будет выполнятся при этом сост-ии
             if(action.payload.title && action.payload.author) {
-                return [...state, (createBookWithId(action.payload, 'API'))];
-                /* state.push(createBookWithId(action.payload, 'API'));     */    // можно так с библиотекой immers
+                state.isLoadingByAPI = false;
+                /* return [...state, (createBookWithId(action.payload, 'API'))]; */
+                state.books.push(createBookWithId(action.payload, 'API'));        // можно так с библиотекой immers
             } 
         });
-    }
+
+        builder.addCase(fetchBook.pending, (state, action) => {
+            state.isLoadingByAPI = true;
+        });
+
+        builder.addCase(fetchBook.rejected, (state, action) => {
+            state.isLoadingByAPI = false;
+        });
+    },
 });
 
 export const { addBook, addRandomBook, deleteBook, toggleFavoriteBook } = booksSlice.actions;
@@ -70,5 +82,7 @@ export const { addBook, addRandomBook, deleteBook, toggleFavoriteBook } = booksS
 //     console.log(getState()); // можно так же вывести в консоль состояние
 // }
 
-export const selectBooks = (state) => state.books;
+export const selectBooks = (state) => state.books.books;
+export const selectIsLoadingByAPI = (state) => state.books.isLoadingByAPI;
+
 export default booksSlice.reducer;

@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { addBook, addRandomBook, fetchBook /* thunkFunction */ } from '../../redux/slices/booksSlice';
+import { FaSpinner } from 'react-icons/fa';
+import { addBook, addRandomBook, fetchBook, selectIsLoadingByAPI /* thunkFunction */ } from '../../redux/slices/booksSlice';
 import { setError } from '../../redux/slices/errorSlice';
 import bookArray from '../../data/books.json';
 import createBookWithId from '../../utils/createBookWithId';
@@ -10,6 +11,7 @@ import './BookForm.scss';
 const BookForm = () => {
 	const [title, setTitle] = useState('');
 	const [author, setAuthor] = useState('');
+	const isLoadingByAPI = useSelector(selectIsLoadingByAPI);
 	const dispatch = useDispatch();
 
 	const handleSubmit = e => {
@@ -49,10 +51,10 @@ const BookForm = () => {
 	// 	console.log(getState());
 	// }
 
-	const handleAddRandomBookByAPI = async () => {   // вызов thunkFunction в обработчике. Вынесли её slices. Сюда уже только импортировали.
-		dispatch(fetchBook('http://localhost:4000/random-book') /* thunkFunction */); // или fetchBook, если thunkFunction интегрирована в slices (корректнее интегрировать)
+	const handleAddRandomBookByAPI = () => { // вызов thunkFunction в обработчике. Вынесли её slices. Сюда уже только импортировали.
+		// или вызов fetchBook, если thunkFunction интегрирована в slices (корректнее интегрировать)
+		dispatch(fetchBook('http://localhost:4000/random-book-delayed') /* thunkFunction */)  //dispatch c thunkFunction возвращает промис
 	}
-
 
 	return (
 		<div className="app-block book-form">
@@ -82,7 +84,16 @@ const BookForm = () => {
 				<button type="button" onClick={handleAddRandomBook}>
 					Add Random
 				</button>
-				<button type="button" onClick={handleAddRandomBookByAPI}>Add Random by API</button>
+				
+				<button type="button" onClick={handleAddRandomBookByAPI} disabled={isLoadingByAPI}>
+				{isLoadingByAPI ? (
+					<>
+						<span>Loading book...</span>
+						<FaSpinner className="spinner" />
+					</>
+					) : ('Add Random by API')}
+					
+				</button>
 			</form>
 		</div>
 	);
