@@ -3011,30 +3011,39 @@ let box = document.querySelector('.content-box');
 // });
 
 
-const parent = document.querySelector('.target-box');
-let current = null;
+// const parent = document.querySelector('.target-box');
+// let current = null;
 
-parent.addEventListener('mouseover', e => {
-	if(current) return;
-	const target = e.target.closest('.target-box__inner');
+// parent.addEventListener('mouseover', e => {
+// 	if(current) return;
+// 	const target = e.target.closest('.target-box__inner');
+// 	if(!target) return;
+// 	current = target;
+// 	console.log('over');	
+// });
+
+// parent.addEventListener('mouseout', e => {
+// 	const target = e.target.closest('.target-box__inner');
+// 	if(!target) return;
+// 	if(current.contains(e.relatedTarget)) return;
+// 	current = null;
+// 	console.log('out');	
+// });
+
+// let x = 10;
+
+inputt.addEventListener('click', e => {
+	let target = e.target.id = 'target-nput';
 	if(!target) return;
-	current = target;
-	console.log('over');	
+	console.log(e.target.id)
 });
 
-parent.addEventListener('mouseout', e => {
-	const target = e.target.closest('.target-box__inner');
-	if(!target) return;
-	if(current.contains(e.relatedTarget)) return;
-	current = null;
-	// console.log(`e.related ${e.relatedTarget}`);
-	// console.log(`current ${current}`);
-	// console.log(current.contains(e.relatedTarget));
-	console.log('out');	
-});
 
 
 
+console.log();
+console.log();
+console.log();
 console.log();
 console.log();
 console.log();
