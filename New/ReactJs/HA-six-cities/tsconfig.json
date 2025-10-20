@@ -7,8 +7,9 @@
     "types": ["vitest/globals", "@testing-library/jest-dom"],
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "moduleResolution": "node",
+    // "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -24,3 +25,10 @@
   "include": ["src", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
+
+// "moduleResolution": "bundler",
+// "allowImportingTsExtensions": true,
+// "resolveJsonModule": true,
+// "isolatedModules": true,
+// "noEmit": true,
+// "jsx": "react-jsx",
