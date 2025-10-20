@@ -4,6 +4,7 @@ import Drops from './components/Drops/Drops';
 import NavMenu from './components/NavMenu/NavMenu';
 import MainLayout from './layouts/MainLayout';
 import Practice from './components/Practice/Practice';
+import './script';
 import './App.scss';
 
 

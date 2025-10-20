@@ -3032,16 +3032,35 @@ let box = document.querySelector('.content-box');
 
 // let x = 10;
 
-inputt.addEventListener('click', e => {
-	let target = e.target.id = 'target-nput';
-	if(!target) return;
-	console.log(e.target.id)
-});
+let person = {
+	name: 'Alex',
+	age: 36,
+	isMaried: false,
+	strange: false,
+	someProp: 'someValue',
+	sayHi: () => alert('Hi!'),
+}
+
+function foo(person, callback) {
+	const { name, age, isMaried} = person;
+	console.log(name)
+	console.log(age)
+	console.log(isMaried)
+	if(person.strange) person.sayHi();
+
+	callback(person.someProp);
+}
+foo(person, (prop) => console.log(prop));
+
+let obj = {
+	valueOf() {
+		return 0;
+	} 
+}
+let any = 5555
+console.log(obj / any);
 
 
-
-
-console.log();
 console.log();
 console.log();
 console.log();
