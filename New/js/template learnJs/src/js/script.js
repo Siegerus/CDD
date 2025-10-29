@@ -3061,6 +3061,7 @@ let any = 5555
 console.log(obj / any);
 
 
+
 console.log();
 console.log();
 console.log();

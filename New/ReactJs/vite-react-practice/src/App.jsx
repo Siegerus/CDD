@@ -4,12 +4,14 @@ import Drops from './components/Drops/Drops';
 import NavMenu from './components/NavMenu/NavMenu';
 import MainLayout from './layouts/MainLayout';
 import Practice from './components/Practice/Practice';
+import HAComponent from './components/HAComponent/HAComponent';
 import './script';
 import './App.scss';
 
 
 
 function App() {
+	const myProp = 'lorem';
 	return (
 		<BrowserRouter
 			future={{
@@ -26,8 +28,12 @@ function App() {
 						<Route path="navmenu" element={<NavMenu />} />
 					</Route>
 				</Routes>
+				<HAComponent myProp = {myProp}>
+					<p>text</p>
+				</HAComponent>
 			</div>
 		</BrowserRouter>
+		
 	);
 }
 export default App;

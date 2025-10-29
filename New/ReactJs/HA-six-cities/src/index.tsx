@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Test from './test';
+import App from './components/app';
+import { PLACES } from './constants';
+import { CARDS_DATA } from './constants';
+import { CITIES } from './constants';
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
   <React.StrictMode>
-    <Test />
-    <h1>Hello, World!</h1>
+    <App places={PLACES} cardsData={CARDS_DATA} cities={CITIES}/>
   </React.StrictMode>
 );
