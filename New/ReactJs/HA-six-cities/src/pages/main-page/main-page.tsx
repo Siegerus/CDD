@@ -15,7 +15,6 @@ type MainPageProps = {
 }
 
 function MainPage({places, cities, cardsData}: MainPageProps): JSX.Element {
-    {console.log(cities)}
     return (
         <div className="page page--gray page--main">
             <Header />
