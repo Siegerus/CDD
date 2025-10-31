@@ -16,12 +16,12 @@ const HAComponent = (): JSX.Element => {
 					<Route index element={<Main/>}/> {/* index - главный маршрут, который будет совпадать с "path='/'" */}
 					<Route path='about/:year' element={<About/>}/> {/* Через ":" указывается параметр. Доступ к этим п-рам есть в "useParams" в к-те*/ }
 					<Route path='secret' element={
-						<PrivateRoute> {/* В это к-те будет логика рендеринга. Либо ренд-г "children"(<Secret/>), либо переход на др. стр.*/}
+						<PrivateRoute> {/* В это к-те будет логика рендеринга. Либо ренд-г "children"(<Secret/>), либо переход на др. стр. В этой строке может показывать ошибку из за комментария*/}
 							<Secret/>
 						</PrivateRoute>
 						
 					}/>
-					<Route path='go-away' element={<GoAway/>} />
+					<Route path='/go-away' element={<GoAway/>} />
 					<Route path='*' element= {   /* элемент отрисуется, если ввести в адресной то, что не совпадёт ни с каким маршрутом (страница 404)*/
 						<>
 							<h1>Page 404</h1>
@@ -29,7 +29,6 @@ const HAComponent = (): JSX.Element => {
 						</>
 					}/>
 				</Route> 
-				
 			</Routes>
 		</BrowserRouter>
 	)

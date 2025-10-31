@@ -1,8 +1,10 @@
 import React from 'react'
+import Inner from '../components/inner'
 
+const num = 123;
 const Main = (): JSX.Element => {
   return (
-    <div>Page Main</div>
+    <div><Inner num={num} /></div>
   )
 }
 
