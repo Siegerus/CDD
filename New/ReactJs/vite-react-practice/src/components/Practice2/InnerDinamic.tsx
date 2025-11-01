@@ -10,7 +10,6 @@ type DinamicPageProps = {
 const InnerDinamic = ({ids}: DinamicPageProps) => {
     const params = useParams();
     const param = ids.find(item => item.id === parseInt(params.id ?? ''))
-    console.log(param?.id)
   return (
     <div>InnerDinamic <p>{param?.id}</p></div>
   )

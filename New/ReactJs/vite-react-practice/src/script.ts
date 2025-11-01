@@ -330,7 +330,6 @@ const funcParams: MyReturnFuncParams<typeof foo>[0] = 1 // т.к возвращ�
 
 
 
-
 console.log();
 console.log();
 console.log();
