@@ -1,16 +1,14 @@
-import { Navigate } from "react-router-dom";
-import { Paths } from "../constants";
-import { authState } from "../constants";
+import { Navigate } from 'react-router-dom';
+import { Paths } from '../constants';
+import { authState } from '../constants';
 
 type PrivateRouteType = {
-    children: JSX.Element;
-}
+  children: JSX.Element;
+};
 
-const PrivateRoute = ({children}: PrivateRouteType) => {
-    console.log(children)
-  return (
-    authState ? children : <Navigate to={Paths.Login} />
-  )
-}
+const PrivateRoute = ({ children }: PrivateRouteType) => {
+  console.log(children);
+  return authState ? children : <Navigate to={Paths.Login} />;
+};
 
-export default PrivateRoute
+export default PrivateRoute;

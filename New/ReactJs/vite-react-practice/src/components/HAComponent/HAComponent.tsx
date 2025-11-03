@@ -21,7 +21,6 @@ const HAComponent = (): JSX.Element => {
 							<PrivateRoute> {/* В это к-те будет логика рендеринга. Либо ренд-г "children"(<Secret/>), либо переход на др. стр. В этой строке может показывать ошибку из за комментария*/}
 								<Secret/>
 							</PrivateRoute>
-							
 						}/>
 						<Route path='/go-away' element={<GoAway/>} />
 						<Route path='*' element= {   /* элемент отрисуется, если ввести в адресной то, что не совпадёт ни с каким маршрутом (страница 404)*/
