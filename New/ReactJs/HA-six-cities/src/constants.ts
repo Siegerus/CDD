@@ -2,6 +2,8 @@ export const PLACES = 111;
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
+export const authState = true;
+
 export const CARDS_DATA = [
     {
         title: 'Beautiful luxurious apartment at great location',
@@ -33,4 +35,12 @@ export const CARDS_DATA = [
         src: 'img/room.jpg',
         premium: true
     }
-]
+];
+
+export const Paths = {
+    Root: '/',
+    Login:'/login',
+    Favorites: '/favorites',
+    Offer: '/offer/:id',
+    Page404: '*',
+} as const;

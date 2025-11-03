@@ -329,7 +329,6 @@ type MyReturnFuncParams<T> = T extends (...arg: infer funcParams) => any ? funcP
 const funcParams: MyReturnFuncParams<typeof foo>[0] = 1 // т.к возвращается массив типов параметров аргументов, указываем, какой элемент массива типов 
 
 
-
 console.log();
 console.log();
 console.log();

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom'
 
 const About = (): JSX.Element => {
@@ -8,7 +9,12 @@ const About = (): JSX.Element => {
     */
     console.log(params)
   return (
-    <div>Page About</div>
+    <>
+      <Helmet>
+        <title>React + Vite About page</title>
+      </Helmet>
+      <div>Page About</div>
+    </>
   )
 }
 

@@ -5,11 +5,11 @@ type PrivateRouteProps = {
     children: JSX.Element;
 }
 
-const hasAccess = false;
+const hasAccess = true;
 
 const PrivateRoute = ({children}: PrivateRouteProps): JSX.Element => {
   return (
-    hasAccess ? children : <Navigate to={'/go-away'} />
+    hasAccess ? children : <Navigate to={'/go-away'} /> /* "Navigate" перенаправляет на другой компонент */
   )
 }
 
