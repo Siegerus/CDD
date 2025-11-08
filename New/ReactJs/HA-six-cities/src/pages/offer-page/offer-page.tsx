@@ -1,9 +1,14 @@
 import Header from '../../components/header';
+import CitiesCard from '../../components/cities-card';
 
-const OfferPage = () => {
+type OfferPageProps = {
+  authState: string;
+};
+
+const OfferPage = ({ authState }: OfferPageProps): JSX.Element => {
   return (
     <div className="page">
-      <Header />
+      <Header authState={authState} />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

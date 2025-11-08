@@ -53,10 +53,55 @@ TypeScript.
 3. function delegate (cb: (message: string) => void) {
     cb('!');
 } Так указывается ти параметра для коллбэка, со словом "message:". "=>" тут не стрелочкая ф-ция. Это имменно стрелка, после неё указывается тип возвращаемого значения.
-4.
+4. props находятся снаружи компоента, состояние - внутри компонента.
+5. Изменение сост-ия или props  приводит к перерисовке к-та и всех его потомков.
+6. Состояние обновляется асинхронно.
+7. Глобальное состояние прил-ния(сост-ие, инфа из которого нужна множеству дочерних к-тов) - хранить как можно ближе к корневому к-ту(возможно даже App).
+8. Частное состояние - как можно ближе к конечному компоненту.
+9. onClickCapture - что бы словить событие на стадии погружения в React , дописываем к событию "Capture".
+10. Хуки - это глобальные ф-ции. Ф-ции вызываются при каждом рендере к-та
+11. Хуки нельзя использовать в циклах, условиях и т.д.
+12. Хуки можно применять только внутри к-та.
+13. У хука "useState(arg)" аргументом является начальное сост-е. Т.е. мы може хранить сост-е внутри объекта.
 
 
+Создание переменных окружения в vite.config.js.
 
+1. Create vite-env.d.ts file: At the root of your project (where vite.config.js or vite.config.ts is located), create a file named vite-env.d.ts.
+2. Добавить интерфейсы в Createvite-env.d.ts :
+interface ImportMetaEnv {
+  readonly VITE_YOUR_URL: string;
+  readonly VITE_REALM: string;
+  readonly VITE_CLIENT_ID: string;
+  readonly "НЗВАНИЕ_ПЕРЕМЕННОЙ": string;
+}
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+3. Make sure your tsconfig.json is configured to include the type definitions from the vite-env.d.ts file. Here’s how mine looks:
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["vite/client"]
+  },
+  "include": ["src", "vite-env.d.ts"]
+}
+
+4. Пример обращения к переменной const envVar = import.meta.env."НЗВАНИЕ_ПЕРЕМЕННОЙ";
 
 
 Коммиты HA-six-cities-completed.

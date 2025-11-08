@@ -1,53 +1,33 @@
-export const PLACES = 111;
+import { v4 as uuidv4 } from 'uuid';
 
-export const CITIES = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
+export const OFFERS_COUNT = 111;
 
-export const authState = true;
-
-export const CARDS_DATA = [
-  {
-    title: 'Beautiful luxurious apartment at great location',
-    price: 120,
-    src: 'img/apartment-01.jpg',
-    premium: true,
-  },
-  {
-    title: 'Wood and stone place',
-    price: 80,
-    src: 'img/room.jpg',
-    premium: false,
-  },
-  {
-    title: 'Canal View Prinsengracht',
-    price: 132,
-    src: 'img/apartment-02.jpg',
-    premium: true,
-  },
-  {
-    title: 'Nice, cozy, warm big bed apartment',
-    price: 180,
-    src: 'img/apartment-03.jpg',
-    premium: false,
-  },
-  {
-    title: 'Wood and stone place',
-    price: 80,
-    src: 'img/room.jpg',
-    premium: true,
-  },
-];
-
-export const Paths = {
+export const AppRoute = {
   Root: '/',
   Login: '/login',
   Favorites: '/favorites',
   Offer: '/offer/:id',
   Page404: '*',
 } as const;
+
+export enum AuthState {
+  Auth = 'Auth',
+  NoAuth = 'NoAuth',
+  Unknow = 'Unknow',
+}
+
+export const NAV_ITEMS = [
+  { id: uuidv4(), city: 'Paris', isActive: true },
+  { id: uuidv4(), city: 'Cologne', isActive: false },
+  { id: uuidv4(), city: 'Brussels', isActive: false },
+  { id: uuidv4(), city: 'Amsterdam', isActive: false },
+  { id: uuidv4(), city: 'Hamburg', isActive: false },
+  { id: uuidv4(), city: 'Dusseldorf', isActive: false },
+];
+
+export const TEST = [
+  { k: 'value', k2: 'value' },
+  { k: 'value', k2: 'value' },
+  { k: 'value', k2: 'value' },
+  { k: 'value', k2: 'value' },
+];

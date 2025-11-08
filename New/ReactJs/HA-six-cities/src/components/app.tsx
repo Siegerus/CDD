@@ -3,43 +3,55 @@ import LoginPage from '../pages/login-page/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
-import { Paths } from '../constants';
-import Page404 from './page-404';
+import { AppRoute, AuthState } from '../constants';
+import { NavItemType, Offer } from '../types';
+import ErrorPage from '../pages/404-page/404-page';
 
 import MainPage from '../pages/main-page/main-page';
 
 type AppProps = {
-  places: number;
-  cities: string[];
-  cardsData: {
-    title: string;
-    price: number;
-    src: string;
-    premium: boolean;
-  }[];
+  offersCount: number;
+  navItems: NavItemType[];
+  offers: Offer[];
 };
 
-function App({ places, cities, cardsData }: AppProps): JSX.Element {
+function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path={Paths.Root}
+          path={AppRoute.Root}
           element={
-            <MainPage places={places} cardsData={cardsData} cities={cities} />
+            <MainPage
+              isMainPage
+              authState={AuthState.NoAuth}
+              offersCount={offersCount}
+              offers={offers}
+              navItems={navItems}
+            />
           }
         />
-        <Route path={Paths.Login} element={<LoginPage />} />
         <Route
-          path={Paths.Favorites}
+          path={AppRoute.Login}
           element={
-            <PrivateRoute>
-              <FavoritesPage />
+            <PrivateRoute authState={AuthState.Auth} isReverse>
+              <LoginPage isLoginPage />
             </PrivateRoute>
           }
         />
-        <Route path={Paths.Offer} element={<OfferPage />} />
-        <Route path={Paths.Page404} element={<Page404 />} />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute authState={AuthState.Auth} isReverse={false}>
+              <FavoritesPage authState={AuthState.Auth} offers={offers} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Offer}
+          element={<OfferPage authState={AuthState.Auth} />}
+        />
+        <Route path={AppRoute.Page404} element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

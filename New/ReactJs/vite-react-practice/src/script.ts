@@ -329,6 +329,35 @@ type MyReturnFuncParams<T> = T extends (...arg: infer funcParams) => any ? funcP
 const funcParams: MyReturnFuncParams<typeof foo>[0] = 1 // т.к возвращается массив типов параметров аргументов, указываем, какой элемент массива типов 
 
 
+
+// Кортежи
+// Длинна такого массива известна заранее и её нельзя изменить
+// Может содержать элементы разных типов.Типы известны заранее
+// Типы элементов упорядоченны и порядок нельзя изменить. Добавлять или удалять элементы нельзя.
+// Для именование кортежей используются существительные в единствееном числе
+
+/* const args = [1,'lorem', 3, false, 5]; // пример создания кортежа в нативном js с помощью метода объекта "freeze"
+const tuple = Object.freeze(args); */
+
+// const randomUser: [string, number, boolean] = ['Alex', 323123, true] // пример и синтаксис кортежа
+let randomUser: [string, number, boolean]; // Можно сначала определить кортеж с помощью "let"
+randomUser = ['Alex', 323123, true]; // А потом задать значения
+
+randomUser[0] = 'John'; // Редактировать элементы кортежа можно. Главное, что бы совпадали типы.
+randomUser[2] = false;
+
+const cortage: readonly [string, string] = ['lorem', 'ipsum']; // А такой кортеж (с "readonly") редактировать нельзя. Лучше создавать такие.(что бы избежать проблемм с "push")
+
+const [username, id, isAdmin] = randomUser; // Деструктуризаци кортежа проходит как и обычным массивом
+// console.log(username) // Alex
+// console.log(randomUser) // ['Alex', 323123, true]
+
+const newUser = ['Alice', 122231] as const; // Упрощённый синтаксис содания кортежей. Он по умолчанию "readonly"
+
+
+
+
+
 console.log();
 console.log();
 console.log();
@@ -341,3 +370,41 @@ console.log();
 console.log();
 console.log();
 console.log();
+
+
+
+
+
+
+// async function getData(url: string) {
+//     let response = await fetch(url);
+//     let json = await response.json();
+//     console.log(json)
+//     return json;
+// }
+// getData('https://16.design.htmlacademy.pro/six-cities')
+// getData('../server/offer-by-id.json').then((result) => console.log(result));
+// getData('../server/comments-list.json').then((result) => console.log(result));
+// getData('../server/offers-list-favorite.json').then((result) => console.log(result));
+// getData('../server/offers-list-nearly.json').then((result) => console.log(result));
+// getData('../server/offers-list.json').then((result) => console.log(result));
+// getData('../server/user-auth-status.json').then((result) => console.log(result));
+
+// let userr = {
+//     name: 'John',
+//     surname: 'Smith'
+//   };
+// const json = JSON.stringify(userr);
+
+// async function postData(url) {
+//     let response = await fetch(url, {
+//         method : "POST",
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//           },
+//         body : JSON.stringify(userr)
+//     })
+//     let result = await response.text();
+//     console.log(result)   
+// }
+// postData('https://webhook.site/dd2124da-a863-4c8e-bf0f-73756b83acf9');

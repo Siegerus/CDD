@@ -1,9 +1,17 @@
 import Header from '../../components/header';
+import Footer from '../../components/footer';
+import CitiesCard from '../../components/cities-card';
+import { Offer } from '../../types'
 
-const FavoritesPage = () => {
+type FavoritesPageProps = {
+  authState: string;
+  offers: Offer[]
+};
+
+const FavoritesPage = ({ authState, offers }: FavoritesPageProps): JSX.Element => {
   return (
     <div className="page">
-      <Header />
+      <Header authState={authState} />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -18,7 +26,10 @@ const FavoritesPage = () => {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <article className="favorites__card place-card">
+                  <>
+                    {offers.map(offer => <CitiesCard offer={offer} cardsClass={"favorites__card place-card"} key={offer.id} />)}
+                  </>
+                  {/* <article className="favorites__card place-card">
                     <div className="place-card__mark">
                       <span>Premium</span>
                     </div>
@@ -113,7 +124,7 @@ const FavoritesPage = () => {
                       </h2>
                       <p className="place-card__type">Room</p>
                     </div>
-                  </article>
+                  </article> */}
                 </div>
               </li>
 
@@ -178,17 +189,7 @@ const FavoritesPage = () => {
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width="64"
-            height="33"
-          ></img>
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 };

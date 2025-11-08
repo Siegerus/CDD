@@ -1,14 +1,19 @@
 import { Navigate } from 'react-router-dom';
-import { Paths } from '../constants';
-import { authState } from '../constants';
+import { AppRoute } from '../constants';
+import { AuthState } from '../constants';
 
 type PrivateRouteType = {
   children: JSX.Element;
+  authState: AuthState;
+  isReverse: boolean;
 };
 
-const PrivateRoute = ({ children }: PrivateRouteType) => {
-  console.log(children);
-  return authState ? children : <Navigate to={Paths.Login} />;
+const PrivateRoute = ({ children, authState, isReverse }: PrivateRouteType) => {
+  return authState === (isReverse ? AuthState.NoAuth : AuthState.Auth) ? (
+    children
+  ) : (
+    <Navigate to={isReverse ? AppRoute.Root : AppRoute.Login} />
+  );
 };
 
 export default PrivateRoute;

@@ -4,7 +4,10 @@ import { Outlet } from 'react-router-dom'
 const DinamicLayout = () => {
     
   return (
-    <div><Outlet /></div>
+    <>
+      <p>dinamic page</p>
+      <div><Outlet /></div>
+    </>
   )
 }
 
