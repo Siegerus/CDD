@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import List from './List'
-import {dataArray} from '../data.js'
+import dataArray from '../data.js'
 
 const SortList = () => {
-  const [persons, setPersons] = useState(dataArray);
+  const [persons, setPersons] = useState(dataArray.filter(person => person.id !== 10));
   
-
   const sortLowToHeightHandle = () => {
     const arr = persons.sort((a, b) => b.id - a.id)
     setPersons([...arr])
@@ -16,7 +15,7 @@ const SortList = () => {
   }
 
   const filterNameHandle = () => {
-    setPersons(persons.filter(person => person.first_name !== 'Katusha'))
+    setPersons(persons.filter(person => person.first_name == 'Katusha'))
   }
 
   const resetHandle = () => {

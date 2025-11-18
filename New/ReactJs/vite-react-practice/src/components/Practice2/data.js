@@ -91,4 +91,4 @@ const dataArray = [
     }
 ]
 
-export {dataArray}
+export default dataArray;

@@ -37,17 +37,11 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
 					};
 			}),
 		);
-		/* setTimeout(() => {
-			activeNavs.forEach(nav => {
-				if(nav.isActive === true) setFilteredByCity((res) => {
-					res = offers.filter(item => item.city.name === nav.city);
-					return res;
-				});
-			})
-		}, 500) */
 	}
 	
 	const filteredByCity = offers.filter(offer => offer.city.name === currentCity);
+
+	
 	
 	// const cardIds = offers?.map(card => card.id)
 

@@ -40,7 +40,7 @@ const MainPage = ({
 		setSortedOffers(filteredByCity.filter(offer => offer.price == 80));
 		console.log(filteredByCity)
 	};
-	
+	console.log()
 	return (
 		<div className="page page--gray page--main">
 			<Header authState={authState} isMainPage={isMainPage} />
