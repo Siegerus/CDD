@@ -8,6 +8,7 @@ const Practice2Layout = () => {
         <Link to='first-page'>to first-page</Link>
         <Link to='second-page'> to second-page</Link>
         <Link to='dynamic-page'> to dynamic-page</Link>
+        <Link to='sort-practice'> to sort-practice</Link>
         <main>
             <Outlet />
         </main>

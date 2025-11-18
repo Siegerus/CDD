@@ -1,14 +1,17 @@
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import CitiesCard from '../../components/cities-card';
-import { Offer } from '../../types'
+import { Offer } from '../../types';
 
 type FavoritesPageProps = {
   authState: string;
-  offers: Offer[]
+  offers: Offer[];
 };
 
-const FavoritesPage = ({ authState, offers }: FavoritesPageProps): JSX.Element => {
+const FavoritesPage = ({
+  authState,
+  offers,
+}: FavoritesPageProps): JSX.Element => {
   return (
     <div className="page">
       <Header authState={authState} />
@@ -27,7 +30,18 @@ const FavoritesPage = ({ authState, offers }: FavoritesPageProps): JSX.Element =
                 </div>
                 <div className="favorites__places">
                   <>
-                    {offers.map(offer => <CitiesCard offer={offer} cardsClass={"favorites__card place-card"} key={offer.id} />)}
+                    {offers.map((offer) => (
+                      <CitiesCard
+                        offer={offer}
+                        cardsClass={'favorites__card place-card'}
+                        wrapperClass={
+                          'favorites__image-wrapper place-card__image-wrapper'
+                        }
+                        viewWidth={'150'}
+                        viewHeight={'110'}
+                        key={offer.id}
+                      />
+                    ))}
                   </>
                   {/* <article className="favorites__card place-card">
                     <div className="place-card__mark">

@@ -5,27 +5,43 @@ import createRate from '../utils/createRate';
 
 type CitiesCardProps = {
   offer: Offer;
-  cardsClass: string
+  cardsClass: string;
+  wrapperClass: string;
+  viewWidth: string;
+  viewHeight: string;
+  id?: string;
+  onMouseEnterHandle?: (id: string | undefined) => void;
 };
 
-const CitiesCard = ({ offer, cardsClass }: CitiesCardProps): JSX.Element => {
+const CitiesCard = ({
+  offer,
+  cardsClass,
+  wrapperClass,
+  viewWidth,
+  viewHeight,
+  onMouseEnterHandle,
+  id,
+}: CitiesCardProps): JSX.Element => {
   const { isPremium, previewImage, price, title, type, rating } = offer;
 
   return (
-    <article className={cardsClass}>
+    <article
+      className={cardsClass}
+      onMouseEnter={() => (onMouseEnterHandle ? onMouseEnterHandle(id) : null)}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={wrapperClass}>
         <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={viewWidth}
+            height={viewHeight}
             alt="Place image"
           ></img>
         </Link>

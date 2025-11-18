@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout';
 import Practice from './components/Practice/Practice';
 import HAComponent from './components/HAComponent/HAComponent';
 import Practice2 from './components/Practice2/Practice2';
+
 import './script';
 import './App.scss';
 

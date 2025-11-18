@@ -3,16 +3,15 @@ import { NavItemType } from '../types';
 // type NavItemProps = Omit<NavItemType, 'id'>;
 type NavItemProps = NavItemType & {
   id: string;
-  onClick: (id: string) => void;
+  onNavClick: (id: string, city: string) => void;
 };
 
 const NavItem = ({
   city,
   isActive,
-  onClick,
+  onNavClick,
   id,
 }: NavItemProps): JSX.Element => {
-  // console.log(id)
   return (
     <li className="locations__item">
       <a
@@ -21,7 +20,7 @@ const NavItem = ({
             ? 'locations__item-link tabs__item tabs__item--active'
             : 'locations__item-link tabs__item'
         }
-        onClick={() => onClick(id)}
+        onClick={() => onNavClick(id, city)}
       >
         <span>{city}</span>
       </a>

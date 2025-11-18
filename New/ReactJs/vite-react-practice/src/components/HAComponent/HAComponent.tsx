@@ -5,9 +5,10 @@ import Main from './pages/main';
 import About from './pages/about';
 import Secret from './pages/secret';
 import Layout from './components/layouts/layout';
-import PrivateRoute from './components/private-route';
+import PrivateRoute from './components/private-route/private-route';
 import GoAway from './pages/go-away';
-import Form from './components/Form';
+import Form from './components/form/form';
+import UncontroledForm from './components/uncontroled-form/uncontroled-form';
 
 const HAComponent = (): JSX.Element => {
 	/* Все пропсы прокидываются компонентам как обычно */
@@ -37,6 +38,7 @@ const HAComponent = (): JSX.Element => {
 			</HelmetProvider>
 
 			<Form />
+      <UncontroledForm />
 		</>
 	)
 }

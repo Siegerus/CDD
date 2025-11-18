@@ -5,6 +5,7 @@ import SecondPage from './SecondPage'
 import Practice2Layout from './Practice2Layout'
 import InnerDinamic from './InnerDinamic'
 import DinamicLayout from './DinamicLayout'
+import SortList from './SortList/SortList'
 
 const array = [
   {id: 1},
@@ -21,6 +22,7 @@ const Practice2 = () => {
                 <Route index element={<p>index page</p>}></Route>
                 <Route path='first-page' element={<FirstPage />}></Route>
                 <Route path='second-page' element={<SecondPage />}></Route>
+                <Route path='sort-practice' element={<SortList />}></Route>
                 <Route path='dynamic-page' element={<DinamicLayout />}>
                   <Route path=':id' element={<InnerDinamic ids={array}/>}></Route>
                 </Route>

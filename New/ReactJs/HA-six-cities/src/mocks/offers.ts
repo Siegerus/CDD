@@ -25,6 +25,31 @@ export const offers: Offer[] = [
     rating: 2,
     previewImage: 'img/apartment-01.jpg',
   },
+
+  {
+    id: uuidv4(),
+    title: 'Wood and stone place',
+    type: 'apartment',
+    price: 420,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 2,
+    previewImage: 'img/apartment-01.jpg',
+  },
+
   {
     id: uuidv4(),
     title: 'Wood and stone place',
@@ -48,6 +73,127 @@ export const offers: Offer[] = [
     rating: 4,
     previewImage: 'img/apartment-01.jpg',
   },
+
+  {
+    id: uuidv4(),
+    title: 'Wood and stone place',
+    type: 'apartment',
+    price: 90,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 5,
+    previewImage: 'img/apartment-01.jpg',
+  },
+
+  {
+    id: uuidv4(),
+    title: 'Wood and stone place',
+    type: 'apartment',
+    price: 100,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 3,
+    previewImage: 'img/apartment-01.jpg',
+  },
+
+  {
+    id: uuidv4(),
+    title: 'Wood and stone place',
+    type: 'apartment',
+    price: 110,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 1,
+    previewImage: 'img/apartment-01.jpg',
+  },
+
+  {
+    id: uuidv4(),
+    title: 'Wood and stone place',
+    type: 'apartment',
+    price: 200,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 1,
+    previewImage: 'img/apartment-01.jpg',
+  },
+
+  {
+    id: uuidv4(),
+    title: 'Wood and stone place',
+    type: 'apartment',
+    price: 220,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8,
+      },
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8,
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 2,
+    previewImage: 'img/apartment-01.jpg',
+  },
+
   {
     id: uuidv4(),
     title: 'Canal View Prinsengracht',
