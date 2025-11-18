@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 type SortingListProps = {
-  sortinbyScale: (property: 'price' | 'rating', direction: boolean) => void;
-  popularFilterHandle: () => void;
+  onSortinbyScaleHandle: (property: 'price' | 'rating', direction: boolean) => void;
+  onPopularFilterHandle: () => void;
 };
 
 enum OptionState {
@@ -13,8 +13,8 @@ enum OptionState {
 }
 
 const SortingList = ({
-  sortinbyScale,
-  popularFilterHandle,
+  onSortinbyScaleHandle,
+  onPopularFilterHandle,
 }: SortingListProps): JSX.Element => {
   
   const [optionTitle, setOptionTitle] = useState(OptionState.Popular);
@@ -36,7 +36,7 @@ const SortingList = ({
         <li
           className="places__option places__option--active"
           onClick={() => {
-            popularFilterHandle();
+            onPopularFilterHandle();
             setOptionTitleHandle(OptionState.Popular);
           }}
           tabIndex={0}
@@ -46,7 +46,7 @@ const SortingList = ({
         <li
           className="places__option"
           onClick={() => {
-            sortinbyScale('price', true);
+            onSortinbyScaleHandle('price', true);
             setOptionTitleHandle(OptionState.LowToHeight);
           }}
           tabIndex={0}
@@ -56,7 +56,7 @@ const SortingList = ({
         <li
           className="places__option"
           onClick={() => {
-            sortinbyScale('price', false);
+            onSortinbyScaleHandle('price', false);
             setOptionTitleHandle(OptionState.HightToLow);
           }}
           tabIndex={0}
@@ -66,7 +66,7 @@ const SortingList = ({
         <li
           className="places__option"
           onClick={() => {
-            sortinbyScale('rating', false);
+            onSortinbyScaleHandle('rating', false);
             setOptionTitleHandle(OptionState.TopRated);
           }}
           tabIndex={0}

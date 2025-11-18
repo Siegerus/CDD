@@ -41,7 +41,21 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
 	
 	const filteredByCity = offers.filter(offer => offer.city.name === currentCity);
 
-	
+	const [ sortedCards, setSortedCards] = useState(filteredByCity);
+
+	const sortinbyScaleHandle = (property: 'price' | 'rating', direction: boolean) => {
+		const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
+			return a[property] > b[property] == direction ? 1 : -1;
+		});
+		setSortedCards([...sorted]);
+	};
+
+	const popularFilterHandle = () => {
+		setSortedCards(filteredByCity.filter(offer => offer.price == 80));
+	};
+
+
+
 	
 	// const cardIds = offers?.map(card => card.id)
 
@@ -74,7 +88,9 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
 							activeNavs={activeNavs}
 							onNavClickHandle={onNavClickHandle}
 							// onMouseEnterHandle={onMouseEnterHandle}
-							filteredByCity={filteredByCity}
+							sortedCards={sortedCards}
+							onSortinbyScaleHandle={sortinbyScaleHandle}
+							onPopularFilterHandle={popularFilterHandle}
 						/>
 					}
 				/>

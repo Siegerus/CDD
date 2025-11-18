@@ -2,7 +2,7 @@ import CitiesCard from './cities-card';
 import { Offer } from '../types';
 
 type OfferslistProps = {
-	filteredByCity: Offer[] 
+	sortedCards: Offer[] 
 	cardsClass: string;
 	wrapperClass: string;
 	viewWidth: string;
@@ -11,7 +11,7 @@ type OfferslistProps = {
 };
 
 const Offerslist = ({
-	filteredByCity,
+	sortedCards,
 	onMouseEnterHandle,
 	cardsClass,
 	wrapperClass,
@@ -22,7 +22,7 @@ const Offerslist = ({
 
 	return (
 		<>
-			{filteredByCity?.map((offer) => (
+			{sortedCards?.map((offer) => (
 				<CitiesCard
 					offer={offer}
 					key={offer.id}

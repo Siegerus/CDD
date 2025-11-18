@@ -12,35 +12,39 @@ type MainPageProps = {
 	authState: string;
 	offersCount: number;
 	activeNavs: NavItemType[];
-	filteredByCity: Offer[];
+	sortedCards: Offer[];
 	onNavClickHandle: (id: string, city: string) => void;
+	onSortinbyScaleHandle: (property: 'price' | 'rating', direction: boolean) => void;
+	onPopularFilterHandle: () => void;
 	onMouseEnterHandle?: (id: string | undefined) => void;
 };
 
 const MainPage = ({
 	offersCount,
-	filteredByCity,
+	sortedCards,
 	authState,
 	isMainPage,
 	activeNavs,
 	onNavClickHandle,
-	onMouseEnterHandle
+	onMouseEnterHandle,
+	onSortinbyScaleHandle,
+	onPopularFilterHandle,
 }: MainPageProps): JSX.Element => {
 
-	const [sortedOffers, setSortedOffers] = useState(filteredByCity);
+	// const [sortedOffers, setSortedOffers] = useState(filteredByCity);
 
-	const sortinbyScale = (property: 'price' | 'rating', direction: boolean) => {
-		const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
-			return a[property] > b[property] == direction ? 1 : -1;
-		});
-		setSortedOffers([...sorted]);
-	};
+	// const sortinbyScale = (property: 'price' | 'rating', direction: boolean) => {
+	// 	const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
+	// 		return a[property] > b[property] == direction ? 1 : -1;
+	// 	});
+	// 	setSortedOffers([...sorted]);
+	// };
 
-	const popularFilterHandle = () => {
-		setSortedOffers(filteredByCity.filter(offer => offer.price == 80));
-		console.log(filteredByCity)
-	};
-	console.log()
+	// const popularFilterHandle = () => {
+	// 	setSortedOffers(filteredByCity.filter(offer => offer.price == 80));
+	// 	console.log(filteredByCity)
+	// };
+
 	return (
 		<div className="page page--gray page--main">
 			<Header authState={authState} isMainPage={isMainPage} />
@@ -69,12 +73,12 @@ const MainPage = ({
 								{offersCount} places to stay in Amsterdam
 							</b>
 							<SortingList
-								sortinbyScale={sortinbyScale}
-								popularFilterHandle={popularFilterHandle}
+								onSortinbyScaleHandle={onSortinbyScaleHandle}
+								onPopularFilterHandle={onPopularFilterHandle}
 							/>
 							<div className="cities__places-list places__list tabs__content">
 								<Offerslist
-									filteredByCity={filteredByCity}
+									sortedCards={sortedCards}
 									onMouseEnterHandle={onMouseEnterHandle}
 									cardsClass={'cities__card place-card'}
 									wrapperClass={
