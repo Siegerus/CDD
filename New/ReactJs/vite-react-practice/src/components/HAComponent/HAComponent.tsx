@@ -10,6 +10,9 @@ import GoAway from './pages/go-away';
 import Form from './components/form/form';
 import UncontroledForm from './components/uncontroled-form/uncontroled-form';
 import UseEffectComponent from './components/use-effect/use-effect';
+import RenderProp from './components/patterns/render-prop'
+import ProxyComponent from './components/patterns/proxy-component';
+import CustomHookComponent from './components/custom-hook/custom-hook';
 
 const HAComponent = (): JSX.Element => {
 	/* Все пропсы прокидываются компонентам как обычно */
@@ -41,6 +44,9 @@ const HAComponent = (): JSX.Element => {
 			<Form />
       <UncontroledForm />
       <UseEffectComponent />
+      <RenderProp />
+      <ProxyComponent />
+			<CustomHookComponent />
 		</>
 	)
 }

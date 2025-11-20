@@ -12,7 +12,7 @@ type MainPageProps = {
 	authState: string;
 	offersCount: number;
 	activeNavs: NavItemType[];
-	sortedCards: Offer[];
+	filteredByCity: Offer[];
 	onNavClickHandle: (id: string, city: string) => void;
 	onSortinbyScaleHandle: (property: 'price' | 'rating', direction: boolean) => void;
 	onPopularFilterHandle: () => void;
@@ -21,7 +21,7 @@ type MainPageProps = {
 
 const MainPage = ({
 	offersCount,
-	sortedCards,
+	filteredByCity,
 	authState,
 	isMainPage,
 	activeNavs,
@@ -30,20 +30,6 @@ const MainPage = ({
 	onSortinbyScaleHandle,
 	onPopularFilterHandle,
 }: MainPageProps): JSX.Element => {
-
-	// const [sortedOffers, setSortedOffers] = useState(filteredByCity);
-
-	// const sortinbyScale = (property: 'price' | 'rating', direction: boolean) => {
-	// 	const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
-	// 		return a[property] > b[property] == direction ? 1 : -1;
-	// 	});
-	// 	setSortedOffers([...sorted]);
-	// };
-
-	// const popularFilterHandle = () => {
-	// 	setSortedOffers(filteredByCity.filter(offer => offer.price == 80));
-	// 	console.log(filteredByCity)
-	// };
 
 	return (
 		<div className="page page--gray page--main">
@@ -78,7 +64,7 @@ const MainPage = ({
 							/>
 							<div className="cities__places-list places__list tabs__content">
 								<Offerslist
-									sortedCards={sortedCards}
+									sortedCards={filteredByCity}
 									onMouseEnterHandle={onMouseEnterHandle}
 									cardsClass={'cities__card place-card'}
 									wrapperClass={

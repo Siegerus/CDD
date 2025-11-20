@@ -19,7 +19,7 @@ const UncontroledForm = () => {
     ref={inputRef} // ref - служебный проп для связи dom-элемента с React. врезультате в inputRef будет сслка на dom-элемент form
     // Ссылка появится только после отрисовки эл-та. До отрисовки в нём будет значение по-умолчанию. 
     >
-        <input type="text" name="my-input" defaultValue={value} />
+        <input type="text" name="my-input" defaultValue={value} /> {/* Использовать defaultValue value для значения по умолчанию в неконтролируемых компонентах  */}
         <button>Submit</button>
     </form>
   )

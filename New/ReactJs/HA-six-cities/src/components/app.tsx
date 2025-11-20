@@ -41,7 +41,7 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
 	
 	const filteredByCity = offers.filter(offer => offer.city.name === currentCity);
 
-	const [ sortedCards, setSortedCards] = useState(filteredByCity);
+	const [sortedCards, setSortedCards] = useState(filteredByCity);
 
 	const sortinbyScaleHandle = (property: 'price' | 'rating', direction: boolean) => {
 		const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
@@ -88,7 +88,7 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
 							activeNavs={activeNavs}
 							onNavClickHandle={onNavClickHandle}
 							// onMouseEnterHandle={onMouseEnterHandle}
-							sortedCards={sortedCards}
+							filteredByCity={filteredByCity}
 							onSortinbyScaleHandle={sortinbyScaleHandle}
 							onPopularFilterHandle={popularFilterHandle}
 						/>

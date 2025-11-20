@@ -1,6 +1,5 @@
 import { NavItemType } from '../types';
-// onClick: (id: string) => void;
-// type NavItemProps = Omit<NavItemType, 'id'>;
+
 type NavItemProps = NavItemType & {
   id: string;
   onNavClick: (id: string, city: string) => void;
