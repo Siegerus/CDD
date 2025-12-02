@@ -1,36 +1,46 @@
-import React, { useState } from 'react'
-import List from './List'
-import dataArray from '../data.js'
+import React, { useState } from 'react';
+import List from './List';
+import dataArray from '../data.jsx';
 
 const SortList = () => {
-  const [persons, setPersons] = useState(dataArray.filter(person => person.id !== 10));
-  
-  const sortLowToHeightHandle = () => {
-    const arr = persons.sort((a, b) => b.id - a.id)
-    setPersons([...arr])
-  }
+	const [persons, setPersons] = useState(
+		dataArray.filter((person) => person.id !== 10)
+	);
 
-  const filterIdHandle = () => {
-    setPersons(persons.filter(person => person.id > 4))
-  }
+	const sortLowToHeightHandle = () => {
+		const arr = persons.sort((a, b) => b.id - a.id);
+		setPersons([...arr]);
+	};
 
-  const filterNameHandle = () => {
-    setPersons(persons.filter(person => person.first_name == 'Katusha'))
-  }
+	const filterIdHandle = () => {
+		setPersons(persons.filter((person) => person.id > 4));
+	};
 
-  const resetHandle = () => {
-    setPersons([...dataArray])
-  }
+	const filterNameHandle = () => {
+		setPersons(persons.filter((person) => person.first_name === 'Katusha'));
+	};
 
-  return (
-    <div>
-      <List dataArray={persons} />
-      <button type="button" onClick={filterNameHandle}>Filter by name</button>
-      <button type="button" onClick={filterIdHandle}>Filter by id</button>
-      <button type="button" onClick={sortLowToHeightHandle}>height to low</button>
-      <button type="button" onClick={resetHandle}>reset</button>
-    </div>
-  )
-}
+	const resetHandle = () => {
+		setPersons([...dataArray]);
+	};
 
-export default SortList
+	return (
+		<div>
+			<List dataArray={persons} />
+			<button type="button" onClick={filterNameHandle}>
+				Filter by name
+			</button>
+			<button type="button" onClick={filterIdHandle}>
+				Filter by id
+			</button>
+			<button type="button" onClick={sortLowToHeightHandle}>
+				height to low
+			</button>
+			<button type="button" onClick={resetHandle}>
+				reset
+			</button>
+		</div>
+	);
+};
+
+export default SortList;

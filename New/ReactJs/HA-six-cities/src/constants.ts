@@ -10,11 +10,11 @@ export const AppRoute = {
   Page404: '*',
 } as const;
 
-export enum AuthState {
-  Auth = 'Auth',
-  NoAuth = 'NoAuth',
-  Unknow = 'Unknow',
-}
+export const AuthState = {
+  Auth : 'Auth',
+  NoAuth : 'NoAuth',
+  Unknow : 'Unknow',
+} as const;
 
 export const NAV_ITEMS = [
   { id: uuidv4(), city: 'Paris', isActive: true },

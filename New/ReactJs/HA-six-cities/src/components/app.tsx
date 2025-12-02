@@ -11,113 +11,115 @@ import MainPage from '../pages/main-page/main-page';
 import { useState } from 'react';
 
 type AppProps = {
-	offersCount: number;
-	navItems: NavItemType[];
-	offers: Offer[];
+  offersCount: number;
+  navItems: NavItemType[];
+  offers: Offer[];
 };
 
 function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
+  const [activeNavs, setActiveNavs] = useState(navItems);
+  const [currentCity, setCurrentCity] = useState('Paris');
+  const [activeCard, setActiveCard] = useState(offers);
 
-	const [activeNavs, setActiveNavs] = useState(navItems);
-	const [currentCity, setCurrentCity] = useState('Paris');
-	const [activeCard, setActiveCard] = useState(offers);
+  const onNavClickHandle = (id: string, city: string) => {
+    setCurrentCity(city);
+    setActiveNavs(
+      activeNavs.map((activeNav) => {
+        return activeNav.id === id
+          ? {
+              ...activeNav,
+              isActive: true,
+            }
+          : {
+              ...activeNav,
+              isActive: false,
+            };
+      })
+    );
+  };
 
-	const onNavClickHandle = (id: string, city: string) => {
-		setCurrentCity(city);
-		setActiveNavs( 
-			activeNavs.map((activeNav) => {
-				return activeNav.id === id
-					? {			
-						...activeNav,
-						isActive: true,    			
-					}	 
-					: {
-						...activeNav,
-						isActive: false,
-					};
-			}),
-		);
-	}
-	
-	const filteredByCity = offers.filter(offer => offer.city.name === currentCity);
+  const filteredByCity = offers.filter(
+    (offer) => offer.city.name === currentCity
+  );
 
-	const [sortedCards, setSortedCards] = useState(filteredByCity);
+  const [sortedCards, setSortedCards] = useState(filteredByCity);
 
-	const sortinbyScaleHandle = (property: 'price' | 'rating', direction: boolean) => {
-		const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
-			return a[property] > b[property] == direction ? 1 : -1;
-		});
-		setSortedCards([...sorted]);
-	};
+  const sortinbyScaleHandle = (
+    property: 'price' | 'rating',
+    direction: boolean
+  ) => {
+    const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
+      return a[property] > b[property] === direction ? 1 : -1;
+    });
+    setSortedCards([...sorted]);
+  };
 
-	const popularFilterHandle = () => {
-		setSortedCards(filteredByCity.filter(offer => offer.price == 80));
-	};
+  const popularFilterHandle = () => {
+    setSortedCards(filteredByCity.filter((offer) => offer.price === 80));
+  };
 
+  // const cardIds = offers?.map(card => card.id)
 
+  const onMouseEnterHandle = (id: string | undefined) => {
+    setActiveCard(
+      activeCard?.map((item) => {
+        if (item.id === id) {
+          // console.log('on element');
+          return {
+            ...item,
+          };
+        } else {
+          return {
+            ...item,
+          };
+        }
+      })
+    );
+  };
 
-	
-	// const cardIds = offers?.map(card => card.id)
-
-	const onMouseEnterHandle = (id: string | undefined) => {
-		setActiveCard(
-			activeCard?.map((item) => {
-				if (item.id === id) {
-					console.log('on element')
-					return {
-						...item,
-					};
-				} else
-					return {
-						...item,
-					};
-			}),
-		);
-	};
-
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route
-					path={AppRoute.Root}
-					element={
-						<MainPage
-							isMainPage
-							authState={AuthState.Auth}
-							offersCount={offersCount}
-							activeNavs={activeNavs}
-							onNavClickHandle={onNavClickHandle}
-							// onMouseEnterHandle={onMouseEnterHandle}
-							filteredByCity={filteredByCity}
-							onSortinbyScaleHandle={sortinbyScaleHandle}
-							onPopularFilterHandle={popularFilterHandle}
-						/>
-					}
-				/>
-				<Route
-					path={AppRoute.Login}
-					element={
-						<PrivateRoute authState={AuthState.Auth} isReverse>
-							<LoginPage isLoginPage />
-						</PrivateRoute>
-					}
-				/>
-				<Route
-					path={AppRoute.Favorites}
-					element={
-						<PrivateRoute authState={AuthState.Auth} isReverse={false}>
-							<FavoritesPage authState={AuthState.Auth} offers={offers} />
-						</PrivateRoute>
-					}
-				/>
-				<Route
-					path={AppRoute.Offer}
-					element={<OfferPage authState={AuthState.Auth} />}
-				/>
-				<Route path={AppRoute.Page404} element={<ErrorPage />} />
-			</Routes>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Root}
+          element={
+            <MainPage
+              isMainPage
+              authState={AuthState.Auth}
+              offersCount={offersCount}
+              activeNavs={activeNavs}
+              onNavClickHandle={onNavClickHandle}
+              onMouseEnterHandle={onMouseEnterHandle}
+              filteredByCity={filteredByCity}
+              onSortinbyScaleHandle={sortinbyScaleHandle}
+              onPopularFilterHandle={popularFilterHandle}
+            />
+          }
+        />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <PrivateRoute authState={AuthState.Auth} isReverse>
+              <LoginPage isLoginPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute authState={AuthState.Auth} isReverse={false}>
+              <FavoritesPage authState={AuthState.Auth} offers={offers} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Offer}
+          element={<OfferPage authState={AuthState.Auth} />}
+        />
+        <Route path={AppRoute.Page404} element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

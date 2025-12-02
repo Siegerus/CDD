@@ -2266,3 +2266,26 @@ let x = 11;
 let resultMin = Math.min(x, 20); // значение result будет максимум 20, или х, если меньше 20ти.
 let resultMax = Math.max(x, 20); // значение result будет не меньше 20ти, при любой х.
 console.log(resultMin, resultMax);
+
+
+
+// Проверка на все falsy, кроме 0
+const f = () => {
+	const variable = 0;
+
+	if (!variable && variable !== 0) throw new NewError('Variable is missed!');
+	// if (variable || variable === 0) console.log('do smth');
+};
+f();
+
+
+// const first = () => {
+// 	let str = 'MyName';
+// 	let res = '';
+
+// 	for (let i = 0; i < 3; i++) {
+// 		// console.log(str[i]);
+// 		res += str[i];
+// 	}
+// 	return res;
+// };

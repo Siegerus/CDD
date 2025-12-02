@@ -29,20 +29,18 @@ const FavoritesPage = ({
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <>
-                    {offers.map((offer) => (
-                      <CitiesCard
-                        offer={offer}
-                        cardsClass={'favorites__card place-card'}
-                        wrapperClass={
-                          'favorites__image-wrapper place-card__image-wrapper'
-                        }
-                        viewWidth={'150'}
-                        viewHeight={'110'}
-                        key={offer.id}
-                      />
-                    ))}
-                  </>
+                  {offers.map((offer) => (
+                    <CitiesCard
+                      offer={offer}
+                      cardsClass={'favorites__card place-card'}
+                      wrapperClass={
+                        'favorites__image-wrapper place-card__image-wrapper'
+                      }
+                      viewWidth={'150'}
+                      viewHeight={'110'}
+                      key={offer.id}
+                    />
+                  ))}
                   {/* <article className="favorites__card place-card">
                     <div className="place-card__mark">
                       <span>Premium</span>

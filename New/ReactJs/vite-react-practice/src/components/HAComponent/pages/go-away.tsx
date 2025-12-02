@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const GoAway = () => {
-  return (
-    <div>GoAway</div>
-  )
-}
+	return <div>GoAway</div>;
+};
 
-export default GoAway
+export default GoAway;

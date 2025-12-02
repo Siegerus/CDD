@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 9px;
+    background-color: #8181a7;
+}
+
+.item {
+    width: 100%;
+    margin-top: 5px;
+    padding: 7px 0 8px 5px;
+    border-radius: 9px;
+    background-color: #6666a9;
+    cursor: pointer;
+
+    &_active {
+        background-color: #5b5bb7;
+    }
+
+}
+
+.content {
+    padding: 5px;
+    font-size: 14px;
+}

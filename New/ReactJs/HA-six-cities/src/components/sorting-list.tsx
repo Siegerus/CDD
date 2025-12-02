@@ -1,7 +1,10 @@
 import { useState } from 'react';
 
 type SortingListProps = {
-  onSortinbyScaleHandle: (property: 'price' | 'rating', direction: boolean) => void;
+  onSortinbyScaleHandle: (
+    property: 'price' | 'rating',
+    direction: boolean
+  ) => void;
   onPopularFilterHandle: () => void;
 };
 
@@ -16,7 +19,6 @@ const SortingList = ({
   onSortinbyScaleHandle,
   onPopularFilterHandle,
 }: SortingListProps): JSX.Element => {
-  
   const [optionTitle, setOptionTitle] = useState(OptionState.Popular);
 
   const setOptionTitleHandle = (optionState: OptionState) => {

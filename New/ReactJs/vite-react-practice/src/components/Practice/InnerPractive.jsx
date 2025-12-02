@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
+
 import CustomContext from '../../context/CustomContext';
 import styles from './InnerPractive.module.scss';
 
 const InnerPractive = () => {
-	let { elems, setElems } = useContext(CustomContext);
-	let [isActive, setIsActive] = useState(false);
+	const { elems, setElems } = useContext(CustomContext);
+	const [isActive, setIsActive] = useState(false);
 
-	let toggleActive = () => {
+	const toggleActive = () => {
 		setIsActive(!isActive);
 	};
-	let onClickHandler = index => {
+	const onClickHandler = (index) => {
 		setElems(
-			elems.map((elem, idx) => {
-				return index == idx
+			elems.map((elem, idx) =>
+				index === idx
 					? { ...elem, active: !elem.active }
-					: { ...elem, active: false };
-			})
+					: { ...elem, active: false }
+			)
 		);
 	};
 
@@ -24,27 +24,31 @@ const InnerPractive = () => {
 		<>
 			<div className={styles.wrapper}>
 				{elems.map((elem, i) => {
+					const keyValue = `${i}-lorem`;
 					return (
-						<div
+						<a
 							className={styles.lorems}
-							key={i}
+							key={keyValue}
 							onClick={() => onClickHandler(i)}
-							style={
-								elem.active ? { color: 'green' } : { color: '' }
-							}
+							style={elem.active ? { color: 'green' } : { color: '' }}
+							role="button"
+							tabIndex={0}
+							onKeyDown={() => onClickHandler(i)}
+							href="google.com"
 						>
 							{elem.text}
-						</div>
-					)
+						</a>
+					);
 				})}
 			</div>
 			<div
 				className={
-					!isActive
-						? styles.elem
-						: `${styles.elem} ${styles.elem_active }`
+					!isActive ? styles.elem : `${styles.elem} ${styles.elem_active}`
 				}
+				role="button"
+				tabIndex={0}
 				onClick={toggleActive}
+				onKeyDown={toggleActive}
 			>
 				Elem
 			</div>

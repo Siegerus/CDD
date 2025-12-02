@@ -11,7 +11,7 @@ type HeaderProps = {
 function Header({
   authState,
   isLoginPage,
-  isMainPage,
+  isMainPage
 }: HeaderProps): JSX.Element {
   return isLoginPage ? (
     <header className="header">

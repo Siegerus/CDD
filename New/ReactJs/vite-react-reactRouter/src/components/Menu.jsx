@@ -10,7 +10,7 @@ const Menu = () => {
 				}
 				end
 			>
-				Home
+				Home 
 			</NavLink>
 			<NavLink
 				to="about"

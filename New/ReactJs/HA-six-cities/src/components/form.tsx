@@ -22,8 +22,8 @@ const Form = () => {
             },
       );
     }  */
-		setValues({ ...values, [name]: e.target.value });
-    console.log(values);
+    setValues({ ...values, [name]: e.target.value });
+    // console.log(values);
   };
 
   return (

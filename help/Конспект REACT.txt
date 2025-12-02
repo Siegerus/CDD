@@ -70,7 +70,10 @@ TypeScript.
 17. UseEffect применяется, когда нужно выполнить код с побочными эффектами.
     (side effect - взаимодействие с внешней средой - тем, что не относится к React (DOM, setTimeout, получение инфы с сервера и т.д.)
     UseEffect асинхронный. Всё, что в нём выполняется после отрисовки к-та.
-18. Ф-ция внутри UseEffect может возыращать  ф-цию дял отмены эффектов.
+18. Ф-ция внутри UseEffect может возыращать  ф-цию для отмены эффектов. функция очистки всегда вызывается перед повторным применением эффекта
+19. Код внутри тела к-та выполняется до отрисовки компонента. Функция с эффектом (колбэк для useEffect) выполняется асинхронно после отрисовки к-та.
+20. Всегда лучше начинать с интерфейса - определения типов.
+
 
 Создание переменных окружения в vite.config.js.
 
@@ -110,6 +113,26 @@ interface ImportMeta {
 
 4. Пример обращения к переменной const envVar = import.meta.env."НЗВАНИЕ_ПЕРЕМЕННОЙ";
 
+
+Нужные Сниппеты.
+js.
+1.dob - const {propName} = objectToDescruct.
+2.dar - const [propName] = arrayToDescruct.
+3.sti - setInterval(() => { }, intervalTime.
+4.sto - setTimeout(() => { }, delayTime.
+5.fre - arrayName.forEach(element => { }.
+6.clg - console.log(object).
+7.nfn - const functionName = (params) => { }.
+8.sti - setInterval(() => { }, intervalTime.
+9.sto - setTimeout(() => { }, delayTime.
+React.
+1.rfce - import React from 'react'
+         function $1() {
+           return <div>$0</div>
+         }
+         export default $1.
+2.tsrafce - тоже самое с типами.
+ 
 
 Коммиты HA-six-cities-completed.
 0b19d8d Ччинит главную ошибку(падал весь проект)
@@ -318,3 +341,20 @@ a6e4770 2.2. Добавит компоненты экранов.
 15ab5d0 2.1. Добавит React-компоненты.
 464e063 1.1. Добавит файлы проекта «Угадай мелодию»
 879f25c Инициализирует проект
+
+
+
+
+Линтер.
+error  The href attribute requires a valid value to be accessible.
+Provide a valid, navigable address as the href value. If you cannot provide
+a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles.
+
+Что использовать в нав-элементах, которым нужна интерактивнось и которые должны быть ссылками?
+warning  Visible, non-interactive elements with click handlers must have at least one keyboard listener                                                                  jsx-a11y/click-events-have-key-events
+error    Anchor used as a button. Anchors are primarily expected to navigate. Use the button element instead. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+error    Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
+Ответ.
+Делаем так, например: role="button" tabIndex={0} onKeyDown={() => onClickHandler(i)} href="google.com".
+
+ПОДДЕРЖИ МЕНЯ ПО ССЫЛКАМ: тутhttps://new.donatepay.ru/@UlyaGrechka или тут https://www.donationalerts.com/r/ulyagrechka

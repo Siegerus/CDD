@@ -1,25 +1,43 @@
-import React from 'react'
+import React from 'react';
 
-const List = ({dataArray}) => {
-  return (
-    <div className="wrapper" style={{"display":"flex","padding": "60px 0 60px 0"}} >
-        {dataArray.map(person => {
-            return (
-                <Item id={person.id} imageSrc={person.image} key={person.email} />
-            )
-        })}
-    </div>
-    
-  )
-}
+type Person = {
+	id: number;
+	first_name: string;
+	last_name: string;
+	email: string;
+	gender: string;
+	ip_address: string;
+	image: string;
+};
 
-const Item = ({id, imageSrc}) => {
-    return (
-        <div style={{"display":"flex"}}> 
-        <p>{id}</p>
-        <img src={imageSrc} style={{"width":"25px","height":"25px", "marginLeft": "10px"}} /> 
-        </div>
-    )
-}
+type ListProps = {
+	dataArray: Person[];
+};
 
-export default List
+const List = ({ dataArray }: ListProps) => {
+	return (
+		<div
+			className="wrapper"
+			style={{ display: 'flex', padding: '60px 0 60px 0' }}
+		>
+			{dataArray.map((person) => {
+				return <Item id={person.id} image={person.image} key={person.email} />;
+			})}
+		</div>
+	);
+};
+
+type ItemProps = Pick<Person, 'id' | 'image'>;
+
+const Item = ({ id, image }: ItemProps) => {
+	return (
+		<div style={{ display: 'flex' }}>
+			<p>{id}</p>
+			<img
+				src={image}
+				style={{ width: '25px', height: '25px', marginLeft: '10px' }}
+			/>
+		</div>
+	);
+};
+export default List;

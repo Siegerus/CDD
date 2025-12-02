@@ -11,7 +11,7 @@ function TodoList({todos, deleteTodo}) {
     //         <div className={styles.TodoListContainer}>
     //             <h2>List is empty!</h2>
     //          </div>
-    //     )
+    //     ) 
     // ) 
 
     return(

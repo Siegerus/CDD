@@ -1,3 +1,3 @@
 const hasAccess = true;
 
-export { hasAccess }
+export { hasAccess };

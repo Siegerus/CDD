@@ -1,0 +1,33 @@
+.wrapper {
+ display: flex;
+ flex-direction: column;
+ max-width: 400px;
+ padding: 10px;
+}
+
+.headline {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    border-radius: 7px;
+}
+
+.tabButton {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 7px;
+    background-color: #9b7db9;
+
+    &_active {
+        background-color: #b68d9b;
+    }
+}
+
+.content {
+    margin-top: 13px;
+    padding: 0 6px;
+    border-radius: 7px;
+    font-size: 14px;
+    background-color: rgb(53 102 147);
+}

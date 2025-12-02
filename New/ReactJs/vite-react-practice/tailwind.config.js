@@ -3,10 +3,10 @@ module.exports = {
 		'./src/components/**/*.jsx',
 		'./src/pages/**/*.jsx',
 		'./src/**/*.jsx',
-		'./src/index.html'
+		'./src/index.html',
 	],
 	theme: {
-		extend: {}
+		extend: {},
 	},
-	plugins: []
+	plugins: [],
 };

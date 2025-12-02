@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+
 import CustomContext from '../../context/CustomContext';
 import InnerPractive from './InnerPractive';
+import List from './List';
 
-let array = [
+const array = [
 	{ text: 'Lorem1', active: false },
 	{ text: 'Lorem2', active: false },
 	{ text: 'Lorem3', active: false },
@@ -11,11 +13,14 @@ let array = [
 ];
 
 const Practice = () => {
-	let [elems, setElems] = useState(array);
+	const [elems, setElems] = useState(array);
+
+	const valuesObject = useMemo(() => ({ elems, setElems }), [elems]); // значение кэшировано хуком useMemo
 
 	return (
-		<CustomContext.Provider value={{ elems: elems, setElems: setElems }}>
+		<CustomContext.Provider value={valuesObject}>
 			<InnerPractive />;
+			<List />
 		</CustomContext.Provider>
 	);
 };

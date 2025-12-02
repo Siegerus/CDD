@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
-let CustomContext = createContext({
+const CustomContext = createContext({
 	elems: [],
-	setElems: () => {}
+	setElems: () => {},
 });
 
 export default CustomContext;

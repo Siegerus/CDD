@@ -1,22 +1,36 @@
-import React from "react"
+import React from 'react';
 // render-prop
-// Передача функции с условным рендеринго нижестоящему к-ту
+// Передача функции с условным рендерингом нижестоящему к-ту
 
 const boolean = true;
 
 const RenderProp = () => {
-    return (
-        <>
-            <div>OuterComponent</div>
-            <InnerComponent render={(boolean) => boolean ? <div>true html from InnerComponent</div> : <div>false html from InnerComponent</div>  } />
-        </>
-    )
-}
+	return (
+		<>
+			<div>OuterComponent</div>
+			<InnerComponent
+				render={(boolean: boolean) =>
+					boolean ? <Test /> : <div>false html from InnerComponent</div>
+				}
+			/>
+		</>
+	);
+};
 
-const InnerComponent = ({render}) => {
-    return (
-        <div>InnerComponent {render(boolean)}</div>
-    )
-}
+const Test = () => {
+	return <div>true html from InnerComponent</div>;
+};
+
+type InnerComponentType = {
+	render: (boolean: boolean) => void;
+};
+
+const InnerComponent = ({ render }: InnerComponentType) => {
+	return (
+		<div>
+			InnerComponent <>{render(boolean)}</>
+		</div>
+	);
+};
 
 export default RenderProp;

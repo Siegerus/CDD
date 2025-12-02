@@ -39,6 +39,77 @@ document.querySelector(".any-section__button").style.marginTop = 67 + "px";
 } */
 // scrollDown();
 
+// Classes examle
+const setClasses = () => { 
+	class ActiveElement {
+		str = 'empty';
+		constructor(elem) {
+			this.elem = elem;
+			this.showElement = this.showElement.bind(this);
+			this.setText = this.setText.bind(this);
+			elem.addEventListener('click', this.showElement);
+			elem.addEventListener('click', this.setText);
+		}
+		
+		showElement() {
+			console.log(this.elem);
+		}
+		setText(e) {
+			const answer = prompt('Enter your data');
+			if(!answer) Array.from(this.elem.children).forEach(child => child.innerHTML = this.str)
+			else Array.from(this.elem.children).forEach(child => child.innerHTML = answer)
+		}
+	}
+	
+	const element = new ActiveElement(document.querySelector("body > div.outer-element"));
+	class NewActiveElement extends ActiveElement {
+		constructor(elem) {
+			super(elem)
+		}
+		setText() {
+			super.setText;
+			console.log('delay!');
+			setTimeout(() => super.setText(), 3000)
+		}
+	}
+	const secondsElement = new NewActiveElement(document.querySelector("body > div.target-box"));
+ }
+ setClasses();
+
+ // Class examle
+ const createClass = () => { 
+	class TextPainter {
+		element;
+		constructor(text, wordLength) {
+			this.text = text;
+			this.wordLength = wordLength;
+			this.createElement();
+			this.element.innerHTML = this.getHtml();
+		}
+		createElement() {
+			this.element = document.createElement('p');
+			this.element.className = 'text-element';
+			this.element.textContent = this.text ;
+			document.body.append(this.element);
+		}
+		getHtml() {
+			const initialHtml = this.element.innerHTML;
+			const text = initialHtml?.split('').splice(this.wordLength, initialHtml.length).join('');
+			const firstWord = initialHtml?.split('').splice(0, this.wordLength).join('').toUpperCase();
+			return `<span style="color: coral;">${firstWord}</span>${text}`;
+		}
+		setHtml() {
+			this.createElement();
+			this.element.innerHTML = this.getHtml();
+		}
+	}
+	new TextPainter('This is text element!', 4)
+	new TextPainter('This is another text element!', 4)
+	new TextPainter('This is one more text element!', 4)
+ }
+ createClass();
+
+
 // VolumeTrack
 function moveVolumeTrack() {
 	let parent = document.querySelector("body > div.volume-box");
@@ -2201,7 +2272,7 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 //     	let books = db.createObjectStore("books", {keyPath: "id"}); // создаём хранилище
 
 // 	// index - структура данных для посика по индексированному полю.Индексы создаються в upgradeneeded,как и хранилище объектов
-// 		let index = books.createIndex('price_idx', 'price'); // Индекс будет отслеживать поле price.
+// 		let index = books.createIndex('price_i', 'price'); // Индекс будет отслеживать поле price.
 //   	}
 // 	/* db.deleteObjectStore('books') */  // удалить хранилище объектов
 
@@ -2276,7 +2347,7 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 
 	
 // 	// Поиск по индексированному полю. Для этошо в событии "upgradeneeded" сначала создали структуру данных "Index"
-// 	let priceIndex = books.index("price_idx");
+// 	let priceIndex = books.index("price_i");
 // 	let indexRequest = priceIndex.getAll(10);
 
 // 	/* // Если нам нужно удалить книги, основываясь на цене или на любом другом поле
@@ -3060,8 +3131,154 @@ let obj = {
 let any = 5555
 console.log(obj / any);
 
+/* const f = () => { 
+	let target = null;
+	let onElem;
+
+	document.querySelector("body > div.outer-element").addEventListener("mouseover", (e) => {
+		if(onElem) return
+		onElem = true;
+		target = e.target;
+		console.log('over!');
+	})
+
+	document.querySelector("body > div.outer-element").addEventListener("mouseout", (e) => {
+		if(target.contains(e.relatedTarget)) return;
+		onElem = false;
+		target = null;
+		console.log('out!');
+	})
+ }
+f(); */
+const NAV_CITIES = [
+	{ city: 'Simferopol', isActive: true },
+	{ city: 'Sevastopol', isActive: false },
+	{ city: 'Partenit', isActive: false },
+	{ city: 'Alushta', isActive: false },
+	{ city: 'Yalta', isActive: false },
+];
+
+const PLACES = [
+	{
+		id: 1,
+		name: 'Lorem',
+		city: 'Simferopol',
+		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!',
+	},
+	{
+		id: 2,
+		name: 'Loripsum',
+		city: 'Simferopol',
+		info: 'Lorem ipsum dolor sitet  adipisicing  repellendus nulla doloribus placeat!',
+	},
+	{
+		id: 3,
+		name: 'Lorem ipsum',
+		city: 'Simferopol',
+		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum  nulla doloribus placeat!',
+	},
+	{
+		id: 4,
+		name: 'Lorem',
+		city: 'Sevastopol',
+		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!',
+	},
+	{
+		id: 5,
+		name: 'Loripsum',
+		city: 'Sevastopol',
+		info: 'Lorem ipsum dolor sitet  adipisicing  repellendus nulla doloribus placeat!',
+	},
+	{
+		id: 6,
+		name: 'Lorem ipsum',
+		city: 'Yalta',
+		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum  nulla doloribus placeat!',
+	},
+	{
+		id: 7,
+		name: 'Lor',
+		city: 'Yalta',
+		info: 'Lorem ipsum dolor sit!',
+	},
+	{
+		id: 8,
+		name: 'Loripsum',
+		city: 'Partenit',
+		info: 'Lorem ipsum dolor sitet  adipisicing  repellendus nulla doloribus placeat!',
+	},
+	{
+		id: 9,
+		name: 'Lorem',
+		city: 'Alushta',
+		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!',
+	},
+];
 
 
+// const setRounds = (color) => {
+// 	const parent = document.querySelector('.rounds-container');
+// 	const rounds = document.querySelectorAll('div.rounds-container__round');
+
+// 	rounds.forEach(round => round.style.cursor = 'pointer');
+// 	const contentBoxes = Array.from(rounds).map(round => round.nextElementSibling);
+
+// 	function setColor() {
+// 		for(let i = 0; i < 4 ; i++) {
+// 			rounds[i].style.color = '#fff';
+// 			rounds[i].style.backgroundColor = color;
+// 		}
+// 	}
+// 	setColor();
+
+// 	function setTabs() {
+// 		function setHidden(idx) {
+// 			for( let i = idx; i < contentBoxes.length; i++) {
+// 				if (!contentBoxes[i]) return;
+// 				if (!contentBoxes[i].hidden) contentBoxes[i].hidden = true;
+// 			}
+// 		}
+// 		setHidden(1);
+		
+// 		function setVisible(j) {
+// 			// contentBoxes.forEach(box => {if(box && box.hidden === false) box.hidden = true});
+// 			if (!contentBoxes[j]) return;
+// 			contentBoxes[j].hidden = false;
+// 		}
+
+// 		parent.addEventListener('click', (e) => {
+// 			const target = e.target.closest('div.rounds-container__round');
+// 			if(!target) return;
+
+// 			// for(let i = 0; i < rounds.length; i++) {
+// 			// 	rounds[i].classList.remove('active');
+// 			// 	target.classList.add('active');
+
+// 			// 	if(rounds[i].classList.contains('active')) {
+// 			// 		setHidden(0);
+// 			// 		setVisible(i);
+// 			// 	}
+// 			// }
+
+// 			rounds.forEach((round, i) => {
+// 				round.classList.remove('active');
+// 				target.classList.add('active');
+// 				if(round.classList.contains('active')) {
+// 					setHidden(0);
+// 					setVisible(i);
+// 				};
+// 			})
+// 		});	
+// 	}
+// 	setTabs();
+// }	
+// setRounds('purple');
+
+
+
+console.log();
+console.log();
+console.log();
 console.log();
 console.log();
 console.log();

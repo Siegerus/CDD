@@ -4,7 +4,7 @@ import { AuthState } from '../constants';
 
 type PrivateRouteType = {
   children: JSX.Element;
-  authState: AuthState;
+  authState: keyof typeof AuthState;
   isReverse: boolean;
 };
 
