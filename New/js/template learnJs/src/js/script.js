@@ -461,10 +461,10 @@ function setSecondClock() {
 setSecondClock();
 
 
-scrollBox.addEventListener("scroll", function() {
-	let scroll =  Math.abs((this.clientHeight - this.scrollHeight) + this.scrollTop);
+/* scrollBox.addEventListener("scroll", function() {
+	let scroll =  Math.abs((this.clientHeight - this.scrollHeight) + this.scrollTop); 
 	document.querySelector(".count-box").textContent = scroll;
-});
+}); */
 
 form.addEventListener("click", (e) => {
 	if (!e.target.closest(".feed-form__input")) return;
@@ -588,7 +588,7 @@ dropHead.addEventListener("click", (e) => {
 
 
 let menu = document.querySelector(".menu"),
-	buttonss = document.querySelectorAll(".menu__button");
+	prevNextButtonss = document.querySelectorAll(".menu__button");
 class Menu {
 	constructor(elem) {
 		elem.addEventListener('click', this.onClick.bind(this))
@@ -967,9 +967,11 @@ function setAccordeon() {
 		target.classList.toggle("active");
 
 		clickItem.forEach((item) => {
+			
 			function setHeight(height) {
 				item.parentElement.style.maxHeight = height + "px";	
 			}
+
 			if(item.classList.contains("active")) {
 				item.classList.remove("active"); //что бы закрывались все вкладки
 				setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
@@ -2797,9 +2799,6 @@ wrappScrollBar.addEventListener("scroll", (e) => {
 
 
 
-let str = "Какая нибудь строка. Ещё что нибудь";
-
-let res = str.match(/нибудь/);
 
 
 /* function setHeight() {
@@ -3129,7 +3128,7 @@ let obj = {
 	} 
 }
 let any = 5555
-console.log(obj / any);
+// console.log(obj / any);
 
 /* const f = () => { 
 	let target = null;
@@ -3216,65 +3215,286 @@ const PLACES = [
 ];
 
 
-// const setRounds = (color) => {
-// 	const parent = document.querySelector('.rounds-container');
-// 	const rounds = document.querySelectorAll('div.rounds-container__round');
 
-// 	rounds.forEach(round => round.style.cursor = 'pointer');
-// 	const contentBoxes = Array.from(rounds).map(round => round.nextElementSibling);
+// function setAccordeonList() {
+// 	const accardeon = document.querySelector('.list-accardeon');
+// 	const clickItems = accardeon.querySelectorAll('.list-accardeon__button');
 
-// 	function setColor() {
-// 		for(let i = 0; i < 4 ; i++) {
-// 			rounds[i].style.color = '#fff';
-// 			rounds[i].style.backgroundColor = color;
-// 		}
-// 	}
-// 	setColor();
+// 	accardeon.addEventListener('click', (e) => {
+// 		const target = e.target.closest('.list-accardeon__button');
+// 		if(!target) return;
 
-// 	function setTabs() {
-// 		function setHidden(idx) {
-// 			for( let i = idx; i < contentBoxes.length; i++) {
-// 				if (!contentBoxes[i]) return;
-// 				if (!contentBoxes[i].hidden) contentBoxes[i].hidden = true;
+// 		clickItems.forEach(item => {
+// 			item.classList.remove('list-accardeon__button_active')
+// 			if(item === target) item.classList.toggle('list-accardeon__button_active')
+
+// 			if(item.classList.contains('list-accardeon__button_active')) {
+// 				item.parentElement.style.minHeight = '110px';
+// 			} else {
+// 				item.parentElement.style.minHeight = '0';
 // 			}
-// 		}
-// 		setHidden(1);
+// 		});
+// 	});
+// }
+// setAccordeonList()
+
+class Accordeon {
+	constructor(element) {
+		this.element = element; 
+		this.accordeonClickHandle = this.accordeonClickHandle.bind(this)
+
+		element.addEventListener('click', this.accordeonClickHandle)
+	}
+	accordeonClickHandle(e) {
+		const target = e.target.closest('BUTTON');
+		const prevNextButtons = this.element.querySelectorAll('BUTTON');
+		if(!target) return;
 		
-// 		function setVisible(j) {
-// 			// contentBoxes.forEach(box => {if(box && box.hidden === false) box.hidden = true});
-// 			if (!contentBoxes[j]) return;
-// 			contentBoxes[j].hidden = false;
-// 		}
+		prevNextButtons.forEach(button =>  button.classList.remove('active'));
+		target.classList.toggle('active');
+		
+		this.setContentVisibility(prevNextButtons);
+	}
+	setContentVisibility(elems) {
+		elems.forEach((elem) => {
+			if(elem.classList.contains('active')) elem.parentElement.style.minHeight = '100px';
+			else elem.parentElement.style.minHeight = '0';
+		})
+	}
+}
 
-// 		parent.addEventListener('click', (e) => {
-// 			const target = e.target.closest('div.rounds-container__round');
-// 			if(!target) return;
+const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 
-// 			// for(let i = 0; i < rounds.length; i++) {
-// 			// 	rounds[i].classList.remove('active');
-// 			// 	target.classList.add('active');
+const imageUrls = [
+	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
+ 	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
+  	'https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13',
+	'https://avatars.mds.yandex.net/i?id=4bdd62aac654fe1381af20e222b89e84_l-4328379-images-thumbs&n=13',
+	'https://avatars.mds.yandex.net/i?id=de85818e5c696b861db0b4adacc5c9c774e863c9-8497652-images-thumbs&n=13',
+	'https://avatars.mds.yandex.net/i?id=6f77154410c2cec0fc721aece55f725b16ddee35-4814374-images-thumbs&n=13',
+ 	'https://avatars.mds.yandex.net/i?id=b5c9ba6179133899aa78d2a00319eb45ec215535-5232129-images-thumbs&n=13',
+	'https://avatars.mds.yandex.net/i?id=76a6eaecd4219f71b45264e5df0e318911cade20-10637677-images-thumbs&n=13',
+  	'https://avatars.mds.yandex.net/i?id=6816409e2d5bb874bbd7f9d498d4ada5aaf268e5-5240021-images-thumbs&n=13',
+];
+class Slider {
+	constructor(element, params = {
+		urls : null,
+		dots : false,
+		onClickZoom: false,
+		slideWidth : null,
+		slideHeigh : null,
+		imagesAlt : '',
+	}) {
+		this.element = element;
+		this.currentIndex = 1;
+		this.urls = params.urls;
+		this.isVisibleDots = params.dots;
+		this.slideWidth = params.slideWidth;
+		this.slideHeigh = params.slideHeigh;
+		this.imagesAlt =  params.imagesAlt;
+		this.onClickZoom = params.onClickZoom;
+		this.prevNextButtons = this.element.querySelectorAll(`button.${this.element.className}__prev-next-button`);
 
-// 			// 	if(rounds[i].classList.contains('active')) {
-// 			// 		setHidden(0);
-// 			// 		setVisible(i);
-// 			// 	}
-// 			// }
+		this.createSlides(this.urls); 
+		this.slides = this.element.querySelectorAll('img');
 
-// 			rounds.forEach((round, i) => {
-// 				round.classList.remove('active');
-// 				target.classList.add('active');
-// 				if(round.classList.contains('active')) {
-// 					setHidden(0);
-// 					setVisible(i);
-// 				};
-// 			})
-// 		});	
-// 	}
-// 	setTabs();
-// }	
-// setRounds('purple');
+		this.createDots(this.slides);
+		this.dotsButtons = this.element.querySelectorAll(`button.${this.element.className}__dot-button`);
+		
+		this.setVisibleSlide(this.currentIndex);
+
+		this.slideShift = this.slideShift.bind(this);
+		this.showByDotClick = this.showByDotClick.bind(this);
+		this.zoomImage = this.zoomImage.bind(this);
+		this.onZoomImageClose = this.onZoomImageClose.bind(this);
+
+		this.element.addEventListener('click', (e) => {		
+			if (this.onClickZoom) this.zoomImage(e);
+            
+			if(!e.target.closest('button')) return;
+			if(e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
+			if(e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
+
+			this.dotsButtons.forEach((button, i) => {if(e.target.contains(button)) this.showByDotClick(i + 1)});
+		})
+	}
+
+	createSlides(urls) {
+		if(!urls) return;
+
+		const images = urls.map((url) => {
+			const img = document.createElement('img')
+			img.src = url;
+			img.alt = this.imagesAlt;
+			if(this.slideWidth) img.width = this.slideWidth;
+			if(this.slideHeigh) img.height = this.slideHeigh;
+			return img;
+		})
+		this.element.firstElementChild.prepend(...images);
+	}
+
+	createDots(slides) {
+		if(!slides) return;
+		if(!this.isVisibleDots) return;
+
+		const div = document.createElement('div');
+		div.className = `${this.element.className}__dots-wrapper`;
+		this.element.firstElementChild.append(div);
+
+		const dots = Array.from(slides).map(slide => {
+			const dot = document.createElement('button');
+			dot.className = `${this.element.className}__dot-button`;
+			return dot;
+		});
+		
+		const dotsWrapper = this.element.querySelector(`.${this.element.className}__dots-wrapper`);
+		if(dotsWrapper) dotsWrapper.append(...dots);
+	}
+
+	setVisibleSlide(idx) {
+		if(!this.slides) return;
+		if(this.slides.length < 1) return;
+		this.currentIndex = idx
+
+		if (idx > this.slides.length) this.currentIndex = 1
+		if (idx <= 0) this.currentIndex = this.slides.length
+			
+		this.slides.forEach(slide => {
+			if(this.onClickZoom) slide.style.cursor = 'pointer';
+			
+			slide.classList.remove('active');
+			slide.hidden = true;
+		});
+		this.slides[this.currentIndex  - 1].classList.add('active');
+		this.slides[this.currentIndex  - 1].hidden = false;
+
+		this.setActiveDot()
+	}
+
+	setActiveDot() {
+		if(this.dotsButtons.length < 1) return;
+		
+		this.slides.forEach((slide, i) => {
+			if(slide.classList.contains('active')) {
+				this.dotsButtons[i].classList.add('active')
+			} else {
+				this.dotsButtons[i].classList.remove('active')
+			}
+		})
+	}
+
+	setIndex(num) {
+		this.currentIndex = this.currentIndex + num;
+	}
+
+	slideShift(num) {
+		this.setIndex(num);
+		this.setVisibleSlide(this.currentIndex);
+	}
+
+	showByDotClick(i) {
+		this.setVisibleSlide(i)
+	}
+
+	zoomImage(e) {
+		if (!e.target.closest('img')) return;
+		
+		function createOvrelayNode(className) {
+			const overlayNode = document.createElement('div');
+			overlayNode.className = `${className}__overlay`;
+			overlayNode.style.display = 'block';
+			overlayNode.innerHTML += `<button class="${className}__close" type="button">✖</button>`
+			return overlayNode;
+		}
+		if(!document.querySelector(`.${this.element.className}__overlay`)) document.body.append(createOvrelayNode(this.element.className));
+
+		const overlay = document.querySelector(`.${this.element.className}__overlay`);
+		if(!overlay) return;
+
+		function createImageNode(slides, className) {
+			const nodeImage = [];
+			slides.forEach(slide => {
+
+				if(slide.classList.contains('active')) 	{
+					const img = document.createElement('img');
+					img.className = `${className}__zoom-image`;
+					img.src = slide.src;
+					nodeImage.push(img);
+				}
+			});
+			return nodeImage;
+		}
+		
+		if(overlay) overlay.append(...createImageNode(this.slides, this.element.className));
+
+		const zoomImage = overlay.querySelector(`.${this.element.className}__zoom-image`);
+		zoomImage.addEventListener('animationend', () => {
+			const innerImgCoords = {
+				top: zoomImage.getBoundingClientRect().top - 20,
+				left: zoomImage.getBoundingClientRect().left + zoomImage.offsetWidth + 20,
+			}
+			overlay.querySelector(`.${this.element.className}__close`).style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
+			overlay.querySelector(`.${this.element.className}__close`).tabIndex = 1;
+		});
+
+		document.addEventListener('click', this.onZoomImageClose);
+	}
+
+	onZoomImageClose(e) {
+		this.overlayCloseHandle(e, this.element.className)
+	}
+
+	overlayCloseHandle(e, className) {
+		const target = e.target.closest(`.${className}__overlay`);
+		const overlay = document.querySelector(`.${className}__overlay`);
+			if(!target) return;
+			if(e.target.closest(`.${className}__overlay img`)) return;
+			if (overlay) overlay.remove();
+			
+			document.removeEventListener('click', this.onZoomImageClose) 
+	}
+}
+
+const slider = new Slider(document.querySelector('.new-slider'), {
+	urls: imageUrls,
+	dots: true,
+	onClickZoom: true,
+	slideWidth: 480,
+	slideHeigh: 320,
+	imagesAlt: 'slide-image',
+});
 
 
+function func() {
+const parent = document.querySelector('.input-box');
+const valueField = parent.querySelector('.input-box__value-field');
+const input = parent.querySelector('input');
+
+
+input.addEventListener('input', (e) => {
+	const text =  e.currentTarget.value;
+	
+
+	function getColored() {
+		const textArray =  text.split('');
+		const res = textArray.splice(0, textArray.length - 1)
+
+		console.log(res);
+
+		const div = document.createElement('div');
+		div.innerHTML = textArray.join('');
+		div.style.display = 'inline'
+		div.style.backgroundColor = 'yellow';
+		parent.append(div)
+	}
+
+	getColored()
+	
+	
+})
+
+}
+func();
 
 console.log();
 console.log();

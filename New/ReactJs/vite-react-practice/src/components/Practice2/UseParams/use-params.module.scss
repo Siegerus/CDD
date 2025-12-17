@@ -1,0 +1,19 @@
+.box {
+    display: inline-block;
+    max-width: 100px;
+    max-height: 75px;
+    margin-top: 5px;
+    margin-right: 5px;   
+    padding: 3px;
+    font-size: 13px;
+    background-color: gray;
+}
+
+.box p {
+    margin: 0;
+}
+
+button {
+    display: block;
+    margin-bottom: 4px;
+}

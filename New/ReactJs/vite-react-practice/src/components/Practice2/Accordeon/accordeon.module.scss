@@ -18,10 +18,16 @@
     &_active {
         background-color: #5b5bb7;
     }
-
 }
 
 .content {
     padding: 5px;
     font-size: 14px;
+    transition: all 0.5s;
+}
+
+.item-wrapper {
+    height: 54px;
+    overflow: hidden;
+    transition: all 0.5s;
 }

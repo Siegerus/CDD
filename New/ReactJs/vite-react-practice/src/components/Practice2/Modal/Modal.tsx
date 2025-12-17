@@ -1,60 +1,99 @@
 import React, { useEffect, useState } from 'react';
+import styles from './modal.module.scss';
 
 const Modal = () => {
-	const [modalVisible, setModalVisible] = useState(false);
+	const [isVisible, setIsVisible] = useState(false);
 
-	const closeModalWindow = (e: MouseEvent) => {
-		const target = e.target as HTMLElement;
-		if (target.closest('.modal-window')) return;
-		if (target.closest('.modal-button')) return;
-		setModalVisible(false);
+	const buttonClickHandle = () => {
+		setIsVisible((prevstate) => !prevstate);
 	};
 
 	useEffect(() => {
-		if (modalVisible) document.addEventListener('click', closeModalWindow);
+		const closeModal = (e: MouseEvent) => {
+			const target = e.target as HTMLElement;
+			if (
+				target.closest(`.${styles.modal}`) &&
+				!target.closest(`.${styles.close}`)
+			)
+				return;
+			if (target.closest(`.${styles.modalButton}`)) return;
+			setIsVisible(false);
+		};
 
-		return () => document.removeEventListener('click', closeModalWindow);
-	}, [modalVisible]);
+		document.addEventListener('click', closeModal);
 
-	const modalButtonClickHandle = () => {
-		setModalVisible((prevState) => !prevState);
-	};
+		return () => {
+			document.removeEventListener('click', closeModal);
+		};
+	}, [isVisible]);
 
 	return (
 		<>
-			{modalVisible && (
-				<div
-					className="modal-window"
-					style={{
-						position: 'absolute',
-						top: '185%',
-						left: '50%',
-						padding: '43px 53px',
-						transform: 'translate(-50%, -50%)',
-						borderRadius: '10px',
-						backgroundColor: '#fff',
-						textAlign: 'center',
-						color: 'black',
-					}}>
-					This is Modal
+			{isVisible && (
+				<div className={styles.modal}>
+					<p>Modal Window...</p>
+					<button className={styles.close}>✖</button>
 				</div>
 			)}
-			<button
-				className="modal-button"
-				style={{
-					display: 'block',
-					margin: '24px auto 0 auto',
-					padding: '4px 8px',
-					backgroundColor: 'lightcoral',
-					borderRadius: '7px',
-					boxShadow: 'none',
-					border: 'none',
-				}}
-				onClick={modalButtonClickHandle}>
-				Open Modal
+			<button className={styles.modalButton} onClick={buttonClickHandle}>
+				Click to open modal
 			</button>
 		</>
 	);
+
+	// const [modalVisible, setModalVisible] = useState(false);
+
+	// const closeModalWindow = (e: MouseEvent) => {
+	// 	const target = e.target as HTMLElement;
+	// 	if (target.closest('.modal-window')) return;
+	// 	if (target.closest('.modal-button')) return;
+	// 	setModalVisible(false);
+	// };
+
+	// useEffect(() => {
+	// 	if (modalVisible) document.addEventListener('click', closeModalWindow);
+
+	// 	return () => document.removeEventListener('click', closeModalWindow);
+	// }, [modalVisible]);
+
+	// const modalButtonClickHandle = () => {
+	// 	setModalVisible((prevState) => !prevState);
+	// };
+
+	// return (
+	// 	<>
+	// 		{modalVisible && (
+	// 			<div
+	// 				className="modal-window"
+	// 				style={{
+	// 					position: 'absolute',
+	// 					top: '185%',
+	// 					left: '50%',
+	// 					padding: '43px 53px',
+	// 					transform: 'translate(-50%, -50%)',
+	// 					borderRadius: '10px',
+	// 					backgroundColor: '#fff',
+	// 					textAlign: 'center',
+	// 					color: 'black',
+	// 				}}>
+	// 				This is Modal
+	// 			</div>
+	// 		)}
+	// 		<button
+	// 			className="modal-button"
+	// 			style={{
+	// 				display: 'block',
+	// 				margin: '24px auto 0 auto',
+	// 				padding: '4px 8px',
+	// 				backgroundColor: 'lightcoral',
+	// 				borderRadius: '7px',
+	// 				boxShadow: 'none',
+	// 				border: 'none',
+	// 			}}
+	// 			onClick={modalButtonClickHandle}>
+	// 			Open Modal
+	// 		</button>
+	// 	</>
 
 	// const [isVisibleModal, setIsVisibleModal] = useState(false);
 	// const modalCloseByBodyClickHandle = (e: MouseEvent) => {

@@ -469,84 +469,264 @@ func(() => innerCb(() => console.log('hellow from innerCb2!')));
 // 		console.log('this is ReferenceError');
 // }
 
-const phrases = {
-	sayHi() {
-		console.log('Hi!');
-	},
-	sayBy() {
-		console.log('By!');
-	},
-};
-class Man {
-	name: string;
-	constructor(name: string) {
-		this.name = name;
+// Аккардеон с типами
+class Accordeon {
+	element: HTMLElement;
+
+	constructor(element: HTMLElement) {
+		this.element = element;
+		this.accordeonClickHandle = this.accordeonClickHandle.bind(this);
+
+		element.addEventListener('click', this.accordeonClickHandle);
+	}
+	accordeonClickHandle(e: MouseEvent) {
+		const targetType = e.target as HTMLButtonElement;
+		const target = targetType.closest('BUTTON');
+		if (!target) return;
+
+		const buttons = this.element.querySelectorAll('BUTTON');
+
+		buttons.forEach((button) => button.classList.remove('active'));
+		target.classList.toggle('active');
+
+		this.setContentVisibility(buttons);
+	}
+	setContentVisibility(elems: NodeListOf<Element>) {
+		elems.forEach((elem: Element) => {
+			if (elem.parentElement && elem.classList.contains('active')) {
+				elem.parentElement.style.minHeight = '100px';
+			} else if (elem.parentElement) elem.parentElement.style.minHeight = '0';
+		});
 	}
 }
-const res = Object.assign(Man.prototype, phrases);
-const man = new Man('Alex');
 
-// let eventMixin = {
-// 	/**
-// 	 * Подписаться на событие, использование:
-// 	 * menu.on('select', function(item) { ... }
-// 	 */
-// 	on(eventName, handler) {
-// 		if (!this._eventHandlers) this._eventHandlers = {};
-// 		if (!this._eventHandlers[eventName]) {
-// 			this._eventHandlers[eventName] = [];
-// 		}
-// 		this._eventHandlers[eventName].push(handler);
-// 	},
+// Слайдер с типами
 
-// 	/**
-// 	 * Отменить подписку, использование:
-// 	 * menu.off('select', handler)
-// 	 */
-// 	off(eventName, handler) {
-// 		let handlers = this._eventHandlers?.[eventName];
-// 		if (!handlers) return;
-// 		for (let i = 0; i < handlers.length; i++) {
-// 			if (handlers[i] === handler) {
-// 				handlers.splice(i--, 1);
-// 			}
-// 		}
-// 	},
+const imageUrls = [
+	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
+	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
+	'https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13',
+];
+// 	urls: imageUrls,
+// 	dots: true,
+// 	slideWidth: 380,
+// 	slideHeigh: 240,
+// 	imagesAlt: 'slide-image',
+// });
 
-// 	/**
-// 	 * Сгенерировать событие с указанным именем и данными
-// 	 * this.trigger('select', data1, data2);
-// 	 */
-// 	trigger(eventName, ...args) {
-// 		if (!this._eventHandlers?.[eventName]) {
-// 			return; // обработчиков для этого события нет
-// 		}
+class Slider {
+	element: HTMLElement;
+	urls: string[] | null;
+	isVisibleDots: boolean;
+	onClickZoom: boolean;
+	slideWidth: number | null;
+	slideHeigh: number | null;
+	imagesAlt: string;
+	currentIndex: number;
+	slides: NodeListOf<HTMLImageElement>;
+	prevNextButtons: NodeListOf<HTMLElement>;
+	dotsButtons: NodeListOf<HTMLElement>;
 
-// 		// вызовем обработчики
-// 		this._eventHandlers[eventName].forEach((handler) =>
-// 			handler.apply(this, args)
-// 		);
-// 	},
-// };
+	constructor(
+		element: HTMLElement,
+		params = {
+			urls: null,
+			dots: false,
+			onClickZoom: false,
+			slideWidth: null,
+			slideHeigh: null,
+			imagesAlt: '',
+		}
+	) {
+		this.element = element;
+		this.currentIndex = 1;
+		this.urls = params.urls;
+		this.isVisibleDots = params.dots;
+		this.slideWidth = params.slideWidth;
+		this.slideHeigh = params.slideHeigh;
+		this.imagesAlt = params.imagesAlt;
+		this.onClickZoom = params.onClickZoom;
+		this.prevNextButtons = this.element.querySelectorAll(
+			`button.${this.element.className}__prev-next-button`
+		);
 
-// // Создадим класс
-// class Menu {
-//   choose(value) {
-//     this.trigger("select", value);
-//   }
-// }
-// // Добавим примесь с методами для событий
-// Object.assign(Menu.prototype, eventMixin);
+		this.createSlides(this.urls);
+		this.slides = this.element.querySelectorAll('img');
 
-// let menu = new Menu();
+		this.createDots(this.slides);
+		this.dotsButtons = this.element.querySelectorAll(
+			`button.${this.element.className}__dot-button`
+		);
 
-// // Добавим обработчик, который будет вызван при событии "select":
-// menu.on("select", value => alert(`Выбранное значение: ${value}`));
+		this.setVisibleSlide(this.currentIndex);
 
-// // Генерирует событие => обработчик выше запускается и выводит:
-// // menu.choose("123"); // Выбранное значение: 123
+		this.slideShift = this.slideShift.bind(this);
+		this.showByDotClick = this.showByDotClick.bind(this);
+		this.zoomImage = this.zoomImage.bind(this);
 
-const array = ['str', 31, false, { key: 'value' }, [1, 2]];
+		this.element.addEventListener('click', (e) => {
+			if (this.onClickZoom) this.zoomImage(e);
+
+			const target = e.target as HTMLElement;
+			if (!target.closest('button')) return;
+			if (target.contains(this.prevNextButtons[0])) this.slideShift(-1);
+			if (target.contains(this.prevNextButtons[1])) this.slideShift(1);
+
+			this.dotsButtons.forEach((button, i) => {
+				if (target.contains(button)) this.showByDotClick(i + 1);
+			});
+		});
+	}
+
+	createSlides(urls: string[] | null) {
+		if (!urls) return;
+
+		const images = urls.map((url) => {
+			const img = document.createElement('img');
+			img.src = url;
+			img.alt = this.imagesAlt;
+			if (this.slideWidth) img.width = this.slideWidth;
+			if (this.slideHeigh) img.height = this.slideHeigh;
+			return img;
+		});
+		this.element.firstElementChild!.prepend(...images);
+	}
+
+	createDots(slides: NodeListOf<HTMLImageElement>) {
+		if (!slides) return;
+		if (!this.isVisibleDots) return;
+
+		const div = document.createElement('div');
+		div.className = `${this.element.className}__dots-wrapper`;
+		this.element.firstElementChild!.append(div);
+
+		const dots = Array.from(slides).map((slide) => {
+			const dot = document.createElement('button');
+			dot.className = `${this.element.className}__dot-button`;
+			return dot;
+		});
+
+		const dotsWrapper = this.element.querySelector(
+			`.${this.element.className}__dots-wrapper`
+		);
+		if (dotsWrapper) dotsWrapper.append(...dots);
+	}
+
+	setVisibleSlide(idx: number) {
+		if (!this.slides) return;
+		if (this.slides.length < 1) return;
+		this.currentIndex = idx;
+
+		if (idx > this.slides.length) this.currentIndex = 1;
+		if (idx <= 0) this.currentIndex = this.slides.length;
+
+		this.slides.forEach((slide) => {
+			if (this.onClickZoom) slide.style.cursor = 'pointer';
+
+			slide.classList.remove('active');
+			slide.hidden = true;
+		});
+		this.slides[this.currentIndex - 1].classList.add('active');
+		this.slides[this.currentIndex - 1].hidden = false;
+
+		this.setActiveDot();
+	}
+
+	setActiveDot() {
+		if (this.dotsButtons.length < 1) return;
+
+		this.slides.forEach((slide, i) => {
+			if (slide.classList.contains('active')) {
+				this.dotsButtons[i].classList.add('active');
+			} else {
+				this.dotsButtons[i].classList.remove('active');
+			}
+		});
+	}
+
+	setIndex(num: number) {
+		this.currentIndex = this.currentIndex + num;
+	}
+
+	slideShift(num: number) {
+		this.setIndex(num);
+		this.setVisibleSlide(this.currentIndex);
+	}
+
+	showByDotClick(i: number) {
+		this.setVisibleSlide(i);
+	}
+
+	zoomImage(e: MouseEvent) {
+		const target = e.target as HTMLElement;
+		if (!target.closest('img')) return;
+
+		function createOvrelayNode(className: string) {
+			const overlayNode = document.createElement('div');
+			overlayNode.className = `overlay ${className}__overlay`;
+			overlayNode.style.display = 'block';
+			overlayNode.innerHTML += `<button class="overlay__close ${className}__close" type="button">✖</button>`;
+			return overlayNode;
+		}
+		if (!document.querySelector('.overlay'))
+			document.body.append(createOvrelayNode(this.element.className));
+
+		const overlay = document.querySelector('.overlay');
+		if (!overlay) return;
+
+		function createImageNode(
+			slides: NodeListOf<HTMLImageElement>,
+			className: string
+		) {
+			const nodeImage: HTMLElement[] = [];
+			slides.forEach((slide) => {
+				if (slide.classList.contains('active')) {
+					const img = document.createElement('img');
+					img.className = `overlay__inner-image ${className}__inner-image`;
+					img.src = slide.src;
+					console.log(img.getBoundingClientRect());
+					nodeImage.push(img);
+				}
+			});
+			return nodeImage;
+		}
+
+		overlay.append(...createImageNode(this.slides, this.element.className));
+		const innerImage = overlay.querySelector(
+			'.overlay__inner-image'
+		) as HTMLElement;
+
+		innerImage.addEventListener('animationend', () => {
+			const innerImgCoords = {
+				top: innerImage!.getBoundingClientRect().top - 20,
+				left:
+					innerImage!.getBoundingClientRect().left +
+					innerImage!.offsetWidth +
+					20,
+			};
+			innerImage.style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
+		});
+
+		function overlayCloseHandle(e: MouseEvent) {
+			const target = e.target as HTMLElement;
+			if (!target.closest('.overlay')) return;
+			if (target.closest('.overlay img')) return;
+			if (overlay) overlay.remove();
+
+			document.removeEventListener('click', overlayCloseHandle);
+		}
+		document.addEventListener('click', overlayCloseHandle);
+	}
+}
+
+/* const slider = new Slider(document.querySelector('.new-slider'), {
+	urls: imageUrls,
+	dots: true,
+	onClickZoom: true,
+	slideWidth: 380,
+	slideHeigh: 240,
+	imagesAlt: 'slide-image',
+}); */
 
 console.log();
 console.log();

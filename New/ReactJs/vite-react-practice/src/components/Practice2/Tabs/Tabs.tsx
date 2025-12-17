@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect, MutableRefObject } from 'react';
 import styles from './Tabs.module.scss';
 
 type Tab = {
@@ -10,6 +10,7 @@ type Tab = {
 type TabContent = {
 	id: number;
 	text: string;
+	isVisibleContent: boolean;
 };
 
 const TABS: Tab[] = [
@@ -26,6 +27,7 @@ const TABS_CONTENT: TabContent[] = [
     qui harum, sit aspernatur velit similique excepturi! Magnam corrupti
     reprehenderit rem, laboriosam facilis magni! Harum illum voluptatem
     cupiditate corrupti ullam veritatis sapiente.`,
+		isVisibleContent: false,
 	},
 	{
 		id: 2,
@@ -34,6 +36,7 @@ const TABS_CONTENT: TabContent[] = [
     qui harum, sit aspernatur velit similique excepturi! Magnam corrupti
     reprehenderit rem, laboriosam facilis magni! Harum illum voluptatem
     cupiditate corrupti ullam veritatis sapiente.`,
+		isVisibleContent: false,
 	},
 	{
 		id: 3,
@@ -42,12 +45,16 @@ const TABS_CONTENT: TabContent[] = [
     qui harum, sit aspernatur velit similique excepturi! Magnam corrupti
     reprehenderit rem, laboriosam facilis magni! Harum illum voluptatem
     cupiditate corrupti ullam veritatis sapiente.`,
+		isVisibleContent: false,
 	},
 ];
 
 // Tabs Main
 const Tabs = () => {
 	const [tabs, setTabs] = useState(TABS);
+	const [fadeIn, setFadeIn] = useState();
+
+	const tabContentRef = useRef<HTMLDivElement | null>(null);
 
 	const tabClickHandle = (idx: number) => {
 		setTabs(
@@ -58,11 +65,32 @@ const Tabs = () => {
 			})
 		);
 	};
-	const activeTab = tabs.filter((tab) => tab.isActive === true);
+	//  useEffect для добавления класса видимости
+	// useEffect(() => {
+	// 	if (
+	// 		tabContentRef.current &&
+	// 		!tabContentRef.current.classList.contains(styles.content_active)
+	// 	)
+	// 		tabContentRef.current.classList.add(styles.content_active);
 
-	const filteredContents = TABS_CONTENT.filter(
-		(content) => activeTab[0].id === content.id
-	);
+	// 	return () => {};
+	// }, [tabs]);
+
+	// Первый способ отфильтровать нужные элементы
+	// const activeTab = tabs.filter((tab) => tab.isActive === true);
+	// const filteredContents = TABS_CONTENT.filter(
+	// 	(content) => activeTab[0].id === content.id
+	// );
+
+	// Второй способ отфильтровать нужные элементы и изменить свойства фильтруемых объектах элементов массива
+	const filteredContents = TABS_CONTENT.map((tabContent, i) => {
+		if (tabs[i].isActive) {
+			return {
+				...tabContent,
+				isVisibleContent: true,
+			};
+		}
+	});
 
 	return (
 		<div className={styles.wrapper}>
@@ -81,8 +109,15 @@ const Tabs = () => {
 				})}
 			</div>
 			{filteredContents.map((content, i) => {
-				const KeyValue = `${content.id}--${i}`;
-				return <Content key={KeyValue} text={content.text} />;
+				const KeyValue = `${content?.id}--${i}`;
+				return (
+					<Content
+						key={KeyValue}
+						text={content?.text}
+						isVisibleContent={content?.isVisibleContent}
+						tabContentRef={tabContentRef}
+					/>
+				);
 			})}
 		</div>
 	);
@@ -114,10 +149,28 @@ const Tab = ({ name, isActive, onTabClickHandle, idx }: tabProps) => {
 
 // Content
 type ContentProps = {
-	text: string;
+	text: string | undefined;
+	isVisibleContent: boolean | undefined;
+	tabContentRef: MutableRefObject<HTMLDivElement | null>; // Специальный тип, может понадобиться для useRef импортируется React
 };
+const Content = ({ text, isVisibleContent, tabContentRef }: ContentProps) => {
+	const targetClassName = [];
+	targetClassName.push(styles.content);
+	console.log(targetClassName);
 
-const Content = ({ text }: ContentProps) => {
-	return <div className={styles.content}>{text}</div>;
+	return (
+		<div
+			className={
+				// styles.content
+				isVisibleContent // Видимость по св-ву isVisibleContent в массиве объектов
+					? `${styles.content} ${styles.content_active}`
+					: styles.content
+			}
+			/* ref={isVisibleContent ? tabContentRef : null} */
+		>
+			{/* Видимость через ссылку ref и добавление класса в useEffect */}
+			{text}
+		</div>
+	);
 };
 // --------------------

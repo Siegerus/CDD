@@ -1,4 +1,9 @@
-
+.box {
+    width: 150px;
+    height: 150px;
+    background-color: #fff;
+    animation: fadeIn 1s forwards;
+}
 
 .fadeOut {
     animation: fadeOut 1s forwards;

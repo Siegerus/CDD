@@ -21,7 +21,7 @@ export default defineConfig({
 			},
 		},
 		modules: {
-			/* generateScopedName: '[name]__[local]--[hash:base64:5]'  '[path][name]__[local]--[hash:base64:5]'  '[name]__[local]___[hash:base64:5]' */
+			/* generateScopedName: '[name]__[local]--[hash:base64:5]' */  /* '[path][name]__[local]--[hash:base64:5]'  '[name]__[local]___[hash:base64:5]' */
 			generateScopedName: (className, filePath) => {
 				const fileName = path.basename(
 					filePath,
@@ -32,7 +32,7 @@ export default defineConfig({
 					.update(fileName.concat(className))
 					.digest('hex')
 					.substring(0, 5);
-				return `${fileName}__${className}--${hash}`;
+				return `${fileName}-${className}--${hash}`;
 			},
 		},
 	},

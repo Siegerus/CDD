@@ -18,6 +18,7 @@
     border: none;
     border-radius: 7px;
     background-color: #9b7db9;
+    transition: all 0.4s;
 
     &_active {
         background-color: #b68d9b;
@@ -25,9 +26,35 @@
 }
 
 .content {
+    display: none;
     margin-top: 13px;
+    margin-bottom: 0;
     padding: 0 6px;
     border-radius: 7px;
     font-size: 14px;
     background-color: rgb(53 102 147);
+    animation: fadeIn 1s;
+    
+    &_active {
+        display: block;
+        animation: fadeOut 1s;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 2;
+    }
 }

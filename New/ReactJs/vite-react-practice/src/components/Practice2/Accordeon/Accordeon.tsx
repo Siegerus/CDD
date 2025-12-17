@@ -69,7 +69,8 @@ const Accordeon = (props: AccordeonProps) => {
 				const keyValue = `${item.name}-${i}`;
 				return (
 					<li
-						style={item.isActive ? { minHeight: '188px' } : { minHeight: '0' }}
+						className={styles['item-wrapper']}
+						style={item.isActive ? { minHeight: '155px' } : { minHeight: '0' }}
 						key={`${keyValue}-${i}`}>
 						<AccordeonItem
 							name={item.name}
@@ -112,23 +113,7 @@ const AccordeonItem = ({
 				{name}
 			</div>
 			{isActive && <p className={styles.content}>{content}</p>}
-			{
-				// <li
-				// 	className={styles.content}
-				// 	style={isActive ? { height: '150px' } : { height: '0' }}>
-				// 	{content}
-				// </li>
-			}
 		</>
 	);
 };
 // --------------------
-// style={
-// 	isActive
-// 		? {
-// 				minHeight: '150px',
-// 			}
-// 		: {
-// 				minHeight: '0',
-// 			}
-// }

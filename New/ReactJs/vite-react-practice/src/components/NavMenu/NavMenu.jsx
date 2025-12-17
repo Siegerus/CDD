@@ -42,7 +42,7 @@ function NavMenu() {
 						onMouseEnter={onMouseEnterHandler}
 						index={i}
 					/>
-					{nav.onElement && i == 0 && (
+					{nav.onElement && i === 0 && (
 						<div className={styles.dropdown}>
 							<a href="#">{links.main[0]}</a>
 							<a href="#">{links.main[1]}</a>

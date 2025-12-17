@@ -21,11 +21,11 @@ const Test = () => {
 	return <div>true html from InnerComponent</div>;
 };
 
-type InnerComponentType = {
+type InnerComponentProps = {
 	render: (boolean: boolean) => void;
 };
 
-const InnerComponent = ({ render }: InnerComponentType) => {
+const InnerComponent = ({ render }: InnerComponentProps) => {
 	return (
 		<div>
 			InnerComponent <>{render(boolean)}</>
