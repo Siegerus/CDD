@@ -1107,6 +1107,12 @@ ul#messages *:last-child a {
 	visibility: hidden;
 }
 
+/*
+ +  - только элемент, идущий сразу после.
+ > s - все элементы с селектором s, непосредственно вложенные.  
+ ~ s - все соседи с селектором s , идущие после элемента и находящиеся на одном уровне вложенности.
+ */
+
 
 
 /* ul#target-list li:nth-child(2) {
@@ -1440,3 +1446,57 @@ button.new-slider__close {
 }
 
 
+.hover-element {
+	position: relative;
+	margin: 0 auto;
+	max-width: 151px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: lightblue;
+	cursor: pointer;
+
+}
+
+.notify-element {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	display: none;
+	margin: 0 auto;
+	max-width: 121px;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: lightgray;
+	animation: fade-in 1s forwards;
+	
+}
+
+.notify-element::before {
+	content: 'inner notify';
+	position: absolute;
+	top: 100%;
+	left: 0;
+	display: none;
+	padding: 5px;
+	background-color: coral;
+	border-radius: 5px;
+	animation: fade-in 1s forwards;
+}
+
+.notify-element:hover::before {
+	display: block;
+	
+}
+
+.hover-element:hover > .notify-element {
+	display: block;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

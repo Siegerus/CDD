@@ -3149,71 +3149,6 @@ let any = 5555
 	})
  }
 f(); */
-const NAV_CITIES = [
-	{ city: 'Simferopol', isActive: true },
-	{ city: 'Sevastopol', isActive: false },
-	{ city: 'Partenit', isActive: false },
-	{ city: 'Alushta', isActive: false },
-	{ city: 'Yalta', isActive: false },
-];
-
-const PLACES = [
-	{
-		id: 1,
-		name: 'Lorem',
-		city: 'Simferopol',
-		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!',
-	},
-	{
-		id: 2,
-		name: 'Loripsum',
-		city: 'Simferopol',
-		info: 'Lorem ipsum dolor sitet  adipisicing  repellendus nulla doloribus placeat!',
-	},
-	{
-		id: 3,
-		name: 'Lorem ipsum',
-		city: 'Simferopol',
-		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum  nulla doloribus placeat!',
-	},
-	{
-		id: 4,
-		name: 'Lorem',
-		city: 'Sevastopol',
-		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!',
-	},
-	{
-		id: 5,
-		name: 'Loripsum',
-		city: 'Sevastopol',
-		info: 'Lorem ipsum dolor sitet  adipisicing  repellendus nulla doloribus placeat!',
-	},
-	{
-		id: 6,
-		name: 'Lorem ipsum',
-		city: 'Yalta',
-		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum  nulla doloribus placeat!',
-	},
-	{
-		id: 7,
-		name: 'Lor',
-		city: 'Yalta',
-		info: 'Lorem ipsum dolor sit!',
-	},
-	{
-		id: 8,
-		name: 'Loripsum',
-		city: 'Partenit',
-		info: 'Lorem ipsum dolor sitet  adipisicing  repellendus nulla doloribus placeat!',
-	},
-	{
-		id: 9,
-		name: 'Lorem',
-		city: 'Alushta',
-		info: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ipsam illum repellendus nulla doloribus placeat!',
-	},
-];
-
 
 
 // function setAccordeonList() {
@@ -3265,6 +3200,209 @@ class Accordeon {
 
 const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 
+// const imageUrls = [
+// 	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
+//  	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
+//   	'https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13',
+// 	'https://avatars.mds.yandex.net/i?id=4bdd62aac654fe1381af20e222b89e84_l-4328379-images-thumbs&n=13',
+// 	'https://avatars.mds.yandex.net/i?id=de85818e5c696b861db0b4adacc5c9c774e863c9-8497652-images-thumbs&n=13',
+// 	'https://avatars.mds.yandex.net/i?id=6f77154410c2cec0fc721aece55f725b16ddee35-4814374-images-thumbs&n=13',
+//  	'https://avatars.mds.yandex.net/i?id=b5c9ba6179133899aa78d2a00319eb45ec215535-5232129-images-thumbs&n=13',
+// 	'https://avatars.mds.yandex.net/i?id=76a6eaecd4219f71b45264e5df0e318911cade20-10637677-images-thumbs&n=13',
+//   	'https://avatars.mds.yandex.net/i?id=6816409e2d5bb874bbd7f9d498d4ada5aaf268e5-5240021-images-thumbs&n=13',
+// ];
+// class Slider {
+// 	constructor(element, params = {
+// 		urls : null,
+// 		dots : false,
+// 		onClickZoom: false,
+// 		slideWidth : null,
+// 		slideHeigh : null,
+// 		imagesAlt : '',
+// 	}) {
+// 		this.element = element;
+// 		this.currentIndex = 1;
+// 		this.urls = params.urls;
+// 		this.isVisibleDots = params.dots;
+// 		this.slideWidth = params.slideWidth;
+// 		this.slideHeigh = params.slideHeigh;
+// 		this.imagesAlt =  params.imagesAlt;
+// 		this.onClickZoom = params.onClickZoom;
+// 		this.prevNextButtons = this.element.querySelectorAll(`button.${this.element.className}__prev-next-button`);
+
+// 		this.createSlides(this.urls); 
+// 		this.slides = this.element.querySelectorAll('img');
+
+// 		this.createDots(this.slides);
+// 		this.dotsButtons = this.element.querySelectorAll(`button.${this.element.className}__dot-button`);
+		
+// 		this.setVisibleSlide(this.currentIndex);
+
+// 		this.slideShift = this.slideShift.bind(this);
+// 		this.showByDotClick = this.showByDotClick.bind(this);
+// 		this.zoomImage = this.zoomImage.bind(this);
+// 		this.onZoomImageClose = this.onZoomImageClose.bind(this);
+
+// 		this.element.addEventListener('click', (e) => {		
+// 			if (this.onClickZoom) this.zoomImage(e);
+            
+// 			if(!e.target.closest('button')) return;
+// 			if(e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
+// 			if(e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
+
+// 			this.dotsButtons.forEach((button, i) => {if(e.target.contains(button)) this.showByDotClick(i + 1)});
+// 		})
+// 	}
+
+// 	createSlides(urls) {
+// 		if(!urls) return;
+
+// 		const images = urls.map((url) => {
+// 			const img = document.createElement('img')
+// 			img.src = url;
+// 			img.alt = this.imagesAlt;
+// 			if(this.slideWidth) img.width = this.slideWidth;
+// 			if(this.slideHeigh) img.height = this.slideHeigh;
+// 			return img;
+// 		})
+// 		this.element.firstElementChild.prepend(...images);
+// 	}
+
+// 	createDots(slides) {
+// 		if(!slides) return;
+// 		if(!this.isVisibleDots) return;
+
+// 		const div = document.createElement('div');
+// 		div.className = `${this.element.className}__dots-wrapper`;
+// 		this.element.firstElementChild.append(div);
+
+// 		const dots = Array.from(slides).map(slide => {
+// 			const dot = document.createElement('button');
+// 			dot.className = `${this.element.className}__dot-button`;
+// 			return dot;
+// 		});
+		
+// 		const dotsWrapper = this.element.querySelector(`.${this.element.className}__dots-wrapper`);
+// 		if(dotsWrapper) dotsWrapper.append(...dots);
+// 	}
+
+// 	setVisibleSlide(idx) {
+// 		if(!this.slides) return;
+// 		if(this.slides.length < 1) return;
+// 		this.currentIndex = idx
+
+// 		if (idx > this.slides.length) this.currentIndex = 1
+// 		if (idx <= 0) this.currentIndex = this.slides.length
+			
+// 		this.slides.forEach(slide => {
+// 			if(this.onClickZoom) slide.style.cursor = 'pointer';
+			
+// 			slide.classList.remove('active');
+// 			slide.hidden = true;
+// 		});
+// 		this.slides[this.currentIndex  - 1].classList.add('active');
+// 		this.slides[this.currentIndex  - 1].hidden = false;
+
+// 		this.setActiveDot()
+// 	}
+
+// 	setActiveDot() {
+// 		if(this.dotsButtons.length < 1) return;
+		
+// 		this.slides.forEach((slide, i) => {
+// 			if(slide.classList.contains('active')) {
+// 				this.dotsButtons[i].classList.add('active')
+// 			} else {
+// 				this.dotsButtons[i].classList.remove('active')
+// 			}
+// 		})
+// 	}
+
+// 	setIndex(num) {
+// 		this.currentIndex = this.currentIndex + num;
+// 	}
+
+// 	slideShift(num) {
+// 		this.setIndex(num);
+// 		this.setVisibleSlide(this.currentIndex);
+// 	}
+
+// 	showByDotClick(i) {
+// 		this.setVisibleSlide(i)
+// 	}
+
+// 	zoomImage(e) {
+// 		if (!e.target.closest('img')) return;
+		
+// 		function createOvrelayNode(className) {
+// 			const overlayNode = document.createElement('div');
+// 			overlayNode.className = `${className}__overlay`;
+// 			overlayNode.style.display = 'block';
+// 			overlayNode.innerHTML += `<button class="${className}__close" type="button" hidden>✖</button>`
+// 			return overlayNode;
+// 		}
+// 		if(!document.querySelector(`.${this.element.className}__overlay`)) document.body.append(createOvrelayNode(this.element.className));
+
+// 		const overlay = document.querySelector(`.${this.element.className}__overlay`);
+// 		if(!overlay) return;
+
+// 		function createImageNode(slides, className) {
+// 			const nodeImage = [];
+// 			slides.forEach(slide => {
+
+// 				if(slide.classList.contains('active')) 	{
+// 					const img = document.createElement('img');
+// 					img.className = `${className}__zoom-image`;
+// 					img.src = slide.src;
+// 					nodeImage.push(img);
+// 				}
+// 			});
+// 			return nodeImage;
+// 		}
+		
+// 		if(overlay) overlay.append(...createImageNode(this.slides, this.element.className));
+
+// 		const zoomImage = overlay.querySelector(`.${this.element.className}__zoom-image`);
+// 		zoomImage.addEventListener('animationend', () => {
+// 			const innerImgCoords = {
+// 				top: zoomImage.getBoundingClientRect().top - 20,
+// 				left: zoomImage.getBoundingClientRect().left + zoomImage.offsetWidth + 20,
+// 			}
+// 			overlay.querySelector(`.${this.element.className}__close`).style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
+// 			overlay.querySelector(`.${this.element.className}__close`).tabIndex = 1;
+// 			overlay.querySelector(`.${this.element.className}__close`).hidden = false;
+// 		});
+
+// 		document.addEventListener('click', this.onZoomImageClose);
+// 	}
+
+// 	onZoomImageClose(e) {
+// 		this.overlayCloseHandle(e, this.element.className)
+// 	}
+
+// 	overlayCloseHandle(e, className) {
+// 		const target = e.target.closest(`.${className}__overlay`);
+// 		const overlay = document.querySelector(`.${className}__overlay`);
+// 			if(!target) return;
+// 			if(e.target.closest(`.${className}__overlay img`)) return;
+// 			if (overlay) overlay.remove();
+			
+// 			document.removeEventListener('click', this.onZoomImageClose) 
+// 	}
+// }
+
+// const slider = new Slider(document.querySelector('.new-slider'), {
+// 	urls: imageUrls,
+// 	dots: true,
+// 	onClickZoom: true,
+// 	slideWidth: 480,
+// 	slideHeigh: 320,
+// 	imagesAlt: 'slide-image',
+// });
+
+
+
+
 const imageUrls = [
 	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
  	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
@@ -3285,8 +3423,10 @@ class Slider {
 		slideHeigh : null,
 		imagesAlt : '',
 	}) {
+		this.isDestroyed = false;
 		this.element = element;
 		this.currentIndex = 1;
+		this.slidesCounter = 0;
 		this.urls = params.urls;
 		this.isVisibleDots = params.dots;
 		this.slideWidth = params.slideWidth;
@@ -3297,26 +3437,37 @@ class Slider {
 
 		this.createSlides(this.urls); 
 		this.slides = this.element.querySelectorAll('img');
-
-		this.createDots(this.slides);
-		this.dotsButtons = this.element.querySelectorAll(`button.${this.element.className}__dot-button`);
 		
-		this.setVisibleSlide(this.currentIndex);
+		this.sliderClickHandle = this.sliderClickHandle.bind(this);
+		this.onLoadHandle = this.onLoadHandle.bind(this);
 
 		this.slideShift = this.slideShift.bind(this);
 		this.showByDotClick = this.showByDotClick.bind(this);
 		this.zoomImage = this.zoomImage.bind(this);
 		this.onZoomImageClose = this.onZoomImageClose.bind(this);
 
-		this.element.addEventListener('click', (e) => {		
-			if (this.onClickZoom) this.zoomImage(e);
-            
-			if(!e.target.closest('button')) return;
-			if(e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
-			if(e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
+		this.slides.forEach((slide, i, arr) => slide.addEventListener('load', this.onLoadHandle)); 
+		this.element.addEventListener('click', this.sliderClickHandle);
+	}
 
-			this.dotsButtons.forEach((button, i) => {if(e.target.contains(button)) this.showByDotClick(i + 1)});
-		})
+	onLoadHandle() {
+		this.slidesCounter++ ;
+		// if (this.slidesCounter !== this.slides.length) return;
+	
+		// this.createDots(this.slides);
+		this.dotsButtons = this.element.querySelectorAll(`button.${this.element.className}__dot-button`);
+		
+		this.setVisibleSlide(this.currentIndex);
+	}
+
+	sliderClickHandle(e) {
+		if (this.onClickZoom) this.zoomImage(e);
+            
+		if(!e.target.closest('button')) return;
+		if(e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
+		if(e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
+
+		this.dotsButtons.forEach((button, i) => {if(e.target.contains(button)) this.showByDotClick(i + 1)});
 	}
 
 	createSlides(urls) {
@@ -3403,7 +3554,7 @@ class Slider {
 			const overlayNode = document.createElement('div');
 			overlayNode.className = `${className}__overlay`;
 			overlayNode.style.display = 'block';
-			overlayNode.innerHTML += `<button class="${className}__close" type="button">✖</button>`
+			overlayNode.innerHTML += `<button class="${className}__close" type="button" hidden>✖</button>`
 			return overlayNode;
 		}
 		if(!document.querySelector(`.${this.element.className}__overlay`)) document.body.append(createOvrelayNode(this.element.className));
@@ -3435,6 +3586,7 @@ class Slider {
 			}
 			overlay.querySelector(`.${this.element.className}__close`).style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
 			overlay.querySelector(`.${this.element.className}__close`).tabIndex = 1;
+			overlay.querySelector(`.${this.element.className}__close`).hidden = false;
 		});
 
 		document.addEventListener('click', this.onZoomImageClose);
@@ -3453,6 +3605,39 @@ class Slider {
 			
 			document.removeEventListener('click', this.onZoomImageClose) 
 	}
+
+	destroy() {
+		if (this.isDestroyed) return;
+		this.element.removeEventListener('click', this.sliderClickHandle);
+		this.isDestroyed = true;
+
+		this.element = null;
+		this.currentIndex = null;
+		this.urls = null;
+		this.isVisibleDots = null;
+		this.slideWidth = null;
+		this.slideHeigh = null;
+		this.imagesAlt =  null;
+		this.onClickZoom = null;
+		this.prevNextButtons = null;
+
+		this.createSlides = null; 
+		this.slides = null;
+
+		this.createDots = null;
+		this.dotsButtons = null;
+		
+		this.setVisibleSlide = null;
+
+		this.sliderClickHandle = null
+
+		this.slideShift = null;
+		this.showByDotClick = null;
+		this.zoomImage = null;
+		this.onZoomImageClose = null;
+		
+		delete this;
+	}
 }
 
 const slider = new Slider(document.querySelector('.new-slider'), {
@@ -3466,38 +3651,74 @@ const slider = new Slider(document.querySelector('.new-slider'), {
 
 
 function func() {
-const parent = document.querySelector('.input-box');
-const valueField = parent.querySelector('.input-box__value-field');
-const input = parent.querySelector('input');
-
-
-input.addEventListener('input', (e) => {
-	const text =  e.currentTarget.value;
+	const parent = document.querySelector('.input-box');
+	const valueField = parent.querySelector('.input-box__value-field');
+	const input = parent.querySelector('input');
 	
-
-	function getColored() {
-		const textArray =  text.split('');
-		const res = textArray.splice(0, textArray.length - 1)
-
-		console.log(res);
-
-		const div = document.createElement('div');
-		div.innerHTML = textArray.join('');
-		div.style.display = 'inline'
-		div.style.backgroundColor = 'yellow';
-		parent.append(div)
+	input.addEventListener('input', (e) => {
+		const text =  e.currentTarget.value;
+		
+		function getColored() {
+			const textArray =  text.split('');
+			const res = textArray.splice(0, textArray.length - 1)
+	
+			const div = document.createElement('div');
+			div.innerHTML = textArray.join('');
+			div.style.display = 'inline'
+			div.style.backgroundColor = 'yellow';
+			parent.append(div)
+		}
+	
+		getColored()
+	})
+	
 	}
+	func();
 
-	getColored()
-	
-	
-})
 
+// const arrayq = [1, 6, 'str', true, ['inner str',[9, 8, [7, [{key: true}], 6], 10, 12, false], {key: 'value'}]];
+// function openArr(arr) {
+// 	const result = [];
+// 	function f(arr) {
+// 		for(let item of arr) {
+// 			if(Array.isArray(item)) f(item);
+// 			else
+// 			result.push(item);
+// 		}
+// 	}
+// 	f(arr);
+// 	return result;
+// }
+
+const elem = document.querySelector("body > div.input-box > input");
+
+const clickHandle = () => { 
+	console.log('click!');
 }
-func();
+const mouseenterHandle = () => { 
+	console.log('mouseenter!');
+}
+const dblclickHandle = () => { 
+	console.log('dblclick!');
+}
 
-console.log();
-console.log();
+const eventObject = {
+	click: clickHandle,
+	mouseenter: mouseenterHandle,
+	dblclick: dblclickHandle,
+}
+
+function addEvent(element, obj) {
+	for(let prop in obj) {
+		element.addEventListener(prop, obj[prop])
+	}
+}
+addEvent(elem, eventObject);
+
+
+
+
+
 console.log();
 console.log();
 console.log();

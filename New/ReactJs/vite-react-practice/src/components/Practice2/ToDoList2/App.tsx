@@ -14,6 +14,7 @@ type Todo = {
 
 const App = () => {
 	const [todos, setTodos] = useState<Todo[] | undefined>([]);
+	const [isSubmit, setIsSubmit] = useState(false);
 
 	const formSubmitHandle = (
 		e: FormEvent<HTMLFormElement>,
@@ -25,6 +26,7 @@ const App = () => {
 			...(todos as Todo[]),
 			{ text: formValue, isComplete: false, id: uuidv4() },
 		]);
+		setIsSubmit(!isSubmit);
 	};
 
 	const removeTodoHandle = (idd: string) => {
@@ -34,10 +36,10 @@ const App = () => {
 				// No index signature with a parameter of type 'string' was found on type 'Todo'."
 				// Утвердили, что idd точно является св-вом в объекте типа Todo
 				localStorage.removeItem(idd);
-				if (todo.id === idd) return todo.id === todo[idd as keyof Todo];
-				else return todo;
+				// if (todo.id === idd) return todo.id === todo[idd as keyof Todo];
+				// else return todo;
 				// Выше намудрил. Ниже вариант в одну строку
-				// return todo.id !== idd;
+				return todo.id !== idd;
 			})
 		);
 	};
@@ -68,22 +70,13 @@ const App = () => {
 	useEffect(() => {
 		function setStorage() {
 			const todosKeysValues = todos?.map((todo, i) => {
-				return { id: `${todo.id}:${i}`, text: todo.text };
+				return { id: todo.id, text: todo.text };
 			});
 
-			const sorted = todosKeysValues?.sort((a, b) => {
-				const res = a.id.split(':');
-				// console.log(res);
-				// return a.order - b.order ? -1 : 1;
-			});
-
-			console.log(sorted);
-
-			sorted?.forEach((todoKeyValue) => {
+			todosKeysValues?.forEach((todoKeyValue) => {
 				localStorage.setItem(todoKeyValue.id, todoKeyValue.text!);
 			});
 		}
-		// localStorage.clear();
 		setStorage();
 	}, [todos]);
 
@@ -103,7 +96,7 @@ const App = () => {
 			return initialTodos;
 		}
 
-		setTodos([...getStorage()]);
+		setTodos([...(todos as Todo[]), ...getStorage()]);
 	}, []);
 
 	return (

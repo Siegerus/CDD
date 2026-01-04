@@ -119,30 +119,41 @@ identify<number, string>(10, 'Hello World');
 /* interface Cart<T> {
     items: T[];
   }
-
   const cart: Cart<string> = {
     items: []
   };
-  
   cart.items.push('orange');
   cart.items.push('banana'); */
-
 /*   type Cart<T = string> = {
     items: T[];
   }
-  
   const cart: Cart<string> = {
     items: []
   };
-  
   cart.items.push('orange');
   cart.items.push('banana'); */
 
 function generic<T>(value: T): T {
 	return value;
 }
-
 console.log(generic<string[]>(['true', 'qqq']));
+
+//
+type Letters = 'A' | 'B' | 'C' | 'D' | 'E';
+type Numbers = number;
+
+const letters: Letters[] = ['A', 'B', 'C', 'D', 'E'];
+const numbers = [1, 2, 3, 4, 5];
+
+const sortArray = <T>(arr: T[]): T[] => {
+	arr.sort((a: T, b: T) => {
+		if (b < a) return -1;
+		else return 1;
+	});
+	return arr;
+};
+// console.log(sortArray<Letters>(letters));
+// console.log(sortArray<Numbers>(numbers));
 
 type Obj<T, U> = {
 	key: T;
@@ -357,6 +368,119 @@ const func = (cb: () => void) => {
 };
 func(() => innerCb(() => console.log('hellow from innerCb2!')));
 
+//  typeof keyof
+enum Lang {
+	english = '1',
+	spanish = 'spanish',
+	italian = 'italian',
+	france = 'france',
+}
+
+type Word = {
+	text: string;
+	isRussian: boolean;
+	letterCount: number;
+	language: Lang;
+};
+
+const word: Word = {
+	text: 'lorem',
+	isRussian: true,
+	letterCount: 5,
+	language: Lang.english,
+};
+
+const keyOfTest: keyof Word = 'isRussian'; // с типом (объединение типов как "|" ниже. Но keyof не всегда работает??)
+// type KeyOfTest = string | boolean | number | Lang;
+// У меня работает только как сверху и снизу. Если попытаться со всеми ключами объекта\типа - то ошибка. Т.е. задаёт тип только какого то из ключей (не значения)
+const keyOfTypeOfTest: keyof typeof word = 'isRussian'; // работает как и "keyof Word", только от объекта "word"
+
+const newWord: typeof word = {
+	//с объектом. Новый объект "newWord" будет с тем же типом, что объект word
+	text: 'lorem',
+	isRussian: true,
+	letterCount: 5,
+	language: Lang.english,
+};
+
+enum Hosts {
+	admin = 'admin',
+	user = 'user',
+	unknow = 'unknow',
+}
+
+type Book = {
+	autor: string;
+	ganre: string;
+	pages: number;
+	isFavorite: boolean;
+	host: Hosts;
+};
+
+type BooksProp = keyof Book;
+const bookProp: BooksProp = 'autor';
+
+type Persons = keyof typeof Hosts; // Так можно сделать тип для всех ключей перечисления (просто "keyof" работать не будет)
+const persons: Persons = 'admin';
+
+const book: Book = {
+	autor: 'Remark',
+	ganre: 'dramm',
+	pages: 300,
+	isFavorite: false,
+	host: Hosts.admin,
+};
+
+const BOOKS: Book[] = [
+	{
+		autor: 'Farmer',
+		ganre: 'fantastic',
+		pages: 300,
+		isFavorite: true,
+		host: Hosts.admin,
+	},
+	{
+		autor: 'Tolkien',
+		ganre: 'fantasy',
+		pages: 500,
+		isFavorite: true,
+		host: Hosts.user,
+	},
+];
+
+const NEW_BOOK: typeof BOOKS = [
+	{
+		autor: 'Doil',
+		ganre: 'fantastic',
+		pages: 300,
+		isFavorite: true,
+		host: Hosts.admin,
+	},
+];
+
+// Пример типа, у которого все ключи будут "string" и все значения будут с объединением типов "string | boolean"
+type CompopnentPropss = {
+	[key: string]: string | boolean;
+};
+
+// Создание типа, в котором задаём все ключи, как в типе "Book", а значение - boolean или 'test'.
+type BooleanBook = {
+	[Key in keyof Book]: boolean | 'test';
+};
+
+const booleabBook: BooleanBook = {
+	autor: 'test',
+	ganre: true,
+	pages: true,
+	isFavorite: false,
+	host: true,
+};
+
+// Два одинаковых варианта. Тип будет включать все типы ключей из "BooleanBook".
+type Test = (typeof booleabBook)[keyof typeof booleabBook]; // от объекта
+// type Test = BooleanBook[keyof BooleanBook] // от типа
+const test: Test = 'test';
+
 // // Пример класса с типами
 // // Класс будет принимать аргументом текст для элемента и кол-во первых символов, которые будут закрашены
 // const createClassFn = () => {
@@ -470,263 +594,268 @@ func(() => innerCb(() => console.log('hellow from innerCb2!')));
 // }
 
 // Аккардеон с типами
-class Accordeon {
-	element: HTMLElement;
+// class Accordeon {
+// 	element: HTMLElement;
 
-	constructor(element: HTMLElement) {
-		this.element = element;
-		this.accordeonClickHandle = this.accordeonClickHandle.bind(this);
+// 	constructor(element: HTMLElement) {
+// 		this.element = element;
+// 		this.accordeonClickHandle = this.accordeonClickHandle.bind(this);
 
-		element.addEventListener('click', this.accordeonClickHandle);
-	}
-	accordeonClickHandle(e: MouseEvent) {
-		const targetType = e.target as HTMLButtonElement;
-		const target = targetType.closest('BUTTON');
-		if (!target) return;
+// 		element.addEventListener('click', this.accordeonClickHandle);
+// 	}
+// 	accordeonClickHandle(e: MouseEvent) {
+// 		const targetType = e.target as HTMLButtonElement;
+// 		const target = targetType.closest('BUTTON');
+// 		if (!target) return;
 
-		const buttons = this.element.querySelectorAll('BUTTON');
+// 		const buttons = this.element.querySelectorAll('BUTTON');
 
-		buttons.forEach((button) => button.classList.remove('active'));
-		target.classList.toggle('active');
+// 		buttons.forEach((button) => button.classList.remove('active'));
+// 		target.classList.toggle('active');
 
-		this.setContentVisibility(buttons);
-	}
-	setContentVisibility(elems: NodeListOf<Element>) {
-		elems.forEach((elem: Element) => {
-			if (elem.parentElement && elem.classList.contains('active')) {
-				elem.parentElement.style.minHeight = '100px';
-			} else if (elem.parentElement) elem.parentElement.style.minHeight = '0';
-		});
-	}
-}
+// 		this.setContentVisibility(buttons);
+// 	}
+// 	setContentVisibility(elems: NodeListOf<Element>) {
+// 		elems.forEach((elem: Element) => {
+// 			if (elem.parentElement && elem.classList.contains('active')) {
+// 				elem.parentElement.style.minHeight = '100px';
+// 			} else if (elem.parentElement) elem.parentElement.style.minHeight = '0';
+// 		});
+// 	}
+// }
 
-// Слайдер с типами
+// // Слайдер с типами
 
-const imageUrls = [
-	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
-	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
-	'https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13',
-];
+// const imageUrls = [
+// 	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
+// 	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
+// 	'https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13',
+// ];
+// // 	urls: imageUrls,
+// // 	dots: true,
+// // 	slideWidth: 380,
+// // 	slideHeigh: 240,
+// // 	imagesAlt: 'slide-image',
+// // });
+
+// class Slider {
+// 	element: HTMLElement;
+// 	urls: string[] | null;
+// 	isVisibleDots: boolean;
+// 	onClickZoom: boolean;
+// 	slideWidth: number | null;
+// 	slideHeigh: number | null;
+// 	imagesAlt: string;
+// 	currentIndex: number;
+// 	slides: NodeListOf<HTMLImageElement>;
+// 	prevNextButtons: NodeListOf<HTMLElement>;
+// 	dotsButtons: NodeListOf<HTMLElement>;
+
+// 	constructor(
+// 		element: HTMLElement,
+// 		params = {
+// 			urls: null,
+// 			dots: false,
+// 			onClickZoom: false,
+// 			slideWidth: null,
+// 			slideHeigh: null,
+// 			imagesAlt: '',
+// 		}
+// 	) {
+// 		this.element = element;
+// 		this.currentIndex = 1;
+// 		this.urls = params.urls;
+// 		this.isVisibleDots = params.dots;
+// 		this.slideWidth = params.slideWidth;
+// 		this.slideHeigh = params.slideHeigh;
+// 		this.imagesAlt = params.imagesAlt;
+// 		this.onClickZoom = params.onClickZoom;
+// 		this.prevNextButtons = this.element.querySelectorAll(
+// 			`button.${this.element.className}__prev-next-button`
+// 		);
+
+// 		this.createSlides(this.urls);
+// 		this.slides = this.element.querySelectorAll('img');
+
+// 		this.createDots(this.slides);
+// 		this.dotsButtons = this.element.querySelectorAll(
+// 			`button.${this.element.className}__dot-button`
+// 		);
+
+// 		this.setVisibleSlide(this.currentIndex);
+
+// 		this.slideShift = this.slideShift.bind(this);
+// 		this.showByDotClick = this.showByDotClick.bind(this);
+// 		this.zoomImage = this.zoomImage.bind(this);
+
+// 		this.element.addEventListener('click', (e) => {
+// 			if (this.onClickZoom) this.zoomImage(e);
+
+// 			const target = e.target as HTMLElement;
+// 			if (!target.closest('button')) return;
+// 			if (target.contains(this.prevNextButtons[0])) this.slideShift(-1);
+// 			if (target.contains(this.prevNextButtons[1])) this.slideShift(1);
+
+// 			this.dotsButtons.forEach((button, i) => {
+// 				if (target.contains(button)) this.showByDotClick(i + 1);
+// 			});
+// 		});
+// 	}
+
+// 	createSlides(urls: string[] | null) {
+// 		if (!urls) return;
+
+// 		const images = urls.map((url) => {
+// 			const img = document.createElement('img');
+// 			img.src = url;
+// 			img.alt = this.imagesAlt;
+// 			if (this.slideWidth) img.width = this.slideWidth;
+// 			if (this.slideHeigh) img.height = this.slideHeigh;
+// 			return img;
+// 		});
+// 		this.element.firstElementChild!.prepend(...images);
+// 	}
+
+// 	createDots(slides: NodeListOf<HTMLImageElement>) {
+// 		if (!slides) return;
+// 		if (!this.isVisibleDots) return;
+
+// 		const div = document.createElement('div');
+// 		div.className = `${this.element.className}__dots-wrapper`;
+// 		this.element.firstElementChild!.append(div);
+
+// 		const dots = Array.from(slides).map((slide) => {
+// 			const dot = document.createElement('button');
+// 			dot.className = `${this.element.className}__dot-button`;
+// 			return dot;
+// 		});
+
+// 		const dotsWrapper = this.element.querySelector(
+// 			`.${this.element.className}__dots-wrapper`
+// 		);
+// 		if (dotsWrapper) dotsWrapper.append(...dots);
+// 	}
+
+// 	setVisibleSlide(idx: number) {
+// 		if (!this.slides) return;
+// 		if (this.slides.length < 1) return;
+// 		this.currentIndex = idx;
+
+// 		if (idx > this.slides.length) this.currentIndex = 1;
+// 		if (idx <= 0) this.currentIndex = this.slides.length;
+
+// 		this.slides.forEach((slide) => {
+// 			if (this.onClickZoom) slide.style.cursor = 'pointer';
+
+// 			slide.classList.remove('active');
+// 			slide.hidden = true;
+// 		});
+// 		this.slides[this.currentIndex - 1].classList.add('active');
+// 		this.slides[this.currentIndex - 1].hidden = false;
+
+// 		this.setActiveDot();
+// 	}
+
+// 	setActiveDot() {
+// 		if (this.dotsButtons.length < 1) return;
+
+// 		this.slides.forEach((slide, i) => {
+// 			if (slide.classList.contains('active')) {
+// 				this.dotsButtons[i].classList.add('active');
+// 			} else {
+// 				this.dotsButtons[i].classList.remove('active');
+// 			}
+// 		});
+// 	}
+
+// 	setIndex(num: number) {
+// 		this.currentIndex = this.currentIndex + num;
+// 	}
+
+// 	slideShift(num: number) {
+// 		this.setIndex(num);
+// 		this.setVisibleSlide(this.currentIndex);
+// 	}
+
+// 	showByDotClick(i: number) {
+// 		this.setVisibleSlide(i);
+// 	}
+
+// 	zoomImage(e: MouseEvent) {
+// 		const target = e.target as HTMLElement;
+// 		if (!target.closest('img')) return;
+
+// 		function createOvrelayNode(className: string) {
+// 			const overlayNode = document.createElement('div');
+// 			overlayNode.className = `overlay ${className}__overlay`;
+// 			overlayNode.style.display = 'block';
+// 			overlayNode.innerHTML += `<button class="overlay__close ${className}__close" type="button" hidden>✖</button>`;
+// 			return overlayNode;
+// 		}
+// 		if (!document.querySelector('.overlay'))
+// 			document.body.append(createOvrelayNode(this.element.className));
+
+// 		const overlay = document.querySelector('.overlay');
+// 		if (!overlay) return;
+
+// 		function createImageNode(
+// 			slides: NodeListOf<HTMLImageElement>,
+// 			className: string
+// 		) {
+// 			const nodeImage: HTMLElement[] = [];
+// 			slides.forEach((slide) => {
+// 				if (slide.classList.contains('active')) {
+// 					const img = document.createElement('img');
+// 					img.className = `overlay__inner-image ${className}__inner-image`;
+// 					img.src = slide.src;
+// 					console.log(img.getBoundingClientRect());
+// 					nodeImage.push(img);
+// 				}
+// 			});
+// 			return nodeImage;
+// 		}
+
+// 		overlay.append(...createImageNode(this.slides, this.element.className));
+// 		const innerImage = overlay.querySelector(
+// 			'.overlay__inner-image'
+// 		) as HTMLElement;
+
+// 		innerImage.addEventListener('animationend', () => {
+// 			const innerImgCoords = {
+// 				top: innerImage!.getBoundingClientRect().top - 20,
+// 				left:
+// 					innerImage!.getBoundingClientRect().left +
+// 					innerImage!.offsetWidth +
+// 					20,
+// 			};
+
+// 			const closeButton = overlay.querySelector(
+// 				`.${this.element.className}__close`
+// 			) as HTMLButtonElement;
+// 			closeButton.style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
+// 			closeButton.hidden = false;
+// 		});
+
+// 		function overlayCloseHandle(e: MouseEvent) {
+// 			const target = e.target as HTMLElement;
+// 			if (!target.closest('.overlay')) return;
+// 			if (target.closest('.overlay img')) return;
+// 			if (overlay) overlay.remove();
+
+// 			document.removeEventListener('click', overlayCloseHandle);
+// 		}
+// 		document.addEventListener('click', overlayCloseHandle);
+// 	}
+// }
+
+// /* const slider = new Slider(document.querySelector('.new-slider'), {
 // 	urls: imageUrls,
 // 	dots: true,
+// 	onClickZoom: true,
 // 	slideWidth: 380,
 // 	slideHeigh: 240,
 // 	imagesAlt: 'slide-image',
-// });
-
-class Slider {
-	element: HTMLElement;
-	urls: string[] | null;
-	isVisibleDots: boolean;
-	onClickZoom: boolean;
-	slideWidth: number | null;
-	slideHeigh: number | null;
-	imagesAlt: string;
-	currentIndex: number;
-	slides: NodeListOf<HTMLImageElement>;
-	prevNextButtons: NodeListOf<HTMLElement>;
-	dotsButtons: NodeListOf<HTMLElement>;
-
-	constructor(
-		element: HTMLElement,
-		params = {
-			urls: null,
-			dots: false,
-			onClickZoom: false,
-			slideWidth: null,
-			slideHeigh: null,
-			imagesAlt: '',
-		}
-	) {
-		this.element = element;
-		this.currentIndex = 1;
-		this.urls = params.urls;
-		this.isVisibleDots = params.dots;
-		this.slideWidth = params.slideWidth;
-		this.slideHeigh = params.slideHeigh;
-		this.imagesAlt = params.imagesAlt;
-		this.onClickZoom = params.onClickZoom;
-		this.prevNextButtons = this.element.querySelectorAll(
-			`button.${this.element.className}__prev-next-button`
-		);
-
-		this.createSlides(this.urls);
-		this.slides = this.element.querySelectorAll('img');
-
-		this.createDots(this.slides);
-		this.dotsButtons = this.element.querySelectorAll(
-			`button.${this.element.className}__dot-button`
-		);
-
-		this.setVisibleSlide(this.currentIndex);
-
-		this.slideShift = this.slideShift.bind(this);
-		this.showByDotClick = this.showByDotClick.bind(this);
-		this.zoomImage = this.zoomImage.bind(this);
-
-		this.element.addEventListener('click', (e) => {
-			if (this.onClickZoom) this.zoomImage(e);
-
-			const target = e.target as HTMLElement;
-			if (!target.closest('button')) return;
-			if (target.contains(this.prevNextButtons[0])) this.slideShift(-1);
-			if (target.contains(this.prevNextButtons[1])) this.slideShift(1);
-
-			this.dotsButtons.forEach((button, i) => {
-				if (target.contains(button)) this.showByDotClick(i + 1);
-			});
-		});
-	}
-
-	createSlides(urls: string[] | null) {
-		if (!urls) return;
-
-		const images = urls.map((url) => {
-			const img = document.createElement('img');
-			img.src = url;
-			img.alt = this.imagesAlt;
-			if (this.slideWidth) img.width = this.slideWidth;
-			if (this.slideHeigh) img.height = this.slideHeigh;
-			return img;
-		});
-		this.element.firstElementChild!.prepend(...images);
-	}
-
-	createDots(slides: NodeListOf<HTMLImageElement>) {
-		if (!slides) return;
-		if (!this.isVisibleDots) return;
-
-		const div = document.createElement('div');
-		div.className = `${this.element.className}__dots-wrapper`;
-		this.element.firstElementChild!.append(div);
-
-		const dots = Array.from(slides).map((slide) => {
-			const dot = document.createElement('button');
-			dot.className = `${this.element.className}__dot-button`;
-			return dot;
-		});
-
-		const dotsWrapper = this.element.querySelector(
-			`.${this.element.className}__dots-wrapper`
-		);
-		if (dotsWrapper) dotsWrapper.append(...dots);
-	}
-
-	setVisibleSlide(idx: number) {
-		if (!this.slides) return;
-		if (this.slides.length < 1) return;
-		this.currentIndex = idx;
-
-		if (idx > this.slides.length) this.currentIndex = 1;
-		if (idx <= 0) this.currentIndex = this.slides.length;
-
-		this.slides.forEach((slide) => {
-			if (this.onClickZoom) slide.style.cursor = 'pointer';
-
-			slide.classList.remove('active');
-			slide.hidden = true;
-		});
-		this.slides[this.currentIndex - 1].classList.add('active');
-		this.slides[this.currentIndex - 1].hidden = false;
-
-		this.setActiveDot();
-	}
-
-	setActiveDot() {
-		if (this.dotsButtons.length < 1) return;
-
-		this.slides.forEach((slide, i) => {
-			if (slide.classList.contains('active')) {
-				this.dotsButtons[i].classList.add('active');
-			} else {
-				this.dotsButtons[i].classList.remove('active');
-			}
-		});
-	}
-
-	setIndex(num: number) {
-		this.currentIndex = this.currentIndex + num;
-	}
-
-	slideShift(num: number) {
-		this.setIndex(num);
-		this.setVisibleSlide(this.currentIndex);
-	}
-
-	showByDotClick(i: number) {
-		this.setVisibleSlide(i);
-	}
-
-	zoomImage(e: MouseEvent) {
-		const target = e.target as HTMLElement;
-		if (!target.closest('img')) return;
-
-		function createOvrelayNode(className: string) {
-			const overlayNode = document.createElement('div');
-			overlayNode.className = `overlay ${className}__overlay`;
-			overlayNode.style.display = 'block';
-			overlayNode.innerHTML += `<button class="overlay__close ${className}__close" type="button">✖</button>`;
-			return overlayNode;
-		}
-		if (!document.querySelector('.overlay'))
-			document.body.append(createOvrelayNode(this.element.className));
-
-		const overlay = document.querySelector('.overlay');
-		if (!overlay) return;
-
-		function createImageNode(
-			slides: NodeListOf<HTMLImageElement>,
-			className: string
-		) {
-			const nodeImage: HTMLElement[] = [];
-			slides.forEach((slide) => {
-				if (slide.classList.contains('active')) {
-					const img = document.createElement('img');
-					img.className = `overlay__inner-image ${className}__inner-image`;
-					img.src = slide.src;
-					console.log(img.getBoundingClientRect());
-					nodeImage.push(img);
-				}
-			});
-			return nodeImage;
-		}
-
-		overlay.append(...createImageNode(this.slides, this.element.className));
-		const innerImage = overlay.querySelector(
-			'.overlay__inner-image'
-		) as HTMLElement;
-
-		innerImage.addEventListener('animationend', () => {
-			const innerImgCoords = {
-				top: innerImage!.getBoundingClientRect().top - 20,
-				left:
-					innerImage!.getBoundingClientRect().left +
-					innerImage!.offsetWidth +
-					20,
-			};
-			innerImage.style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
-		});
-
-		function overlayCloseHandle(e: MouseEvent) {
-			const target = e.target as HTMLElement;
-			if (!target.closest('.overlay')) return;
-			if (target.closest('.overlay img')) return;
-			if (overlay) overlay.remove();
-
-			document.removeEventListener('click', overlayCloseHandle);
-		}
-		document.addEventListener('click', overlayCloseHandle);
-	}
-}
-
-/* const slider = new Slider(document.querySelector('.new-slider'), {
-	urls: imageUrls,
-	dots: true,
-	onClickZoom: true,
-	slideWidth: 380,
-	slideHeigh: 240,
-	imagesAlt: 'slide-image',
-}); */
+// }); */
 
 console.log();
 console.log();
@@ -737,36 +866,3 @@ console.log();
 console.log();
 console.log();
 console.log();
-
-// async function getData(url: string) {
-//     let response = await fetch(url);
-//     let json = await response.json();
-//     console.log(json)
-//     return json;
-// }
-// getData('https://16.design.htmlacademy.pro/six-cities')
-// getData('../server/offer-by-id.json').then((result) => console.log(result));
-// getData('../server/comments-list.json').then((result) => console.log(result));
-// getData('../server/offers-list-favorite.json').then((result) => console.log(result));
-// getData('../server/offers-list-nearly.json').then((result) => console.log(result));
-// getData('../server/offers-list.json').then((result) => console.log(result));
-// getData('../server/user-auth-status.json').then((result) => console.log(result));
-
-// let userr = {
-//     name: 'John',
-//     surname: 'Smith'
-//   };
-// const json = JSON.stringify(userr);
-
-// async function postData(url) {
-//     let response = await fetch(url, {
-//         method : "POST",
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//           },
-//         body : JSON.stringify(userr)
-//     })
-//     let result = await response.text();
-//     console.log(result)
-// }
-// postData('https://webhook.site/dd2124da-a863-4c8e-bf0f-73756b83acf9');

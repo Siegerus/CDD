@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import styles from './children.module.scss';
 
 type Props = {};
@@ -21,9 +21,7 @@ const Children = (props: Props) => {
 
 export default Children;
 
-type ButtonProps = {
-	children: ReactNode;
-};
+type ButtonProps = PropsWithChildren<{}>;
 
 const Button = ({ children }: ButtonProps) => {
 	console.log(children);

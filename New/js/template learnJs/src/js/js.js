@@ -2289,3 +2289,25 @@ f();
 // 	}
 // 	return res;
 // };
+
+
+// Ф-ция принимает дату и коллбэк в котором отображает на странице все дни месяца указанной даты.
+function postDays(dateValue, callback) {
+	const date = new Date(dateValue);
+
+	function getLastDay(date) {
+		const y = date.getFullYear();
+		const m = date.getMonth();
+		return new Date(y, m + 1, 0).getDate();
+	}
+	
+	function setDays(date) {
+		let dayOfMonth = date.getDate();
+		while (dayOfMonth !== getLastDay(date) + 1) {
+			callback(dayOfMonth);
+			dayOfMonth++;
+		}
+	}
+	setDays(date);
+}
+// postDays('1.1.2026', (date) => document.body.insertAdjacentHTML('beforeend', `<p style="margin: 5px;">${date}</p>`));

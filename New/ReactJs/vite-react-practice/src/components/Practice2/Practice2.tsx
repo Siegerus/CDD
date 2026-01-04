@@ -15,10 +15,36 @@ import AnimationFade from './Animation/AnimationFade';
 import UseParamsLinking from './UseParams/UseParamsLinking';
 import Children from './Children/Children';
 import SortFilterCards from './SortFilterCards/SortFilterCards';
-// import App from './ToDoList2/App';
 import App from './ToDoList2/App';
+import BrouserRouterTabs from './BrouserRouterTabs/BrouserRouterTabs';
+import { Tab } from './BrouserRouterTabs/BrouserRouterTabs';
+import CustomSelect from './Select/Select';
+import Clock from './Clock/Clock';
 
 const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+export const TABS = [
+	{
+		link: `tab1`,
+		isIndexed: true,
+		title: `Tab#1`,
+		content: `Tab#1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione ex
+    voluptas omnis quibusdam odio veniam veritatis architecto optio vero quae.`,
+	},
+	{
+		link: `tab2`,
+		isIndexed: false,
+		title: `Tab#2`,
+		content: `Tab#2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione ex
+    voluptas omnis quibusdam odio veniam veritatis architecto optio vero quae.`,
+	},
+	{
+		link: `tab3`,
+		isIndexed: false,
+		title: `Tab#3`,
+		content: `Tab#3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione ex
+    voluptas omnis quibusdam odio veniam veritatis architecto optio vero quae.`,
+	},
+];
 
 const Practice2 = () => {
 	return (
@@ -46,6 +72,20 @@ const Practice2 = () => {
 					<Route path="children" element={<Children />} />
 					<Route path="sort-filter-cards" element={<SortFilterCards />} />
 					<Route path="todo" element={<App />} />
+					<Route path="select" element={<CustomSelect />} />
+					<Route path="clock" element={<Clock />} />
+					<Route path="BR-tabs" element={<BrouserRouterTabs tabs={TABS} />}>
+						{TABS.map((tab, i) => {
+							const keyValue = `${tab.title}-${i}`;
+							return (
+								<Route
+									path={tab.isIndexed ? '' : tab.link}
+									key={keyValue}
+									element={<Tab content={tab.content} />}
+								/>
+							);
+						})}
+					</Route>
 					<Route path="sandbox" element={<Sandbox />} />
 				</Route>
 			</Routes>

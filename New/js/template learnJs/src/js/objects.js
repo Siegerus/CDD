@@ -323,3 +323,32 @@ let anotherObj = {
 }
 Object.setPrototypeOf(anotherObj, objj); // утановить прототип для anotherObj от объекта obj
 
+
+
+// Копирование вложенных объекто в изменение нужного св-ва внутри объекта с помощью ... rest (Сбор оставшихся св-в в дугой объект)
+const object = {
+	message: 'lorem ipsum dolores',
+	important: false,
+	top: false,
+	date: new Date(),
+	persons: {
+		admins: ['Alex', 'John'],
+		users: ['Alice', 'Ivan', 'Smith'],
+		other: {
+			moder: 'Chin Cho',
+			unknow: 'guest'
+		}
+	}
+}
+const newObject = {
+	...object,
+	persons: {
+		...object.persons,
+		other: {
+			...object.persons.other,
+			unknow: 'hellow',
+		}
+	}
+}
+// console.log(object);   выведутся одинаковые объекты, у которых будет отличаеться только св-во "unknow".
+// console.log(newObject);

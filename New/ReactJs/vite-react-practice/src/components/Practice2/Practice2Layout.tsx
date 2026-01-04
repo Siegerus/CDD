@@ -18,6 +18,9 @@ const Practice2Layout = () => {
 			<Link to="children"> to children</Link>
 			<Link to="sort-filter-cards"> to sort-filter-cards</Link>
 			<Link to="todo"> to todo</Link>
+			<Link to="BR-tabs"> to BR-tabs</Link>
+			<Link to="select"> to select</Link>
+			<Link to="clock"> to clock</Link>
 			<Link to="sandbox"> to sandbox</Link>
 			<main style={{ padding: '60px 0 120px 0' }}>
 				<Outlet />
