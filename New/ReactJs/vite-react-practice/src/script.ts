@@ -67,6 +67,8 @@ type CompopnentProps = {
 };
 const props: CompopnentProps = { randomKey: 'value' };
 
+//--------------------------
+
 // Перечисления
 enum Enumeration {
 	First = 1,
@@ -91,22 +93,7 @@ const obj = {
 };
 // console.log(obj);
 
-// Пример. Определяем тип для объекта. И потом создаем массив из объекто в такого типа
-// type MegaPostt = {
-//     isPromo: boolean;
-//     viewCount: number;
-//     longText: string;
-//     description: string;
-// }
-
-// const myArr: MegaPostt[] = [
-//     {
-//         isPromo: true,
-//         viewCount: 11,
-//         longText: 'string',
-//         description: 'string',
-//     }
-// ]
+//--------------------------
 
 // Дженерики
 function identify<T, U>(firstValue: T, secondValue: U): T {
@@ -196,12 +183,7 @@ function printId<T extends Item /* = Item */>(variable: T) {
 }
 printId<Item>(itemObj);
 
-// type ObjectType = {  // также пример объединения типов
-//     value: 'value1' | 'value2' | 'value3';
-// }
-// const obj :ObjectType = {
-//     value: 'value1',
-// }
+//--------------------------
 
 // Принудительное утверждение или уточнение типов
 type SmallPost = {
@@ -224,6 +206,8 @@ const posts = [mySmallPost, myBigPost];
 const firstPost = posts[0]; // в firstPost будет значение с типом SmallPost | BigPost
 const firstPostt = <SmallPost>posts[0]; // в firstPost будет значение с типом SmallPost
 const firstPosttt = posts[0] as SmallPost; // Или вариант через "as"
+
+//--------------------------
 
 // Omit Pick
 type BigPostt = {
@@ -251,6 +235,8 @@ const myShortpost = {
 };
 // console.log(myShortpost);
 
+//--------------------------
+
 //keyof
 type someUser = {
 	firstName: string;
@@ -262,6 +248,18 @@ type UserProperty = keyof someUser; // тоже самое, что и ниже. 
 const property: UserProperty = 'firstName';
 
 // keyof на практике, с использованием дженериков
+type MyObject = {
+	key: 'name';
+	secondKey: 'last name';
+};
+
+const object: MyObject = { key: 'name', secondKey: 'last name' };
+
+function getProperty<T>(obj: T, value: keyof T): T[keyof T] {
+	return obj[value];
+}
+// console.log(getProperty<MyObject>(object, 'key'));  // 'name'
+//
 type Person = {
 	name: string;
 	age: number;
@@ -279,12 +277,38 @@ function getFilteredResult<Type, Key extends keyof Type>(
 	array: Type[],
 	prop: Key,
 	value: Type[Key]
-) {
+): Type[] {
 	return array.filter((item) => item[prop] === value);
 }
-// console.log(getFilteredResult(collectionArray, 'age', 36));
+// console.log(getFilteredResult<Person, 'age'>(collectionArray, 'age', 36));
 // {name: 'Alex', age: 36, isMarried: true}
 // {name: 'Smith', age: 36, isMarried: false}
+
+//-------------
+
+//type-guard
+//type-guard с объектами с помощью in
+type FirsObjType = {
+	field: string;
+};
+type SecondObjType = {
+	field: string;
+	secondField: number;
+};
+
+const firstObj: FirsObjType = {
+	field: 'smth',
+};
+const secondObj: SecondObjType = {
+	field: 'smth',
+	secondField: 1,
+};
+
+const guardTestFn = (obj: FirsObjType | SecondObjType): void => {
+	if ('secondField' in obj) console.log(obj.secondField / 1);
+	console.log(obj);
+};
+// guardTestFn(firstObj);
 
 // type-guard ф-ция. Должна всегда возваращать true / false. В типе указывается 'is'
 // Проверяем, есть ли св-во "name" в объекте
@@ -334,6 +358,8 @@ type MyReturnFuncParams<T> = T extends (...arg: infer funcParams) => any
 
 const funcParams: MyReturnFuncParams<typeof foo>[0] = 1; // т.к возвращается массив типов параметров аргументов, указываем, какой элемент массива типов
 
+// ----------------
+
 // Кортежи
 // Длинна такого массива известна заранее и её нельзя изменить
 // Может содержать элементы разных типов.Типы известны заранее
@@ -367,6 +393,8 @@ const func = (cb: () => void) => {
 	cb();
 };
 func(() => innerCb(() => console.log('hellow from innerCb2!')));
+
+// --------------------
 
 //  typeof keyof
 enum Lang {
@@ -404,7 +432,7 @@ const newWord: typeof word = {
 };
 
 enum Hosts {
-	admin = 'admin',
+	admin = 'admi',
 	user = 'user',
 	unknow = 'unknow',
 }
@@ -480,6 +508,15 @@ const booleabBook: BooleanBook = {
 type Test = (typeof booleabBook)[keyof typeof booleabBook]; // от объекта
 // type Test = BooleanBook[keyof BooleanBook] // от типа
 const test: Test = 'test';
+
+let val = 3;
+
+const arrr = [1, 2, val, 4, 5];
+console.log(arrr);
+
+const res = [...arrr, (val = 'val')];
+console.log(res);
+//--------------------
 
 // // Пример класса с типами
 // // Класс будет принимать аргументом текст для элемента и кол-во первых символов, которые будут закрашены

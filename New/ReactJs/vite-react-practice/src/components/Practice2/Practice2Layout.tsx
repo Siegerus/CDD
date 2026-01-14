@@ -21,6 +21,10 @@ const Practice2Layout = () => {
 			<Link to="BR-tabs"> to BR-tabs</Link>
 			<Link to="select"> to select</Link>
 			<Link to="clock"> to clock</Link>
+			<Link to="use-params-filter"> use-params-filter</Link>
+			<Link to="checkbox"> to checkbox</Link>
+			<Link to="naming"> to naming</Link>
+			<Link to="HOC"> to HOC</Link>
 			<Link to="sandbox"> to sandbox</Link>
 			<main style={{ padding: '60px 0 120px 0' }}>
 				<Outlet />

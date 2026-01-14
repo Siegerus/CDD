@@ -1,37 +1,36 @@
 // import mod from "./module.js"
-"use strict"
+"use strict";
 
 // import {sayHi} from "./module.js";
 
 let input = document.querySelectorAll(".feed-form__input"),
-	parentBox = document.querySelector(".box"),
-	clickBox = document.querySelectorAll(".box__inner")[0],
-		eventParent = document.querySelector(".events"),
-		eventItem = document.querySelectorAll(".Event-item"),
-		eventSpan = document.querySelector(".Event-item:nth-child(1) > span"),
-	newElement = document.createElement("input"),
-	btn = document.querySelector(".feed-form__button"),
-	form = document.querySelector("form"),
-	messageInput = document.querySelector(".box__input"),
-	inputs = form.querySelectorAll("input"),
-	scrollBox = document.querySelector(".scroll-box"),
-	anyBtn = document.querySelector(".any-section__button"),
-	scrollBtn = document.querySelector(".right-scroll-block__btn"),
-	table = document.querySelector(".new-section__table");
+  parentBox = document.querySelector(".box"),
+  clickBox = document.querySelectorAll(".box__inner")[0],
+  eventParent = document.querySelector(".events"),
+  eventItem = document.querySelectorAll(".Event-item"),
+  eventSpan = document.querySelector(".Event-item:nth-child(1) > span"),
+  newElement = document.createElement("input"),
+  btn = document.querySelector(".feed-form__button"),
+  form = document.querySelector("form"),
+  messageInput = document.querySelector(".box__input"),
+  inputs = form.querySelectorAll("input"),
+  scrollBox = document.querySelector(".scroll-box"),
+  anyBtn = document.querySelector(".any-section__button"),
+  scrollBtn = document.querySelector(".right-scroll-block__btn"),
+  table = document.querySelector(".new-section__table");
 
 let dropList = document.querySelector(".drop-menu > ul"),
-		dropLi = document.querySelectorAll(".drop-menu > li"),
-		dropHead = document.querySelector(".drop-menu__header"),
-		arrowRight = document.querySelector(".drop-menu__header > span:nth-child(1)"),
-		arrowDown = document.querySelector(".drop-menu__header > span:nth-child(2)");
+  dropLi = document.querySelectorAll(".drop-menu > li"),
+  dropHead = document.querySelector(".drop-menu__header"),
+  arrowRight = document.querySelector(".drop-menu__header > span:nth-child(1)"),
+  arrowDown = document.querySelector(".drop-menu__header > span:nth-child(2)");
 
-let links = document.querySelectorAll(".event-section > div:nth-child(2) > a")[0];
-		
-		
+let links = document.querySelectorAll(
+  ".event-section > div:nth-child(2) > a"
+)[0];
 
 let anyItems = document.querySelectorAll(".any-section__item");
 document.querySelector(".any-section__button").style.marginTop = 67 + "px";
-
 
 /* function scrollDown() {
 	let item = document.querySelector(".item");
@@ -40,426 +39,466 @@ document.querySelector(".any-section__button").style.marginTop = 67 + "px";
 // scrollDown();
 
 // Classes examle
-const setClasses = () => { 
-	class ActiveElement {
-		str = 'empty';
-		constructor(elem) {
-			this.elem = elem;
-			this.showElement = this.showElement.bind(this);
-			this.setText = this.setText.bind(this);
-			elem.addEventListener('click', this.showElement);
-			elem.addEventListener('click', this.setText);
-		}
-		
-		showElement() {
-			console.log(this.elem);
-		}
-		setText(e) {
-			const answer = prompt('Enter your data');
-			if(!answer) Array.from(this.elem.children).forEach(child => child.innerHTML = this.str)
-			else Array.from(this.elem.children).forEach(child => child.innerHTML = answer)
-		}
-	}
-	
-	const element = new ActiveElement(document.querySelector("body > div.outer-element"));
-	class NewActiveElement extends ActiveElement {
-		constructor(elem) {
-			super(elem)
-		}
-		setText() {
-			super.setText;
-			console.log('delay!');
-			setTimeout(() => super.setText(), 3000)
-		}
-	}
-	const secondsElement = new NewActiveElement(document.querySelector("body > div.target-box"));
- }
- setClasses();
+const setClasses = () => {
+  class ActiveElement {
+    str = "empty";
+    constructor(elem) {
+      this.elem = elem;
+      this.showElement = this.showElement.bind(this);
+      this.setText = this.setText.bind(this);
+      elem.addEventListener("click", this.showElement);
+      elem.addEventListener("click", this.setText);
+    }
 
- // Class examle
- const createClass = () => { 
-	class TextPainter {
-		element;
-		constructor(text, wordLength) {
-			this.text = text;
-			this.wordLength = wordLength;
-			this.createElement();
-			this.element.innerHTML = this.getHtml();
-		}
-		createElement() {
-			this.element = document.createElement('p');
-			this.element.className = 'text-element';
-			this.element.textContent = this.text ;
-			document.body.append(this.element);
-		}
-		getHtml() {
-			const initialHtml = this.element.innerHTML;
-			const text = initialHtml?.split('').splice(this.wordLength, initialHtml.length).join('');
-			const firstWord = initialHtml?.split('').splice(0, this.wordLength).join('').toUpperCase();
-			return `<span style="color: coral;">${firstWord}</span>${text}`;
-		}
-		setHtml() {
-			this.createElement();
-			this.element.innerHTML = this.getHtml();
-		}
-	}
-	new TextPainter('This is text element!', 4)
-	new TextPainter('This is another text element!', 4)
-	new TextPainter('This is one more text element!', 4)
- }
- createClass();
+    showElement() {
+      console.log(this.elem);
+    }
+    setText(e) {
+      const answer = prompt("Enter your data");
+      if (!answer)
+        Array.from(this.elem.children).forEach(
+          (child) => (child.innerHTML = this.str)
+        );
+      else
+        Array.from(this.elem.children).forEach(
+          (child) => (child.innerHTML = answer)
+        );
+    }
+  }
 
+  const element = new ActiveElement(
+    document.querySelector("body > div.outer-element")
+  );
+  class NewActiveElement extends ActiveElement {
+    constructor(elem) {
+      super(elem);
+    }
+    setText() {
+      super.setText;
+      console.log("delay!");
+      setTimeout(() => super.setText(), 3000);
+    }
+  }
+  const secondsElement = new NewActiveElement(
+    document.querySelector("body > div.target-box")
+  );
+};
+setClasses();
+
+// Class examle
+const createClass = () => {
+  class TextPainter {
+    element;
+    constructor(text, wordLength) {
+      this.text = text;
+      this.wordLength = wordLength;
+      this.createElement();
+      this.element.innerHTML = this.getHtml();
+    }
+    createElement() {
+      this.element = document.createElement("p");
+      this.element.className = "text-element";
+      this.element.textContent = this.text;
+      document.body.append(this.element);
+    }
+    getHtml() {
+      const initialHtml = this.element.innerHTML;
+      const text = initialHtml
+        ?.split("")
+        .splice(this.wordLength, initialHtml.length)
+        .join("");
+      const firstWord = initialHtml
+        ?.split("")
+        .splice(0, this.wordLength)
+        .join("")
+        .toUpperCase();
+      return `<span style="color: coral;">${firstWord}</span>${text}`;
+    }
+    setHtml() {
+      this.createElement();
+      this.element.innerHTML = this.getHtml();
+    }
+  }
+  new TextPainter("This is text element!", 4);
+  new TextPainter("This is another text element!", 4);
+  new TextPainter("This is one more text element!", 4);
+};
+createClass();
 
 // VolumeTrack
 function moveVolumeTrack() {
-	let parent = document.querySelector("body > div.volume-box");
-	let volumeItem = document.querySelector("body > div.volume-box > div");
+  let parent = document.querySelector("body > div.volume-box");
+  let volumeItem = document.querySelector("body > div.volume-box > div");
 
-	parent.addEventListener('mousedown', (e) => {
-		let target = e.target.closest('body > div.volume-box');
-		if(!target) return;
-		let coords = parent.getBoundingClientRect();
-		let newLeft;
+  parent.addEventListener("mousedown", (e) => {
+    let target = e.target.closest("body > div.volume-box");
+    if (!target) return;
+    let coords = parent.getBoundingClientRect();
+    let newLeft;
 
-		function setLeft(e) {
-			newLeft = e.clientX - coords.left
-			if(newLeft < 0) newLeft = 0;
-			let parrentPadding = parseInt(getComputedStyle(parent).paddingLeft)*2;
-			if(newLeft > target.offsetWidth - volumeItem.offsetWidth /* - parrentPadding */ ) newLeft = target.offsetWidth - volumeItem.offsetWidth /* - parrentPadding */;
-			volumeItem.style.left = newLeft + 'px';
-		}
-		setLeft(e)
+    function setLeft(e) {
+      newLeft = e.clientX - coords.left;
+      if (newLeft < 0) newLeft = 0;
+      let parrentPadding = parseInt(getComputedStyle(parent).paddingLeft) * 2;
+      if (
+        newLeft >
+        target.offsetWidth - volumeItem.offsetWidth /* - parrentPadding */
+      )
+        newLeft =
+          target.offsetWidth - volumeItem.offsetWidth /* - parrentPadding */;
+      volumeItem.style.left = newLeft + "px";
+    }
+    setLeft(e);
 
-		function onMove(e) {
-			setLeft(e);
-		}
-		function onMouseUp(e) {
-			document.removeEventListener('mousemove', onMove);
-			document.removeEventListener('mouseup', onMouseUp)
-		}
-		document.addEventListener('mousemove', onMove);
-		document.addEventListener('mouseup', onMouseUp);
-	});
+    function onMove(e) {
+      setLeft(e);
+    }
+    function onMouseUp(e) {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    }
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onMouseUp);
+  });
 }
 moveVolumeTrack();
 
 // LazzyImage
 function setLazzyImage() {
-	let image = document.querySelector("body > img.lazzy-image");
-	let isPreventCash = false;
-	window.addEventListener('scroll', e => { 
-		let docScrolltopClientHeight = document.documentElement.scrollTop + document.documentElement.clientHeight
-		let elScrollTop = image.offsetTop
+  let image = document.querySelector("body > img.lazzy-image");
+  let isPreventCash = false;
+  window.addEventListener("scroll", (e) => {
+    let docScrolltopClientHeight =
+      document.documentElement.scrollTop +
+      document.documentElement.clientHeight;
+    let elScrollTop = image.offsetTop;
 
-		if(docScrolltopClientHeight > elScrollTop + 200) {
-			if(isPreventCash) return;
-			let noCashed = "?nocache=" + Math.random();
-			image.src = 'https://yandex-images.clstorage.net/Yci96N391/b62d29qv/lDZPRcZ58BSBOCjQeQkqTeqRUA8vB8WTBLWoli-iPZFwGWJEYWK6gShqrMMDrgUG8-wWnjNS-32mf28XfRDLDhESX2TivYR15G08obxJqn26sIXbHhYAM0FkDLPqU31kkKkXR6K1nfY-Hd_0lEkSgva994oFlBpa0yq8sTtH3or3Bq4kZiuiEXB7eLbI23hd-dFG_0_lwAMzl0lTWhDI9WXOINZiJW-W339Pxsa6EFOE-IR5JpWfeUHa3AEZt8_J1FXtRpUL0aLjSPv1qEma3bqR54-fJYPwola74Tmj6DfkTVDXYlXPpq6d7cUmyRFiJQqWmvR1jTsh-12y-NUsSTZXjkZUy9CzwzlI9YopCG164JRvvzQDkjAWWGOJg-n2tV5C5OPkrwRMj8-W9EmikZS7JNmEFzy7I_ld42plDjjElA5nxyoz4KFKuOb7GBo--1KVjMwkMZAzJ8lDCRH4FhdO8xTwRZ9nfMxNp2WbcULG2JRZRldfOAMqHIDZN43bRhV-x9Sr0wFTCgm16Gv5LxiB988d9-PQ01WpcZhhSeS27wHmgacflO29bvVXaiNhpEn1-nd1LyggiJ8zOlQsqXWHTZXXShNAk8lIhohoWC14A4eurfRzkVE12PMKs_qm5k1hVgJ2zsavX9y1BsrTIMQrpat3xpy440p8Mhk1rUhWVi8WRVhzMpC5a5f5iJjOO0KXr3xEk5KSVfvguYNqdTQuI3Rj5VzkfG2shGYagAOG65Xr9AcOuzEK7eAK5Vy6NhY8VnY7k8IzGSpniaoIL9tjRJ295vBy0NXqcdkD2eYHPjFVUiWuhQyvHsbXGoIBN-lFyGbU3rsyGv9iKDZeeSaXnsQVaLBQkUpIdcvauO6II7StvbQh04Inq1FLIxr3dD-itLH1fmWdTZ4XJWjRI5SLJpvkFW74ojreUAqXfkuHpo5FhWigMpLrenT5m2k_auBkLv32EnFR9ErByhJKQ'
-			image.src += noCashed;
+    if (docScrolltopClientHeight > elScrollTop + 200) {
+      if (isPreventCash) return;
+      let noCashed = "?nocache=" + Math.random();
+      image.src =
+        "https://yandex-images.clstorage.net/Yci96N391/b62d29qv/lDZPRcZ58BSBOCjQeQkqTeqRUA8vB8WTBLWoli-iPZFwGWJEYWK6gShqrMMDrgUG8-wWnjNS-32mf28XfRDLDhESX2TivYR15G08obxJqn26sIXbHhYAM0FkDLPqU31kkKkXR6K1nfY-Hd_0lEkSgva994oFlBpa0yq8sTtH3or3Bq4kZiuiEXB7eLbI23hd-dFG_0_lwAMzl0lTWhDI9WXOINZiJW-W339Pxsa6EFOE-IR5JpWfeUHa3AEZt8_J1FXtRpUL0aLjSPv1qEma3bqR54-fJYPwola74Tmj6DfkTVDXYlXPpq6d7cUmyRFiJQqWmvR1jTsh-12y-NUsSTZXjkZUy9CzwzlI9YopCG164JRvvzQDkjAWWGOJg-n2tV5C5OPkrwRMj8-W9EmikZS7JNmEFzy7I_ld42plDjjElA5nxyoz4KFKuOb7GBo--1KVjMwkMZAzJ8lDCRH4FhdO8xTwRZ9nfMxNp2WbcULG2JRZRldfOAMqHIDZN43bRhV-x9Sr0wFTCgm16Gv5LxiB988d9-PQ01WpcZhhSeS27wHmgacflO29bvVXaiNhpEn1-nd1LyggiJ8zOlQsqXWHTZXXShNAk8lIhohoWC14A4eurfRzkVE12PMKs_qm5k1hVgJ2zsavX9y1BsrTIMQrpat3xpy440p8Mhk1rUhWVi8WRVhzMpC5a5f5iJjOO0KXr3xEk5KSVfvguYNqdTQuI3Rj5VzkfG2shGYagAOG65Xr9AcOuzEK7eAK5Vy6NhY8VnY7k8IzGSpniaoIL9tjRJ295vBy0NXqcdkD2eYHPjFVUiWuhQyvHsbXGoIBN-lFyGbU3rsyGv9iKDZeeSaXnsQVaLBQkUpIdcvauO6II7StvbQh04Inq1FLIxr3dD-itLH1fmWdTZ4XJWjRI5SLJpvkFW74ojreUAqXfkuHpo5FhWigMpLrenT5m2k_auBkLv32EnFR9ErByhJKQ";
+      image.src += noCashed;
 
-			isPreventCash = true;
-		}
-	})
+      isPreventCash = true;
+    }
+  });
 }
 setLazzyImage();
 
 // Custom select
 function setSelect() {
-	let select = document.querySelector(".select");
-	let animationIsEnd;
+  let select = document.querySelector(".select");
+  let animationIsEnd;
 
-	let fadeOut = (elem) => {
-		if(!animationIsEnd) return;
-			elem.style.animation = 'fade-out 0.4s';
+  let fadeOut = (elem) => {
+    if (!animationIsEnd) return;
+    elem.style.animation = "fade-out 0.4s";
 
-			function displayedToNone(e) {
-				elem.style.display = '';
-				elem.style.animation = 'fade-in 0.4s';
-				elem.removeEventListener('animationend', displayedToNone);
-			}
-			elem.addEventListener('animationend', displayedToNone);	
-	}
+    function displayedToNone(e) {
+      elem.style.display = "";
+      elem.style.animation = "fade-in 0.4s";
+      elem.removeEventListener("animationend", displayedToNone);
+    }
+    elem.addEventListener("animationend", displayedToNone);
+  };
 
-	let fadeIn = (elem) => {
-		elem.style.animation = 'fade-in 0.4s';
-		elem.style.display = 'flex';
-		elem.addEventListener('animationend', () => animationIsEnd = true);
-	} 
+  let fadeIn = (elem) => {
+    elem.style.animation = "fade-in 0.4s";
+    elem.style.display = "flex";
+    elem.addEventListener("animationend", () => (animationIsEnd = true));
+  };
 
-	let hideSelectBox = (e) => {
-		if(e.target.closest('.select > div')) return;
-		if(e.target.closest('.select__input')) return;
-		if(select.firstElementChild.nextElementSibling.style.display == 'flex') fadeOut(select.firstElementChild.nextElementSibling);
-		
-		document.removeEventListener('click', hideSelectBox);
-	}
+  let hideSelectBox = (e) => {
+    if (e.target.closest(".select > div")) return;
+    if (e.target.closest(".select__input")) return;
+    if (select.firstElementChild.nextElementSibling.style.display == "flex")
+      fadeOut(select.firstElementChild.nextElementSibling);
 
-	let showSelectBox = (e) => {
-		if(e.target.closest('.select__input')) {
-			if(select.firstElementChild.nextElementSibling.style.display == '') fadeIn(select.firstElementChild.nextElementSibling);
-			else fadeOut(select.firstElementChild.nextElementSibling);
-		} 
+    document.removeEventListener("click", hideSelectBox);
+  };
 
-		function setValue() {
-			if(select.firstElementChild.nextElementSibling.style.display == 'flex') fadeOut(select.firstElementChild.nextElementSibling);
-			let radio = select.querySelectorAll('.select__radio');
-			radio.forEach(item => {
-				if(item.checked == true) select.firstElementChild.value = item.value;
-			});
-		}
-		if(e.target.closest('.select__radio')) setValue();
-			
-		document.addEventListener('click', hideSelectBox);
-	}
-	select.addEventListener('click', showSelectBox)
+  let showSelectBox = (e) => {
+    if (e.target.closest(".select__input")) {
+      if (select.firstElementChild.nextElementSibling.style.display == "")
+        fadeIn(select.firstElementChild.nextElementSibling);
+      else fadeOut(select.firstElementChild.nextElementSibling);
+    }
+
+    function setValue() {
+      if (select.firstElementChild.nextElementSibling.style.display == "flex")
+        fadeOut(select.firstElementChild.nextElementSibling);
+      let radio = select.querySelectorAll(".select__radio");
+      radio.forEach((item) => {
+        if (item.checked == true) select.firstElementChild.value = item.value;
+      });
+    }
+    if (e.target.closest(".select__radio")) setValue();
+
+    document.addEventListener("click", hideSelectBox);
+  };
+  select.addEventListener("click", showSelectBox);
 }
 setSelect();
 
-
 //window
 function setWindow() {
-	let launchItem = document.querySelector("body > div.link-wrap > div:nth-child(1)");
-	let win;
-	let isOpen = false;
-	launchItem.addEventListener("click", ()	=> { 
-		if(isOpen) {
-			if(win) win.focus();
-			console.log("Window is already opened!");
-			return;
-		} 
-		isOpen = true;
-		let params = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
-		win = open("popup.html", "window", params);
-		win.focus();
-		win.postMessage("test", "*");
-		function setPopup() { 
-			let link = win.document.createElement("link");
-			link.href = "css/style.min.css";
-			link.rel = "stylesheet";
-			win.document.head.append(link);
+  let launchItem = document.querySelector(
+    "body > div.link-wrap > div:nth-child(1)"
+  );
+  let win;
+  let isOpen = false;
+  launchItem.addEventListener("click", () => {
+    if (isOpen) {
+      if (win) win.focus();
+      console.log("Window is already opened!");
+      return;
+    }
+    isOpen = true;
+    let params =
+      "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100";
+    win = open("popup.html", "window", params);
+    win.focus();
+    win.postMessage("test", "*");
+    function setPopup() {
+      let link = win.document.createElement("link");
+      link.href = "css/style.min.css";
+      link.rel = "stylesheet";
+      win.document.head.append(link);
 
-			let div = win.document.createElement("div");
-			div.innerHTML = "popups DIV";
-			div.className = "popup";
-			win.document.body.append(div);
-			win.addEventListener("beforeunload", () => isOpen = false);
-		}
-		function onLoad() {
-			setPopup();
-			win.removeEventListener("load", onLoad);
-		}
-		win.addEventListener("load", onLoad);
-		win.addEventListener("message", (e) => win.console.log(e.data));
-	});
+      let div = win.document.createElement("div");
+      div.innerHTML = "popups DIV";
+      div.className = "popup";
+      win.document.body.append(div);
+      win.addEventListener("beforeunload", () => (isOpen = false));
+    }
+    function onLoad() {
+      setPopup();
+      win.removeEventListener("load", onLoad);
+    }
+    win.addEventListener("load", onLoad);
+    win.addEventListener("message", (e) => win.console.log(e.data));
+  });
 }
 setWindow();
 
 // Whether
 function setWhether() {
-	const API_KEY = "3313eade200c1be66cd128f80caabf6e";
-	let longitude, latitude;
+  const API_KEY = "3313eade200c1be66cd128f80caabf6e";
+  let longitude, latitude;
 
-	let locationField = document.querySelector(".whether__location");
-	let descriptionField = document.querySelector(".whether__description");
-	let cells = document.querySelector(".whether-data__cell");
-	let farenheit = document.querySelector(".whether-data__farenheit");
-	let sunriseField = document.querySelector(".whether-info__sunrise");
-	let sunsetField = document.querySelector(".whether-info__sunset");
-	let whetherImage = document.querySelector(".whether__image");
+  let locationField = document.querySelector(".whether__location");
+  let descriptionField = document.querySelector(".whether__description");
+  let cells = document.querySelector(".whether-data__cell");
+  let farenheit = document.querySelector(".whether-data__farenheit");
+  let sunriseField = document.querySelector(".whether-info__sunrise");
+  let sunsetField = document.querySelector(".whether-info__sunset");
+  let whetherImage = document.querySelector(".whether__image");
 
-	function onLoad() {
-		if(navigator.geolocation) { 
-			navigator.geolocation.getCurrentPosition((position) => {
-			latitude = position.coords.latitude;
-			longitude = position.coords.longitude;
-			let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&lang=ru`;
-			
-				async function getData(url, setDataCb) {
-					try {
-						let response = await fetch(url);
-						let json = await response.json();
-						setDataCb(json);
-					}
-					catch {
-						throw new Error("Error!")
-					}
-				}
-				getData(url, setData).catch((err) => console.log(err.name));
-				
-				function setData(json) {
-					function getTargetTime(time) {
-						let date = new Date(time * 1000);
-						let hours = date.getHours();
-						if(hours < 10) hours = "0" + date.getHours();
-						let minutes = date.getMinutes();
-						if(minutes < 10) minutes = "0" + date.getMinutes();
-						let seconds = date.getSeconds();
-						if(seconds < 10) seconds = "0" + date.getSeconds();
-						return {
-							"hours": hours,
-							"minutes": minutes,
-							"seconds": seconds,
-						}
-					}
-					locationField.innerHTML = json.name;
-					descriptionField.innerHTML = json.weather[0].description;
-					cells.innerHTML = Math.round(json.main.temp - 273.15) + " C";
-					farenheit.innerHTML = Math.round((json.main.temp*9/5) - 459,67) + " F";
-					sunriseField.innerHTML = `${getTargetTime(json.sys.sunrise).hours} : ${getTargetTime(json.sys.sunrise).minutes} : ${getTargetTime(json.sys.sunrise).seconds}`;
-					sunsetField.innerHTML = `${getTargetTime(json.sys.sunset).hours} : ${getTargetTime(json.sys.sunset).minutes} : ${getTargetTime(json.sys.sunset).seconds}`;
-					whetherImage.src = `http://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
-					// console.log(json);
-				}
-			});
-		} else console.log("geolocation is not available!");
-	}
-	window.addEventListener("DOMContentLoaded", onLoad);
+  function onLoad() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&lang=ru`;
+
+        async function getData(url, setDataCb) {
+          try {
+            let response = await fetch(url);
+            let json = await response.json();
+            setDataCb(json);
+          } catch {
+            throw new Error("Error!");
+          }
+        }
+        getData(url, setData).catch((err) => console.log(err.name));
+
+        function setData(json) {
+          function getTargetTime(time) {
+            let date = new Date(time * 1000);
+            let hours = date.getHours();
+            if (hours < 10) hours = "0" + date.getHours();
+            let minutes = date.getMinutes();
+            if (minutes < 10) minutes = "0" + date.getMinutes();
+            let seconds = date.getSeconds();
+            if (seconds < 10) seconds = "0" + date.getSeconds();
+            return {
+              hours: hours,
+              minutes: minutes,
+              seconds: seconds,
+            };
+          }
+          locationField.innerHTML = json.name;
+          descriptionField.innerHTML = json.weather[0].description;
+          cells.innerHTML = Math.round(json.main.temp - 273.15) + " C";
+          farenheit.innerHTML =
+            Math.round((json.main.temp * 9) / 5 - 459, 67) + " F";
+          sunriseField.innerHTML = `${
+            getTargetTime(json.sys.sunrise).hours
+          } : ${getTargetTime(json.sys.sunrise).minutes} : ${
+            getTargetTime(json.sys.sunrise).seconds
+          }`;
+          sunsetField.innerHTML = `${getTargetTime(json.sys.sunset).hours} : ${
+            getTargetTime(json.sys.sunset).minutes
+          } : ${getTargetTime(json.sys.sunset).seconds}`;
+          whetherImage.src = `http://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
+          // console.log(json);
+        }
+      });
+    } else console.log("geolocation is not available!");
+  }
+  window.addEventListener("DOMContentLoaded", onLoad);
 }
 setWhether();
 
-
 //модалка
 function setModal() {
-	let dialog = document.querySelector("body > section.dialog-section > dialog");
-	let openItem = document.querySelector("body > section.accordeon-section > div > div:nth-child(4)");
-	openItem.addEventListener("click", (e) => {		
-		if(dialog.open) return;
-		dialog.showModal();	
+  let dialog = document.querySelector("body > section.dialog-section > dialog");
+  let openItem = document.querySelector(
+    "body > section.accordeon-section > div > div:nth-child(4)"
+  );
+  openItem.addEventListener("click", (e) => {
+    if (dialog.open) return;
+    dialog.showModal();
 
-		function toClose(e) {
-			if(e.target.closest(".dialog__inner-content")) return;
-			dialog.close();
-			dialog.removeEventListener("click", toClose);
-		}
-		dialog.addEventListener("click", toClose);
-	});
+    function toClose(e) {
+      if (e.target.closest(".dialog__inner-content")) return;
+      dialog.close();
+      dialog.removeEventListener("click", toClose);
+    }
+    dialog.addEventListener("click", toClose);
+  });
 }
 setModal();
 
-
 //Изменение размера контейнера при зажатой нопке мыши
 function resizeContainer() {
-	let item = document.querySelector(".item");
-	let coords = item.getBoundingClientRect();
+  let item = document.querySelector(".item");
+  let coords = item.getBoundingClientRect();
 
-	item.addEventListener("mousemove", (e) => {
-		if(e.clientX < item.clientWidth + coords.left - 3) item.style.cursor = "pointer";
-		else item.style.cursor = "col-resize";
-	});
-	item.addEventListener("mousedown", (e) => {
-		e.preventDefault();
-		if(e.clientX > item.clientWidth + coords.left - 3) document.addEventListener("mousemove", toMove);;
+  item.addEventListener("mousemove", (e) => {
+    if (e.clientX < item.clientWidth + coords.left - 3)
+      item.style.cursor = "pointer";
+    else item.style.cursor = "col-resize";
+  });
+  item.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    if (e.clientX > item.clientWidth + coords.left - 3)
+      document.addEventListener("mousemove", toMove);
 
-		function toMove(e) {
-			let newWidth = Math.min(document.documentElement.clientWidth - coords.left, e.clientX - coords.left);
-			if(newWidth < parseInt(getComputedStyle(item).minWidth)) newWidth = parseInt(getComputedStyle(item).minWidth);
-			item.style.width = newWidth + "px";
-			item.style.cursor = "col-resize";
-		}
-		function endMove(e) {
-			document.removeEventListener("mousemove", toMove);
-			document.removeEventListener("mouseup", endMove);
-		}
-		
-		document.addEventListener("mouseup", endMove);
-	});
+    function toMove(e) {
+      let newWidth = Math.min(
+        document.documentElement.clientWidth - coords.left,
+        e.clientX - coords.left
+      );
+      if (newWidth < parseInt(getComputedStyle(item).minWidth))
+        newWidth = parseInt(getComputedStyle(item).minWidth);
+      item.style.width = newWidth + "px";
+      item.style.cursor = "col-resize";
+    }
+    function endMove(e) {
+      document.removeEventListener("mousemove", toMove);
+      document.removeEventListener("mouseup", endMove);
+    }
+
+    document.addEventListener("mouseup", endMove);
+  });
 }
 resizeContainer();
 
 // Часы
 let getTime = () => {
-	let date = new Date();
-	let s = date.getSeconds();
-	if (s < 10) s = "0" + date.getSeconds();
-	let m = date.getMinutes();
-	if (m < 10) m = "0" + date.getMinutes();
-	let h = date.getHours();
-	if (h < 10) h = "0" + date.getHours();
-	let obj  = {
-			"seconds" : s,
-			"minutes" : m,
-			"hours" : h,
-		};
-		return obj;
+  let date = new Date();
+  let s = date.getSeconds();
+  if (s < 10) s = "0" + date.getSeconds();
+  let m = date.getMinutes();
+  if (m < 10) m = "0" + date.getMinutes();
+  let h = date.getHours();
+  if (h < 10) h = "0" + date.getHours();
+  let obj = {
+    seconds: s,
+    minutes: m,
+    hours: h,
+  };
+  return obj;
 };
 function setClock() {
-	let	seconds = document.querySelector(".clock__seconds"),
-		minutes = document.querySelector(".clock__minutes"),
-		hours = document.querySelector(".clock__hours"),
-		start = document.querySelector(".clock-start"),
-		stop = document.querySelector(".clock-stop");
+  let seconds = document.querySelector(".clock__seconds"),
+    minutes = document.querySelector(".clock__minutes"),
+    hours = document.querySelector(".clock__hours"),
+    start = document.querySelector(".clock-start"),
+    stop = document.querySelector(".clock-stop");
 
-	let setValue = () => {
-		let values = getTime();
-		hours.innerHTML = values.hours;
-		minutes.innerHTML = values.minutes;
-		seconds.innerHTML = values.seconds;
-	}
-	let int = null;
+  let setValue = () => {
+    let values = getTime();
+    hours.innerHTML = values.hours;
+    minutes.innerHTML = values.minutes;
+    seconds.innerHTML = values.seconds;
+  };
+  let int = null;
 
-	let updateClock = () => {
-		setValue();
-		int = setInterval(() => setValue(), 1000);
-	};
-	updateClock();
-	start.addEventListener("click", (e) => {
-		if(e.target.closest(".clock-start")) {
-			if(int !== null) clearInterval(int);
-			updateClock();
-		}
-	});
-	stop.addEventListener("click", (e) => {
-		if(e.target.closest(".clock-stop")) {
-			clearInterval(int);
-		}
-	});
+  let updateClock = () => {
+    setValue();
+    int = setInterval(() => setValue(), 1000);
+  };
+  updateClock();
+  start.addEventListener("click", (e) => {
+    if (e.target.closest(".clock-start")) {
+      if (int !== null) clearInterval(int);
+      updateClock();
+    }
+  });
+  stop.addEventListener("click", (e) => {
+    if (e.target.closest(".clock-stop")) {
+      clearInterval(int);
+    }
+  });
 }
 setClock();
 function setSecondClock() {
-	let clock = document.querySelector(".test-clock"),
-		secondsElem = clock.children[0],
-		minutesElem = clock.children[1],
-		hoursElem = clock.children[2],
-		isOn = true,
-		interval;
-	function getValue() {
-		let date = new Date(),
-		seconds = date.getSeconds(),
-		minutes = date.getMinutes(),
-		hours = date.getHours();
-		return {seconds,minutes,hours};
-	}
-	function setValue() {
-		function plusZero(val) {
-				if(val < 10) {
-				return val = "0" + val;
-				} else return val;
-			}
-		plusZero(getValue().seconds);
-		plusZero(getValue().minutes);
-		plusZero(getValue().hours);
-		secondsElem.innerHTML = plusZero(getValue().seconds);
-		minutesElem.innerHTML = plusZero(getValue().minutes);
-		hoursElem.innerHTML = plusZero(getValue().hours);
-	}
-	setValue();
-	interval = setInterval(setValue, 1000);
+  let clock = document.querySelector(".test-clock"),
+    secondsElem = clock.children[0],
+    minutesElem = clock.children[1],
+    hoursElem = clock.children[2],
+    isOn = true,
+    interval;
+  function getValue() {
+    let date = new Date(),
+      seconds = date.getSeconds(),
+      minutes = date.getMinutes(),
+      hours = date.getHours();
+    return { seconds, minutes, hours };
+  }
+  function setValue() {
+    function plusZero(val) {
+      if (val < 10) {
+        return (val = "0" + val);
+      } else return val;
+    }
+    plusZero(getValue().seconds);
+    plusZero(getValue().minutes);
+    plusZero(getValue().hours);
+    secondsElem.innerHTML = plusZero(getValue().seconds);
+    minutesElem.innerHTML = plusZero(getValue().minutes);
+    hoursElem.innerHTML = plusZero(getValue().hours);
+  }
+  setValue();
+  interval = setInterval(setValue, 1000);
 
-	document.addEventListener("click", (e) => {
-		if(isOn) {
-			isOn = false;
-			clearInterval(interval);
-			interval = null;
-		} else {
-			if(!e.ctrlKey || e.metaKey) return;
-			clearInterval(interval);
-			interval = setInterval(setValue, 1000);
-			isOn = true;
-		}
-	});
+  document.addEventListener("click", (e) => {
+    if (isOn) {
+      isOn = false;
+      clearInterval(interval);
+      interval = null;
+    } else {
+      if (!e.ctrlKey || e.metaKey) return;
+      clearInterval(interval);
+      interval = setInterval(setValue, 1000);
+      isOn = true;
+    }
+  });
 }
 setSecondClock();
-
 
 /* scrollBox.addEventListener("scroll", function() {
 	let scroll =  Math.abs((this.clientHeight - this.scrollHeight) + this.scrollTop); 
@@ -467,287 +506,290 @@ setSecondClock();
 }); */
 
 form.addEventListener("click", (e) => {
-	if (!e.target.closest(".feed-form__input")) return;
-	if (e.target.dataset.counter) {
-		e.target.value++;
-	}
+  if (!e.target.closest(".feed-form__input")) return;
+  if (e.target.dataset.counter) {
+    e.target.value++;
+  }
 });
 
-
 messageInput.addEventListener("input", (e) => {
-	if(e.target.closest(".box__input")) {
-		clickBox.forEach((item) => {
-			item.textContent = messageInput.value;
-		});
-	}
+  if (e.target.closest(".box__input")) {
+    clickBox.forEach((item) => {
+      item.textContent = messageInput.value;
+    });
+  }
 });
 
 parentBox.setAttribute("data-color-bg", "crimson-backgrond");
-parentBox.dataset.colorBg = "khaki-backgrond";						 
+parentBox.dataset.colorBg = "khaki-backgrond";
 
-if(parentBox.hasAttribute("data-color-bg")) {
-	parentBox.dataset.colorBg = "crimson-backgrond";
+if (parentBox.hasAttribute("data-color-bg")) {
+  parentBox.dataset.colorBg = "crimson-backgrond";
 }
-if(parentBox.dataset.colorBg == "crimson-backgrond") {
-	parentBox.removeAttribute("data-color-bg");
+if (parentBox.dataset.colorBg == "crimson-backgrond") {
+  parentBox.removeAttribute("data-color-bg");
 }
 
 function setRightScroll() {
-	scrollBtn.addEventListener("click", (e) => {
-		if(document.querySelector(".right-scroll-block").scrollLeft >= document.querySelector(".inner").clientWidth - window.innerWidth) {
-			document.querySelector(".right-scroll-block").scrollLeft = 0
-			return
-		}
-		if (e.target.closest(".right-scroll-block__btn")) {
-			document.querySelector(".right-scroll-block").scrollLeft += 100;
-		} 
-	});
+  scrollBtn.addEventListener("click", (e) => {
+    if (
+      document.querySelector(".right-scroll-block").scrollLeft >=
+      document.querySelector(".inner").clientWidth - window.innerWidth
+    ) {
+      document.querySelector(".right-scroll-block").scrollLeft = 0;
+      return;
+    }
+    if (e.target.closest(".right-scroll-block__btn")) {
+      document.querySelector(".right-scroll-block").scrollLeft += 100;
+    }
+  });
 }
 setRightScroll();
 
-
 clickBox.addEventListener("click", () => {
-	window.scrollBy(0, 1200);
-	setTimeout(() => window.scrollTo(0, 0), 1500);
-	setTimeout(() => scrollBox.scrollIntoView({behavior : "smooth"}), 1000);
-	console.log(window.scrollY);
+  window.scrollBy(0, 1200);
+  setTimeout(() => window.scrollTo(0, 0), 1500);
+  setTimeout(() => scrollBox.scrollIntoView({ behavior: "smooth" }), 1000);
+  console.log(window.scrollY);
 });
 
-
-
 let slides = document.querySelectorAll(".slider > .slider__wrapper > ul > li"),
-		wrapper = document.querySelector(".slider__wrapper"),
-		track = document.querySelector(".slider > .slider__wrapper > ul"),
-		arrows = document.querySelectorAll(".slider > .slider__wrapper > button"),
-		position = 0,
-		count = 3;
-		
+  wrapper = document.querySelector(".slider__wrapper"),
+  track = document.querySelector(".slider > .slider__wrapper > ul"),
+  arrows = document.querySelectorAll(".slider > .slider__wrapper > button"),
+  position = 0,
+  count = 3;
+
 let mooveTrack = () => {
-		track.style.transform = `translateX(${position}px)`;
+  track.style.transform = `translateX(${position}px)`;
 };
 
 arrows[0].addEventListener("click", () => {
-		position += slides[0].clientWidth * count;
-		position = Math.min(position, 0)
-		mooveTrack();
+  position += slides[0].clientWidth * count;
+  position = Math.min(position, 0);
+  mooveTrack();
 });
-
-
 
 arrows[1].addEventListener("click", () => {
-		position -= slides[0].clientWidth * count;
-		position =  Math.max(position, -slides[0].clientWidth * (slides.length - count));
-		mooveTrack();
+  position -= slides[0].clientWidth * count;
+  position = Math.max(
+    position,
+    -slides[0].clientWidth * (slides.length - count)
+  );
+  mooveTrack();
 });
-
-
 
 let anyItem = document.querySelectorAll(".any-section__item")[0];
 let getPosition = (elem) => {
-	let topY =  elem.getBoundingClientRect().top + window.scrollY,
-		leftX = elem.getBoundingClientRect().left + window.scrollX,
-		rightX = elem.getBoundingClientRect().right + window.scrollX,
-		bottomY =  elem.getBoundingClientRect().bottom + window.scrollY;
-		return {
-			top: topY,
-			left: leftX,
-			right: rightX,
-			bottom: bottomY,
-		}
-}
+  let topY = elem.getBoundingClientRect().top + window.scrollY,
+    leftX = elem.getBoundingClientRect().left + window.scrollX,
+    rightX = elem.getBoundingClientRect().right + window.scrollX,
+    bottomY = elem.getBoundingClientRect().bottom + window.scrollY;
+  return {
+    top: topY,
+    left: leftX,
+    right: rightX,
+    bottom: bottomY,
+  };
+};
 
 let coord = getPosition(anyItem);
 let div = document.createElement("div");
 div.innerHTML = "This is DIV";
 
 div.style.cssText = "position: absolute; color: red; font-size = 28px";
-div.style.top = (coord.top + 60) + "px";
-div.style.left = (coord.left + 60)+ "px";
+div.style.top = coord.top + 60 + "px";
+div.style.left = coord.left + 60 + "px";
 // div.style.right = (coord.right + 60) + "px";
 // div.style.bottom = (coord.bottom + 60)+ "px";
 document.body.append(div);
 
-
-
-document.querySelectorAll(".drop-menu__header > span").forEach(item => item.style.color = "green");
+document
+  .querySelectorAll(".drop-menu__header > span")
+  .forEach((item) => (item.style.color = "green"));
 dropHead.style.cssText = "cursor: pointer";
 dropList.style.cssText = "list-style-type: none;  margin: 0";
 dropList.hidden = true;
 arrowDown.hidden = true;
 arrowRight.hidden = false;
 dropHead.addEventListener("click", (e) => {
-		if (e.target.closest(".drop-menu__header")) {
-				if(arrowRight.hidden == true) arrowRight.hidden = false;
-				else arrowRight.hidden = true;
-				if(arrowDown.hidden == true) arrowDown.hidden = false;
-				else arrowDown.hidden = true;
-				if(dropList.hidden == true) dropList.hidden = false;
-				else dropList.hidden = true;
-		}
+  if (e.target.closest(".drop-menu__header")) {
+    if (arrowRight.hidden == true) arrowRight.hidden = false;
+    else arrowRight.hidden = true;
+    if (arrowDown.hidden == true) arrowDown.hidden = false;
+    else arrowDown.hidden = true;
+    if (dropList.hidden == true) dropList.hidden = false;
+    else dropList.hidden = true;
+  }
 });
 
-
 let menu = document.querySelector(".menu"),
-	prevNextButtonss = document.querySelectorAll(".menu__button");
+  prevNextButtonss = document.querySelectorAll(".menu__button");
 class Menu {
-	constructor(elem) {
-		elem.addEventListener('click', this.onClick.bind(this))
-	}
-	save() {
-		console.log("save");
-	}
-	load() {
-		console.log("load");
-	}
-	search() {
-		console.log("search")
-	}
-	onClick(e) {
-		let action = e.target.dataset.action;
-		if(action) {
-			this[action]();
-		}
-	}
+  constructor(elem) {
+    elem.addEventListener("click", this.onClick.bind(this));
+  }
+  save() {
+    console.log("save");
+  }
+  load() {
+    console.log("load");
+  }
+  search() {
+    console.log("search");
+  }
+  onClick(e) {
+    let action = e.target.dataset.action;
+    if (action) {
+      this[action]();
+    }
+  }
 }
 new Menu(menu);
 
 function contextTabMenu() {
-	let list = document.querySelector(".event-list"),
-	li = document.querySelectorAll(".event-list > li"),
-	context = document.querySelectorAll(".event-list > li > ul");
-let hideMenu = () => {
-	for(let i = 0; i < context.length; i++) {
-		if(getComputedStyle(context[i]).display == "block") context[i].style.display = "none";
-	}
-};
-let showMenu = (i) => {
-	if(getComputedStyle(context[i]).display == "none") context[i].style.display = "block";
-};
-let removeEvent = (e) => {
-	list.classList.remove("active");
-	document.removeEventListener("click", removeEvent);
-	hideMenu();
-};
+  let list = document.querySelector(".event-list"),
+    li = document.querySelectorAll(".event-list > li"),
+    context = document.querySelectorAll(".event-list > li > ul");
+  let hideMenu = () => {
+    for (let i = 0; i < context.length; i++) {
+      if (getComputedStyle(context[i]).display == "block")
+        context[i].style.display = "none";
+    }
+  };
+  let showMenu = (i) => {
+    if (getComputedStyle(context[i]).display == "none")
+      context[i].style.display = "block";
+  };
+  let removeEvent = (e) => {
+    list.classList.remove("active");
+    document.removeEventListener("click", removeEvent);
+    hideMenu();
+  };
 
-list.addEventListener("contextmenu", (e) => {
-	let target = e.target.closest("li");
-	e.preventDefault();
-	if(target) {
-		e.currentTarget.classList.add("active");
-		li.forEach((item, i) => {
-			if(target == item) {
-				hideMenu();
-				showMenu(i);
-			} 
-			item.classList.toggle("testClass", item === target);
-		});
-	}
-	if(e.currentTarget.classList.contains("active")) {
-		document.addEventListener("click", removeEvent);
-	}
-});
+  list.addEventListener("contextmenu", (e) => {
+    let target = e.target.closest("li");
+    e.preventDefault();
+    if (target) {
+      e.currentTarget.classList.add("active");
+      li.forEach((item, i) => {
+        if (target == item) {
+          hideMenu();
+          showMenu(i);
+        }
+        item.classList.toggle("testClass", item === target);
+      });
+    }
+    if (e.currentTarget.classList.contains("active")) {
+      document.addEventListener("click", removeEvent);
+    }
+  });
 }
 // contextTabMenu();
 function contextGenerableMenu() {
-	let list = document.querySelector(".event-list"),
-	li = document.querySelectorAll(".event-list > li");
-let context;
-let createElem = (target) => {
-	if(document.querySelector(".context-menu")) return;
-	list.classList.add("active");
-	let coords = target.getBoundingClientRect();
-	context = document.createElement("div");
-	context.className = "context-menu";
-	context.style.position = "absolute";
-	context.style.width = 200 + "px";
-	context.style.padding = 20 + "px";
-	context.style.backgroundColor = "darkred";
-	context.style.top = coords.top + target.offsetHeight + window.scrollY + "px";
-	context.style.left = coords.left  + "px";
-	context.innerHTML = "This is context menu";
-	document.body.append(context);
-};
-let removeElem = (e) => {
-	if(!document.querySelector(".context-menu")) return;
-	if(e.target.closest(".context-menu")) return;
-	list.classList.remove("active");
-	context.remove();
-	context = null;
-}
-list.addEventListener("contextmenu", (e) => {
-	let target = e.target.closest("li");
-	e.preventDefault();
-	if(target) {
-		li.forEach((item) => {
-			if(item !== target){
-				if(document.querySelector(".context-menu")) context.remove();
-			} 
-			createElem(target);
-		});
-	}
-	if(e.currentTarget.classList.contains("active")) {
-		document.addEventListener("click", removeElem);
-	}
-});
+  let list = document.querySelector(".event-list"),
+    li = document.querySelectorAll(".event-list > li");
+  let context;
+  let createElem = (target) => {
+    if (document.querySelector(".context-menu")) return;
+    list.classList.add("active");
+    let coords = target.getBoundingClientRect();
+    context = document.createElement("div");
+    context.className = "context-menu";
+    context.style.position = "absolute";
+    context.style.width = 200 + "px";
+    context.style.padding = 20 + "px";
+    context.style.backgroundColor = "darkred";
+    context.style.top =
+      coords.top + target.offsetHeight + window.scrollY + "px";
+    context.style.left = coords.left + "px";
+    context.innerHTML = "This is context menu";
+    document.body.append(context);
+  };
+  let removeElem = (e) => {
+    if (!document.querySelector(".context-menu")) return;
+    if (e.target.closest(".context-menu")) return;
+    list.classList.remove("active");
+    context.remove();
+    context = null;
+  };
+  list.addEventListener("contextmenu", (e) => {
+    let target = e.target.closest("li");
+    e.preventDefault();
+    if (target) {
+      li.forEach((item) => {
+        if (item !== target) {
+          if (document.querySelector(".context-menu")) context.remove();
+        }
+        createElem(target);
+      });
+    }
+    if (e.currentTarget.classList.contains("active")) {
+      document.addEventListener("click", removeElem);
+    }
+  });
 }
 contextGenerableMenu();
 
 let isDraggin = false;
 function toDragging() {
-	let ball = document.querySelector(".test-dropp__item");
-	document.addEventListener("mousedown", (e) => {
-		let target = e.target.closest(".test-dropp__item");
-		if(!target) return;
-		document.addEventListener("dragstart", (e) => e.preventDefault());
-		let shiftY;
-		let shiftX;
-		startDrag();
-		function onMouseMove(e) {
-			toMove(e);
-		}
-		function onMouseUp() {
-			stopDrag();
-		}
-		function toMove(e) {
-			let newTop = e.clientY - shiftY;
-			let newLeft = e.clientX - shiftX;
-			if(newTop < 0) {
-				newTop = 0;
-				window.scrollBy(0, -10);
-			} 
-			if(newTop > document.documentElement.clientHeight - target.offsetHeight) {
-				newTop = document.documentElement.clientHeight - target.offsetHeight;
-				window.scrollBy(0, 10);
-			} 
-			if(newLeft < 0) newLeft = 0;
-			if(newLeft > document.documentElement.clientWidth - target.offsetWidth) {
-				newLeft = document.documentElement.clientWidth - target.offsetWidth;
-			} 
-			target.style.top = newTop + "px";
-			target.style.left = newLeft + "px";
-		}
-		function startDrag() {
-			if(isDraggin) return
-			isDraggin = true;
-			shiftY = e.clientY - target.getBoundingClientRect().top;
-			shiftX = e.clientX - target.getBoundingClientRect().left;
-			target.style.position = "fixed";
-			document.addEventListener("mousemove", onMouseMove);
-			document.addEventListener("mouseup", onMouseUp);
-			toMove(e);
-		}
-		function stopDrag() {
-			if(!isDraggin) return
-			isDraggin = false;
-			target.style.position = "absolute";
-			target.style.top = parseInt(getComputedStyle(target).top) + scrollY  + "px";
-			document.removeEventListener("mousemove", onMouseMove);
-			document.removeEventListener("mouseup", onMouseUp);
-		}
-	});
+  let ball = document.querySelector(".test-dropp__item");
+  document.addEventListener("mousedown", (e) => {
+    let target = e.target.closest(".test-dropp__item");
+    if (!target) return;
+    document.addEventListener("dragstart", (e) => e.preventDefault());
+    let shiftY;
+    let shiftX;
+    startDrag();
+    function onMouseMove(e) {
+      toMove(e);
+    }
+    function onMouseUp() {
+      stopDrag();
+    }
+    function toMove(e) {
+      let newTop = e.clientY - shiftY;
+      let newLeft = e.clientX - shiftX;
+      if (newTop < 0) {
+        newTop = 0;
+        window.scrollBy(0, -10);
+      }
+      if (
+        newTop >
+        document.documentElement.clientHeight - target.offsetHeight
+      ) {
+        newTop = document.documentElement.clientHeight - target.offsetHeight;
+        window.scrollBy(0, 10);
+      }
+      if (newLeft < 0) newLeft = 0;
+      if (newLeft > document.documentElement.clientWidth - target.offsetWidth) {
+        newLeft = document.documentElement.clientWidth - target.offsetWidth;
+      }
+      target.style.top = newTop + "px";
+      target.style.left = newLeft + "px";
+    }
+    function startDrag() {
+      if (isDraggin) return;
+      isDraggin = true;
+      shiftY = e.clientY - target.getBoundingClientRect().top;
+      shiftX = e.clientX - target.getBoundingClientRect().left;
+      target.style.position = "fixed";
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+      toMove(e);
+    }
+    function stopDrag() {
+      if (!isDraggin) return;
+      isDraggin = false;
+      target.style.position = "absolute";
+      target.style.top =
+        parseInt(getComputedStyle(target).top) + scrollY + "px";
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    }
+  });
 }
 // toDragging();
-
 
 /* let contextMenu;
 document.querySelector(".event-section").addEventListener("contextmenu", (e) => {
@@ -782,242 +824,241 @@ let removeItem = (e) => {
 }; */
 
 function moveItem() {
-		let f = (elem) => {
-		elem.style.backgroundColor = "coral";
-	}
-	let toMove = () => {
-		let count = 0
-		return function(el) {
-			count += 12;
-			el.style.position = "relative";
-			el.style.left = count + "px";
-		}	
-	}
-	let move = toMove()
-	eventItem.forEach((item) => {
-		item.addEventListener("mousedown", (e) => e.preventDefault());
-		item.addEventListener("mouseover", (e) => {
-			let target = e.target.closest(".Event-item");
-			if (!target) return;
-				f(target);
-		});
-	});
-	eventItem.forEach((item) => {
-		item.addEventListener("click", (e) => {
-			let target = e.target.closest(".Event-item");
-			if (!target) return;
-			move(target);
-		});
-	});
+  let f = (elem) => {
+    elem.style.backgroundColor = "coral";
+  };
+  let toMove = () => {
+    let count = 0;
+    return function (el) {
+      count += 12;
+      el.style.position = "relative";
+      el.style.left = count + "px";
+    };
+  };
+  let move = toMove();
+  eventItem.forEach((item) => {
+    item.addEventListener("mousedown", (e) => e.preventDefault());
+    item.addEventListener("mouseover", (e) => {
+      let target = e.target.closest(".Event-item");
+      if (!target) return;
+      f(target);
+    });
+  });
+  eventItem.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      let target = e.target.closest(".Event-item");
+      if (!target) return;
+      move(target);
+    });
+  });
 }
 moveItem();
 
 function testMouseEvent() {
-	let wrapper = document.querySelector(".mouse-event__wrapper"),
-		parent = wrapper.querySelectorAll(".mouse-event__parent"),
-		p = wrapper.querySelectorAll(".mouse-event__inner-p"),
-		a = wrapper.querySelectorAll(".mouse-event__inner-p > a"),
-		tooltip = document.createElement("div");
-		let currentItem = null;
-		let timerId;
-	let showElement = (e) => {
-		let target = e.target.closest(".mouse-event__parent");
-		if(!target) return;
-		if(currentItem) return;
-		currentItem = target;
-		timerId = setTimeout(createElem, 500);
-		function createElem() {
-			if(currentItem) {
-				let coords = target.getBoundingClientRect();
-				tooltip.innerHTML = "This is tooltip";
-				tooltip.style.position = "absolute";
-				tooltip.style.padding = 15 + "px";
-				tooltip.style.backgroundColor = "yellow";
-				tooltip.style.transition = "all 0.3s";
-				document.body.append(tooltip);
-				tooltip.hidden = false;
-				tooltip.style.top = coords.top + scrollY - tooltip.offsetHeight + "px";
-				tooltip.style.left = coords.left + scrollX + "px";
-			}
-		}
-	};
-	let hideElement = (e) => {
-		let target = e.target.closest(".mouse-event__parent");
-		if(!target) return;
-		let relatedTarget = e.relatedTarget;
-		while(relatedTarget) {
-			if (relatedTarget == currentItem) return;
-			relatedTarget = relatedTarget.parentNode;
-		}
-		clearTimeout(timerId);
-		timerId = null;
-		tooltip.hidden = true;
-		currentItem = null;
-	};
-	wrapper.addEventListener("mouseover", showElement);
-	wrapper.addEventListener("mouseout", hideElement);
+  let wrapper = document.querySelector(".mouse-event__wrapper"),
+    parent = wrapper.querySelectorAll(".mouse-event__parent"),
+    p = wrapper.querySelectorAll(".mouse-event__inner-p"),
+    a = wrapper.querySelectorAll(".mouse-event__inner-p > a"),
+    tooltip = document.createElement("div");
+  let currentItem = null;
+  let timerId;
+  let showElement = (e) => {
+    let target = e.target.closest(".mouse-event__parent");
+    if (!target) return;
+    if (currentItem) return;
+    currentItem = target;
+    timerId = setTimeout(createElem, 500);
+    function createElem() {
+      if (currentItem) {
+        let coords = target.getBoundingClientRect();
+        tooltip.innerHTML = "This is tooltip";
+        tooltip.style.position = "absolute";
+        tooltip.style.padding = 15 + "px";
+        tooltip.style.backgroundColor = "yellow";
+        tooltip.style.transition = "all 0.3s";
+        document.body.append(tooltip);
+        tooltip.hidden = false;
+        tooltip.style.top = coords.top + scrollY - tooltip.offsetHeight + "px";
+        tooltip.style.left = coords.left + scrollX + "px";
+      }
+    }
+  };
+  let hideElement = (e) => {
+    let target = e.target.closest(".mouse-event__parent");
+    if (!target) return;
+    let relatedTarget = e.relatedTarget;
+    while (relatedTarget) {
+      if (relatedTarget == currentItem) return;
+      relatedTarget = relatedTarget.parentNode;
+    }
+    clearTimeout(timerId);
+    timerId = null;
+    tooltip.hidden = true;
+    currentItem = null;
+  };
+  wrapper.addEventListener("mouseover", showElement);
+  wrapper.addEventListener("mouseout", hideElement);
 }
 testMouseEvent();
 
 function toDrag() {
-	let anyDiv = document.querySelector(".any-div");
-	anyDiv.style.padding = 30 + "px";
-	anyDiv.style.position = "absolute";
-	anyDiv.style.backgroundColor = "coral";
-	anyDiv.style.width = 64 + "px";
-	anyDiv.style.height = 64 + "px";
-	anyDiv.style.borderRadius = 100 + "px";
-	anyDiv.style.textAlign = "center";
-	anyDiv.style.display = "flex";
-	anyDiv.style.justifyContent = "center";
-	anyDiv.style.alignItems = "center";
-	// anyDiv.style.transition = "all 0.3s";
-	anyDiv.style.left = 0;
+  let anyDiv = document.querySelector(".any-div");
+  anyDiv.style.padding = 30 + "px";
+  anyDiv.style.position = "absolute";
+  anyDiv.style.backgroundColor = "coral";
+  anyDiv.style.width = 64 + "px";
+  anyDiv.style.height = 64 + "px";
+  anyDiv.style.borderRadius = 100 + "px";
+  anyDiv.style.textAlign = "center";
+  anyDiv.style.display = "flex";
+  anyDiv.style.justifyContent = "center";
+  anyDiv.style.alignItems = "center";
+  // anyDiv.style.transition = "all 0.3s";
+  anyDiv.style.left = 0;
 
-	anyDiv.addEventListener("mousedown", (e) => {
-		let shiftLeft =  e.clientX - anyDiv.getBoundingClientRect().left;
-		let shiftTop =  e.clientY - anyDiv.getBoundingClientRect().top;
-		
-		let toMove = (e, shiftLeft, shiftTop) => {
-			anyDiv.style.left = e.pageX - shiftLeft + "px";
-			anyDiv.style.top = e.pageY - shiftTop + "px";
-		};
-		toMove(e, shiftLeft, shiftTop);
+  anyDiv.addEventListener("mousedown", (e) => {
+    let shiftLeft = e.clientX - anyDiv.getBoundingClientRect().left;
+    let shiftTop = e.clientY - anyDiv.getBoundingClientRect().top;
 
-		let onMove = (e) => {
-			toMove(e, shiftLeft, shiftTop)
-		};
-		document.addEventListener("mousemove", onMove);
-		anyDiv.addEventListener("mouseup", () => {
-			document.removeEventListener("mousemove", onMove);
-		});
-	});
-	anyDiv.addEventListener("dragstart", (e) => e.stopPreventDefault());
+    let toMove = (e, shiftLeft, shiftTop) => {
+      anyDiv.style.left = e.pageX - shiftLeft + "px";
+      anyDiv.style.top = e.pageY - shiftTop + "px";
+    };
+    toMove(e, shiftLeft, shiftTop);
+
+    let onMove = (e) => {
+      toMove(e, shiftLeft, shiftTop);
+    };
+    document.addEventListener("mousemove", onMove);
+    anyDiv.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", onMove);
+    });
+  });
+  anyDiv.addEventListener("dragstart", (e) => e.stopPreventDefault());
 }
 toDrag();
 
-// Реализация drugnDrop с изменение позиционирования бросаемого элемента 
+// Реализация drugnDrop с изменение позиционирования бросаемого элемента
 function dragNdrop() {
-	let dropItem = document.querySelector(".test-dropp__item");
-	let dropTarget = document.querySelector(".test-dropp__target");
-	let current = null;
+  let dropItem = document.querySelector(".test-dropp__item");
+  let dropTarget = document.querySelector(".test-dropp__target");
+  let current = null;
 
-	dropItem.addEventListener("mousedown", (e) => {
-		let shiftY = e.clientY - dropItem.getBoundingClientRect().top;
-		let shiftX = e.clientX - dropItem.getBoundingClientRect().left
-		toDraggin();
+  dropItem.addEventListener("mousedown", (e) => {
+    let shiftY = e.clientY - dropItem.getBoundingClientRect().top;
+    let shiftX = e.clientX - dropItem.getBoundingClientRect().left;
+    toDraggin();
 
-		function toMove(e) {
-			dropItem.style.top = e.clientY - shiftY + "px";
-			dropItem.style.left = e.clientX - shiftX + "px";
+    function toMove(e) {
+      dropItem.style.top = e.clientY - shiftY + "px";
+      dropItem.style.left = e.clientX - shiftX + "px";
 
-			function toDrop() { 
-				dropItem.hidden = true;
-				let deeper = document.elementFromPoint(e.clientX, e.clientY);
-				dropItem.hidden = false;
-				if(!deeper) return
-				let dropable = deeper.closest(".test-dropp__target");
+      function toDrop() {
+        dropItem.hidden = true;
+        let deeper = document.elementFromPoint(e.clientX, e.clientY);
+        dropItem.hidden = false;
+        if (!deeper) return;
+        let dropable = deeper.closest(".test-dropp__target");
 
-				if(current != dropable) { 
-					if(current) dropTarget.style.backgroundColor = "aqua";
-					current = dropable;
-					if(current) dropTarget.style.backgroundColor = "blue";
-				};
-			}
-			toDrop();
-		}
-		function toDraggin() {
-			dropItem.style.position = "fixed";
-			document.addEventListener("mousemove", toMove);
-			document.addEventListener("mouseup", endDraggin);
-			toMove(e)
-		}
-		function endDraggin(e) { 
-			dropItem.style.position = "absolute";
-			dropItem.style.top = e.pageY - shiftY + "px";
-			if(current) dropTarget.firstElementChild.innerHTML = "Dropping done!";
-			else dropTarget.firstElementChild.innerHTML = "Target";
-			document.removeEventListener("mousemove", toMove);
-			document.removeEventListener("mouseup", endDraggin);
-		}
-	});
+        if (current != dropable) {
+          if (current) dropTarget.style.backgroundColor = "aqua";
+          current = dropable;
+          if (current) dropTarget.style.backgroundColor = "blue";
+        }
+      }
+      toDrop();
+    }
+    function toDraggin() {
+      dropItem.style.position = "fixed";
+      document.addEventListener("mousemove", toMove);
+      document.addEventListener("mouseup", endDraggin);
+      toMove(e);
+    }
+    function endDraggin(e) {
+      dropItem.style.position = "absolute";
+      dropItem.style.top = e.pageY - shiftY + "px";
+      if (current) dropTarget.firstElementChild.innerHTML = "Dropping done!";
+      else dropTarget.firstElementChild.innerHTML = "Target";
+      document.removeEventListener("mousemove", toMove);
+      document.removeEventListener("mouseup", endDraggin);
+    }
+  });
 }
 dragNdrop();
 
-
 // аккордеон
 function setAccordeon() {
-	let accordeon = document.querySelector(".accordeon"),
-	 	clickItem = accordeon.querySelectorAll(".accordeon__click");
+  let accordeon = document.querySelector(".accordeon"),
+    clickItem = accordeon.querySelectorAll(".accordeon__click");
 
-	function hideContent(e) {
-		if(e.target.closest(".accordeon")) return;
-		for(let item of clickItem) {
-			item.classList.remove("active");
-			item.parentElement.style.maxHeight = 50 + "px";	
-		}
-		accordeon.classList.remove("active");
-		document.removeEventListener("click", hideContent);
-	}
-	
-	function clickHandler(e) {
-		let target = e.target.closest(".accordeon__click");
-		if(!target) return;
-		e.currentTarget.classList.add("active");
-		target.classList.toggle("active");
+  function hideContent(e) {
+    if (e.target.closest(".accordeon")) return;
+    for (let item of clickItem) {
+      item.classList.remove("active");
+      item.parentElement.style.maxHeight = 50 + "px";
+    }
+    accordeon.classList.remove("active");
+    document.removeEventListener("click", hideContent);
+  }
 
-		clickItem.forEach((item) => {
-			
-			function setHeight(height) {
-				item.parentElement.style.maxHeight = height + "px";	
-			}
+  function clickHandler(e) {
+    let target = e.target.closest(".accordeon__click");
+    if (!target) return;
+    e.currentTarget.classList.add("active");
+    target.classList.toggle("active");
 
-			if(item.classList.contains("active")) {
-				item.classList.remove("active"); //что бы закрывались все вкладки
-				setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
-			} 
-			else setHeight(50);
-			if(e.currentTarget.classList.contains("active")) document.addEventListener("click", hideContent);
-		});
-	}
-	accordeon.addEventListener("click", clickHandler);
+    clickItem.forEach((item) => {
+      function setHeight(height) {
+        item.parentElement.style.maxHeight = height + "px";
+      }
+
+      if (item.classList.contains("active")) {
+        item.classList.remove("active"); //что бы закрывались все вкладки
+        setHeight(target.offsetHeight + item.nextElementSibling.offsetHeight);
+      } else setHeight(50);
+      if (e.currentTarget.classList.contains("active"))
+        document.addEventListener("click", hideContent);
+    });
+  }
+  accordeon.addEventListener("click", clickHandler);
 }
 setAccordeon();
 
 // табы
 function tabSet() {
-	let parent = document.querySelector("body > section.tabs-section > div > div:nth-child(1)"),
-		tabs = document.querySelectorAll(".tabs-section__tabs"),
-		contentBoxes = document.querySelectorAll(".tabs-section__content");
+  let parent = document.querySelector(
+      "body > section.tabs-section > div > div:nth-child(1)"
+    ),
+    tabs = document.querySelectorAll(".tabs-section__tabs"),
+    contentBoxes = document.querySelectorAll(".tabs-section__content");
 
-	function hideContent(a) {
-		for(let i = a; i < contentBoxes.length; i++) {
-			contentBoxes[i].style.display = "none";
-		}
-	}
-	hideContent(1);
-	
-	function showContent(j) {
-		contentBoxes[j].style.display = "block";
-	}
+  function hideContent(a) {
+    for (let i = a; i < contentBoxes.length; i++) {
+      contentBoxes[i].style.display = "none";
+    }
+  }
+  hideContent(1);
 
-	function onClickTabs(e) {
-		let target = e.target.closest(".tabs-section__tabs");
-		if(!target) return;
-		tabs.forEach((item, i) => {
-			item.classList.remove("active");
-			target.classList.add("active");
-			// if(item.classList.contains("active")) это условие тоже работает
-			if(item == target && target.classList.contains("active")) {
-				hideContent(0);
-				showContent(i);
-			} 
-		});
-	}
-	parent.addEventListener("click", onClickTabs);
+  function showContent(j) {
+    contentBoxes[j].style.display = "block";
+  }
+
+  function onClickTabs(e) {
+    let target = e.target.closest(".tabs-section__tabs");
+    if (!target) return;
+    tabs.forEach((item, i) => {
+      item.classList.remove("active");
+      target.classList.add("active");
+      // if(item.classList.contains("active")) это условие тоже работает
+      if (item == target && target.classList.contains("active")) {
+        hideContent(0);
+        showContent(i);
+      }
+    });
+  }
+  parent.addEventListener("click", onClickTabs);
 }
 tabSet();
-
 
 /* let arr = [];
 for(let i = 0; i < clickBox.length; i++) {
@@ -1032,14 +1073,12 @@ let widthObj = arr.map(item => {
 });
 console.log(widthObj); */
 
-
 /* 	function toRecurse(n) {
 		if (n == 1) return n;
 		let result = toRecurse( n - 1 );
 		console.log(n);
 	}
 console.log(toRecurse(20)); */
-
 
 /* // рекурсия с замыканием
 let setRecourse = () => {
@@ -1064,10 +1103,8 @@ console.log(func(15)); */
 }
 console.log(rec([1,2,3], 0)); */
 
-
 /* let battery = window.navigator.getBattery();
 battery.then((res) => console.log(res)); */
-
 
 /* (async () => {
 	let battery = await window.navigator.getBattery();
@@ -1079,10 +1116,8 @@ battery.then((res) => console.log(res)); */
 }); */
 
 // Пример установки и изменения своего дата-атрибута.Через "data-"обязательно. Тогда доступен "dataset"
-/* <div id="elem" class="box" data-color-bg="blue-backgrond"></div>     - разметка*/     
-/* .box[data-color-bg="crimson-backgrond"] {background-color: crimson;} - стили*/ 
-
-
+/* <div id="elem" class="box" data-color-bg="blue-backgrond"></div>     - разметка*/
+/* .box[data-color-bg="crimson-backgrond"] {background-color: crimson;} - стили*/
 
 /* // Функция возвращает массив из элементов, который потом добавяес на страницу
 function createLayot() {
@@ -1095,8 +1130,6 @@ function createLayot() {
 	return layot;
 }
 document.body.append(...createLayot()); */
-
-
 
 // DOM дерево из объекта с рекурсией
 /* let data = {
@@ -1133,7 +1166,6 @@ function createTree(obj) {
 	return ul;
 }
 createTree(data); */
-
 
 /* function setDate(year, month) {
 	let date = new Date(year, month, 0);
@@ -1188,14 +1220,10 @@ createTree(data); */
 	// return datepicker;
 } */
 
-	
 /* // Вставить несколько li между li
 let ul = document.getElementById("ul"),
 	li = ul.querySelectorAll("li");
 li[0].insertAdjacentHTML("afterend", "<li>2</li><li>3</li>"); */
-
-
-
 
 /* function wrapper() {
 	let arr = [];	
@@ -1209,9 +1237,6 @@ li[0].insertAdjacentHTML("afterend", "<li>2</li><li>3</li>"); */
 	return replicate;
 }
 let replicate = wrapper(); */
-
-
-
 
 /* let arr = [[1, 3], [[1, 3], [1, 3]], ["smth"], [true], [{name: "Alex"}]];
 let opened = arr.reduce((a, b) => {
@@ -1260,7 +1285,6 @@ let removeElement = () => {
 document.addEventListener("contextmenu",removeElement);
 document.addEventListener("click",removeElement); */
 
-
 // Обработка события при нажатии на 2 клавиши одновременно. Мой вариант + из гугла
 /* let keys = {};
 function onKeyUp(e) { 
@@ -1300,7 +1324,6 @@ document.addEventListener("keydown", onKeyDown); */
 		"KeyW"
 	); */
 
-
 /* let select = document.getElementById("genres");
 let options = select.options;
 Array.from(options).forEach(item => {
@@ -1331,7 +1354,6 @@ let res = arr.map((item, i, array) => {
 	}
 }); */
 
-
 /* let useers = [
     {id: 'john', name: "John Smith", age: 20},
     {id: 'ann', name: "Ann Smith", age: 24},
@@ -1347,10 +1369,10 @@ let res = arr.map((item, i, array) => {
   console.log(toGrouped(useers)); */
 
 function toFocusBlur() {
-	let form = document.forms[1];
-		input = form.elements.one;
-	
-		/* input.addEventListener("blur", (e) => {
+  let form = document.forms[1];
+  input = form.elements.one;
+
+  /* input.addEventListener("blur", (e) => {
 			if(!input.value.includes("@")) {
 				input.style.cssText = "border-color: red";
 				input.value = "Enter your Email";
@@ -1360,18 +1382,15 @@ function toFocusBlur() {
 				input.value = "";
 			} 
 		}); */
-	form.addEventListener("focusin", (e) => {
-		e.currentTarget.style.cssText = "border: 1px solid red";
-	} );
+  form.addEventListener("focusin", (e) => {
+    e.currentTarget.style.cssText = "border: 1px solid red";
+  });
 
-	/* form.addEventListener("blur", (e) => {
+  /* form.addEventListener("blur", (e) => {
 		e.currentTarget.style.cssText = "";
 	}); */
 }
 toFocusBlur();
-
-
-
 
 /* // Вариант из решения
 let table = document.getElementById('bagua-table');
@@ -1423,20 +1442,16 @@ function finishTdEdit(td, isOk) {
   editingTd = null;
 } */
 
-
 let inps = document.forms[1].elements;
 let tests = document.querySelectorAll(".test-div");
 
 let divv = document.querySelector(".my-div"),
-	b = divv.getElementsByTagName("b")[0];
-
+  b = divv.getElementsByTagName("b")[0];
 
 let range = new Range();
 
 range.setStart(divv, 0);
 range.setEnd(b, 1);
-
-
 
 /* document.addEventListener("dblclick", () => {
 	document.getSelection().removeAllRanges();
@@ -1444,13 +1459,12 @@ range.setEnd(b, 1);
 	
 }); */
 
-
 /* document.onkeydown = () => {
 	x = selected.getRangeAt(0).cloneContents();
 	inp.value += x.firstChild.data;
 } */
 
-	/* document.onkeydown = () => {
+/* document.onkeydown = () => {
 	selected.setBaseAndExtent(divv, 0, divv, 1);
 } */
 
@@ -1531,7 +1545,6 @@ let z = new myClass({
 	func: func,
 }); */
 
-
 /* let link = document.querySelector("body > section.mouse-event > div.mouse-event__wrapper > div:nth-child(1) > p:nth-child(3) > a");
 let blob = new Blob(["any text"],{type: "text, plain"});
 let file = new File(["../img/facebook.svg"], "file-name");
@@ -1546,8 +1559,6 @@ reader.onload = () => {
 reader.onerror = () => {
 	console.log(reader.result);
 }  */
-
-		
 
 /* async function f() {
 	let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
@@ -1581,8 +1592,6 @@ clickItem.addEventListener("click", () => getUsers(["mojombo", "defunkt", "qwqqq
 }
 getUsersFromGh(); */
 
-
-
 /* function loadData() {
 	let cache = new Map();
 	function wrapper(...url) {
@@ -1614,18 +1623,19 @@ let f = loadData();
 f(['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`]);
 f(['https://api.github.com/users/remy'], [`https://api.github.com/users/iliakan`], [`https://api.github.com/users/si`]); */
 
-
 function getData() {
-	let cache = new Map();
-	let arr = [];
-	function wrapper(...url) {
-		let promises = Promise.all(url.map(item => fetch(item)
-			.then((responses) => {
-				arr.push(responses.json())
-			})
-			.then((jsons) => {
-				/* console.log(jsons) */
-				/* for(let json of jsons) {
+  let cache = new Map();
+  let arr = [];
+  function wrapper(...url) {
+    let promises = Promise.all(
+      url.map((item) =>
+        fetch(item)
+          .then((responses) => {
+            arr.push(responses.json());
+          })
+          .then((jsons) => {
+            /* console.log(jsons) */
+            /* for(let json of jsons) {
 					if(cache.has(json.url)) {
 						console.log("get!");
 						return cache.get(json.url);
@@ -1634,79 +1644,84 @@ function getData() {
 						return cache.set(json.url);
 					}
 				} */
-			})
-		)).then(() => {
-			let res = Promise.all(arr.map(item => item)) ;
-			return res
-		})
-		.then((res) => console.log(res))
-	}
-	return wrapper;
+          })
+      )
+    )
+      .then(() => {
+        let res = Promise.all(arr.map((item) => item));
+        return res;
+      })
+      .then((res) => console.log(res));
+  }
+  return wrapper;
 }
 
 /* let foo = getData();
 foo(['https://jsonplaceholder.typicode.com/posts'], [`https://jsonplaceholder.typicode.com/posts`], [`https://jsonplaceholder.typicode.com/posts`]); */
 
-
-
 function toDropItem() {
-	let ball = document.querySelector(".any-section__frop-ball");
-	let current = null;
-	ball.style.display = "flex";
-	ball.style.alignItems = "center";
-	ball.style.justifyContent = "center";
-	ball.style.position = "absolute";
-	ball.style.width = 133+ "px";
-	ball.style.height = 133 +"px";
-	ball.style.textAlign = "center";
-	ball.style.borderRadius = 100 + "%";
-	ball.style.backgroundColor = "darkgray"
-	ball.style.color = "darkgreen";
+  let ball = document.querySelector(".any-section__frop-ball");
+  let current = null;
+  ball.style.display = "flex";
+  ball.style.alignItems = "center";
+  ball.style.justifyContent = "center";
+  ball.style.position = "absolute";
+  ball.style.width = 133 + "px";
+  ball.style.height = 133 + "px";
+  ball.style.textAlign = "center";
+  ball.style.borderRadius = 100 + "%";
+  ball.style.backgroundColor = "darkgray";
+  ball.style.color = "darkgreen";
 
-	ball.addEventListener("mousedown",(e) => {
-		let target = e.target.closest(".any-section__frop-ball");
-		if(!target) return;
-		let coords = ball.getBoundingClientRect();
-		let shiftX = e.clientX - coords.left;
-		let shiftY = e.clientY - coords.top;
-		function toMove(e) {
-			ball.style.position = "fixed";
-			let newY = e.clientY - shiftY;
-			let newX = e.clientX - shiftX;
-			if(newX > document.documentElement.clientWidth - ball.offsetWidth) newX = document.documentElement.clientWidth - ball.offsetWidth;
-			if(newX < 0) newX = 0;
-			if(newY > document.documentElement.clientHeight - ball.offsetHeight) newY = document.documentElement.clientHeight - ball.offsetHeight;
-			if(newY < 0) newY = 0;
-			ball.style.top = newY + "px";
-			ball.style.left = newX + "px";
+  ball.addEventListener("mousedown", (e) => {
+    let target = e.target.closest(".any-section__frop-ball");
+    if (!target) return;
+    let coords = ball.getBoundingClientRect();
+    let shiftX = e.clientX - coords.left;
+    let shiftY = e.clientY - coords.top;
+    function toMove(e) {
+      ball.style.position = "fixed";
+      let newY = e.clientY - shiftY;
+      let newX = e.clientX - shiftX;
+      if (newX > document.documentElement.clientWidth - ball.offsetWidth)
+        newX = document.documentElement.clientWidth - ball.offsetWidth;
+      if (newX < 0) newX = 0;
+      if (newY > document.documentElement.clientHeight - ball.offsetHeight)
+        newY = document.documentElement.clientHeight - ball.offsetHeight;
+      if (newY < 0) newY = 0;
+      ball.style.top = newY + "px";
+      ball.style.left = newX + "px";
 
-			ball.style.display = "none";
-			let deeper = document.elementFromPoint(e.clientX, e.clientY);
-			ball.style.display = "flex";
-			if(!deeper) return;
-			
-			let dropTarget = deeper.closest("body > section.tabs-section > section > table");
-			if(current != dropTarget) {
-				if(current) document.querySelector("body > section.tabs-section > section > table").style.backgroundColor = "";
-				current = dropTarget;
-				if(current) {
-					dropTarget.style.backgroundColor = "red";
-				} 
-			}
-				
-			ball.addEventListener("mouseup", toStop)
-		}
-		toMove(e);	
+      ball.style.display = "none";
+      let deeper = document.elementFromPoint(e.clientX, e.clientY);
+      ball.style.display = "flex";
+      if (!deeper) return;
 
-		function toStop(e) {
-			ball.style.position = "absolute";
-			ball.style.top = e.pageY - shiftY + "px";
-			document.removeEventListener("mousemove", toMove);
-		}
-		document.addEventListener("mousemove", toMove);
-	});
+      let dropTarget = deeper.closest(
+        "body > section.tabs-section > section > table"
+      );
+      if (current != dropTarget) {
+        if (current)
+          document.querySelector(
+            "body > section.tabs-section > section > table"
+          ).style.backgroundColor = "";
+        current = dropTarget;
+        if (current) {
+          dropTarget.style.backgroundColor = "red";
+        }
+      }
 
-	
+      ball.addEventListener("mouseup", toStop);
+    }
+    toMove(e);
+
+    function toStop(e) {
+      ball.style.position = "absolute";
+      ball.style.top = e.pageY - shiftY + "px";
+      document.removeEventListener("mousemove", toMove);
+    }
+    document.addEventListener("mousemove", toMove);
+  });
 }
 toDropItem();
 
@@ -1760,28 +1775,33 @@ document.addEventListener("scroll", () => {
 	if(document.documentElement.getBoundingClientRect().bottom < document.documentElement.clientHeight + 10) loadData(urls);
 }); */
 
-
-
 let myForm = document.forms[0];
-let urls = ["https://webhook.site/5555a98f-c3d9-407d-9fab-523daf038bd6", "https://jsonplaceholder.typicode.com/posts", "../reviews-form_telegram.php"];
+let urls = [
+  "https://webhook.site/5555a98f-c3d9-407d-9fab-523daf038bd6",
+  "https://jsonplaceholder.typicode.com/posts",
+  "../reviews-form_telegram.php",
+];
 function submitForm(form) {
-	form.addEventListener("submit", (e) => {
-		e.preventDefault();
-		let formData = new FormData(myForm);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let formData = new FormData(myForm);
 
-		let requests = Promise.all(urls.map(item => {
-			return fetch(item, {
-				method: "POST",
-				body: formData,
-			})
-		})).then((responses) => {
-			let results =  Promise.all(responses.map(item => item.status))
-			return results;
-		}).then((results) => console.log(results));
-	});
+    let requests = Promise.all(
+      urls.map((item) => {
+        return fetch(item, {
+          method: "POST",
+          body: formData,
+        });
+      })
+    )
+      .then((responses) => {
+        let results = Promise.all(responses.map((item) => item.status));
+        return results;
+      })
+      .then((results) => console.log(results));
+  });
 }
 /* submitForm(myForm); */
-
 
 /* let fileForm  = document.forms[1];
 function submitHandler(form, e) {
@@ -1797,10 +1817,6 @@ function submitHandler(form, e) {
 	})
 }
 fileForm.addEventListener("submit", (e) => submitHandler(fileForm, e)); */
-
-
-
-
 
 /* 
 	// Вот полный рабочий пример, который получает ответ сервера и в процессе получения выводит в консоли длину полученных данных
@@ -1846,25 +1862,26 @@ fileForm.addEventListener("submit", (e) => submitHandler(fileForm, e)); */
 }
 readState(); */
 
-
 async function getDataa() {
-	let response = await fetch("https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100");
-	let reader = response.body.getReader();
-	let receivedDataLength = 0;
-	let receivedDataArr = [];
-	while(true) {
-		let result = await reader.read();
-		if(result.done) break;
-		receivedDataLength += result.value.length;
-		receivedDataArr.push(result.value);
-	}
-	let arrayBuffer = new Uint8Array(receivedDataLength);
-	for (let data of receivedDataArr) {
-		arrayBuffer.set(data);
-	}
-	let decoded = new TextDecoder("utf-8").decode(arrayBuffer);
-	let result = JSON.parse(decoded);
-	console.log(result[0].author.login);
+  let response = await fetch(
+    "https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100"
+  );
+  let reader = response.body.getReader();
+  let receivedDataLength = 0;
+  let receivedDataArr = [];
+  while (true) {
+    let result = await reader.read();
+    if (result.done) break;
+    receivedDataLength += result.value.length;
+    receivedDataArr.push(result.value);
+  }
+  let arrayBuffer = new Uint8Array(receivedDataLength);
+  for (let data of receivedDataArr) {
+    arrayBuffer.set(data);
+  }
+  let decoded = new TextDecoder("utf-8").decode(arrayBuffer);
+  let result = JSON.parse(decoded);
+  console.log(result[0].author.login);
 }
 /* getDataa().catch((e) => {throw new Error(e.message)}); */
 
@@ -1883,7 +1900,6 @@ let responseee = fetch("https://jsonplaceholder.typicode.com/posts", {
 	});
 controller.abort(); */
 
-
 /* let testItem = document.querySelector(".feed-form__button");
 let coords = testItem.getBoundingClientRect();
 testItem.style.border = "13px solid black";
@@ -1893,7 +1909,6 @@ testItem.addEventListener("mousemove", (e) => {
 	if(e.offsetY > testItem.clientHeight || e.offsetY < 0) console.log("!");
 	if(e.offsetX > testItem.clientWidth || e.offsetX < 0) console.log("!");
 }); */
-
 
 /* async function getResponse() {
 	let controller = new AbortController();
@@ -1966,14 +1981,13 @@ let response = fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d"
 		console.log(result);
 	}); */
 
-
-let targetForm = document.forms[1]; 
+let targetForm = document.forms[1];
 let targetInput = targetForm.elements.two;
 
 targetForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-	/* subscribe(); */
-	/* getResponse(); */
+  e.preventDefault();
+  /* subscribe(); */
+  /* getResponse(); */
 });
 
 /* targetInput.addEventListener("input", () => {
@@ -1982,30 +1996,36 @@ targetForm.addEventListener("submit", (e) => {
 }); */
 
 async function getResponse() {
-	if(!targetInput.files[0]) {
-		alert("There is no any file...");
-		return;
-	}
-	let data = new FormData(targetForm);
-	let fileId = targetInput.files[0].name + '-' + targetInput.files[0].size + '-' + targetInput.files[0].lastModifiedDate;
-	console.log(fileId);
-	  
-	try {
-		let response = await fetch("https://webhook.site/8c589265-cf7b-4b76-b862-0c40fd414820", {
-			/* headers: {
+  if (!targetInput.files[0]) {
+    alert("There is no any file...");
+    return;
+  }
+  let data = new FormData(targetForm);
+  let fileId =
+    targetInput.files[0].name +
+    "-" +
+    targetInput.files[0].size +
+    "-" +
+    targetInput.files[0].lastModifiedDate;
+  console.log(fileId);
+
+  try {
+    let response = await fetch(
+      "https://webhook.site/8c589265-cf7b-4b76-b862-0c40fd414820",
+      {
+        /* headers: {
 				"X-File-Id": fileId,
 			}, */
-			method: "POST",
-			body: data,
-		});
-		let responseText = await response.text();
-		console.log(responseText);
-	}
-	catch(err) {
-		console.log(err);
-	}
+        method: "POST",
+        body: data,
+      }
+    );
+    let responseText = await response.text();
+    console.log(responseText);
+  } catch (err) {
+    console.log(err);
+  }
 }
-
 
 // async function subscribe() {
 // 	let response = await fetch("https://webhook.site/5579d741-145a-4bf0-9c6a-3ec9f39f8b87");
@@ -2015,7 +2035,7 @@ async function getResponse() {
 // 		await new Promise(resolve => setTimeout(resolve, 1000));
 // 		alert(response.statusText + " - " + "Smth went wrong!");
 // 		await subscribe();
-// 	} 
+// 	}
 // 	else {
 // 		let responseText = await response.text();
 // 		console.log(response.ok);
@@ -2024,7 +2044,6 @@ async function getResponse() {
 // 	}
 // }
 // /* subscribe(); */
-
 
 /* async function subscribe() {
     let response = await fetch("https://webhook.site/8e99c615-a51d-4d00-b34f-fbd4c047d03d");
@@ -2046,9 +2065,6 @@ async function getResponse() {
       await subscribe();
     }
   } */
-
-
-
 
 /* let eSource = new EventSource("https://webhook.site/594c4fac-425b-4c39-a265-2c36adc63f61"); */
 // console.log(eSource);
@@ -2081,7 +2097,7 @@ async function getResponse() {
 // 	responses.forEach(response => {
 // 		if(response.ok) {
 // 			console.log(`${response.status} Success responses!`);
-// 		} 
+// 		}
 // 		else {
 // 			console.log(`Response failed! Reason: ${response.status}`);
 // 			/* throw new Error("Response failed!"); */
@@ -2119,40 +2135,42 @@ document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value); */
 let counter = 0;
 let arr = [];
 let url = [
-	'https://api.github.com/users/iliakan',
-	'https://api.github.com/users/rem',
-	'https://api.github.com/users/jeresig'
+  "https://api.github.com/users/iliakan",
+  "https://api.github.com/users/rem",
+  "https://api.github.com/users/jeresig",
 ];
 
 async function getData(url) {
-	let responses = await Promise.all(url.map(item => fetch(item)));
-	
-	let jsons = await Promise.all(
-		responses.map(item => {
-			if(item.ok) return item.json();
-			else {
-				throw new Error("Responses failed!");
-			}
-		}));
-	
-	await Promise.all(
-		jsons.map((item, i) => {
-			return new Promise((resolve, reject) => {
-				let img = document.createElement("img");
-				img.src = jsons[i].avatar_url;
-				img.onload = function() {
-				counter += 1;
-				arr.push(img);
-				
-				if(counter == 3) resolve();
-				else img.onerror = () => reject();
-				}
-			}).then(() => {
-				document.body.append(...arr);
-			})
-			.catch((err) => console.log(err + " " + "Error! Not loaded..."))
-		})
-	).catch((err) => console.log(err));
+  let responses = await Promise.all(url.map((item) => fetch(item)));
+
+  let jsons = await Promise.all(
+    responses.map((item) => {
+      if (item.ok) return item.json();
+      else {
+        throw new Error("Responses failed!");
+      }
+    })
+  );
+
+  await Promise.all(
+    jsons.map((item, i) => {
+      return new Promise((resolve, reject) => {
+        let img = document.createElement("img");
+        img.src = jsons[i].avatar_url;
+        img.onload = function () {
+          counter += 1;
+          arr.push(img);
+
+          if (counter == 3) resolve();
+          else img.onerror = () => reject();
+        };
+      })
+        .then(() => {
+          document.body.append(...arr);
+        })
+        .catch((err) => console.log(err + " " + "Error! Not loaded..."));
+    })
+  ).catch((err) => console.log(err));
 }
 /* getData(url) */
 
@@ -2173,7 +2191,6 @@ console.log(item1);	//Cake
 console.log(item2); //Donut
 console.log(extra); //true */
 
-
 /* let urll = new URL('https://google.com/search');
 
 urll.searchParams.set("q", "test");
@@ -2193,9 +2210,9 @@ for (let [name, value] of urll.searchParams) {
 // document.cookie = "name=John surname=Snow; samesite=lax"; // защита от XSRF атак, мягкий вариант. samesite=strict - жесткий
 // /* document.cookie = `name=John surname=Snow; expires=${date}`; // куки удалятся через 100000мл/сек от "сейчас"(Date.now()) */
 // document.cookie = `name=John surname=Snow; max-age=2`; // куки удалятся через 0сек (т.е сразу. Или поставить другое значение)
-// console.log(document.cookie); 
+// console.log(document.cookie);
 // setTimeout(() => console.log(document.cookie), 3000);
- 
+
 /* function f(name, surname) {
 	let obj = {
 		"key1" : true,
@@ -2215,14 +2232,12 @@ for (let [name, value] of urll.searchParams) {
 }
 f("John", "Smith"); */
 
-
 /* function returnValue() {
 	let sum = 0 + 0;
 	let bull = false;
 	let str = "";
 	return  sum || bull || str;
 } */
-
 
 /* document.cookie = encodeURIComponent("user1") + "=" + encodeURIComponent("name1") + "; max-age=30";
 document.cookie = encodeURIComponent("user2") + "=" + encodeURIComponent("name2") + "; max-age=30";
@@ -2259,9 +2274,6 @@ function setValue() {
 setValue();
 mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect.value}; max-age=10`); */
 
-
-
-
 // // indexedDB
 // let openRequest = indexedDB.open("store", 1);// запрос
 
@@ -2279,11 +2291,11 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 	/* db.deleteObjectStore('books') */  // удалить хранилище объектов
 
 // });
-// openRequest.addEventListener("success", (e) => { // После upgradeneeded сработает событие success	
+// openRequest.addEventListener("success", (e) => { // После upgradeneeded сработает событие success
 // 	// при попытке обновления на объекте базы возникает событие versionchange
 // 	let db = openRequest.result;
 // 	db.addEventListener("versionchange", () => console.log("versionchange event!"));
-	
+
 // 	//Все операции с данными в IndexedDB могут быть сделаны только внутри транзакций.
 // 	let transaction = db.transaction("books", "readwrite");
 // 	let books = transaction.objectStore("books"); // получить хранилище объектов для работы с ним
@@ -2295,13 +2307,13 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 		created: new Date()
 // 	};
 
-// 	let request = books.add(book, /* "myKey" */); // Выполнить запрос на добавление элемента в хранилище объектов 
+// 	let request = books.add(book, /* "myKey" */); // Выполнить запрос на добавление элемента в хранилище объектов
 
-// 	// add(value, [key]) То же, что put, но если уже существует значение с таким ключом, 
+// 	// add(value, [key]) То же, что put, но если уже существует значение с таким ключом,
 // 	// то запрос не выполнится, будет сгенерирована ошибка с названием "ConstraintError".
 
-// 	// put(value, [key]) Добавляет значение value в хранилище. Ключ key необходимо указать, 
-// 	// если при создании хранилища объектов не было указано свойство keyPath или autoIncrement. 
+// 	// put(value, [key]) Добавляет значение value в хранилище. Ключ key необходимо указать,
+// 	// если при создании хранилища объектов не было указано свойство keyPath или autoIncrement.
 // 	// Если уже есть значение с таким же ключом, то оно будет заменено.
 
 // 	request.onsuccess = function() { // Обработать результат запроса
@@ -2324,10 +2336,8 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 		};
 // 	};
 
-	
 // 	/* // удалить книгу с id='js'
 // 	books.delete('js'); */
-	
 
 // 	//Поиск по ключам
 // 	// получить одну книгу
@@ -2347,7 +2357,6 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 	// получить все ключи, гдe id > 'js'
 // 	books.getAllKeys(IDBKeyRange.lowerBound('js', true))
 
-	
 // 	// Поиск по индексированному полю. Для этошо в событии "upgradeneeded" сначала создали структуру данных "Index"
 // 	let priceIndex = books.index("price_i");
 // 	let indexRequest = priceIndex.getAll(10);
@@ -2366,7 +2375,7 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 	indexRequest.onsuccess = () => {
 // 		if(indexRequest.result.length !== 0) console.log(indexRequest.result);
 // 		else console.log("Нет таких книг");
-// 	} 
+// 	}
 
 // 	transaction.oncomplete = function() {
 //   		console.log("Транзакция выполнена");
@@ -2375,7 +2384,6 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 	// и сгенерирует событие transaction.onabort
 // });
 // openRequest.addEventListener("error", () => console.error(openRequest.error));
-
 
 // /* let openRequest2 = indexedDB.open("store", 2);  // попытка открыть новоую версию хранилища вызовет "blocked", т.к открыта версия 1
 // // openRequest2.addEventListener("onupgradeneeded", () => console.log("let upgrade DB!"));
@@ -2424,19 +2432,19 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 		console.log(db.version);
 // 		let storage = db.createObjectStore("myStorage", {keyPath: "id"});
 // 		let index = storage.createIndex("number-srch", "number");
-// 	} 
+// 	}
 // 	/* if(e.oldVersion == 1) {
 // 		openRequest = indexedDB.open("store", 2);
 // 		db = openRequest.result;
 // 		console.log(db.version);
-// 	}  */ 
+// 	}  */
 // }
 // openRequest.onsuccess = () => {
 // 	let db = openRequest.result;
 // 	console.log(db);
 // 	let transaction = db.transaction("myStorage", "readwrite");
 // 	let storage = transaction.objectStore("myStorage");
-	
+
 // 	transaction.onabort = () => console.log("Transaction aborted! " + transaction.error)
 
 // 	let addRequest = {
@@ -2456,7 +2464,7 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 				//транзакцию ниже для "get"
 // 				e.preventDefault();
 // 			}
-// 		} 
+// 		}
 // 	}
 // 	// let getTransaction = db.transaction("myStorage", "readwrite");
 // 	// let getStorage = getTransaction.objectStore("myStorage")
@@ -2465,7 +2473,7 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 		if(getRequest.result !== undefined) {
 // 			console.log(getRequest.result);
 // 			/* getStorage */ storage.delete("obj#2");
-// 		} 
+// 		}
 // 		else console.log("нет таких объектов");
 // 	}
 
@@ -2474,14 +2482,13 @@ mySelect.addEventListener("input", () => document.cookie = `cityValue=${mySelect
 // 	indexRequest.onsuccess = () => console.log(indexRequest.result);
 // 	indexRequest.onerror = () => console.log(indexRequest.error);
 
-
 // 	let cursorRequest = storage.openCursor(); // cursor идёт по хранилищу объектов и возвращает пары ключ/значение по очереди
 // 	cursorRequest.onsuccess = () => {
 // 		if(cursorRequest.result) {
 // 			console.log("key: " + cursorRequest.result.key + " value: " + cursorRequest.result.value)
 // 			cursorRequest.result.continue(); /* продвинуть курсор к следующему значению */
 // 			/* cursorRequest.result.advance(3); */ /* продвинуть курсор на count позиций, пропустив значения */
-// 		} 
+// 		}
 // 		else console.log("...объектов обольше нет");
 // 	}
 // }
@@ -2502,7 +2509,6 @@ async function createDb() {
 }
 createDb(); */
 
-
 /* init();
 let db;
 async function init() {
@@ -2519,7 +2525,6 @@ async function list() {
   let bookStore = tx.objectStore('books');
 }
  */
-
 
 /* let targetEl = document.querySelector("body > div.any-section__frop-ball");
 let int;
@@ -2628,8 +2633,7 @@ document.addEventListener("keydown", (e) => {
 	if(e.key == "d" && document.getElementsByTagName("my-element")[0]) document.getElementsByTagName("my-element")[0].remove(); 
 }); */
 
-
-// Чвсы с помощью пользовательских элементов (Custom Elements) 
+// Чвсы с помощью пользовательских элементов (Custom Elements)
 /* class CustomElement extends HTMLElement {
 	constructor() {	
 		super();
@@ -2666,7 +2670,6 @@ let el = document.querySelector(".time-formatter");
 setInterval(() => {
 	el.setAttribute("time", new Date());
 }, 1000); */
-
 
 /* let elem = document.getElementById("elem");
 class LiveTimer extends HTMLElement {
@@ -2723,20 +2726,17 @@ class TimeFormatted extends HTMLElement {
 }
 customElements.define("time-formatted", TimeFormatted); */
 
-
 let canvas = document.getElementById("draw-canvas");
 let img = new Image();
 img.src = "img/icon_card-heart.svg";
 let ctx = canvas.getContext("2d");
 ctx.lineWidth = 3.1;
 img.onload = () => {
-	let pattern = ctx.createPattern(img, "repeat");
-	ctx.fillStyle = pattern;
-	ctx.fillRect(400, 200, 100, 100);
-	ctx.strokeRect(400, 200, 100, 100); 
-}
-
-
+  let pattern = ctx.createPattern(img, "repeat");
+  ctx.fillStyle = pattern;
+  ctx.fillRect(400, 200, 100, 100);
+  ctx.strokeRect(400, 200, 100, 100);
+};
 
 /* function firstFoo(callback) {
 	console.log("foo 1")
@@ -2773,7 +2773,6 @@ let funcArr = [firstFoo, secondFoo, thirdFoo]; */
 }
 f(); */
 
-
 /* let wrappScrollBar = document.querySelector(".scroll-wrapp");
 wrappScrollBar.scrollLeft = 0;
 let onBottom;
@@ -2796,10 +2795,6 @@ wrappScrollBar.addEventListener("scroll", (e) => {
 	if(e.currentTarget.firstElementChild.firstElementChild.scrollTop == bottomFringe) onBottom = true;
 	if(onBottom) toUp();
 }); */
-
-
-
-
 
 /* function setHeight() {
 	let valBoxGreen = document.querySelector(".value-box_green");
@@ -2831,41 +2826,40 @@ function getData() {
 getData() */
 
 function setSliderBoxes() {
-	let slidess = document.querySelectorAll(".slide-box");
-	let prev = document.querySelector(".prev");
-	let next= document.querySelector(".next");
-	let currentIndex = 1;
+  let slidess = document.querySelectorAll(".slide-box");
+  let prev = document.querySelector(".prev");
+  let next = document.querySelector(".next");
+  let currentIndex = 1;
 
-	function showSlide() {
-		if(currentIndex > slidess.length) currentIndex = slidess.length;
-		if(currentIndex < 1) currentIndex = 1;
-		slidess.forEach((item) => item.style.display = "none");
-		slidess[currentIndex - 1].style.display = "inline-block";
-	}
-	showSlide();
+  function showSlide() {
+    if (currentIndex > slidess.length) currentIndex = slidess.length;
+    if (currentIndex < 1) currentIndex = 1;
+    slidess.forEach((item) => (item.style.display = "none"));
+    slidess[currentIndex - 1].style.display = "inline-block";
+  }
+  showSlide();
 
-	function setButtonAttributte(e) {
-		next.setAttribute("aria-disabled", currentIndex == slidess.length);
-		console.log(currentIndex)
-		prev.setAttribute("aria-disabled", currentIndex <= 1);
-	}
+  function setButtonAttributte(e) {
+    next.setAttribute("aria-disabled", currentIndex == slidess.length);
+    console.log(currentIndex);
+    prev.setAttribute("aria-disabled", currentIndex <= 1);
+  }
 
-	next.addEventListener("click", (e) => {
-		if(e.target.tagName !== "BUTTON") return;
-		currentIndex++;
-		showSlide();
-		setButtonAttributte(e);
-	});
+  next.addEventListener("click", (e) => {
+    if (e.target.tagName !== "BUTTON") return;
+    currentIndex++;
+    showSlide();
+    setButtonAttributte(e);
+  });
 
-	prev.addEventListener("click", (e) => {
-		if(e.target.tagName !== "BUTTON") return;
-		currentIndex--;
-		showSlide();
-		setButtonAttributte(e);
-	});
+  prev.addEventListener("click", (e) => {
+    if (e.target.tagName !== "BUTTON") return;
+    currentIndex--;
+    showSlide();
+    setButtonAttributte(e);
+  });
 }
 setSliderBoxes();
-
 
 /* function foo() {
 	let box = document.querySelector("body > div:nth-child(1) > div:nth-child(3)");
@@ -2927,10 +2921,10 @@ console.log(foo()()()); */
 // 		return state.filter(item => item != action.payload);
 // 	}
 // 	if(action.type == 'CLEAR_NAMES') {
-		
+
 // 	}
 // 	return state; */
-// }	
+// }
 // let newState =  reducer(initialState, {type: 'ADD_NAME', payload: 'Alex'})
 // console.log(newState);
 // newState =  reducer(newState, {type: 'ADD_NAME', payload: 'John'})
@@ -2940,44 +2934,42 @@ console.log(foo()()()); */
 // newState =  reducer(newState, {type: 'CLEAR_NAMES'})
 // console.log(newState);
 
-const elems = document.querySelectorAll('.box__inner');
+const elems = document.querySelectorAll(".box__inner");
 let currentIndex = 1;
 
 let array = [
-	{id: 1, active: true, next: 'a'},
-	{id: 2, active: false, next: 'b'},
-	{id: 3, active: true, next: 'c'},
-	{id: 4, active: false, next: 'd'},
-	{id: 5, active: true, next: 'e'},
+  { id: 1, active: true, next: "a" },
+  { id: 2, active: false, next: "b" },
+  { id: 3, active: true, next: "c" },
+  { id: 4, active: false, next: "d" },
+  { id: 5, active: true, next: "e" },
 ];
 
-
 function setCalendar() {
-	let date = new Date(2025, 10);
-	let picker = document.querySelector("body > section.datepicker > table > tbody");
-	let tableBody = '<tr>';
+  let date = new Date(2025, 10);
+  let picker = document.querySelector(
+    "body > section.datepicker > table > tbody"
+  );
+  let tableBody = "<tr>";
 
-	for (let i = 0; i < date.getDay(); i++) {
-		tableBody += '<td></td>';
-	}
+  for (let i = 0; i < date.getDay(); i++) {
+    tableBody += "<td></td>";
+  }
 
-	while (date.getMonth() == 10) {
-		tableBody += `<td>${date.getDate()}</td>`;
-		if (date.getDay() % 7 == 6) tableBody += '<tr></tr>';
+  while (date.getMonth() == 10) {
+    tableBody += `<td>${date.getDate()}</td>`;
+    if (date.getDay() % 7 == 6) tableBody += "<tr></tr>";
 
-		date.setDate(date.getDate() + 1);
-	}
+    date.setDate(date.getDate() + 1);
+  }
 
-	for(let i = date.getDay(); i < 7; i++) tableBody += '<td></td>';
+  for (let i = date.getDay(); i < 7; i++) tableBody += "<td></td>";
 
-	tableBody += '</tr>'
-	picker.innerHTML = tableBody;
+  tableBody += "</tr>";
+  picker.innerHTML = tableBody;
 }
 
 setCalendar();
-
-
-
 
 // function createCalendar(elem, year, month) {
 
@@ -2996,7 +2988,7 @@ setCalendar();
 // 		console.log(mon)
 // 	// <td> ячейки календаря с датами
 // 	while (d.getMonth() == mon) {
-		
+
 // 	  table += '<td>' + d.getDate() + '</td>';
 
 // 	  if (getDay(d) % 7 == 6) { // вс, последний день - перевод строки
@@ -3028,9 +3020,8 @@ setCalendar();
 
 //   createCalendar(calendar, 2012, 9);
 
-
-let inputt = document.getElementById('target-input');
-let box = document.querySelector('.content-box');
+let inputt = document.getElementById("target-input");
+let box = document.querySelector(".content-box");
 // let string = "1";
 // let isCreated = false;
 
@@ -3052,12 +3043,10 @@ let box = document.querySelector('.content-box');
 // 	box.innerHTML += `<span style="color: green">${text}</span>`;
 
 // 	} else box.innerHTML = inputt.value;
-	
+
 // 	// box.innerHTML = inputt.value;
 // 	// console.log(arr);
 // });
-
-
 
 // const outer = document.querySelector("body > div.wrapp > div");
 // const inner = document.querySelector("body > div.wrapp > div > div");
@@ -3072,14 +3061,13 @@ let box = document.querySelector('.content-box');
 // 	if(!target) return;
 // 	console.log('over');
 // });
-// outer.addEventListener('mouseout', e => { 
+// outer.addEventListener('mouseout', e => {
 // 	// if(!current) return
 // 	// console.log(current);
 // 	if(current.contains(e.relatedTarget)) return;
 // 	current = null;
 // 	console.log('out');
 // });
-
 
 // const parent = document.querySelector('.target-box');
 // let current = null;
@@ -3089,7 +3077,7 @@ let box = document.querySelector('.content-box');
 // 	const target = e.target.closest('.target-box__inner');
 // 	if(!target) return;
 // 	current = target;
-// 	console.log('over');	
+// 	console.log('over');
 // });
 
 // parent.addEventListener('mouseout', e => {
@@ -3097,37 +3085,37 @@ let box = document.querySelector('.content-box');
 // 	if(!target) return;
 // 	if(current.contains(e.relatedTarget)) return;
 // 	current = null;
-// 	console.log('out');	
+// 	console.log('out');
 // });
 
 // let x = 10;
 
 let person = {
-	name: 'Alex',
-	age: 36,
-	isMaried: false,
-	strange: false,
-	someProp: 'someValue',
-	sayHi: () => alert('Hi!'),
-}
+  name: "Alex",
+  age: 36,
+  isMaried: false,
+  strange: false,
+  someProp: "someValue",
+  sayHi: () => alert("Hi!"),
+};
 
 function foo(person, callback) {
-	const { name, age, isMaried} = person;
-	console.log(name)
-	console.log(age)
-	console.log(isMaried)
-	if(person.strange) person.sayHi();
+  const { name, age, isMaried } = person;
+  console.log(name);
+  console.log(age);
+  console.log(isMaried);
+  if (person.strange) person.sayHi();
 
-	callback(person.someProp);
+  callback(person.someProp);
 }
 foo(person, (prop) => console.log(prop));
 
 let obj = {
-	valueOf() {
-		return 0;
-	} 
-}
-let any = 5555
+  valueOf() {
+    return 0;
+  },
+};
+let any = 5555;
 // console.log(obj / any);
 
 /* const f = () => { 
@@ -3149,7 +3137,6 @@ let any = 5555
 	})
  }
 f(); */
-
 
 // function setAccordeonList() {
 // 	const accardeon = document.querySelector('.list-accardeon');
@@ -3174,31 +3161,32 @@ f(); */
 // setAccordeonList()
 
 class Accordeon {
-	constructor(element) {
-		this.element = element; 
-		this.accordeonClickHandle = this.accordeonClickHandle.bind(this)
+  constructor(element) {
+    this.element = element;
+    this.accordeonClickHandle = this.accordeonClickHandle.bind(this);
 
-		element.addEventListener('click', this.accordeonClickHandle)
-	}
-	accordeonClickHandle(e) {
-		const target = e.target.closest('BUTTON');
-		const prevNextButtons = this.element.querySelectorAll('BUTTON');
-		if(!target) return;
-		
-		prevNextButtons.forEach(button =>  button.classList.remove('active'));
-		target.classList.toggle('active');
-		
-		this.setContentVisibility(prevNextButtons);
-	}
-	setContentVisibility(elems) {
-		elems.forEach((elem) => {
-			if(elem.classList.contains('active')) elem.parentElement.style.minHeight = '100px';
-			else elem.parentElement.style.minHeight = '0';
-		})
-	}
+    element.addEventListener("click", this.accordeonClickHandle);
+  }
+  accordeonClickHandle(e) {
+    const target = e.target.closest("BUTTON");
+    const prevNextButtons = this.element.querySelectorAll("BUTTON");
+    if (!target) return;
+
+    prevNextButtons.forEach((button) => button.classList.remove("active"));
+    target.classList.toggle("active");
+
+    this.setContentVisibility(prevNextButtons);
+  }
+  setContentVisibility(elems) {
+    elems.forEach((elem) => {
+      if (elem.classList.contains("active"))
+        elem.parentElement.style.minHeight = "100px";
+      else elem.parentElement.style.minHeight = "0";
+    });
+  }
 }
 
-const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
+const accordeon = new Accordeon(document.querySelector(".list-accardeon"));
 
 // const imageUrls = [
 // 	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
@@ -3230,12 +3218,12 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 // 		this.onClickZoom = params.onClickZoom;
 // 		this.prevNextButtons = this.element.querySelectorAll(`button.${this.element.className}__prev-next-button`);
 
-// 		this.createSlides(this.urls); 
+// 		this.createSlides(this.urls);
 // 		this.slides = this.element.querySelectorAll('img');
 
 // 		this.createDots(this.slides);
 // 		this.dotsButtons = this.element.querySelectorAll(`button.${this.element.className}__dot-button`);
-		
+
 // 		this.setVisibleSlide(this.currentIndex);
 
 // 		this.slideShift = this.slideShift.bind(this);
@@ -3243,9 +3231,9 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 // 		this.zoomImage = this.zoomImage.bind(this);
 // 		this.onZoomImageClose = this.onZoomImageClose.bind(this);
 
-// 		this.element.addEventListener('click', (e) => {		
+// 		this.element.addEventListener('click', (e) => {
 // 			if (this.onClickZoom) this.zoomImage(e);
-            
+
 // 			if(!e.target.closest('button')) return;
 // 			if(e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
 // 			if(e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
@@ -3281,7 +3269,7 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 // 			dot.className = `${this.element.className}__dot-button`;
 // 			return dot;
 // 		});
-		
+
 // 		const dotsWrapper = this.element.querySelector(`.${this.element.className}__dots-wrapper`);
 // 		if(dotsWrapper) dotsWrapper.append(...dots);
 // 	}
@@ -3293,10 +3281,10 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 
 // 		if (idx > this.slides.length) this.currentIndex = 1
 // 		if (idx <= 0) this.currentIndex = this.slides.length
-			
+
 // 		this.slides.forEach(slide => {
 // 			if(this.onClickZoom) slide.style.cursor = 'pointer';
-			
+
 // 			slide.classList.remove('active');
 // 			slide.hidden = true;
 // 		});
@@ -3308,7 +3296,7 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 
 // 	setActiveDot() {
 // 		if(this.dotsButtons.length < 1) return;
-		
+
 // 		this.slides.forEach((slide, i) => {
 // 			if(slide.classList.contains('active')) {
 // 				this.dotsButtons[i].classList.add('active')
@@ -3333,7 +3321,7 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 
 // 	zoomImage(e) {
 // 		if (!e.target.closest('img')) return;
-		
+
 // 		function createOvrelayNode(className) {
 // 			const overlayNode = document.createElement('div');
 // 			overlayNode.className = `${className}__overlay`;
@@ -3359,7 +3347,7 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 // 			});
 // 			return nodeImage;
 // 		}
-		
+
 // 		if(overlay) overlay.append(...createImageNode(this.slides, this.element.className));
 
 // 		const zoomImage = overlay.querySelector(`.${this.element.className}__zoom-image`);
@@ -3386,8 +3374,8 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 // 			if(!target) return;
 // 			if(e.target.closest(`.${className}__overlay img`)) return;
 // 			if (overlay) overlay.remove();
-			
-// 			document.removeEventListener('click', this.onZoomImageClose) 
+
+// 			document.removeEventListener('click', this.onZoomImageClose)
 // 	}
 // }
 
@@ -3400,281 +3388,296 @@ const accordeon = new Accordeon(document.querySelector('.list-accardeon'));
 // 	imagesAlt: 'slide-image',
 // });
 
-
-
-
 const imageUrls = [
-	'https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13',
- 	'https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13',
-  	'https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13',
-	'https://avatars.mds.yandex.net/i?id=4bdd62aac654fe1381af20e222b89e84_l-4328379-images-thumbs&n=13',
-	'https://avatars.mds.yandex.net/i?id=de85818e5c696b861db0b4adacc5c9c774e863c9-8497652-images-thumbs&n=13',
-	'https://avatars.mds.yandex.net/i?id=6f77154410c2cec0fc721aece55f725b16ddee35-4814374-images-thumbs&n=13',
- 	'https://avatars.mds.yandex.net/i?id=b5c9ba6179133899aa78d2a00319eb45ec215535-5232129-images-thumbs&n=13',
-	'https://avatars.mds.yandex.net/i?id=76a6eaecd4219f71b45264e5df0e318911cade20-10637677-images-thumbs&n=13',
-  	'https://avatars.mds.yandex.net/i?id=6816409e2d5bb874bbd7f9d498d4ada5aaf268e5-5240021-images-thumbs&n=13',
+  "https://avatars.mds.yandex.net/i?id=57e678835ec55aed8048e39a4abcc93c7f4ff773-7452498-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=de225eb4596bebd8cdeb6857787f5ca4450b5509-4276653-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=c57516056eb29d6a87b4645819256947c1fbd08d-7040874-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=4bdd62aac654fe1381af20e222b89e84_l-4328379-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=de85818e5c696b861db0b4adacc5c9c774e863c9-8497652-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=6f77154410c2cec0fc721aece55f725b16ddee35-4814374-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=b5c9ba6179133899aa78d2a00319eb45ec215535-5232129-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=76a6eaecd4219f71b45264e5df0e318911cade20-10637677-images-thumbs&n=13",
+  "https://avatars.mds.yandex.net/i?id=6816409e2d5bb874bbd7f9d498d4ada5aaf268e5-5240021-images-thumbs&n=13",
 ];
 class Slider {
-	constructor(element, params = {
-		urls : null,
-		dots : false,
-		onClickZoom: false,
-		slideWidth : null,
-		slideHeigh : null,
-		imagesAlt : '',
-	}) {
-		this.isDestroyed = false;
-		this.element = element;
-		this.currentIndex = 1;
-		this.slidesCounter = 0;
-		this.urls = params.urls;
-		this.isVisibleDots = params.dots;
-		this.slideWidth = params.slideWidth;
-		this.slideHeigh = params.slideHeigh;
-		this.imagesAlt =  params.imagesAlt;
-		this.onClickZoom = params.onClickZoom;
-		this.prevNextButtons = this.element.querySelectorAll(`button.${this.element.className}__prev-next-button`);
+  constructor(
+    element,
+    params = {
+      urls: null,
+      dots: false,
+      onClickZoom: false,
+      slideWidth: null,
+      slideHeigh: null,
+      imagesAlt: "",
+    }
+  ) {
+    this.isDestroyed = false;
+    this.element = element;
+    this.currentIndex = 1;
+    this.slidesCounter = 0;
+    this.urls = params.urls;
+    this.isVisibleDots = params.dots;
+    this.slideWidth = params.slideWidth;
+    this.slideHeigh = params.slideHeigh;
+    this.imagesAlt = params.imagesAlt;
+    this.onClickZoom = params.onClickZoom;
+    this.prevNextButtons = this.element.querySelectorAll(
+      `button.${this.element.className}__prev-next-button`
+    );
 
-		this.createSlides(this.urls); 
-		this.slides = this.element.querySelectorAll('img');
-		
-		this.sliderClickHandle = this.sliderClickHandle.bind(this);
-		this.onLoadHandle = this.onLoadHandle.bind(this);
+    this.createSlides(this.urls);
+    this.slides = this.element.querySelectorAll("img");
 
-		this.slideShift = this.slideShift.bind(this);
-		this.showByDotClick = this.showByDotClick.bind(this);
-		this.zoomImage = this.zoomImage.bind(this);
-		this.onZoomImageClose = this.onZoomImageClose.bind(this);
+    this.sliderClickHandle = this.sliderClickHandle.bind(this);
+    this.onLoadHandle = this.onLoadHandle.bind(this);
 
-		this.slides.forEach((slide, i, arr) => slide.addEventListener('load', this.onLoadHandle)); 
-		this.element.addEventListener('click', this.sliderClickHandle);
-	}
+    this.slideShift = this.slideShift.bind(this);
+    this.showByDotClick = this.showByDotClick.bind(this);
+    this.zoomImage = this.zoomImage.bind(this);
+    this.onZoomImageClose = this.onZoomImageClose.bind(this);
 
-	onLoadHandle() {
-		this.slidesCounter++ ;
-		// if (this.slidesCounter !== this.slides.length) return;
-	
-		// this.createDots(this.slides);
-		this.dotsButtons = this.element.querySelectorAll(`button.${this.element.className}__dot-button`);
-		
-		this.setVisibleSlide(this.currentIndex);
-	}
+    this.slides.forEach((slide, i, arr) =>
+      slide.addEventListener("load", this.onLoadHandle)
+    );
+    this.element.addEventListener("click", this.sliderClickHandle);
+  }
 
-	sliderClickHandle(e) {
-		if (this.onClickZoom) this.zoomImage(e);
-            
-		if(!e.target.closest('button')) return;
-		if(e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
-		if(e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
+  onLoadHandle() {
+    this.slidesCounter++;
+    // if (this.slidesCounter !== this.slides.length) return;
 
-		this.dotsButtons.forEach((button, i) => {if(e.target.contains(button)) this.showByDotClick(i + 1)});
-	}
+    // this.createDots(this.slides);
+    this.dotsButtons = this.element.querySelectorAll(
+      `button.${this.element.className}__dot-button`
+    );
 
-	createSlides(urls) {
-		if(!urls) return;
+    this.setVisibleSlide(this.currentIndex);
+  }
 
-		const images = urls.map((url) => {
-			const img = document.createElement('img')
-			img.src = url;
-			img.alt = this.imagesAlt;
-			if(this.slideWidth) img.width = this.slideWidth;
-			if(this.slideHeigh) img.height = this.slideHeigh;
-			return img;
-		})
-		this.element.firstElementChild.prepend(...images);
-	}
+  sliderClickHandle(e) {
+    if (this.onClickZoom) this.zoomImage(e);
 
-	createDots(slides) {
-		if(!slides) return;
-		if(!this.isVisibleDots) return;
+    if (!e.target.closest("button")) return;
+    if (e.target.contains(this.prevNextButtons[0])) this.slideShift(-1);
+    if (e.target.contains(this.prevNextButtons[1])) this.slideShift(1);
 
-		const div = document.createElement('div');
-		div.className = `${this.element.className}__dots-wrapper`;
-		this.element.firstElementChild.append(div);
+    this.dotsButtons.forEach((button, i) => {
+      if (e.target.contains(button)) this.showByDotClick(i + 1);
+    });
+  }
 
-		const dots = Array.from(slides).map(slide => {
-			const dot = document.createElement('button');
-			dot.className = `${this.element.className}__dot-button`;
-			return dot;
-		});
-		
-		const dotsWrapper = this.element.querySelector(`.${this.element.className}__dots-wrapper`);
-		if(dotsWrapper) dotsWrapper.append(...dots);
-	}
+  createSlides(urls) {
+    if (!urls) return;
 
-	setVisibleSlide(idx) {
-		if(!this.slides) return;
-		if(this.slides.length < 1) return;
-		this.currentIndex = idx
+    const images = urls.map((url) => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = this.imagesAlt;
+      if (this.slideWidth) img.width = this.slideWidth;
+      if (this.slideHeigh) img.height = this.slideHeigh;
+      return img;
+    });
+    this.element.firstElementChild.prepend(...images);
+  }
 
-		if (idx > this.slides.length) this.currentIndex = 1
-		if (idx <= 0) this.currentIndex = this.slides.length
-			
-		this.slides.forEach(slide => {
-			if(this.onClickZoom) slide.style.cursor = 'pointer';
-			
-			slide.classList.remove('active');
-			slide.hidden = true;
-		});
-		this.slides[this.currentIndex  - 1].classList.add('active');
-		this.slides[this.currentIndex  - 1].hidden = false;
+  createDots(slides) {
+    if (!slides) return;
+    if (!this.isVisibleDots) return;
 
-		this.setActiveDot()
-	}
+    const div = document.createElement("div");
+    div.className = `${this.element.className}__dots-wrapper`;
+    this.element.firstElementChild.append(div);
 
-	setActiveDot() {
-		if(this.dotsButtons.length < 1) return;
-		
-		this.slides.forEach((slide, i) => {
-			if(slide.classList.contains('active')) {
-				this.dotsButtons[i].classList.add('active')
-			} else {
-				this.dotsButtons[i].classList.remove('active')
-			}
-		})
-	}
+    const dots = Array.from(slides).map((slide) => {
+      const dot = document.createElement("button");
+      dot.className = `${this.element.className}__dot-button`;
+      return dot;
+    });
 
-	setIndex(num) {
-		this.currentIndex = this.currentIndex + num;
-	}
+    const dotsWrapper = this.element.querySelector(
+      `.${this.element.className}__dots-wrapper`
+    );
+    if (dotsWrapper) dotsWrapper.append(...dots);
+  }
 
-	slideShift(num) {
-		this.setIndex(num);
-		this.setVisibleSlide(this.currentIndex);
-	}
+  setVisibleSlide(idx) {
+    if (!this.slides) return;
+    if (this.slides.length < 1) return;
+    this.currentIndex = idx;
 
-	showByDotClick(i) {
-		this.setVisibleSlide(i)
-	}
+    if (idx > this.slides.length) this.currentIndex = 1;
+    if (idx <= 0) this.currentIndex = this.slides.length;
 
-	zoomImage(e) {
-		if (!e.target.closest('img')) return;
-		
-		function createOvrelayNode(className) {
-			const overlayNode = document.createElement('div');
-			overlayNode.className = `${className}__overlay`;
-			overlayNode.style.display = 'block';
-			overlayNode.innerHTML += `<button class="${className}__close" type="button" hidden>✖</button>`
-			return overlayNode;
-		}
-		if(!document.querySelector(`.${this.element.className}__overlay`)) document.body.append(createOvrelayNode(this.element.className));
+    this.slides.forEach((slide) => {
+      if (this.onClickZoom) slide.style.cursor = "pointer";
 
-		const overlay = document.querySelector(`.${this.element.className}__overlay`);
-		if(!overlay) return;
+      slide.classList.remove("active");
+      slide.hidden = true;
+    });
+    this.slides[this.currentIndex - 1].classList.add("active");
+    this.slides[this.currentIndex - 1].hidden = false;
 
-		function createImageNode(slides, className) {
-			const nodeImage = [];
-			slides.forEach(slide => {
+    this.setActiveDot();
+  }
 
-				if(slide.classList.contains('active')) 	{
-					const img = document.createElement('img');
-					img.className = `${className}__zoom-image`;
-					img.src = slide.src;
-					nodeImage.push(img);
-				}
-			});
-			return nodeImage;
-		}
-		
-		if(overlay) overlay.append(...createImageNode(this.slides, this.element.className));
+  setActiveDot() {
+    if (this.dotsButtons.length < 1) return;
 
-		const zoomImage = overlay.querySelector(`.${this.element.className}__zoom-image`);
-		zoomImage.addEventListener('animationend', () => {
-			const innerImgCoords = {
-				top: zoomImage.getBoundingClientRect().top - 20,
-				left: zoomImage.getBoundingClientRect().left + zoomImage.offsetWidth + 20,
-			}
-			overlay.querySelector(`.${this.element.className}__close`).style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
-			overlay.querySelector(`.${this.element.className}__close`).tabIndex = 1;
-			overlay.querySelector(`.${this.element.className}__close`).hidden = false;
-		});
+    this.slides.forEach((slide, i) => {
+      if (slide.classList.contains("active")) {
+        this.dotsButtons[i].classList.add("active");
+      } else {
+        this.dotsButtons[i].classList.remove("active");
+      }
+    });
+  }
 
-		document.addEventListener('click', this.onZoomImageClose);
-	}
+  setIndex(num) {
+    this.currentIndex = this.currentIndex + num;
+  }
 
-	onZoomImageClose(e) {
-		this.overlayCloseHandle(e, this.element.className)
-	}
+  slideShift(num) {
+    this.setIndex(num);
+    this.setVisibleSlide(this.currentIndex);
+  }
 
-	overlayCloseHandle(e, className) {
-		const target = e.target.closest(`.${className}__overlay`);
-		const overlay = document.querySelector(`.${className}__overlay`);
-			if(!target) return;
-			if(e.target.closest(`.${className}__overlay img`)) return;
-			if (overlay) overlay.remove();
-			
-			document.removeEventListener('click', this.onZoomImageClose) 
-	}
+  showByDotClick(i) {
+    this.setVisibleSlide(i);
+  }
 
-	destroy() {
-		if (this.isDestroyed) return;
-		this.element.removeEventListener('click', this.sliderClickHandle);
-		this.isDestroyed = true;
+  zoomImage(e) {
+    if (!e.target.closest("img")) return;
 
-		this.element = null;
-		this.currentIndex = null;
-		this.urls = null;
-		this.isVisibleDots = null;
-		this.slideWidth = null;
-		this.slideHeigh = null;
-		this.imagesAlt =  null;
-		this.onClickZoom = null;
-		this.prevNextButtons = null;
+    function createOvrelayNode(className) {
+      const overlayNode = document.createElement("div");
+      overlayNode.className = `${className}__overlay`;
+      overlayNode.style.display = "block";
+      overlayNode.innerHTML += `<button class="${className}__close" type="button" hidden>✖</button>`;
+      return overlayNode;
+    }
+    if (!document.querySelector(`.${this.element.className}__overlay`))
+      document.body.append(createOvrelayNode(this.element.className));
 
-		this.createSlides = null; 
-		this.slides = null;
+    const overlay = document.querySelector(
+      `.${this.element.className}__overlay`
+    );
+    if (!overlay) return;
 
-		this.createDots = null;
-		this.dotsButtons = null;
-		
-		this.setVisibleSlide = null;
+    function createImageNode(slides, className) {
+      const nodeImage = [];
+      slides.forEach((slide) => {
+        if (slide.classList.contains("active")) {
+          const img = document.createElement("img");
+          img.className = `${className}__zoom-image`;
+          img.src = slide.src;
+          nodeImage.push(img);
+        }
+      });
+      return nodeImage;
+    }
 
-		this.sliderClickHandle = null
+    if (overlay)
+      overlay.append(...createImageNode(this.slides, this.element.className));
 
-		this.slideShift = null;
-		this.showByDotClick = null;
-		this.zoomImage = null;
-		this.onZoomImageClose = null;
-		
-		delete this;
-	}
+    const zoomImage = overlay.querySelector(
+      `.${this.element.className}__zoom-image`
+    );
+    zoomImage.addEventListener("animationend", () => {
+      const innerImgCoords = {
+        top: zoomImage.getBoundingClientRect().top - 20,
+        left:
+          zoomImage.getBoundingClientRect().left + zoomImage.offsetWidth + 20,
+      };
+      overlay.querySelector(
+        `.${this.element.className}__close`
+      ).style.cssText = `top:${innerImgCoords.top}px; left:${innerImgCoords.left}px;`;
+      overlay.querySelector(`.${this.element.className}__close`).tabIndex = 1;
+      overlay.querySelector(`.${this.element.className}__close`).hidden = false;
+    });
+
+    document.addEventListener("click", this.onZoomImageClose);
+  }
+
+  onZoomImageClose(e) {
+    this.overlayCloseHandle(e, this.element.className);
+  }
+
+  overlayCloseHandle(e, className) {
+    const target = e.target.closest(`.${className}__overlay`);
+    const overlay = document.querySelector(`.${className}__overlay`);
+    if (!target) return;
+    if (e.target.closest(`.${className}__overlay img`)) return;
+    if (overlay) overlay.remove();
+
+    document.removeEventListener("click", this.onZoomImageClose);
+  }
+
+  destroy() {
+    if (this.isDestroyed) return;
+    this.element.removeEventListener("click", this.sliderClickHandle);
+    this.isDestroyed = true;
+
+    this.element = null;
+    this.currentIndex = null;
+    this.urls = null;
+    this.isVisibleDots = null;
+    this.slideWidth = null;
+    this.slideHeigh = null;
+    this.imagesAlt = null;
+    this.onClickZoom = null;
+    this.prevNextButtons = null;
+
+    this.createSlides = null;
+    this.slides = null;
+
+    this.createDots = null;
+    this.dotsButtons = null;
+
+    this.setVisibleSlide = null;
+
+    this.sliderClickHandle = null;
+
+    this.slideShift = null;
+    this.showByDotClick = null;
+    this.zoomImage = null;
+    this.onZoomImageClose = null;
+
+    delete this;
+  }
 }
 
-const slider = new Slider(document.querySelector('.new-slider'), {
-	urls: imageUrls,
-	dots: true,
-	onClickZoom: true,
-	slideWidth: 480,
-	slideHeigh: 320,
-	imagesAlt: 'slide-image',
+const slider = new Slider(document.querySelector(".new-slider"), {
+  urls: imageUrls,
+  dots: true,
+  onClickZoom: true,
+  slideWidth: 480,
+  slideHeigh: 320,
+  imagesAlt: "slide-image",
 });
 
-
 function func() {
-	const parent = document.querySelector('.input-box');
-	const valueField = parent.querySelector('.input-box__value-field');
-	const input = parent.querySelector('input');
-	
-	input.addEventListener('input', (e) => {
-		const text =  e.currentTarget.value;
-		
-		function getColored() {
-			const textArray =  text.split('');
-			const res = textArray.splice(0, textArray.length - 1)
-	
-			const div = document.createElement('div');
-			div.innerHTML = textArray.join('');
-			div.style.display = 'inline'
-			div.style.backgroundColor = 'yellow';
-			parent.append(div)
-		}
-	
-		getColored()
-	})
-	
-	}
-	func();
+  const parent = document.querySelector(".input-box");
+  const valueField = parent.querySelector(".input-box__value-field");
+  const input = parent.querySelector("input");
 
+  input.addEventListener("input", (e) => {
+    const text = e.currentTarget.value;
+
+    function getColored() {
+      const textArray = text.split("");
+      const res = textArray.splice(0, textArray.length - 1);
+
+      const div = document.createElement("div");
+      div.innerHTML = textArray.join("");
+      div.style.display = "inline";
+      div.style.backgroundColor = "yellow";
+      parent.append(div);
+    }
+
+    getColored();
+  });
+}
+func();
 
 // const arrayq = [1, 6, 'str', true, ['inner str',[9, 8, [7, [{key: true}], 6], 10, 12, false], {key: 'value'}]];
 // function openArr(arr) {
@@ -3692,34 +3695,29 @@ function func() {
 
 const elem = document.querySelector("body > div.input-box > input");
 
-const clickHandle = () => { 
-	console.log('click!');
-}
-const mouseenterHandle = () => { 
-	console.log('mouseenter!');
-}
-const dblclickHandle = () => { 
-	console.log('dblclick!');
-}
+const clickHandle = () => {
+  console.log("click!");
+};
+const mouseenterHandle = () => {
+  console.log("mouseenter!");
+};
+const dblclickHandle = () => {
+  console.log("dblclick!");
+};
 
 const eventObject = {
-	click: clickHandle,
-	mouseenter: mouseenterHandle,
-	dblclick: dblclickHandle,
-}
+  click: clickHandle,
+  mouseenter: mouseenterHandle,
+  dblclick: dblclickHandle,
+};
 
 function addEvent(element, obj) {
-	for(let prop in obj) {
-		element.addEventListener(prop, obj[prop])
-	}
+  for (let prop in obj) {
+    element.addEventListener(prop, obj[prop]);
+  }
 }
 addEvent(elem, eventObject);
 
-
-
-
-
-console.log();
 console.log();
 console.log();
 console.log();

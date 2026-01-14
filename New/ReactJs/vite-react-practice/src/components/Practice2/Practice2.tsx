@@ -20,6 +20,10 @@ import BrouserRouterTabs from './BrouserRouterTabs/BrouserRouterTabs';
 import { Tab } from './BrouserRouterTabs/BrouserRouterTabs';
 import CustomSelect from './Select/Select';
 import Clock from './Clock/Clock';
+import UseParamsFilter from './UseParamsFilter/UseParamsFilter';
+import CheckBox from './checkBox/CheckBox';
+import NamingComponent from './Naming/NamingComponent';
+import HOCComponent from './HOC/HOCComponent';
 
 const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 export const TABS = [
@@ -86,6 +90,12 @@ const Practice2 = () => {
 							);
 						})}
 					</Route>
+					<Route path="use-params-filter" element={<UseParamsFilter />}>
+						<Route path=":year" element={<UseParamsFilter />} />
+					</Route>
+					<Route path="checkbox" element={<CheckBox />} />
+					<Route path="naming" element={<NamingComponent />} />
+					<Route path="HOC" element={<HOCComponent />} />
 					<Route path="sandbox" element={<Sandbox />} />
 				</Route>
 			</Routes>

@@ -1,36 +1,28 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 // render-prop
 // Передача функции с условным рендерингом нижестоящему к-ту
 
-const boolean = true;
+const isMobile = true;
+function render(renderCase: boolean) {
+	return renderCase ? <p>lorem mobile</p> : <p>lorem</p>;
+}
 
 const RenderProp = () => {
 	return (
 		<>
-			<div>OuterComponent</div>
-			<InnerComponent
-				render={(boolean: boolean) =>
-					boolean ? <Test /> : <div>false html from InnerComponent</div>
-				}
-			/>
+			<div>
+				<Component render={render}></Component>
+			</div>
 		</>
 	);
 };
 
-const Test = () => {
-	return <div>true html from InnerComponent</div>;
+type ComponentProps = {
+	render: (isMobile: boolean) => ReactNode;
 };
 
-type InnerComponentProps = {
-	render: (boolean: boolean) => void;
-};
-
-const InnerComponent = ({ render }: InnerComponentProps) => {
-	return (
-		<div>
-			InnerComponent <>{render(boolean)}</>
-		</div>
-	);
+const Component = ({ render }: ComponentProps) => {
+	return <div>{render(isMobile)}</div>;
 };
 
 export default RenderProp;

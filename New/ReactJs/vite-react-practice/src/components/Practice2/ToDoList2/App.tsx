@@ -22,8 +22,8 @@ const App = () => {
 	) => {
 		e.preventDefault();
 		if (!formValue) return;
-		setTodos([
-			...(todos as Todo[]),
+		setTodos((prevState) => [
+			...(prevState as Todo[]),
 			{ text: formValue, isComplete: false, id: uuidv4() },
 		]);
 		setIsSubmit(!isSubmit);

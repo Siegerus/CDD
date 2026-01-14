@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { sassNull } from 'sass';
 
 type Time = {
 	[key: string]: string | number;
@@ -55,7 +54,7 @@ const Clock = () => {
 		);
 
 		return () => clearInterval(interval);
-	}, [times, isLaunch]);
+	}, [isLaunch]);
 
 	const launchButtonClickHandle = () => {
 		setIsLaunch(!isLaunch);
@@ -74,7 +73,7 @@ const Clock = () => {
 					<p>{time.minutes}</p>
 					<p>{time.seconds}</p> */
 				}
-				<button onClick={() => launchButtonClickHandle()}>Click</button>
+				<button onClick={() => launchButtonClickHandle()}>Stop / Start</button>
 			</div>
 		</>
 	);
