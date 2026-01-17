@@ -11,9 +11,9 @@ export const AppRoute = {
 } as const;
 
 export const AuthState = {
-  Auth : 'Auth',
-  NoAuth : 'NoAuth',
-  Unknow : 'Unknow',
+  Auth: 'Auth',
+  NoAuth: 'NoAuth',
+  Unknow: 'Unknow',
 } as const;
 
 export const NAV_ITEMS = [
@@ -23,11 +23,4 @@ export const NAV_ITEMS = [
   { id: uuidv4(), city: 'Amsterdam', isActive: false },
   { id: uuidv4(), city: 'Hamburg', isActive: false },
   { id: uuidv4(), city: 'Dusseldorf', isActive: false },
-];
-
-export const TEST = [
-  { k: 'value', k2: 'value' },
-  { k: 'value', k2: 'value' },
-  { k: 'value', k2: 'value' },
-  { k: 'value', k2: 'value' },
 ];

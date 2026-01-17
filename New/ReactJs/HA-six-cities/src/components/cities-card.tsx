@@ -10,7 +10,7 @@ type CitiesCardProps = {
   viewWidth: string;
   viewHeight: string;
   id?: string;
-  onMouseEnterHandle?: (id: string | undefined) => void;
+  onMouseEnterHandle?: (id: string) => void;
 };
 
 const CitiesCard = ({
@@ -27,8 +27,8 @@ const CitiesCard = ({
   return (
     <article
       className={cardsClass}
-      onMouseEnter={() => (onMouseEnterHandle ? onMouseEnterHandle(id) : null)}
-    >
+      onMouseEnter={() => onMouseEnterHandle!(id!)}
+      onMouseLeave={() => onMouseEnterHandle!('')}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -42,8 +42,7 @@ const CitiesCard = ({
             src={previewImage}
             width={viewWidth}
             height={viewHeight}
-            alt="Place image"
-          ></img>
+            alt="Place image"></img>
         </Link>
       </div>
       <div className="place-card__info">

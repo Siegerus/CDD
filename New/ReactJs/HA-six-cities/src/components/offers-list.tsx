@@ -7,7 +7,7 @@ type OfferslistProps = {
   wrapperClass: string;
   viewWidth: string;
   viewHeight: string;
-  onMouseEnterHandle?: (id: string | undefined) => void;
+  onMouseEnterHandle: (id: string) => void;
 };
 
 const Offerslist = ({

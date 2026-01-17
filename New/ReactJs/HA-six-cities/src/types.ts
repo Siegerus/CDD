@@ -20,10 +20,29 @@ export type Offer = {
   isPremium: boolean;
   rating: number;
   previewImage: string;
+  isActive: boolean;
+};
+
+export type Review = {
+  id: string;
+  date: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
+  rating: number;
 };
 
 export type NavItemType = {
   id: string;
   city: string;
   isActive: boolean;
+};
+
+export type Point = {
+  title: string;
+  lat: number;
+  lng: number;
 };

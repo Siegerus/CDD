@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AppRoute, AuthState } from '../constants';
+import { NavItemType, Offer } from '../types';
 import LoginPage from '../pages/login-page/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
-import { AppRoute, AuthState } from '../constants';
-import { NavItemType, Offer } from '../types';
 import ErrorPage from '../pages/404-page/404-page';
 
 import MainPage from '../pages/main-page/main-page';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type AppProps = {
   offersCount: number;
@@ -19,10 +19,8 @@ type AppProps = {
 function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
   const [activeNavs, setActiveNavs] = useState(navItems);
   const [currentCity, setCurrentCity] = useState('Paris');
-  const [activeCard, setActiveCard] = useState(offers);
 
-  const onNavClickHandle = (id: string, city: string) => {
-    setCurrentCity(city);
+  const onNavClickHandle = (id: string) => {
     setActiveNavs(
       activeNavs.map((activeNav) => {
         return activeNav.id === id
@@ -38,9 +36,16 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
     );
   };
 
-  const filteredByCity = offers.filter(
+  useEffect(() => {
+    const ativeNav = activeNavs.filter((nav) => nav.isActive === true);
+    setCurrentCity(ativeNav[0].city);
+  }, [activeNavs]);
+
+  let filteredByCity = offers.filter(
     (offer) => offer.city.name === currentCity
   );
+
+  const [activeCard, setActiveCard] = useState('');
 
   const [sortedCards, setSortedCards] = useState(filteredByCity);
 
@@ -58,23 +63,8 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
     setSortedCards(filteredByCity.filter((offer) => offer.price === 80));
   };
 
-  // const cardIds = offers?.map(card => card.id)
-
-  const onMouseEnterHandle = (id: string | undefined) => {
-    setActiveCard(
-      activeCard?.map((item) => {
-        if (item.id === id) {
-          // console.log('on element');
-          return {
-            ...item,
-          };
-        } else {
-          return {
-            ...item,
-          };
-        }
-      })
-    );
+  const onMouseEnterHandle = (id: string) => {
+    setActiveCard(id);
   };
 
   return (
@@ -93,6 +83,8 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
               filteredByCity={filteredByCity}
               onSortinbyScaleHandle={sortinbyScaleHandle}
               onPopularFilterHandle={popularFilterHandle}
+              currentCity={currentCity}
+              activeCard={activeCard}
             />
           }
         />

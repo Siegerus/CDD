@@ -12,13 +12,15 @@ type MainPageProps = {
   offersCount: number;
   activeNavs: NavItemType[];
   filteredByCity: Offer[];
+  currentCity: string;
+  activeCard: string;
   onNavClickHandle: (id: string, city: string) => void;
   onSortinbyScaleHandle: (
     property: 'price' | 'rating',
     direction: boolean
   ) => void;
   onPopularFilterHandle: () => void;
-  onMouseEnterHandle?: (id: string | undefined) => void;
+  onMouseEnterHandle: (id: string) => void;
 };
 
 const MainPage = ({
@@ -31,11 +33,18 @@ const MainPage = ({
   onMouseEnterHandle,
   onSortinbyScaleHandle,
   onPopularFilterHandle,
+  currentCity,
+  activeCard,
 }: MainPageProps): JSX.Element => {
   return (
     <div className="page page--gray page--main">
       <Header authState={authState} isMainPage={isMainPage} />
-      <main className="page__main page__main--index">
+      <main
+        className={
+          filteredByCity.length
+            ? 'page__main page__main--index'
+            : 'page__main page__main--index page__main--index-empty'
+        }>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -53,33 +62,52 @@ const MainPage = ({
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offersCount} places to stay in Amsterdam
-              </b>
-              <SortingList
-                onSortinbyScaleHandle={onSortinbyScaleHandle}
-                onPopularFilterHandle={onPopularFilterHandle}
-              />
-              <div className="cities__places-list places__list tabs__content">
-                <Offerslist
-                  sortedCards={filteredByCity}
-                  onMouseEnterHandle={onMouseEnterHandle}
-                  cardsClass={'cities__card place-card'}
-                  wrapperClass={
-                    'cities__image-wrapper place-card__image-wrapper'
-                  }
-                  viewWidth={'260'}
-                  viewHeight={'200'}
+          {filteredByCity.length ? (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">
+                  {offersCount} places to stay in Amsterdam
+                </b>
+                <SortingList
+                  onSortinbyScaleHandle={onSortinbyScaleHandle}
+                  onPopularFilterHandle={onPopularFilterHandle}
+                />
+                <div className="cities__places-list places__list tabs__content">
+                  <Offerslist
+                    sortedCards={filteredByCity}
+                    onMouseEnterHandle={onMouseEnterHandle}
+                    cardsClass={'cities__card place-card'}
+                    wrapperClass={
+                      'cities__image-wrapper place-card__image-wrapper'
+                    }
+                    viewWidth={'260'}
+                    viewHeight={'200'}
+                  />
+                </div>
+              </section>
+              <div className="cities__right-section">
+                <CitiesMap
+                  filteredByCity={filteredByCity}
+                  currentCity={currentCity}
+                  activeCard={activeCard}
                 />
               </div>
-            </section>
-            <div className="cities__right-section">
-              <CitiesMap />
             </div>
-          </div>
+          ) : (
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">
+                    We could not find any property available at the moment in
+                    Dusseldorf
+                  </p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
+            </div>
+          )}
         </div>
       </main>
     </div>
