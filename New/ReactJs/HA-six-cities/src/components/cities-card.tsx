@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../constants';
 import { Offer } from '../types';
 import createRate from '../utils/createRate';
@@ -23,7 +23,6 @@ const CitiesCard = ({
   id,
 }: CitiesCardProps): JSX.Element => {
   const { isPremium, previewImage, price, title, type, rating } = offer;
-
   return (
     <article
       className={cardsClass}
@@ -36,7 +35,7 @@ const CitiesCard = ({
       )}
 
       <div className={wrapperClass}>
-        <Link to={AppRoute.Offer}>
+        <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -65,7 +64,9 @@ const CitiesCard = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>{title}</Link>
+          <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

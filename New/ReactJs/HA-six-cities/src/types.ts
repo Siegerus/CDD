@@ -46,3 +46,9 @@ export type Point = {
   lat: number;
   lng: number;
 };
+
+export type IntendetDate = {
+  monthName: string;
+  year: number;
+  fullDate: string;
+};

@@ -2263,5 +2263,3 @@ function postDays(dateValue, callback) {
   setDays(date);
 }
 // postDays('1.1.2026', (date) => document.body.insertAdjacentHTML('beforeend', `<p style="margin: 5px;">${date}</p>`));
-
-console.log("again Hi!!!");

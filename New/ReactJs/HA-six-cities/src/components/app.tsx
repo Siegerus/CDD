@@ -6,7 +6,6 @@ import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import ErrorPage from '../pages/404-page/404-page';
-
 import MainPage from '../pages/main-page/main-page';
 import { useState, useEffect } from 'react';
 
@@ -66,7 +65,6 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
   const onMouseEnterHandle = (id: string) => {
     setActiveCard(id);
   };
-
   return (
     <BrowserRouter>
       <Routes>
@@ -106,7 +104,13 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Offer}
-          element={<OfferPage authState={AuthState.Auth} />}
+          element={
+            <OfferPage
+              authState={AuthState.Auth}
+              activeCard={activeCard}
+              onMouseEnterHandle={onMouseEnterHandle}
+            />
+          }
         />
         <Route path={AppRoute.Page404} element={<ErrorPage />} />
       </Routes>

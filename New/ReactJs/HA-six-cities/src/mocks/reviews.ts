@@ -6,7 +6,7 @@ export const reviewItems: Review[] = [
     id: uuidv4(),
     date: '2019-05-08T14:13:56.569Z',
     user: {
-      name: 'Oliver Conner',
+      name: 'Max',
       avatarUrl: '../../markup/img/avatar-max.jpg',
       isPro: false,
     },

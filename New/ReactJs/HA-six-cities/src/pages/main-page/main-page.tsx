@@ -67,7 +67,7 @@ const MainPage = ({
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offersCount} places to stay in Amsterdam
+                  {offersCount} places to stay in {currentCity}
                 </b>
                 <SortingList
                   onSortinbyScaleHandle={onSortinbyScaleHandle}
@@ -87,11 +87,7 @@ const MainPage = ({
                 </div>
               </section>
               <div className="cities__right-section">
-                <CitiesMap
-                  filteredByCity={filteredByCity}
-                  currentCity={currentCity}
-                  activeCard={activeCard}
-                />
+                <CitiesMap currentCity={currentCity} activeCard={activeCard} />
               </div>
             </div>
           ) : (
