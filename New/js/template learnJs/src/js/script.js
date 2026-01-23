@@ -3718,8 +3718,6 @@ function addEvent(element, obj) {
 }
 addEvent(elem, eventObject);
 
-console.log('!!!');
-
 console.log();
 console.log();
 console.log();
