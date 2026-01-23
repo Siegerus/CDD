@@ -25,6 +25,8 @@ const Practice2Layout = () => {
 			<Link to="checkbox"> to checkbox</Link>
 			<Link to="naming"> to naming</Link>
 			<Link to="HOC"> to HOC</Link>
+			<Link to="context"> to context</Link>
+			<Link to="redux"> to redux</Link>
 			<Link to="sandbox"> to sandbox</Link>
 			<main style={{ padding: '60px 0 120px 0' }}>
 				<Outlet />

@@ -46,7 +46,7 @@ function App({ offersCount, navItems, offers }: AppProps): JSX.Element {
 
   const [activeCard, setActiveCard] = useState('');
 
-  const [sortedCards, setSortedCards] = useState(filteredByCity);
+  const [, setSortedCards] = useState(filteredByCity);
 
   const sortinbyScaleHandle = (
     property: 'price' | 'rating',

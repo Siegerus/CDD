@@ -1,6 +1,5 @@
 import Header from '../../components/header';
 import Offermap from '../../components/offer-map';
-import Form from '../../components/form';
 import Reviews from '../../components/reviews';
 import NearPlacesList from '../../components/near-places-list';
 import { useParams } from 'react-router-dom';

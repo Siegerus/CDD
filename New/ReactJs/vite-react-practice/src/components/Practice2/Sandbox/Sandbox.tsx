@@ -1,5 +1,5 @@
 import React, {
-	// MouseEvent,
+	MouseEvent,
 	ChangeEvent,
 	FormEvent,
 	AnimationEvent,
@@ -9,6 +9,7 @@ import React, {
 	useRef,
 	PropsWithChildren,
 	MutableRefObject,
+	useContext,
 } from 'react';
 import {
 	useLocation,
@@ -17,13 +18,10 @@ import {
 	useSearchParams,
 } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import {
-	MapContainer,
-	TileLayer,
-	useMap,
-} from 'https://cdn.esm.sh/react-leaflet';
+
 import styles from './Sandbox.module.scss';
 import books from '../../../data/books.json';
+
 const ENV_CONST = import.meta.env.VITE_TEST_CONST;
 
 type Item = {
@@ -39,89 +37,10 @@ const ITEMS: Item[] = [
 	{ id: uuidv4(), name: 'local', value: '' },
 ];
 
-type Point = {
-	title: string;
-	lat: number;
-	lng: number;
-};
-
-type City = {
-	title: string;
-	lat: number;
-	lng: number;
-	zoom: number;
-};
-
-const POINTS: Point[] = [
-	{
-		title: 'Саундвью',
-		lat: 40.816881,
-		lng: -73.872768,
-	},
-	{
-		title: 'Ферри Поинт',
-		lat: 40.814909,
-		lng: -73.830682,
-	},
-	{
-		title: 'Бронкс',
-		lat: 40.862413,
-		lng: -73.879357,
-	},
-	{
-		title: 'Инвуд-Хилл',
-		lat: 40.870817,
-		lng: -73.927112,
-	},
-	{
-		title: 'Пелхэм-Бей-Парк',
-		lat: 40.877312,
-		lng: -73.807182,
-	},
-];
-
-const CITY: City = {
-	title: 'Нью-Йорк',
-	lat: 40.835292,
-	lng: -73.916236,
-	zoom: 10,
-};
-
 const Sandbox = () => {
 	return (
 		<>
-			<ul>
-				{POINTS.map((point, i) => {
-					const keyValue = `${point.title}-${i}`;
-					return <li key={keyValue}>{point.title}</li>;
-				})}
-			</ul>
-			<Map city={CITY} />
-		</>
-	);
-};
-
-type MapProps = {
-	city: City;
-};
-
-const Map = ({ city }: MapProps) => {
-	const mapRef = useRef(null);
-
-	// console.log(useMap);
-
-	function useMap(mapRef: null | MutableRefObject<HTMLDivElement>, city: City) {
-		const [map, setMap] = useState(null);
-		const isRenderedRef = useRef(false);
-
-		useEffect(() => {}, []);
-
-		return map;
-	}
-
-	return (
-		<>
-			<div id="map" ref={mapRef} style={{ height: '500px' }}></div>
+			<p></p>
 		</>
 	);
 };

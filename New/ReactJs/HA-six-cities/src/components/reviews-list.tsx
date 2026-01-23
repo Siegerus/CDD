@@ -1,4 +1,3 @@
-import React from 'react';
 import { reviewItems } from '../mocks/reviews';
 import createRate from '../utils/createRate';
 import getIntendedDate from '../utils/getIntendedDate';

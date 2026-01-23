@@ -24,6 +24,8 @@ import UseParamsFilter from './UseParamsFilter/UseParamsFilter';
 import CheckBox from './checkBox/CheckBox';
 import NamingComponent from './Naming/NamingComponent';
 import HOCComponent from './HOC/HOCComponent';
+import ContextComponent from './Context/Component';
+import ReduxComponent from './Reduxx/ReduxComponent';
 
 const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 export const TABS = [
@@ -96,6 +98,8 @@ const Practice2 = () => {
 					<Route path="checkbox" element={<CheckBox />} />
 					<Route path="naming" element={<NamingComponent />} />
 					<Route path="HOC" element={<HOCComponent />} />
+					<Route path="context" element={<ContextComponent />} />
+					<Route path="redux" element={<ReduxComponent />} />
 					<Route path="sandbox" element={<Sandbox />} />
 				</Route>
 			</Routes>
