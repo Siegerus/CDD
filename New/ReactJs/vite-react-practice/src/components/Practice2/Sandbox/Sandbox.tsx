@@ -17,32 +17,66 @@ import {
 	useParams,
 	useSearchParams,
 } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './Sandbox.module.scss';
 import books from '../../../data/books.json';
 
 const ENV_CONST = import.meta.env.VITE_TEST_CONST;
+import store from './store/store';
+import { ITEMS, Item } from './consts';
+import sortItems from './store/actionCreators/sortItems';
+import { selectItems } from './store/reducers/itemReducer';
 
-type Item = {
-	id: string;
-	name: 'local' | 'global';
-	value: string;
-};
+// type Item = {
+// 	id: string;
+// 	name: 'local' | 'global';
+// 	value: number;
+// 	isActive: boolean;
+// };
 
-const ITEMS: Item[] = [
-	{ id: uuidv4(), name: 'local', value: '' },
-	{ id: uuidv4(), name: 'global', value: '' },
-	{ id: uuidv4(), name: 'global', value: '' },
-	{ id: uuidv4(), name: 'local', value: '' },
-];
+// const ITEMS: Item[] = [
+// 	{ id: uuidv4(), name: 'local', value: 1, isActive: true },
+// 	{ id: uuidv4(), name: 'global', value: 2, isActive: false },
+// 	{ id: uuidv4(), name: 'global', value: 3, isActive: false },
+// 	{ id: uuidv4(), name: 'local', value: 4, isActive: false },
+// 	{ id: uuidv4(), name: 'local', value: 5, isActive: false },
+// 	{ id: uuidv4(), name: 'local', value: 6, isActive: false },
+// 	{ id: uuidv4(), name: 'local', value: 7, isActive: false },
+// ];
 
 const Sandbox = () => {
+	const items = useSelector(selectItems);
+	const dispatch = useDispatch();
+
+	const handleButtonClick = () => {
+		dispatch(sortItems());
+	};
 	return (
 		<>
-			<p></p>
+			<ul>
+				{items.map((item: Item, i: number) => {
+					return <ItemComponent key={item.id} value={item.value} />;
+				})}
+			</ul>
+			<button
+				onClick={handleButtonClick}
+				type="button"
+				style={{ margin: '0 auto' }}>
+				Sort
+			</button>
 		</>
 	);
+};
+
+type Props = {
+	value: number;
+};
+
+const ItemComponent = ({ value }: Props) => {
+	return <li>{value}</li>;
 };
 
 export default Sandbox;

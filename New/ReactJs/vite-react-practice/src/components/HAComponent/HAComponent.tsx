@@ -13,6 +13,7 @@ import UseEffectComponent from './components/use-effect/use-effect';
 import RenderProp from './components/patterns/render-prop';
 import ProxyComponent from './components/patterns/proxy-component';
 import CustomHookComponent from './components/custom-hook/custom-hook';
+import ReduxComponent from './components/Reduxx/ReduxComponent';
 
 const HAComponent = (): JSX.Element => {
 	/* Все пропсы прокидываются компонентам как обычно */
@@ -25,8 +26,7 @@ const HAComponent = (): JSX.Element => {
 					future={{
 						v7_startTransition: true,
 						v7_relativeSplatPath: true,
-					}}
-				>
+					}}>
 					{' '}
 					{/* В BrowserRouter оборачивают всё приложение, он должен быть на самом верху  */}
 					<Routes>
@@ -71,6 +71,7 @@ const HAComponent = (): JSX.Element => {
 			<RenderProp />
 			<ProxyComponent />
 			<CustomHookComponent />
+			<ReduxComponent />
 		</>
 	);
 };

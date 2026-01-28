@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+
+import { ITEMS } from '../consts';
 import itemReducer from './reducers/itemReducer';
 
 const store = configureStore({

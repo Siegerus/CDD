@@ -1,3 +1,4 @@
+import { current } from '@reduxjs/toolkit';
 import { bool } from 'prop-types';
 import { ConsumerProps } from 'react';
 
@@ -509,13 +510,8 @@ type Test = (typeof booleabBook)[keyof typeof booleabBook]; // от объект
 // type Test = BooleanBook[keyof BooleanBook] // от типа
 const test: Test = 'test';
 
-let val = 3;
+// -------------------
 
-const arrr = [1, 2, val, 4, 5];
-console.log(arrr);
-
-const res = [...arrr, (val = 'val')];
-console.log(res);
 //--------------------
 
 // // Пример класса с типами
