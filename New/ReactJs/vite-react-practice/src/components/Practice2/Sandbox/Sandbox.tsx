@@ -25,10 +25,14 @@ import styles from './Sandbox.module.scss';
 import books from '../../../data/books.json';
 
 const ENV_CONST = import.meta.env.VITE_TEST_CONST;
-import store from './store/store';
-import { ITEMS, Item } from './consts';
-import sortItems from './store/actionCreators/sortItems';
-import { selectItems } from './store/reducers/itemReducer';
+
+import {
+	useAppDispatch,
+	useAppSelector,
+	valuesSelector,
+} from './store/reducers/boxValueReducer';
+import addValue from './store/actionCreators/addValue';
+import resetValue from './store/actionCreators/resetValue';
 
 // type Item = {
 // 	id: string;
@@ -48,35 +52,37 @@ import { selectItems } from './store/reducers/itemReducer';
 // ];
 
 const Sandbox = () => {
-	const items = useSelector(selectItems);
-	const dispatch = useDispatch();
+	const [formValue, setFormValue] = useState('');
 
-	const handleButtonClick = () => {
-		dispatch(sortItems());
+	const dispatch = useAppDispatch();
+	const values = useAppSelector(valuesSelector);
+
+	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		dispatch(addValue(formValue));
+		setFormValue('');
 	};
+
+	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setFormValue(e.target.value);
+	};
+
+	const handleResetButtonClick = () => {
+		dispatch(resetValue());
+	};
+
 	return (
 		<>
-			<ul>
-				{items.map((item: Item, i: number) => {
-					return <ItemComponent key={item.id} value={item.value} />;
-				})}
-			</ul>
-			<button
-				onClick={handleButtonClick}
-				type="button"
-				style={{ margin: '0 auto' }}>
-				Sort
-			</button>
+			<div className="value-box">{values}</div>
+			<form onSubmit={handleFormSubmit}>
+				<input value={formValue} onChange={handleInputChange} type="text" />
+				<button type="submit">Submit</button>
+				<button onClick={handleResetButtonClick} type="button">
+					Reset
+				</button>
+			</form>
 		</>
 	);
-};
-
-type Props = {
-	value: number;
-};
-
-const ItemComponent = ({ value }: Props) => {
-	return <li>{value}</li>;
 };
 
 export default Sandbox;

@@ -1,3 +1,5 @@
+import store from './store/store';
+
 export type Offer = {
   id: string;
   title: string;
@@ -52,3 +54,20 @@ export type IntendetDate = {
   year: number;
   fullDate: string;
 };
+
+export type SortField = {
+  field: 'rating' | 'price' | 'title';
+  reverse: boolean;
+};
+
+export type OptionItem = {
+  id: string;
+  title: string;
+  isActive: boolean;
+  sortField: 'rating' | 'price' | 'title';
+  reverse: boolean;
+};
+
+export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

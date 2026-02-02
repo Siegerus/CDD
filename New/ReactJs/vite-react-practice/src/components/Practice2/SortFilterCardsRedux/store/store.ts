@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import boxValueReducer from './reducers/boxValueReducer';
+import cardsReducer from './reducers/cardsReducer';
 
 const store = configureStore({
-	reducer: boxValueReducer,
+	reducer: cardsReducer,
 });
 
 export default store;

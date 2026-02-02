@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Icon } from 'leaflet';
 
+import { OptionItem } from './types';
+
 export const OFFERS_COUNT = 111;
 
 export const AppRoute = {
@@ -16,6 +18,37 @@ export const AuthState = {
   NoAuth: 'NoAuth',
   Unknow: 'Unknow',
 } as const;
+
+export const OPTION_ITEMS: OptionItem[] = [
+  {
+    id: uuidv4(),
+    title: 'Popular',
+    isActive: true,
+    sortField: 'title',
+    reverse: true,
+  },
+  {
+    id: uuidv4(),
+    title: 'Price: low to high',
+    isActive: false,
+    sortField: 'price',
+    reverse: false,
+  },
+  {
+    id: uuidv4(),
+    title: 'Price: high to low',
+    isActive: false,
+    sortField: 'price',
+    reverse: true,
+  },
+  {
+    id: uuidv4(),
+    title: 'Top rated first',
+    isActive: false,
+    sortField: 'rating',
+    reverse: true,
+  },
+];
 
 export const NAV_ITEMS = [
   { id: uuidv4(), city: 'Paris', isActive: true },

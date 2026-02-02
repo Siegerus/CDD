@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, current } from '@reduxjs/toolkit';
 import setActiveItem from '../actionCreators/setActiveItem';
 import { ITEMS, Item } from '../../consts';
 import { State } from '../../types/state';
@@ -9,6 +9,8 @@ const initialState = {
 
 const itemReducer = createReducer(initialState, (builder) => {
 	builder.addCase(setActiveItem, (state, action) => {
+		// что бы вывести в state консоль, импортируем "current" из "@reduxjs/toolkit" и оборачиваем state в него
+		console.log(current(state));
 		return {
 			...state,
 			items: ITEMS.map((item, i) => {

@@ -4,27 +4,24 @@ import Header from '../../components/header';
 import NavItem from '../../components/nav-item';
 import CitiesMap from '../../components/cities-map';
 import SortingList from '../../components/sorting-list';
-import { NavItemType, Offer } from '../../types';
+import { NavItemType, Offer, SortField } from '../../types';
 
 type MainPageProps = {
   isMainPage: boolean;
   authState: string;
-  offersCount: number;
   activeNavs: NavItemType[];
   filteredByCity: Offer[];
   currentCity: string;
   activeCard: string;
   onNavClickHandle: (id: string, city: string) => void;
-  onSortinbyScaleHandle: (
-    property: 'price' | 'rating',
-    direction: boolean
-  ) => void;
-  onPopularFilterHandle: () => void;
+  onSortinbyScaleHandle: ({
+    field: field,
+    reverse: isReverse,
+  }: SortField) => void;
   onMouseEnterHandle: (id: string) => void;
 };
 
 const MainPage = ({
-  offersCount,
   filteredByCity,
   authState,
   isMainPage,
@@ -32,7 +29,6 @@ const MainPage = ({
   onNavClickHandle,
   onMouseEnterHandle,
   onSortinbyScaleHandle,
-  onPopularFilterHandle,
   currentCity,
   activeCard,
 }: MainPageProps): JSX.Element => {
@@ -67,12 +63,9 @@ const MainPage = ({
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offersCount} places to stay in {currentCity}
+                  {filteredByCity.length} places to stay in {currentCity}
                 </b>
-                <SortingList
-                  onSortinbyScaleHandle={onSortinbyScaleHandle}
-                  onPopularFilterHandle={onPopularFilterHandle}
-                />
+                <SortingList onSortinbyScaleHandle={onSortinbyScaleHandle} />
                 <div className="cities__places-list places__list tabs__content">
                   <Offerslist
                     sortedCards={filteredByCity}
