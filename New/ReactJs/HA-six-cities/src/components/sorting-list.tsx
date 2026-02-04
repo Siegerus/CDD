@@ -13,8 +13,8 @@ type SortingListProps = {
 const SortingList = ({
   onSortinbyScaleHandle,
 }: SortingListProps): JSX.Element => {
-  const [options, setOptions] = useState(OPTION_ITEMS);
-  const [isListVisible, setIsListVisible] = useState(false);
+  const [options, setOptions] = useState<OptionItem[]>(OPTION_ITEMS);
+  const [isListVisible, setIsListVisible] = useState<boolean>(false);
 
   const getOptionTitle = () => {
     return options.find((option: OptionItem) => option.isActive)?.title;

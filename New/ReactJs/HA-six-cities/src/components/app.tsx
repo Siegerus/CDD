@@ -1,26 +1,21 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthState } from '../constants';
+import { useState } from 'react';
+
 import LoginPage from '../pages/login-page/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import ErrorPage from '../pages/404-page/404-page';
 import MainPage from '../pages/main-page/main-page';
-import { useState } from 'react';
+import { AppRoute, AuthState } from '../constants';
+import { SortField } from '../types';
+import { offersActions } from '../store/slices/offers';
+import { useAppSelector, useAppDispatch } from '../hooks/store';
+import { selectOffers, selectNavs } from '../store/selectors/offers';
 
-import { setActiveNav, sortByScale } from '../store/actions';
-import { navsSelector, offersSelector } from '../store/reducer';
-import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import { AppDispatch, State, SortField } from '../types';
-
-type AppProps = {};
-
-function App(props: AppProps): JSX.Element {
-  const useAppDispatch = () => useDispatch<AppDispatch>();
-  const useAppSelector: TypedUseSelectorHook<State> = useSelector;
-
-  const navs = useAppSelector(navsSelector);
-  const offers = useAppSelector(offersSelector);
+function App(): JSX.Element {
+  const navs = useAppSelector(selectNavs);
+  const offers = useAppSelector(selectOffers);
   const dispatch = useAppDispatch();
 
   const getActiveNav = () => navs.filter((nav) => nav.isActive === true)[0];
@@ -31,31 +26,17 @@ function App(props: AppProps): JSX.Element {
     offers.filter((offer) => offer.city.name === getActiveNav().city);
 
   const onNavClickHandle = (id: string) => {
-    dispatch(setActiveNav(id));
+    dispatch(offersActions.setActiveNav(id));
   };
 
   const sortinbyScaleHandle = ({
     field: field,
     reverse: isReverse,
   }: SortField) => {
-    dispatch(sortByScale({ field: field, reverse: isReverse }));
+    dispatch(offersActions.sortByScale({ field: field, reverse: isReverse }));
   };
 
-  // const sortinbyScaleHandle = (
-  //   property: 'price' | 'rating',
-  //   reverse: boolean
-  // ) => {
-  //   const sorted = filteredByCity?.sort((a: Offer, b: Offer) => {
-  //     return a[property] > b[property] === reverse ? 1 : -1;
-  //   });
-  //   setSortedCards([...sorted]);
-  // };
-
-  // const popularFilterHandle = () => {
-  //   setSortedCards(filteredByCity.filter((offer) => offer.price === 80));
-  // };
-
-  const [activeCard, setActiveCard] = useState('');
+  const [activeCard, setActiveCard] = useState<string>('');
 
   const onMouseEnterHandle = (id: string) => {
     setActiveCard(id);

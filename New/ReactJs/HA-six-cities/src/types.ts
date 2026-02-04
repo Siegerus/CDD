@@ -68,6 +68,11 @@ export type OptionItem = {
   reverse: boolean;
 };
 
+export type OffersState = {
+  navs: NavItemType[];
+  offers: Offer[];
+};
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

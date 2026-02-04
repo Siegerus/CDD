@@ -2,9 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import setActiveCity from '../actionCreators/setActiveCity';
 import sortCards from '../actionCreators/sortCard';
-
 import { NAV_CITIES, PLACES } from '../../consts';
-import { State } from '../../types/state';
 
 const initialState = {
 	navs: NAV_CITIES,
@@ -34,6 +32,3 @@ const cardsReducer = createReducer(initialState, (builder) => {
 });
 
 export default cardsReducer;
-
-export const navsSelect = (state: State) => state.navs;
-export const placesSelect = (state: State) => state.places;

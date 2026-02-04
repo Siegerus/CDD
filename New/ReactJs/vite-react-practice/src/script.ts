@@ -512,6 +512,34 @@ const test: Test = 'test';
 
 // -------------------
 
+// Содаём кортеж
+const STRS = ['lorem1', 'lorem2', 'lorem3', 'lorem4'] as const;
+// объявляем тип от кортежа
+type TestType = (typeof STRS)[number];
+// В итоге тип будет оъединением "lorem1" | "lorem2" | "lorem3" | "lorem4"
+const lorem: TestType = 'lorem1';
+
+//--------------------
+
+// Тоже кортеж. Уже из объектов.
+const MEMBERS = [
+	{ name: 'First name', secondName: 'Second name', role: 'user', age: 21 },
+	{ name: 'First name', secondName: 'Second name', role: 'admin', age: 33 },
+	{ name: 'First name', secondName: 'Second name', role: 'guest', age: 41 },
+	{ name: 'First name', secondName: 'Second name', role: 'user', age: 19 },
+] as const;
+// По той же логике, только тип будет объединением  значений св-в age
+type Age = (typeof MEMBERS)[number]['age'];
+// 21 | 33 | 41 | 19
+const someAge: Age = 19;
+// -------------------
+
+//--------------------
+// -------------------
+
+//--------------------
+// -------------------
+
 //--------------------
 
 // // Пример класса с типами

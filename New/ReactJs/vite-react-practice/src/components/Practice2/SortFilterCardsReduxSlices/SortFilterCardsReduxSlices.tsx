@@ -1,7 +1,6 @@
 import styles from './sort-filter-cards.module.scss';
 import { useAppSelector, useAppDispatch } from './hooks/useStore';
-import setActiveCity from './store/actionCreators/setActiveCity';
-import sortCards from './store/actionCreators/sortCard';
+import { placesActions, placesSlice } from './store/slices/places';
 import { Place } from './types/types';
 import { State } from './types/state';
 
@@ -16,11 +15,13 @@ const SortFilterCardsRedux = () => {
 	};
 
 	const navClickHandle = (idx: number) => {
-		dispatch(setActiveCity(idx));
+		dispatch(placesActions.setActiveCity(idx));
+		// dispatch(placesSlice.actions.setActiveCity(idx));
 	};
 
 	const sortButtonClickHandle = (field: 'id' | 'price') => {
-		dispatch(sortCards(field));
+		dispatch(placesActions.sortCards(field));
+		// dispatch(placesSlice.actions.sortCards(field));
 	};
 
 	return (

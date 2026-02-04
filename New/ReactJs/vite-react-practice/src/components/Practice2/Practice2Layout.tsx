@@ -28,6 +28,9 @@ const Practice2Layout = () => {
 			<Link to="context"> to context</Link>
 			<Link to="redux"> to redux</Link>
 			<Link to="sort-filter-cards-redux"> to sort-filter-cards-redux</Link>
+			<Link to="sort-filter-cards-redux-slices">
+				to sort-filter-cards-redux-slices
+			</Link>
 			<Link to="sandbox"> to sandbox</Link>
 			<main style={{ padding: '60px 0 120px 0' }}>
 				<Outlet />
