@@ -19,8 +19,7 @@ const NavItem = ({
             ? 'locations__item-link tabs__item tabs__item--active'
             : 'locations__item-link tabs__item'
         }
-        onClick={() => onNavClick(id, city)}
-      >
+        onClick={() => onNavClick(id, city)}>
         <span>{city}</span>
       </a>
     </li>

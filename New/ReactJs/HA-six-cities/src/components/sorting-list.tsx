@@ -22,7 +22,7 @@ const SortingList = ({
 
   const optionClickHandle = (
     id: string,
-    { field: field, reverse: isReverse }: SortField
+    { field: field, reverse: isReverse, initial: isInitial }: SortField
   ) => {
     setOptions(
       OPTION_ITEMS.map((item: OptionItem) => {
@@ -32,7 +32,11 @@ const SortingList = ({
       })
     );
     setIsListVisible(false);
-    onSortinbyScaleHandle({ field: field, reverse: isReverse });
+    onSortinbyScaleHandle({
+      field: field,
+      reverse: isReverse,
+      initial: isInitial,
+    });
   };
 
   const sortTypeClickHandle = () => {
@@ -75,6 +79,7 @@ const SortingList = ({
                   optionClickHandle(option.id, {
                     field: option.sortField,
                     reverse: option.reverse,
+                    initial: option.initial,
                   })
                 }
                 key={option.id}

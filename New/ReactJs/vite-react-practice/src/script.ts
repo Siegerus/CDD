@@ -534,6 +534,33 @@ type Age = (typeof MEMBERS)[number]['age'];
 const someAge: Age = 19;
 // -------------------
 
+type City = {
+	name: string;
+	persons: number;
+	russian: boolean;
+};
+
+const CITIES = [
+	{ name: 'Anapa', persons: 1.2, russian: true },
+	{ name: 'Anapa', persons: 1.2, russian: true },
+	{ name: 'Anapa', persons: 1.2, russian: true },
+	{ name: 'Krasnodar', persons: 3, russian: true },
+	{ name: 'Krasnodar', persons: 3, russian: true },
+	{ name: 'Krasnodar', persons: 3, russian: true },
+	{ name: 'Kiev', persons: 8, russian: false },
+	{ name: 'Kiev', persons: 8, russian: false },
+	{ name: 'Kiev', persons: 8, russian: false },
+	{ name: 'Simferopol', persons: 1, russian: true },
+	{ name: 'Simferopol', persons: 1, russian: true },
+	{ name: 'Simferopol', persons: 1, russian: true },
+	{ name: 'New-York', persons: 16, russian: false },
+	{ name: 'New-York', persons: 16, russian: false },
+	{ name: 'New-York', persons: 16, russian: false },
+	{ name: 'Moskow', persons: 13, russian: true },
+	{ name: 'Moskow', persons: 13, russian: true },
+	{ name: 'Moskow', persons: 13, russian: true },
+];
+
 //--------------------
 // -------------------
 

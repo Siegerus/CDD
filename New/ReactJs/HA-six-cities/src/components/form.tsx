@@ -1,4 +1,8 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import store from '../store';
+import { sendComment } from '../store/api-actions';
+import { Review } from '../types';
 
 const Form = () => {
   const [values, setValues] = useState({
@@ -6,26 +10,30 @@ const Form = () => {
     rating: '',
   });
 
-  const onInputChangeHandle = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
-    name: string,
-  ) => {
-    /* if (e.target instanceof HTMLInputElement) {
-      setValues(
-        e.target.checked === true
-          ? {
-              ...values,
-              [name]: e.target.value,
-            }
-          : {
-              ...values,
-            },
-      );
-    }  */
-    setValues({ ...values, [name]: e.target.value });
-    // console.log(values);
+  const commentObject: Review = {
+    id: uuidv4(),
+    date: new Date().toString(),
+    user: {
+      name: 'John',
+      avatarUrl: '../../markup/img/avatar.svg',
+      isPro: false,
+    },
+    comment: values.review,
+    rating: +values.rating,
   };
 
+  const onInputChangeHandle = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
+    name: string
+  ) => {
+    setValues({ ...values, [name]: e.target.value });
+  };
+
+  const formSubmitHandle = (e: MouseEvent) => {
+    e.preventDefault();
+    store.dispatch(sendComment(commentObject));
+    setValues({ review: '', rating: '' });
+  };
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
@@ -38,13 +46,11 @@ const Form = () => {
           value="5"
           id="5-stars"
           type="radio"
-          onChange={(e) => onInputChangeHandle(e, e.target.name)}
-        ></input>
+          onChange={(e) => onInputChangeHandle(e, e.target.name)}></input>
         <label
           htmlFor="5-stars"
           className="reviews__rating-label form__rating-label"
-          title="perfect"
-        >
+          title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
@@ -56,13 +62,11 @@ const Form = () => {
           value="4"
           id="4-stars"
           type="radio"
-          onChange={(e) => onInputChangeHandle(e, e.target.name)}
-        ></input>
+          onChange={(e) => onInputChangeHandle(e, e.target.name)}></input>
         <label
           htmlFor="4-stars"
           className="reviews__rating-label form__rating-label"
-          title="good"
-        >
+          title="good">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
@@ -74,13 +78,11 @@ const Form = () => {
           value="3"
           id="3-stars"
           type="radio"
-          onChange={(e) => onInputChangeHandle(e, e.target.name)}
-        ></input>
+          onChange={(e) => onInputChangeHandle(e, e.target.name)}></input>
         <label
           htmlFor="3-stars"
           className="reviews__rating-label form__rating-label"
-          title="not bad"
-        >
+          title="not bad">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
@@ -92,13 +94,11 @@ const Form = () => {
           value="2"
           id="2-stars"
           type="radio"
-          onChange={(e) => onInputChangeHandle(e, e.target.name)}
-        ></input>
+          onChange={(e) => onInputChangeHandle(e, e.target.name)}></input>
         <label
           htmlFor="2-stars"
           className="reviews__rating-label form__rating-label"
-          title="badly"
-        >
+          title="badly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
@@ -110,13 +110,11 @@ const Form = () => {
           value="1"
           id="1-star"
           type="radio"
-          onChange={(e) => onInputChangeHandle(e, e.target.name)}
-        ></input>
+          onChange={(e) => onInputChangeHandle(e, e.target.name)}></input>
         <label
           htmlFor="1-star"
           className="reviews__rating-label form__rating-label"
-          title="terribly"
-        >
+          title="terribly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
@@ -128,8 +126,7 @@ const Form = () => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={(e) => onInputChangeHandle(e, e.target.name)}
-        value={values.review}
-      ></textarea>
+        value={values.review}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set{' '}
@@ -139,8 +136,8 @@ const Form = () => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
-        >
+          onClick={(e) => formSubmitHandle(e)}
+          disabled={!values.review}>
           Submit
         </button>
       </div>

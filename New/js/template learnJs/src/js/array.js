@@ -672,3 +672,28 @@ function testFn() {
   return targetArr;
 }
 console.log(testFn()); // [1, 2, 3, 'test']
+
+// Группировка объектов по одинаковым св-вам
+// type Animal = {
+//   type: string,
+//   name: string,
+// };
+
+// const pets: Animal[] = [
+//   { type: "dog", name: "Max" },
+//   { type: "cat", name: "Kitty" },
+//   { type: "cat", name: "Musya" },
+//   { type: "dog", name: "Rex" },
+//   { type: "dog", name: "Шарик" },
+// ];
+
+// const grouped = pets.reduce((obj: Record<string, Animal[]>, pet: Animal) => {
+//   obj[pet.type] = obj[pet.type] || [];
+//   obj[pet.type].push(pet);
+
+//   return obj;
+// }, {});
+// console.log(grouped);
+// {dog: Array(3), cat: Array(2)}
+// cat: (2) [{…}, {…}]
+// dog: (3) [{…}, {…}, {…}]

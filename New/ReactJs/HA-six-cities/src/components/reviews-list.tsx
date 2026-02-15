@@ -1,13 +1,15 @@
-import { reviewItems } from '../mocks/reviews';
 import createRate from '../utils/createRate';
 import getIntendedDate from '../utils/getIntendedDate';
+import { Review } from '../types';
 
-type ReviewsListProps = {};
+type ReviewsListProps = {
+  comments: Review[];
+};
 
-const ReviewsList = (props: ReviewsListProps) => {
+const ReviewsList = ({ comments }: ReviewsListProps) => {
   return (
     <ul className="reviews__list">
-      {reviewItems.map((review) => {
+      {comments.map((review) => {
         return (
           <ReviewItem
             key={review.id}
@@ -54,10 +56,8 @@ const ReviewItem = (props: ReviewItemProps) => {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time
-          className="reviews__time"
-          dateTime={getIntendedDate(date).fullDate}>
-          {`${getIntendedDate(date).monthName} ${getIntendedDate(date).year}`}
+        <time className="reviews__time" dateTime={date.toString()}>
+          {`${date}`}
         </time>
       </div>
     </li>

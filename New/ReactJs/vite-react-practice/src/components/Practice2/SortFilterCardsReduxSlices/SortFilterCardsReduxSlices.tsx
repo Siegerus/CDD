@@ -1,12 +1,14 @@
 import styles from './sort-filter-cards.module.scss';
-import { useAppSelector, useAppDispatch } from './hooks/useStore';
-import { placesActions, placesSlice } from './store/slices/places';
+import { useAppSelector, useAppDispatch } from './hooks/store';
+import { placesActions } from './store/slices/places';
+// import { placesSelectors } from './store/slices/places';
+import { navsSelector, placesSelector } from './store/selectors/places';
 import { Place } from './types/types';
-import { State } from './types/state';
+import { fetchData } from './store/slices/places';
 
 const SortFilterCardsRedux = () => {
-	const navs = useAppSelector((state: State) => state.navs);
-	const places = useAppSelector((state: State) => state.places);
+	const navs = useAppSelector(navsSelector /* placesSelectors.navs */);
+	const places = useAppSelector(placesSelector /* placesSelectors.places */);
 	const dispatch = useAppDispatch();
 
 	const getFilteredCards = (): Place[] => {
@@ -16,12 +18,14 @@ const SortFilterCardsRedux = () => {
 
 	const navClickHandle = (idx: number) => {
 		dispatch(placesActions.setActiveCity(idx));
-		// dispatch(placesSlice.actions.setActiveCity(idx));
 	};
 
 	const sortButtonClickHandle = (field: 'id' | 'price') => {
 		dispatch(placesActions.sortCards(field));
-		// dispatch(placesSlice.actions.sortCards(field));
+	};
+
+	const fetchButtonClickHandle = () => {
+		dispatch(fetchData('https://jsonplaceholder.typicode.com/posts'));
 	};
 
 	return (
@@ -68,6 +72,7 @@ const SortFilterCardsRedux = () => {
 				<button onClick={() => sortButtonClickHandle('price')}>
 					Sort by PRICE!
 				</button>
+				<button onClick={() => fetchButtonClickHandle()}>Get Data</button>
 			</main>
 		</>
 	);

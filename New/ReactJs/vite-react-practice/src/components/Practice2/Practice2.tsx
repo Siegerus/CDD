@@ -28,6 +28,8 @@ import ContextComponent from './Context/Component';
 import ReduxComponent from './Reduxx/ReduxComponent';
 import SortFilterCardsRedux from './SortFilterCardsRedux/SortFilterCardsRedux';
 import SortFilterCardsReduxSlices from './SortFilterCardsReduxSlices/SortFilterCardsReduxSlices';
+import CustomBooleanComponent from './CustomBooleanComponent/CustomBooleanComponent';
+import AxiosComponent from './Axios/AxiosComponent';
 
 const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 export const TABS = [
@@ -111,6 +113,11 @@ const Practice2 = () => {
 						path="sort-filter-cards-redux-slices"
 						element={<SortFilterCardsReduxSlices />}
 					/>
+					<Route
+						path="custom-boolean-component"
+						element={<CustomBooleanComponent />}
+					/>
+					<Route path="axios-component" element={<AxiosComponent />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

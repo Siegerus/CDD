@@ -8,11 +8,13 @@ type OfferslistProps = {
   viewWidth: string;
   viewHeight: string;
   onMouseEnterHandle: (id: string) => void;
+  onClickFavoriteHandle: (id: string) => void;
 };
 
 const Offerslist = ({
   sortedCards,
   onMouseEnterHandle,
+  onClickFavoriteHandle,
   cardsClass,
   wrapperClass,
   viewWidth,
@@ -30,6 +32,7 @@ const Offerslist = ({
           viewWidth={viewWidth}
           viewHeight={viewHeight}
           onMouseEnterHandle={onMouseEnterHandle}
+          onClickFavoriteHandle={onClickFavoriteHandle}
         />
       ))}
     </>

@@ -3718,7 +3718,72 @@ function addEvent(element, obj) {
 }
 addEvent(elem, eventObject);
 
-console.log();
+const CITIES = [
+  { name: "Anapa", persons: 1.2, russian: true },
+  { name: "New-York", persons: 16, russian: false },
+  { name: "Krasnodar", persons: 3, russian: true },
+  { name: "Krasnodar", persons: 3, russian: true },
+  { name: "Krasnodar", persons: 3, russian: true },
+  { name: "Kiev", persons: 8, russian: false },
+  { name: "Kiev", persons: 8, russian: false },
+  { name: "Simferopol", persons: 1, russian: true },
+  { name: "Simferopol", persons: 1, russian: true },
+  { name: "Simferopol", persons: 1, russian: true },
+  { name: "New-York", persons: 16, russian: false },
+  { name: "Kiev", persons: 8, russian: false },
+  { name: "New-York", persons: 16, russian: false },
+  { name: "Moskow", persons: 13, russian: true },
+  { name: "Moskow", persons: 13, russian: true },
+  { name: "Moskow", persons: 13, russian: true },
+  { name: "Anapa", persons: 1.22, russian: true },
+  { name: "Anapa", persons: 1.23, russian: true },
+];
+
+// function f() {
+//   return CITIES.map((city) => {
+//     const obj = {
+//       [city.name]: [],
+//     };
+//     /* if (obj[city.name] === city.name)  */ obj[city.name].push(city);
+//     // console.log(obj[city.name]);
+//     return obj;
+//   });
+// }
+// console.log(f());
+
+// function f() {
+//   const newObj = {};
+
+//   for (let item of CITIES) {
+//     if (!newObj[item.name]) {
+//       newObj[item.name] = [];
+
+//       // newObj[item.name].push(item);
+//     }
+//   }
+
+//   return newObj;
+// }
+// console.log(f());
+
+// const newObj = f();
+
+// CITIES.forEach((city) => {
+//   if (city.name === newObj[city.name]) console.log("!");
+// });
+
+// function f() {
+//   // debugger;
+//   const res = CITIES.reduce((obj, city) => {
+//     obj[city.name] = obj[city.name] || [];
+//     obj[city.name].push(city);
+
+//     return obj;
+//   }, {});
+//   return res;
+// }
+// console.log(f());
+
 console.log();
 console.log();
 console.log();

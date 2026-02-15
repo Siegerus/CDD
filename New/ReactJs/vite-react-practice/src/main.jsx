@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 // import store from './components/Practice2/Sandbox/store/store';
 // import store from './components/Practice2/Reduxx/store/store';
 // import store from './components/Practice2/SortFilterCardsRedux/store/store';
-import store from './components/Practice2/SortFilterCardsReduxSlices/store/store';
+// import store from './components/Practice2/SortFilterCardsReduxSlices/store/store';
+import store from './components/Practice2/Axios/store';
 import './main.scss';
 import App from './App';
 

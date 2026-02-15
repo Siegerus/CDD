@@ -3,21 +3,31 @@ import Offermap from '../../components/offer-map';
 import Reviews from '../../components/reviews';
 import NearPlacesList from '../../components/near-places-list';
 import { useParams } from 'react-router-dom';
-import { offers } from '../../mocks/offers';
 import { Offer } from '../../types';
+import store from '../../store';
+import { fetchComments } from '../../store/api-actions';
+import { selectComments, selectActiveCard } from '../../store/selectors/offers';
+import { useAppSelector } from '../../hooks/store';
+import { useEffect } from 'react';
 
 type OfferPageProps = {
+  offers: Offer[];
   authState: string;
   activeCard: string;
   onMouseEnterHandle: (id: string) => void;
 };
 
 const OfferPage = (props: OfferPageProps): JSX.Element => {
-  const { authState, activeCard, onMouseEnterHandle } = props;
+  const { offers, authState, activeCard, onMouseEnterHandle } = props;
 
-  const params = useParams();
+  const comments = useAppSelector(selectComments);
+  const { id } = useParams();
 
-  const targetOffer = offers.find((offer: Offer) => offer.id === params.id);
+  useEffect(() => {
+    store.dispatch(fetchComments(id!));
+  }, [id]);
+
+  const targetOffer = offers.find((offer: Offer) => offer.id === id);
   const severalPlaces = offers
     .filter(
       (offer: Offer) =>
@@ -152,7 +162,7 @@ const OfferPage = (props: OfferPageProps): JSX.Element => {
                   </p>
                 </div>
               </div>
-              <Reviews authState={authState} />
+              <Reviews authState={authState} comments={comments} />
             </div>
           </div>
           <Offermap activeCard={activeCard} nearPlaces={nearPlaces} />

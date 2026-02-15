@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createAPI } from '../api';
-import cardsReducer from './reducers/cardsReducer';
+import { createAPI } from './api';
+import { axiosSlice } from './slices';
 
 const api = createAPI();
-
 const store = configureStore({
-	reducer: cardsReducer,
+	reducer: axiosSlice.reducer,
+	// имплементируем помредник
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			thunk: {

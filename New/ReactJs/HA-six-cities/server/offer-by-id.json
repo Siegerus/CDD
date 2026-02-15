@@ -1,32 +1,418 @@
-{
-  "id": "6af6f711-c28d-4121-82cd-e0b462a27f00",
-  "title": "Beautiful & luxurious studio at great location",
-  "type": "apartment",
-  "price": 120,
-  "city": {
-    "name": "Amsterdam",
+[
+  {
+    "id": "thisIsId",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.34514938496378,
+        "longitude": 4.663877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.34514938496378,
+      "longitude": 4.663877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 4,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f01",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.33514938496378,
+        "longitude": 4.653877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.33514938496378,
+      "longitude": 4.653877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 4,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f02",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 110,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.32514938496378,
+        "longitude": 4.643877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.32514938496378,
+      "longitude": 4.643877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 3,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f03",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 140,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.31514938496378,
+        "longitude": 4.633877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.31514938496378,
+      "longitude": 4.633877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 5,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f04",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 200,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.30514938496378,
+        "longitude": 4.623877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.30514938496378,
+      "longitude": 4.623877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 2,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f05",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.39514938496378,
+        "longitude": 4.613877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.39514938496378,
+      "longitude": 4.613877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 1,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f06",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 52.29514938496378,
+        "longitude": 4.603877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.35514938496378,
+      "longitude": 4.603877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 4,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f07",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.25514938496378,
+        "longitude": 4.573877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.25514938496378,
+      "longitude": 4.573877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 4,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f08",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 130,
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.24514938496378,
+        "longitude": 4.563877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.24514938496378,
+      "longitude": 4.563877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 3,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f09",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.23514938496378,
+        "longitude": 4.553877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.23514938496378,
+      "longitude": 4.553877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 1,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f010",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.22514938496378,
+        "longitude": 4.543877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.22514938496378,
+      "longitude": 4.543877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 5,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  },
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f011",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Cologne",
+      "location": {
+        "latitude": 52.35514938496378,
+        "longitude": 4.673877537499948,
+        "zoom": 8
+      }
+    },
     "location": {
       "latitude": 52.35514938496378,
       "longitude": 4.673877537499948,
       "zoom": 8
-    }
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 4,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
   },
-  "location": {
-    "latitude": 52.35514938496378,
-    "longitude": 4.673877537499948,
-    "zoom": 8
-  },
-  "isFavorite": false,
-  "isPremium": false,
-  "rating": 4,
-  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  "bedrooms": 3,
-  "goods": ["Heating"],
-  "host": {
-    "name": "Oliver Conner",
-    "avatarUrl": "https://url-to-image/image.png",
-    "isPro": false
-  },
-  "images": ["https://url-to-image/image.png"],
-  "maxAdults": 4
-}
+  {
+    "id": "6af6f711-c28d-4121-82cd-e0b462a27f012",
+    "title": "Beautiful & luxurious studio at great location",
+    "type": "apartment",
+    "price": 120,
+    "city": {
+      "name": "Dusseldorf",
+      "location": {
+        "latitude": 52.35514938496378,
+        "longitude": 4.673877537499948,
+        "zoom": 8
+      }
+    },
+    "location": {
+      "latitude": 52.35514938496378,
+      "longitude": 4.673877537499948,
+      "zoom": 8
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 4,
+    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+    "bedrooms": 3,
+    "goods": ["Heating"],
+    "host": {
+      "name": "Oliver Conner",
+      "avatarUrl": "https://url-to-image/image.png",
+      "isPro": false
+    },
+    "images": ["../markup/img/apartment-01.jpg"],
+    "maxAdults": 4
+  }
+]

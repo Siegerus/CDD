@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app';
 import { Provider } from 'react-redux';
-import store from './store/store';
+import store from './store';
+import { fetchOffers } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchOffers());
 
 root.render(
   <React.StrictMode>

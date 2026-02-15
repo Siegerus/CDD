@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 
 import LoginPage from '../pages/login-page/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
@@ -11,11 +10,18 @@ import { AppRoute, AuthState } from '../constants';
 import { SortField } from '../types';
 import { offersActions } from '../store/slices/offers';
 import { useAppSelector, useAppDispatch } from '../hooks/store';
-import { selectOffers, selectNavs } from '../store/selectors/offers';
+import {
+  selectOffers,
+  selectNavs,
+  selectActiveCard,
+  selectLoadingStatus,
+} from '../store/selectors/offers';
 
 function App(): JSX.Element {
   const navs = useAppSelector(selectNavs);
   const offers = useAppSelector(selectOffers);
+  const activeCard = useAppSelector(selectActiveCard);
+  const loadingStatus = useAppSelector(selectLoadingStatus);
   const dispatch = useAppDispatch();
 
   const getActiveNav = () => navs.filter((nav) => nav.isActive === true)[0];
@@ -32,14 +38,23 @@ function App(): JSX.Element {
   const sortinbyScaleHandle = ({
     field: field,
     reverse: isReverse,
+    initial: isInitial,
   }: SortField) => {
-    dispatch(offersActions.sortByScale({ field: field, reverse: isReverse }));
+    dispatch(
+      offersActions.sortByScale({
+        field: field,
+        reverse: isReverse,
+        initial: isInitial,
+      })
+    );
   };
 
-  const [activeCard, setActiveCard] = useState<string>('');
-
   const onMouseEnterHandle = (id: string) => {
-    setActiveCard(id);
+    dispatch(offersActions.setActiveId(id));
+  };
+
+  const onClickFavoriteHandle = (id: string) => {
+    dispatch(offersActions.setFavorites(id));
   };
 
   return (
@@ -56,8 +71,10 @@ function App(): JSX.Element {
               onMouseEnterHandle={onMouseEnterHandle}
               filteredByCity={getFilteredOffers()}
               onSortinbyScaleHandle={sortinbyScaleHandle}
+              onClickFavoriteHandle={onClickFavoriteHandle}
               currentCity={getCurrentCity()}
               activeCard={activeCard}
+              loadingStatus={loadingStatus}
             />
           }
         />
@@ -73,7 +90,11 @@ function App(): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authState={AuthState.Auth} isReverse={false}>
-              <FavoritesPage authState={AuthState.Auth} offers={offers} />
+              <FavoritesPage
+                authState={AuthState.Auth}
+                currentCity={getCurrentCity()}
+                offers={getFilteredOffers()}
+              />
             </PrivateRoute>
           }
         />
@@ -81,6 +102,7 @@ function App(): JSX.Element {
           path={AppRoute.Offer}
           element={
             <OfferPage
+              offers={getFilteredOffers()}
               authState={AuthState.Auth}
               activeCard={activeCard}
               onMouseEnterHandle={onMouseEnterHandle}

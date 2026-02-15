@@ -1,8 +1,0 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { offersSlice } from './slices/offers';
-
-const store = configureStore({
-  reducer: offersSlice.reducer,
-});
-
-export default store;

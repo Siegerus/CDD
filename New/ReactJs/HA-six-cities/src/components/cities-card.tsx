@@ -11,6 +11,7 @@ type CitiesCardProps = {
   viewHeight: string;
   id?: string;
   onMouseEnterHandle?: (id: string) => void;
+  onClickFavoriteHandle?: (id: string) => void;
 };
 
 const CitiesCard = ({
@@ -20,14 +21,24 @@ const CitiesCard = ({
   viewWidth,
   viewHeight,
   onMouseEnterHandle,
+  onClickFavoriteHandle,
   id,
 }: CitiesCardProps): JSX.Element => {
-  const { isPremium, previewImage, price, title, type, rating } = offer;
+  const { isPremium, isFavorite, images, price, title, type, rating } = offer;
+
+  const buttonClass = isFavorite
+    ? 'place-card__bookmark-button--active button'
+    : 'place-card__bookmark-button button';
+
   return (
     <article
       className={cardsClass}
-      onMouseEnter={() => onMouseEnterHandle!(id!)}
-      onMouseLeave={() => onMouseEnterHandle!('')}>
+      onMouseEnter={() => {
+        if (onMouseEnterHandle) onMouseEnterHandle!(id!);
+      }}
+      onMouseLeave={() => {
+        if (onMouseEnterHandle) onMouseEnterHandle!('');
+      }}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -38,7 +49,7 @@ const CitiesCard = ({
         <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
           <img
             className="place-card__image"
-            src={previewImage}
+            src={images[0]}
             width={viewWidth}
             height={viewHeight}
             alt="Place image"></img>
@@ -50,7 +61,10 @@ const CitiesCard = ({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            onClick={() => onClickFavoriteHandle!(id!)}
+            className={buttonClass}
+            type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 
 import setActiveCity from '../actionCreators/setActiveCity';
 import sortCards from '../actionCreators/sortCard';

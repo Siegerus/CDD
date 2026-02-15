@@ -23,7 +23,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 2,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -48,7 +48,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 2,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -73,7 +73,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 4,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -98,7 +98,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 5,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -123,7 +123,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 3,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -148,7 +148,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 1,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -173,7 +173,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 1,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -198,7 +198,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     rating: 2,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 
@@ -223,7 +223,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 4,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
   {
@@ -247,7 +247,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 4,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
   {
@@ -271,7 +271,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 4,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
   {
@@ -295,7 +295,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 4,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
   {
@@ -319,7 +319,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 4,
-    previewImage: 'img/apartment-01.jpg',
+    images: ['img/apartment-01.jpg'],
     isActive: false,
   },
 ];

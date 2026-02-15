@@ -19,6 +19,12 @@ export const AuthState = {
   Unknow: 'Unknow',
 } as const;
 
+export enum APIRoute {
+  Offers = '/offer-by-id.json',
+  Comments = '/comments-list',
+  Post = '/post-new-comment.json',
+}
+
 export const OPTION_ITEMS: OptionItem[] = [
   {
     id: uuidv4(),
@@ -26,6 +32,7 @@ export const OPTION_ITEMS: OptionItem[] = [
     isActive: true,
     sortField: 'title',
     reverse: true,
+    initial: true,
   },
   {
     id: uuidv4(),
@@ -33,6 +40,7 @@ export const OPTION_ITEMS: OptionItem[] = [
     isActive: false,
     sortField: 'price',
     reverse: false,
+    initial: false,
   },
   {
     id: uuidv4(),
@@ -40,6 +48,7 @@ export const OPTION_ITEMS: OptionItem[] = [
     isActive: false,
     sortField: 'price',
     reverse: true,
+    initial: false,
   },
   {
     id: uuidv4(),
@@ -47,6 +56,7 @@ export const OPTION_ITEMS: OptionItem[] = [
     isActive: false,
     sortField: 'rating',
     reverse: true,
+    initial: false,
   },
 ];
 

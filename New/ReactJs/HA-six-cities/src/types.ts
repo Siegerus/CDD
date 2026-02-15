@@ -1,4 +1,4 @@
-import store from './store/store';
+import store from './store';
 
 export type Offer = {
   id: string;
@@ -21,7 +21,7 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  previewImage: string;
+  images: string[];
   isActive: boolean;
 };
 
@@ -58,6 +58,7 @@ export type IntendetDate = {
 export type SortField = {
   field: 'rating' | 'price' | 'title';
   reverse: boolean;
+  initial: boolean;
 };
 
 export type OptionItem = {
@@ -66,12 +67,13 @@ export type OptionItem = {
   isActive: boolean;
   sortField: 'rating' | 'price' | 'title';
   reverse: boolean;
+  initial: boolean;
 };
 
-export type OffersState = {
-  navs: NavItemType[];
-  offers: Offer[];
-};
+// export type PostComment = {
+//   rating: string;
+//   review: string;
+// };
 
 export type State = ReturnType<typeof store.getState>;
 

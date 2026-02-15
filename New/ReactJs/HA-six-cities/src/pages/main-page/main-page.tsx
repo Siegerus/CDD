@@ -1,24 +1,27 @@
-// import CitiesCard from '../../components/cities-card';
 import Offerslist from '../../components/offers-list';
 import Header from '../../components/header';
 import NavItem from '../../components/nav-item';
 import CitiesMap from '../../components/cities-map';
 import SortingList from '../../components/sorting-list';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { NavItemType, Offer, SortField } from '../../types';
 
 type MainPageProps = {
   isMainPage: boolean;
   authState: string;
   activeNavs: NavItemType[];
-  filteredByCity: Offer[];
+  filteredByCity: Offer[] | undefined;
   currentCity: string;
   activeCard: string;
+  loadingStatus: boolean;
   onNavClickHandle: (id: string, city: string) => void;
   onSortinbyScaleHandle: ({
     field: field,
     reverse: isReverse,
+    initial: isInitial,
   }: SortField) => void;
   onMouseEnterHandle: (id: string) => void;
+  onClickFavoriteHandle: (id: string) => void;
 };
 
 const MainPage = ({
@@ -29,15 +32,17 @@ const MainPage = ({
   onNavClickHandle,
   onMouseEnterHandle,
   onSortinbyScaleHandle,
+  onClickFavoriteHandle,
   currentCity,
   activeCard,
+  loadingStatus,
 }: MainPageProps): JSX.Element => {
   return (
     <div className="page page--gray page--main">
       <Header authState={authState} isMainPage={isMainPage} />
       <main
         className={
-          filteredByCity.length
+          filteredByCity?.length
             ? 'page__main page__main--index'
             : 'page__main page__main--index page__main--index-empty'
         }>
@@ -58,7 +63,8 @@ const MainPage = ({
           </section>
         </div>
         <div className="cities">
-          {filteredByCity.length ? (
+          {loadingStatus && <LoadingSpinner />}
+          {filteredByCity?.length ? (
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
@@ -70,6 +76,7 @@ const MainPage = ({
                   <Offerslist
                     sortedCards={filteredByCity}
                     onMouseEnterHandle={onMouseEnterHandle}
+                    onClickFavoriteHandle={onClickFavoriteHandle}
                     cardsClass={'cities__card place-card'}
                     wrapperClass={
                       'cities__image-wrapper place-card__image-wrapper'
@@ -80,7 +87,11 @@ const MainPage = ({
                 </div>
               </section>
               <div className="cities__right-section">
-                <CitiesMap currentCity={currentCity} activeCard={activeCard} />
+                <CitiesMap
+                  offers={filteredByCity}
+                  currentCity={currentCity}
+                  activeCard={activeCard}
+                />
               </div>
             </div>
           ) : (
