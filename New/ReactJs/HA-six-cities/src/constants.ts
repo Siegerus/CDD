@@ -25,6 +25,13 @@ export enum APIRoute {
   Post = '/post-new-comment.json',
 }
 
+export enum LoadingStatus {
+  idle,
+  Loading,
+  Success,
+  Failed,
+}
+
 export const OPTION_ITEMS: OptionItem[] = [
   {
     id: uuidv4(),

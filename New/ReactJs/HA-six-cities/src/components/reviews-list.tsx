@@ -1,5 +1,4 @@
 import createRate from '../utils/createRate';
-import getIntendedDate from '../utils/getIntendedDate';
 import { Review } from '../types';
 
 type ReviewsListProps = {

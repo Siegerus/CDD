@@ -1,15 +1,8 @@
 import { State } from '../../types';
 
-const selectOffers = (state: State) => state.offers;
-const selectNavs = (state: State) => state.navs;
-const selectActiveCard = (state: State) => state.acitveCard;
-const selectLoadingStatus = (state: State) => state.isOffersLoading;
-const selectComments = (state: State) => state.comments;
+const selectOffers = (state: State) => state.offers.offers;
+const selectNavs = (state: State) => state.offers.navs;
+const selectActiveCard = (state: State) => state.offers.acitveCard;
+const selectLoadingStatus = (state: State) => state.offers.loadingStatus;
 
-export {
-  selectOffers,
-  selectNavs,
-  selectActiveCard,
-  selectLoadingStatus,
-  selectComments,
-};
+export { selectOffers, selectNavs, selectActiveCard, selectLoadingStatus };

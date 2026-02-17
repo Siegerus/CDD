@@ -1,14 +1,16 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Header from '../../components/header';
 import Offermap from '../../components/offer-map';
 import Reviews from '../../components/reviews';
 import NearPlacesList from '../../components/near-places-list';
-import { useParams } from 'react-router-dom';
 import { Offer } from '../../types';
-import store from '../../store';
-import { fetchComments } from '../../store/api-actions';
-import { selectComments, selectActiveCard } from '../../store/selectors/offers';
-import { useAppSelector } from '../../hooks/store';
-import { useEffect } from 'react';
+import { selectComments } from '../../store/selectors/comments';
+import { commentsActions } from '../../store/slices/comments';
+import { useAppSelector, useAppDispatch } from '../../hooks/store';
+
+import { offersActions } from '../../store/slices/offers';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -21,10 +23,14 @@ const OfferPage = (props: OfferPageProps): JSX.Element => {
   const { offers, authState, activeCard, onMouseEnterHandle } = props;
 
   const comments = useAppSelector(selectComments);
+  const dispatch = useAppDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    store.dispatch(fetchComments(id!));
+    Promise.all([
+      dispatch(commentsActions.fetchComments(id!)),
+      dispatch(offersActions.fetchOffers()),
+    ]);
   }, [id]);
 
   const targetOffer = offers.find((offer: Offer) => offer.id === id);

@@ -5,6 +5,7 @@ import CitiesMap from '../../components/cities-map';
 import SortingList from '../../components/sorting-list';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { NavItemType, Offer, SortField } from '../../types';
+import { LoadingStatus } from '../../constants';
 
 type MainPageProps = {
   isMainPage: boolean;
@@ -13,7 +14,7 @@ type MainPageProps = {
   filteredByCity: Offer[] | undefined;
   currentCity: string;
   activeCard: string;
-  loadingStatus: boolean;
+  loadingStatus: LoadingStatus;
   onNavClickHandle: (id: string, city: string) => void;
   onSortinbyScaleHandle: ({
     field: field,
@@ -37,6 +38,8 @@ const MainPage = ({
   activeCard,
   loadingStatus,
 }: MainPageProps): JSX.Element => {
+  if (loadingStatus === 1) return <LoadingSpinner />;
+
   return (
     <div className="page page--gray page--main">
       <Header authState={authState} isMainPage={isMainPage} />
@@ -63,7 +66,6 @@ const MainPage = ({
           </section>
         </div>
         <div className="cities">
-          {loadingStatus && <LoadingSpinner />}
           {filteredByCity?.length ? (
             <div className="cities__places-container container">
               <section className="cities__places places">

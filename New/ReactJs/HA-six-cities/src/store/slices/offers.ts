@@ -1,22 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { current } from '@reduxjs/toolkit';
-import { NAV_ITEMS } from '../../constants';
-import { SortField, NavItemType, Review, Offer } from '../../types';
 
-export type OffersState = {
+import { NAV_ITEMS, LoadingStatus } from '../../constants';
+import { SortField, NavItemType, Offer } from '../../types';
+import { fetchOffers } from '../api-actions';
+
+type OffersState = {
   navs: NavItemType[];
   offers: Offer[];
   acitveCard: Offer['id'];
-  isOffersLoading: boolean;
-  comments: Review[];
+  loadingStatus: LoadingStatus;
 };
 
 const initialState: OffersState = {
   navs: NAV_ITEMS,
   offers: [],
   acitveCard: '',
-  isOffersLoading: true,
-  comments: [],
+  loadingStatus: LoadingStatus.idle,
 };
 
 const offersSlice = createSlice({
@@ -34,27 +33,6 @@ const offersSlice = createSlice({
             ? { ...nav, isActive: true }
             : { ...nav, isActive: false };
         }),
-      };
-    },
-    getOffers: (state: OffersState, action: PayloadAction<Offer[]>) => {
-      return { ...state, offers: action.payload };
-    },
-    getComments: (state: OffersState, action: PayloadAction<Review[]>) => {
-      return {
-        ...state,
-        comments: action.payload,
-      };
-    },
-    postComment: (state: OffersState, action: PayloadAction<Review>) => {
-      return {
-        ...state,
-        comments: [...state.comments, action.payload],
-      };
-    },
-    setLoadingStatus: (state: OffersState, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        isOffersLoading: action.payload,
       };
     },
     sortByScale: (state: OffersState, action: PayloadAction<SortField>) => {
@@ -92,8 +70,28 @@ const offersSlice = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchOffers.pending, (state) => {
+        return { ...state, loadingStatus: LoadingStatus.Loading };
+      })
+      .addCase(
+        fetchOffers.fulfilled,
+        (state: OffersState, action: PayloadAction<Offer[]>) => {
+          return {
+            ...state,
+            offers: action.payload,
+            loadingStatus: LoadingStatus.Success,
+          };
+        }
+      )
+      .addCase(fetchOffers.rejected, (state) => {
+        return { ...state, loadingStatus: LoadingStatus.Failed };
+      });
+  },
 });
 
-const offersActions = offersSlice.actions;
+// собираем асинхронные actions вместе со всеми для удобства
+const offersActions = { ...offersSlice.actions, fetchOffers };
 
 export { offersSlice, offersActions };

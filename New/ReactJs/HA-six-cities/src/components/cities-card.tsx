@@ -34,10 +34,10 @@ const CitiesCard = ({
     <article
       className={cardsClass}
       onMouseEnter={() => {
-        if (onMouseEnterHandle) onMouseEnterHandle!(id!);
+        if (onMouseEnterHandle) onMouseEnterHandle(id!);
       }}
       onMouseLeave={() => {
-        if (onMouseEnterHandle) onMouseEnterHandle!('');
+        if (onMouseEnterHandle) onMouseEnterHandle('');
       }}>
       {isPremium && (
         <div className="place-card__mark">
@@ -62,7 +62,9 @@ const CitiesCard = ({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={() => onClickFavoriteHandle!(id!)}
+            onClick={() => {
+              if (onClickFavoriteHandle) onClickFavoriteHandle(id!);
+            }}
             className={buttonClass}
             type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">

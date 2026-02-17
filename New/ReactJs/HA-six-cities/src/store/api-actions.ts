@@ -4,39 +4,36 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State, Review, Offer } from '../types';
 import { APIRoute } from '../constants';
 import { offersActions } from './slices/offers';
+import { commentsActions } from './slices/comments';
 
 export const fetchOffers = createAsyncThunk<
-  void,
+  Offer[],
   undefined,
-  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
+  { state: State; extra: AxiosInstance }
+>('data/fetchOffers', async (_arg, { extra: api }) => {
+  //другие параметры, кроме api и _arg - getState, dispatch, fulfillWithValue, rejectWithValue
   const { data } = await api.get<Offer[]>(APIRoute.Offers);
-  dispatch(offersActions.setLoadingStatus(false));
-  dispatch(offersActions.getOffers(data));
+  // под капотом ф-ция и так обёрнута в try/catch и если get не выполнится, будет rejected
+  // try/catch ипользуют, если нужно точечно обработать ошибку
+  return data;
 });
 
 export const fetchComments = createAsyncThunk<
-  void,
+  Review[],
   string,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('data/fetchComments', async (id: string, { dispatch, extra: api }) => {
-  try {
-    const { data } = await api.get<Review[]>(`${APIRoute.Comments}-${id}.json`);
-    dispatch(offersActions.getComments(data));
-  } catch (error) {
-    dispatch(offersActions.getComments([]));
-  }
+>('data/fetchComments', async (id: string, { extra: api }) => {
+  const { data } = await api.get<Review[]>(`${APIRoute.Comments}-${id}.json`);
+
+  return data;
 });
 
 export const sendComment = createAsyncThunk<
-  void,
+  Review,
   Review,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('data/sendComment', async (comment: Review, { dispatch, extra: api }) => {
-  try {
-    const resp = await api.post(APIRoute.Post, comment);
-    dispatch(offersActions.postComment(comment));
-  } catch (error) {
-    console.log(error);
-  }
+>('data/sendComment', async (comment: Review, { extra: api }) => {
+  const response = await api.post<Review>(APIRoute.Post, comment);
+
+  return JSON.parse(response.config.data);
 });

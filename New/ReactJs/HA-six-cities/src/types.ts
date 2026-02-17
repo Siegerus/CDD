@@ -70,11 +70,6 @@ export type OptionItem = {
   initial: boolean;
 };
 
-// export type PostComment = {
-//   rating: string;
-//   review: string;
-// };
-
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

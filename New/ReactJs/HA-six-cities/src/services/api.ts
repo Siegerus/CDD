@@ -13,20 +13,20 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    console.log('request-interseptor');
-    return config;
-  });
+  // api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  //   console.log('request-interseptor');
+  //   return config;
+  // });
 
-  api.interceptors.response.use(
-    (response) => {
-      console.log('response-interceptor');
-      return response;
-    },
-    (error: AxiosError<string>) => {
-      if (error.response) console.log(error.response.statusText);
-    }
-  );
+  // api.interceptors.response.use(
+  //   (response) => {
+  //     console.log('response-interceptor');
+  //     return response;
+  //   },
+  //   (error: AxiosError<string>) => {
+  //     if (error.response) console.log(error.response.statusText);
+  //   }
+  // );
 
   return api;
 };
