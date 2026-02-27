@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { LayerGroup, layerGroup } from 'leaflet';
 import useMap from '../hooks/useMap';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 import useMapSet from '../hooks/useMapSet';
 
 type CitiesMapProps = {

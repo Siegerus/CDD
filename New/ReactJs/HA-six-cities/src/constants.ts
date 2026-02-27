@@ -1,35 +1,35 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Icon } from 'leaflet';
 
-import { OptionItem } from './types';
+import { OptionItem } from './types/types';
 
 export const OFFERS_COUNT = 111;
 
 export const AppRoute = {
-  Root: '/',
-  Login: '/login',
-  Favorites: '/favorites',
-  Offer: '/offer/:id',
-  Page404: '*',
+  ROOT: '/',
+  LOGIN: '/login',
+  FAVORTES: '/favorites',
+  OFFER: '/offer/:id',
+  PAGE404: '*',
 } as const;
 
 export const AuthState = {
-  Auth: 'Auth',
-  NoAuth: 'NoAuth',
-  Unknow: 'Unknow',
+  AUTH: 'Auth',
+  NO_AUTH: 'NoAuth',
+  UNKNOWN: 'Unknow',
 } as const;
 
 export enum APIRoute {
-  Offers = '/offer-by-id.json',
-  Comments = '/comments-list',
-  Post = '/post-new-comment.json',
+  OFFERS = '/offer-by-id.json',
+  COMMENTS = '/comments-list',
+  POST = '/post-new-comment.json',
 }
 
 export enum LoadingStatus {
-  idle,
-  Loading,
-  Success,
-  Failed,
+  IDLE = 'idle',
+  LOADING = 'Loading',
+  SUCCESS = 'Success',
+  FAILED = 'Failed',
 }
 
 export const OPTION_ITEMS: OptionItem[] = [

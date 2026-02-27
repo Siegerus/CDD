@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 
 export const offers: Offer[] = [
   {

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Review } from '../types';
+import { Review } from '../types/types';
 
 export const reviewItems: Review[] = [
   {

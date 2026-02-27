@@ -1,4 +1,4 @@
-import { NavItemType } from '../types';
+import { NavItemType } from '../types/types';
 
 type NavItemProps = NavItemType & {
   id: string;

@@ -564,8 +564,35 @@ const CITIES = [
 //--------------------
 // -------------------
 
+// const grouped = CITIES.reduce((obj, city) => {
+// 	debugger;
+// 	obj[city.name] = obj[city.name] || [];
+
+// 	obj[city.name].push(city);
+
+// 	return obj;
+// }, {});
+
 //--------------------
 // -------------------
+
+// function getGrouped() {
+// 	const objj: Record<string, City[]> = {};
+// 	CITIES.forEach((item) => {
+// 		if (item.name in objj) objj[item.name].push(item);
+// 		else objj[item.name] = [];
+// 		/* objj[item.name] = objj[item.name] || [];
+// 		for (let prop in objj) {
+// 			if (prop === item.name) objj[item.name].push(item);
+// 		} */
+// 	});
+// 	return objj;
+// }
+
+// console.log(getGrouped());
+
+//--------------------
+//--------------------
 
 //--------------------
 

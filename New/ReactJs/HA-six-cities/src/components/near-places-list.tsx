@@ -1,5 +1,5 @@
 import CitiesCard from '../components/cities-card';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 
 type NearPlacesListProps = {
   onMouseEnterHandle: (id: string) => void;

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { LayerGroup, layerGroup } from 'leaflet';
 import useMap from '../hooks/useMap';
 import useMapSet from '../hooks/useMapSet';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 import { offers } from '../mocks/offers';
 
 type OffermapProps = {

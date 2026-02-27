@@ -1,15 +1,17 @@
 import styles from './sort-filter-cards.module.scss';
 import { useAppSelector, useAppDispatch } from './hooks/store';
 import { placesActions } from './store/slices/places';
-// import { placesSelectors } from './store/slices/places';
 import { navsSelector, placesSelector } from './store/selectors/places';
 import { Place } from './types/types';
-import { fetchData } from './store/slices/places';
+import { useActionCreators } from './hooks/store';
 
 const SortFilterCardsRedux = () => {
 	const navs = useAppSelector(navsSelector /* placesSelectors.navs */);
 	const places = useAppSelector(placesSelector /* placesSelectors.places */);
 	const dispatch = useAppDispatch();
+	const { setActiveCity } = useActionCreators(placesActions); // useActionCreators - кастомный хук для диспатча action
+	const { sortCards } = useActionCreators(placesActions); // в результате хука - объект с actions. Деструктуризируем actions
+	const { fetchData } = useActionCreators(placesActions);
 
 	const getFilteredCards = (): Place[] => {
 		const activeNav = navs.find((nav) => nav.isActive === true);
@@ -17,15 +19,19 @@ const SortFilterCardsRedux = () => {
 	};
 
 	const navClickHandle = (idx: number) => {
-		dispatch(placesActions.setActiveCity(idx));
+		setActiveCity(idx); // Предпостительный вариант с типизированным хуком.
+		// dispatch(placesActions.setActiveCity(idx)); // Вариант с dispatch.
 	};
 
 	const sortButtonClickHandle = (field: 'id' | 'price') => {
-		dispatch(placesActions.sortCards(field));
+		sortCards(field);
+		// dispatch(placesActions.sortCards(field));
 	};
 
 	const fetchButtonClickHandle = () => {
-		dispatch(fetchData('https://jsonplaceholder.typicode.com/posts'));
+		fetchData('https://jsonplaceholder.typicode.com/posts')
+			.unwrap()
+			.then(() => console.log('fetched!'));
 	};
 
 	return (

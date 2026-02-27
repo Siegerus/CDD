@@ -1,21 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { NAV_ITEMS, LoadingStatus } from '../../constants';
-import { SortField, NavItemType, Offer } from '../../types';
-import { fetchOffers } from '../api-actions';
-
-type OffersState = {
-  navs: NavItemType[];
-  offers: Offer[];
-  acitveCard: Offer['id'];
-  loadingStatus: LoadingStatus;
-};
+import { SortField, NavItemType, Offer, OffersState } from '../../types/types';
+import { fetchOffers } from '../thunks/offers';
 
 const initialState: OffersState = {
   navs: NAV_ITEMS,
   offers: [],
   acitveCard: '',
-  loadingStatus: LoadingStatus.idle,
+  loadingStatus: LoadingStatus.IDLE,
 };
 
 const offersSlice = createSlice({
@@ -73,20 +66,21 @@ const offersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state) => {
-        return { ...state, loadingStatus: LoadingStatus.Loading };
+        return { ...state, loadingStatus: LoadingStatus.LOADING };
       })
       .addCase(
         fetchOffers.fulfilled,
         (state: OffersState, action: PayloadAction<Offer[]>) => {
+          console.log('offers fetched!');
           return {
             ...state,
             offers: action.payload,
-            loadingStatus: LoadingStatus.Success,
+            loadingStatus: LoadingStatus.SUCCESS,
           };
         }
       )
       .addCase(fetchOffers.rejected, (state) => {
-        return { ...state, loadingStatus: LoadingStatus.Failed };
+        return { ...state, loadingStatus: LoadingStatus.FAILED };
       });
   },
 });

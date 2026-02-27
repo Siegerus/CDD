@@ -1,5 +1,5 @@
 import CitiesCard from './cities-card';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 
 type OfferslistProps = {
   sortedCards: Offer[];

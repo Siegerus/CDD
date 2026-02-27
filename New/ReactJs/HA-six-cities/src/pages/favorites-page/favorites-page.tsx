@@ -1,7 +1,7 @@
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import CitiesCard from '../../components/cities-card';
-import { Offer } from '../../types';
+import { Offer } from '../../types/types';
 
 type FavoritesPageProps = {
   authState: string;

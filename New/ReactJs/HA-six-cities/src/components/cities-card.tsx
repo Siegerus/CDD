@@ -1,6 +1,6 @@
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../constants';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 import createRate from '../utils/createRate';
 
 type CitiesCardProps = {
@@ -46,7 +46,7 @@ const CitiesCard = ({
       )}
 
       <div className={wrapperClass}>
-        <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
+        <Link to={generatePath(AppRoute.OFFER, { id: offer.id })}>
           <img
             className="place-card__image"
             src={images[0]}
@@ -80,7 +80,7 @@ const CitiesCard = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
+          <Link to={generatePath(AppRoute.OFFER, { id: offer.id })}>
             {title}
           </Link>
         </h2>

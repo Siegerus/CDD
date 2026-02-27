@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAppAsyncThunk } from '../../hooks/store';
 import { NAV_CITIES, PLACES } from '../../consts';
-import { Place, NavCity } from '../../types/types';
-import { State } from '../../types/state';
+import { Place, NavCity, Data } from '../../types/types';
 
 type PlacesState = {
 	navs: NavCity[];
@@ -14,16 +13,13 @@ const initialState: PlacesState = {
 	places: PLACES,
 };
 
-const fetchData = createAsyncThunk(
+const fetchData = createAppAsyncThunk(
 	'fetchData',
-	async (url: RequestInfo | 'Url', thuncAPI) => {
-		try {
-			const response = await fetch(url);
-			const json = await response.json();
-			return json;
-		} catch (error) {
-			console.log(error);
-		}
+	async (url: RequestInfo | 'Url', { getState }) => {
+		console.log(getState());
+		const response = await fetch(url);
+		const json = await response.json();
+		return json;
 	}
 );
 
@@ -58,12 +54,6 @@ export const placesSlice = createSlice({
 			};
 		},
 	},
-
-	// selectors: {
-	// 	navs: (state) => state.navs,
-	// 	places: (state) => state.places,
-	// },
-
 	extraReducers: (builder) => {
 		builder.addCase(fetchData.fulfilled, (state, action) => {
 			console.log(action.payload);
@@ -78,8 +68,11 @@ export const placesSlice = createSlice({
 			};
 		});
 	},
+	// selectors: {
+	// 	navs: (state) => state.navs,
+	// 	places: (state) => state.places,
+	// },
 });
 
-export const placesActions = placesSlice.actions;
-export { fetchData };
+export const placesActions = { ...placesSlice.actions, fetchData }; // добираем fetchData в один объект для удобства
 // export const placesSelectors = placesSlice.selectors;

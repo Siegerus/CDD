@@ -30,6 +30,8 @@ import SortFilterCardsRedux from './SortFilterCardsRedux/SortFilterCardsRedux';
 import SortFilterCardsReduxSlices from './SortFilterCardsReduxSlices/SortFilterCardsReduxSlices';
 import CustomBooleanComponent from './CustomBooleanComponent/CustomBooleanComponent';
 import AxiosComponent from './Axios/AxiosComponent';
+import ValidateComponent from './Validate/ValidateComponent';
+import CustomHookComponent from './CustomHook/CustomHookComponent';
 
 const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 export const TABS = [
@@ -118,6 +120,11 @@ const Practice2 = () => {
 						element={<CustomBooleanComponent />}
 					/>
 					<Route path="axios-component" element={<AxiosComponent />} />
+					<Route path="validate-component" element={<ValidateComponent />} />
+					<Route
+						path="custom-hook-component"
+						element={<CustomHookComponent />}
+					/>
 				</Route>
 			</Routes>
 		</BrowserRouter>

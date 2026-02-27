@@ -1,11 +1,11 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppDispatch } from '../hooks/store';
+import { useActionCreators } from '../hooks/store';
 import { commentsActions } from '../store/slices/comments';
-import { Review } from '../types';
+import { Review } from '../types/types';
 
 const Form = () => {
-  const dispatch = useAppDispatch();
+  const { sendComment } = useActionCreators(commentsActions);
 
   const [values, setValues] = useState({
     review: '',
@@ -33,7 +33,7 @@ const Form = () => {
 
   const formSubmitHandle = (e: MouseEvent) => {
     e.preventDefault();
-    dispatch(commentsActions.sendComment(commentObject));
+    sendComment(commentObject);
     setValues({ review: '', rating: '' });
   };
   return (

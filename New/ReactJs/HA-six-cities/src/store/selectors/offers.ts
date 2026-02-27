@@ -1,8 +1,10 @@
-import { State } from '../../types';
+import { State } from '../../types/types';
 
-const selectOffers = (state: State) => state.offers.offers;
-const selectNavs = (state: State) => state.offers.navs;
-const selectActiveCard = (state: State) => state.offers.acitveCard;
-const selectLoadingStatus = (state: State) => state.offers.loadingStatus;
+type Selector = Pick<State, keyof State>;
+
+const selectOffers = (state: Selector) => state.offers.offers;
+const selectNavs = (state: Selector) => state.offers.navs;
+const selectActiveCard = (state: Selector) => state.offers.acitveCard;
+const selectLoadingStatus = (state: Selector) => state.offers.loadingStatus;
 
 export { selectOffers, selectNavs, selectActiveCard, selectLoadingStatus };

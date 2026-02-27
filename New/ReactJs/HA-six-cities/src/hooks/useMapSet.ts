@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect } from 'react';
 import leaflet, { Map, LayerGroup } from 'leaflet';
-import { Offer } from '../types';
+import { Offer } from '../types/types';
 import { CURRENT_CUSTOM_ICON, DEFAULT_CUSTOM_ICON } from '../constants';
 
 export default function useMapSet(

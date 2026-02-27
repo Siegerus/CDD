@@ -13,4 +13,11 @@ type Place = {
 	price: number;
 };
 
-export type { SortFieldType, NavCity, Place };
+type Data = {
+	body: string;
+	id: number;
+	title: string;
+	userId: number;
+};
+
+export type { SortFieldType, NavCity, Place, Data };

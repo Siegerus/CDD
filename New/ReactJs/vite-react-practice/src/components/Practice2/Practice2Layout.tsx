@@ -33,6 +33,9 @@ const Practice2Layout = () => {
 			</Link>
 			<Link to="custom-boolean-component"> to custom-boolean-component</Link>
 			<Link to="axios-component"> to axios-component</Link>
+			<Link to="validate-component"> to validate-component</Link>
+			<Link to="custom-hook-component"> to custom-hook-component</Link>
+
 			<Link to="sandbox"> to sandbox</Link>
 			<main style={{ padding: '60px 0 120px 0' }}>
 				<Outlet />

@@ -11,7 +11,7 @@ type HeaderProps = {
 function Header({
   authState,
   isLoginPage,
-  isMainPage
+  isMainPage,
 }: HeaderProps): JSX.Element {
   return isLoginPage ? (
     <header className="header">
@@ -35,10 +35,9 @@ function Header({
               <li className="header__nav-item user">
                 <Link
                   className="header__nav-link header__nav-link--profile"
-                  to={AppRoute.Favorites}
-                >
+                  to={AppRoute.FAVORTES}>
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  {authState === AuthState.Auth && (
+                  {authState === AuthState.AUTH && (
                     <>
                       <span className="header__user-name user__name">
                         Oliver.conner@gmail.com
@@ -49,12 +48,12 @@ function Header({
                 </Link>
               </li>
               <li className="header__nav-item">
-                {authState === AuthState.Auth ? (
-                  <Link className="header__nav-link" to={AppRoute.Root}>
+                {authState === AuthState.AUTH ? (
+                  <Link className="header__nav-link" to={AppRoute.ROOT}>
                     <span className="header__signout">Sign out</span>
                   </Link>
                 ) : (
-                  <Link className="header__nav-link" to={AppRoute.Login}>
+                  <Link className="header__nav-link" to={AppRoute.LOGIN}>
                     <span className="header__signout">Sign in</span>
                   </Link>
                 )}

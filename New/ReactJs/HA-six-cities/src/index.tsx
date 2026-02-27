@@ -15,8 +15,7 @@ store
   // так же обрабатывать можно в интерсепторах апи.
   // unwrap достаёт оригинальное состояние промиса
   .unwrap() // без unwrap не будут ловиться ошибки и все запросы будут считаться выполнеными.
-  .then(() => console.log('offers fetched!'))
-  .catch((err) => console.log(`Error catched! Text: ${err.message}`));
+  .catch((err: Error) => console.log(`Error catched! Text: ${err.message}`));
 
 root.render(
   <React.StrictMode>

@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { sendComment, fetchComments } from '../api-actions';
-import { Review } from '../../types';
-
-type CommentsState = {
-  comments: Review[];
-  isCommentsLoading: boolean;
-};
+import { sendComment, fetchComments } from '../thunks/comments';
+import { Review, CommentsState } from '../../types/types';
 
 const initialState: CommentsState = {
   comments: [],

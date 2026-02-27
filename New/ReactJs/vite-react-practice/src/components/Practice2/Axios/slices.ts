@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 
 import { AppDispatch, State } from './types/store';
 
-type initialState = {
+export type InitialState = {
 	data: string[];
 };
 

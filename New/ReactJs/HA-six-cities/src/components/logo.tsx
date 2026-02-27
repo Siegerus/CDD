@@ -13,18 +13,16 @@ const Logo = ({ isMainPage }: LogoProps): JSX.Element => {
         src="img/logo.svg"
         alt="6 cities logo"
         width="81"
-        height="41"
-      ></img>
+        height="41"></img>
     </a>
   ) : (
-    <Link to={AppRoute.Root} className="header__logo-link">
+    <Link to={AppRoute.ROOT} className="header__logo-link">
       <img
         className="header__logo"
         src="img/logo.svg"
         alt="6 cities logo"
         width="81"
-        height="41"
-      ></img>
+        height="41"></img>
     </Link>
   );
 };

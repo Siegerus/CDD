@@ -5,11 +5,11 @@ import Header from '../../components/header';
 import Offermap from '../../components/offer-map';
 import Reviews from '../../components/reviews';
 import NearPlacesList from '../../components/near-places-list';
-import { Offer } from '../../types';
+import { Offer } from '../../types/types';
+import { useAppSelector } from '../../hooks/store';
+import { useActionCreators } from '../../hooks/store';
 import { selectComments } from '../../store/selectors/comments';
 import { commentsActions } from '../../store/slices/comments';
-import { useAppSelector, useAppDispatch } from '../../hooks/store';
-
 import { offersActions } from '../../store/slices/offers';
 
 type OfferPageProps = {
@@ -23,15 +23,9 @@ const OfferPage = (props: OfferPageProps): JSX.Element => {
   const { offers, authState, activeCard, onMouseEnterHandle } = props;
 
   const comments = useAppSelector(selectComments);
-  const dispatch = useAppDispatch();
+  const { fetchComments } = useActionCreators(commentsActions);
+  const { fetchOffers } = useActionCreators(offersActions);
   const { id } = useParams();
-
-  useEffect(() => {
-    Promise.all([
-      dispatch(commentsActions.fetchComments(id!)),
-      dispatch(offersActions.fetchOffers()),
-    ]);
-  }, [id]);
 
   const targetOffer = offers.find((offer: Offer) => offer.id === id);
   const severalPlaces = offers
@@ -42,6 +36,10 @@ const OfferPage = (props: OfferPageProps): JSX.Element => {
     )
     .splice(0, 2);
   const nearPlaces = targetOffer ? [...severalPlaces, targetOffer] : offers;
+
+  useEffect(() => {
+    Promise.all([fetchComments(id!), fetchOffers()]);
+  }, [id]);
 
   return (
     <div className="page">

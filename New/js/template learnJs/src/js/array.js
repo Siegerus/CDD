@@ -634,7 +634,7 @@ function openArray(array) {
 openArray(arrrrrrr);
 console.log(newArr); // [1, 2, true, 4, 54, true, '111', {…}, 6, false, 'smth', 34]
 
-// внрнуть массив с объектами без одного св-ва. 3 варианта.
+// венрнуть массив с объектами без одного св-ва. 3 варианта.
 let arrrrrrrr = [
   { id: "john", name: "John Smith", age: 20 },
   { id: "ann", name: "Ann Smith", age: 24 },
@@ -673,7 +673,13 @@ function testFn() {
 }
 console.log(testFn()); // [1, 2, 3, 'test']
 
-// Группировка объектов по одинаковым св-вам
+// Один из способов создать массив. С помощью "Array.from" :
+const objj = { length: 2 }; // св-вом "length" указываем, что объект итерируемый
+let resArr = Array.from(objj, (item) => item + "str"); // 2-ой аргумент - ф-ция, котороая применяется к каждому эл - ту массива
+
+console.log(arr); // (2) ['str', 'str']
+
+// Группирование объектов по одинаковым св-вам
 // type Animal = {
 //   type: string,
 //   name: string,

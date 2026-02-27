@@ -4,7 +4,7 @@ import NavItem from '../../components/nav-item';
 import CitiesMap from '../../components/cities-map';
 import SortingList from '../../components/sorting-list';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { NavItemType, Offer, SortField } from '../../types';
+import { NavItemType, Offer, SortField } from '../../types/types';
 import { LoadingStatus } from '../../constants';
 
 type MainPageProps = {
@@ -38,7 +38,7 @@ const MainPage = ({
   activeCard,
   loadingStatus,
 }: MainPageProps): JSX.Element => {
-  if (loadingStatus === 1) return <LoadingSpinner />;
+  if (loadingStatus === 'Loading') return <LoadingSpinner />;
 
   return (
     <div className="page page--gray page--main">

@@ -1,7 +1,7 @@
 import Form from './form';
 import ReviewsList from '../components/reviews-list';
 import { AuthState } from '../constants';
-import { Review } from '../types';
+import { Review } from '../types/types';
 
 type ReviewsProps = {
   authState: string;
@@ -16,7 +16,7 @@ const Reviews = ({ authState, comments }: ReviewsProps) => {
         <span className="reviews__amount">{comments.length}</span>
       </h2>
       <ReviewsList comments={comments} />
-      {authState === AuthState.Auth && <Form />}
+      {authState === AuthState.AUTH && <Form />}
     </section>
   );
 };

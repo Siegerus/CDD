@@ -1,5 +1,5 @@
 import createRate from '../utils/createRate';
-import { Review } from '../types';
+import { Review } from '../types/types';
 
 type ReviewsListProps = {
   comments: Review[];

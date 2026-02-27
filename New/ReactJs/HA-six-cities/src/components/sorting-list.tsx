@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { OPTION_ITEMS } from '../constants';
-import { SortField, OptionItem } from '../types';
+import { SortField, OptionItem } from '../types/types';
 
 type SortingListProps = {
   onSortinbyScaleHandle: ({

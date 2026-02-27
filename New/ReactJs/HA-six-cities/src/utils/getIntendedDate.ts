@@ -1,4 +1,4 @@
-import { IntendetDate } from '../types';
+import { IntendetDate } from '../types/types';
 
 export default function getIntendedDate(value: string): Date {
   const date = new Date(value);
