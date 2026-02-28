@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Icon } from 'leaflet';
 
-import { OptionItem } from './types/types';
-
 export const OFFERS_COUNT = 111;
 
 export const AppRoute = {
@@ -32,7 +30,7 @@ export enum LoadingStatus {
   FAILED = 'Failed',
 }
 
-export const OPTION_ITEMS: OptionItem[] = [
+export const OPTION_ITEMS = [
   {
     id: uuidv4(),
     title: 'Popular',
