@@ -36,6 +36,7 @@ const Practice2Layout = () => {
 			<Link to="validate-component"> to validate-component</Link>
 			<Link to="custom-hook-component"> to custom-hook-component</Link>
 			<Link to="form"> to form</Link>
+			<Link to="test-component"> to test-component</Link>
 
 			<Link to="sandbox"> to sandbox</Link>
 			<main style={{ padding: '60px 0 120px 0' }}>
