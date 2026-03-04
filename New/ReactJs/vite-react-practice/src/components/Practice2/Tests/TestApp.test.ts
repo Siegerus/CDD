@@ -1,5 +1,3 @@
-import describe from '@vitejs/plugin-react';
-
-describe();
+describe('Test', () => {});
 
 export {};
