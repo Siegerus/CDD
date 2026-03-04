@@ -29,5 +29,9 @@ describe('Function: isOffersFiltered', () => {
   it('Should filter by active city', () => {
     // Arrange подготовка
     const fakeOffer = makeFakeOffer();
+
+    const result = fakeOffer;
+
+    expect(result).toBe(true);
   });
 });
