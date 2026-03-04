@@ -1,9 +1,10 @@
-import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../constants';
+import { generatePath, Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthState } from '../constants';
 import { Offer } from '../types/types';
 import createRate from '../utils/createRate';
 
 type CitiesCardProps = {
+  authState?: (typeof AuthState)[keyof typeof AuthState];
   offer: Offer;
   cardsClass: string;
   wrapperClass: string;
@@ -15,6 +16,7 @@ type CitiesCardProps = {
 };
 
 const CitiesCard = ({
+  authState,
   offer,
   cardsClass,
   wrapperClass,
@@ -26,9 +28,20 @@ const CitiesCard = ({
 }: CitiesCardProps): JSX.Element => {
   const { isPremium, isFavorite, images, price, title, type, rating } = offer;
 
+  const navigate = useNavigate();
+
   const buttonClass = isFavorite
     ? 'place-card__bookmark-button--active button'
     : 'place-card__bookmark-button button';
+
+  const onButtonClickHandle = (
+    id: string,
+    authState: (typeof AuthState)[keyof typeof AuthState]
+  ) => {
+    if (onClickFavoriteHandle && authState === AuthState.AUTH)
+      onClickFavoriteHandle(id!);
+    else navigate(AppRoute.LOGIN);
+  };
 
   return (
     <article
@@ -62,9 +75,7 @@ const CitiesCard = ({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            onClick={() => {
-              if (onClickFavoriteHandle) onClickFavoriteHandle(id!);
-            }}
+            onClick={() => onButtonClickHandle(id!, authState!)}
             className={buttonClass}
             type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">

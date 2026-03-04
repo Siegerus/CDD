@@ -1,63 +1,64 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { useCallback, useMemo } from 'react';
 import LoginPage from '../pages/login-page/login-page';
 import FavoritesPage from '../pages/favorites-page/favorites-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import PrivateRoute from './private-route';
 import ErrorPage from '../pages/404-page/404-page';
 import MainPage from '../pages/main-page/main-page';
-import { AppRoute, AuthState } from '../constants';
-import { SortField, NavItemType, Offer } from '../types/types';
+import { AppRoute, getAuthState } from '../constants';
+import { SortField, Offer } from '../types/types';
 import { offersActions } from '../store/slices/offers';
 import { useAppSelector } from '../hooks/store';
 import { useActionCreators } from '../hooks/store';
 import {
   selectOffers,
-  selectNavs,
   selectActiveCard,
   selectLoadingStatus,
+  getNavs,
+  getActiveNav,
 } from '../store/selectors/offers';
 
 function App(): JSX.Element {
-  // console.log('mounted');
-  const navs = useAppSelector(selectNavs);
+  const navs = useAppSelector(getNavs);
+  const activeNav = useAppSelector(getActiveNav);
   const offers = useAppSelector(selectOffers);
   const activeCard = useAppSelector(selectActiveCard);
   const loadingStatus = useAppSelector(selectLoadingStatus);
   const { setActiveNav, sortByScale, setActiveId, setFavorites } =
     useActionCreators(offersActions);
 
-  const getActiveNav = () =>
-    navs.filter((nav: NavItemType) => nav.isActive === true)[0];
+  const currentCity = activeNav[0].city;
 
-  const getCurrentCity = () => getActiveNav().city;
+  const getFilteredOffers = useMemo(
+    () =>
+      offers.filter((offer: Offer) => offer.city.name === activeNav[0].city),
+    [activeNav]
+  );
 
-  const getFilteredOffers = () =>
-    offers.filter((offer: Offer) => offer.city.name === getActiveNav().city);
-
-  const onNavClickHandle = (id: string) => {
+  const onNavClickHandle = useCallback((id: string) => {
     setActiveNav(id);
-  };
+  }, []);
 
   const sortinbyScaleHandle = ({
-    field: field,
+    sortField: field,
     reverse: isReverse,
     initial: isInitial,
   }: SortField) => {
     sortByScale({
-      field: field,
+      sortField: field,
       reverse: isReverse,
       initial: isInitial,
     });
   };
 
-  const onMouseEnterHandle = (id: string) => {
+  const onMouseEnterHandle = useCallback((id: string) => {
     setActiveId(id);
-  };
+  }, []);
 
-  const onClickFavoriteHandle = (id: string) => {
+  const onClickFavoriteHandle = useCallback((id: string) => {
     setFavorites(id);
-  };
+  }, []);
 
   return (
     <BrowserRouter>
@@ -67,14 +68,14 @@ function App(): JSX.Element {
           element={
             <MainPage
               isMainPage
-              authState={AuthState.AUTH}
+              authState={getAuthState()}
               activeNavs={navs}
               onNavClickHandle={onNavClickHandle}
               onMouseEnterHandle={onMouseEnterHandle}
-              filteredByCity={getFilteredOffers()}
+              filteredByCity={getFilteredOffers}
               onSortinbyScaleHandle={sortinbyScaleHandle}
               onClickFavoriteHandle={onClickFavoriteHandle}
-              currentCity={getCurrentCity()}
+              currentCity={currentCity}
               activeCard={activeCard}
               loadingStatus={loadingStatus}
             />
@@ -83,7 +84,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.LOGIN}
           element={
-            <PrivateRoute authState={AuthState.AUTH} isReverse>
+            <PrivateRoute authState={getAuthState()} isReverse>
               <LoginPage isLoginPage />
             </PrivateRoute>
           }
@@ -91,11 +92,11 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.FAVORTES}
           element={
-            <PrivateRoute authState={AuthState.AUTH} isReverse={false}>
+            <PrivateRoute authState={getAuthState()} isReverse={false}>
               <FavoritesPage
-                authState={AuthState.AUTH}
-                currentCity={getCurrentCity()}
-                offers={getFilteredOffers()}
+                authState={getAuthState()}
+                currentCity={currentCity}
+                offers={getFilteredOffers}
               />
             </PrivateRoute>
           }
@@ -104,8 +105,8 @@ function App(): JSX.Element {
           path={AppRoute.OFFER}
           element={
             <OfferPage
-              offers={getFilteredOffers()}
-              authState={AuthState.AUTH}
+              offers={getFilteredOffers}
+              authState={getAuthState()}
               activeCard={activeCard}
               onMouseEnterHandle={onMouseEnterHandle}
             />

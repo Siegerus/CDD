@@ -5,19 +5,19 @@ import CitiesMap from '../../components/cities-map';
 import SortingList from '../../components/sorting-list';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { NavItemType, Offer, SortField } from '../../types/types';
-import { LoadingStatus } from '../../constants';
+import { LoadingStatus, AuthState } from '../../constants';
 
 type MainPageProps = {
   isMainPage: boolean;
-  authState: string;
+  authState: (typeof AuthState)[keyof typeof AuthState];
   activeNavs: NavItemType[];
   filteredByCity: Offer[] | undefined;
   currentCity: string;
   activeCard: string;
   loadingStatus: LoadingStatus;
-  onNavClickHandle: (id: string, city: string) => void;
+  onNavClickHandle: (id: string) => void;
   onSortinbyScaleHandle: ({
-    field: field,
+    sortField: field,
     reverse: isReverse,
     initial: isInitial,
   }: SortField) => void;
@@ -76,6 +76,7 @@ const MainPage = ({
                 <SortingList onSortinbyScaleHandle={onSortinbyScaleHandle} />
                 <div className="cities__places-list places__list tabs__content">
                   <Offerslist
+                    authState={authState}
                     sortedCards={filteredByCity}
                     onMouseEnterHandle={onMouseEnterHandle}
                     onClickFavoriteHandle={onClickFavoriteHandle}
@@ -103,7 +104,7 @@ const MainPage = ({
                   <b className="cities__status">No places to stay available</b>
                   <p className="cities__status-description">
                     We could not find any property available at the moment in
-                    Dusseldorf
+                    {currentCity}
                   </p>
                 </div>
               </section>

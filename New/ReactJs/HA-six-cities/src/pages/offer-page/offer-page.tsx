@@ -6,6 +6,7 @@ import Offermap from '../../components/offer-map';
 import Reviews from '../../components/reviews';
 import NearPlacesList from '../../components/near-places-list';
 import { Offer } from '../../types/types';
+import { AuthState } from '../../constants';
 import { useAppSelector } from '../../hooks/store';
 import { useActionCreators } from '../../hooks/store';
 import { selectComments } from '../../store/selectors/comments';
@@ -14,7 +15,7 @@ import { offersActions } from '../../store/slices/offers';
 
 type OfferPageProps = {
   offers: Offer[];
-  authState: string;
+  authState: (typeof AuthState)[keyof typeof AuthState];
   activeCard: string;
   onMouseEnterHandle: (id: string) => void;
 };
@@ -38,7 +39,13 @@ const OfferPage = (props: OfferPageProps): JSX.Element => {
   const nearPlaces = targetOffer ? [...severalPlaces, targetOffer] : offers;
 
   useEffect(() => {
-    Promise.all([fetchComments(id!), fetchOffers()]);
+    let isComponentMounted = true;
+    if (isComponentMounted) {
+      Promise.all([fetchComments(id!), fetchOffers()]);
+    }
+    return () => {
+      isComponentMounted = false;
+    };
   }, [id]);
 
   return (

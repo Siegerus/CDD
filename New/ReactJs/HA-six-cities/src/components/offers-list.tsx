@@ -1,7 +1,9 @@
 import CitiesCard from './cities-card';
 import { Offer } from '../types/types';
+import { AuthState } from '../constants';
 
 type OfferslistProps = {
+  authState: (typeof AuthState)[keyof typeof AuthState];
   sortedCards: Offer[];
   cardsClass: string;
   wrapperClass: string;
@@ -12,6 +14,7 @@ type OfferslistProps = {
 };
 
 const Offerslist = ({
+  authState,
   sortedCards,
   onMouseEnterHandle,
   onClickFavoriteHandle,
@@ -24,6 +27,7 @@ const Offerslist = ({
     <>
       {sortedCards.map((offer) => (
         <CitiesCard
+          authState={authState}
           offer={offer}
           key={offer.id}
           id={offer.id}

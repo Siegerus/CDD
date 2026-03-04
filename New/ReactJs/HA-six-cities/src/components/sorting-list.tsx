@@ -5,7 +5,7 @@ import { SortField, OptionItem } from '../types/types';
 
 type SortingListProps = {
   onSortinbyScaleHandle: ({
-    field: field,
+    sortField: field,
     reverse: isReverse,
   }: SortField) => void;
 };
@@ -22,7 +22,7 @@ const SortingList = ({
 
   const optionClickHandle = (
     id: string,
-    { field: field, reverse: isReverse, initial: isInitial }: SortField
+    { sortField: field, reverse: isReverse, initial: isInitial }: SortField
   ) => {
     setOptions(
       OPTION_ITEMS.map((item: OptionItem) => {
@@ -33,7 +33,7 @@ const SortingList = ({
     );
     setIsListVisible(false);
     onSortinbyScaleHandle({
-      field: field,
+      sortField: field,
       reverse: isReverse,
       initial: isInitial,
     });
@@ -44,13 +44,18 @@ const SortingList = ({
   };
 
   useEffect(() => {
+    let isComponentMounted = true;
+
     function setVisibility(e: MouseEvent) {
       if ((e.target as HTMLElement).closest('.places__sorting-type')) return;
       if (isListVisible) setIsListVisible(false);
     }
-    document.addEventListener('click', setVisibility);
+    if (isComponentMounted) document.addEventListener('click', setVisibility);
 
-    return () => document.removeEventListener('click', setVisibility);
+    return () => {
+      document.removeEventListener('click', setVisibility);
+      isComponentMounted = false;
+    };
   }, [isListVisible]);
 
   return (
@@ -77,7 +82,7 @@ const SortingList = ({
                 }
                 onClick={() =>
                   optionClickHandle(option.id, {
-                    field: option.sortField,
+                    sortField: option.sortField,
                     reverse: option.reverse,
                     initial: option.initial,
                   })

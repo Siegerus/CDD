@@ -56,11 +56,7 @@ export type IntendetDate = {
   fullDate: string;
 };
 
-export type SortField = {
-  field: 'rating' | 'price' | 'title';
-  reverse: boolean;
-  initial: boolean;
-};
+export type SortField = Pick<OptionItem, 'sortField' | 'reverse' | 'initial'>;
 
 export type OptionItem = {
   id: string;

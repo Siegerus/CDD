@@ -2,7 +2,7 @@ import { NavItemType } from '../types/types';
 
 type NavItemProps = NavItemType & {
   id: string;
-  onNavClick: (id: string, city: string) => void;
+  onNavClick: (id: string) => void;
 };
 
 const NavItem = ({
@@ -19,7 +19,7 @@ const NavItem = ({
             ? 'locations__item-link tabs__item tabs__item--active'
             : 'locations__item-link tabs__item'
         }
-        onClick={() => onNavClick(id, city)}>
+        onClick={() => onNavClick(id)}>
         <span>{city}</span>
       </a>
     </li>

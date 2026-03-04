@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Icon } from 'leaflet';
 
+import { OptionItem } from './types/types';
+
 export const OFFERS_COUNT = 111;
 
 export const AppRoute = {
@@ -17,6 +19,8 @@ export const AuthState = {
   UNKNOWN: 'Unknow',
 } as const;
 
+export const getAuthState = () => AuthState.AUTH;
+
 export enum APIRoute {
   OFFERS = '/offer-by-id.json',
   COMMENTS = '/comments-list',
@@ -30,7 +34,7 @@ export enum LoadingStatus {
   FAILED = 'Failed',
 }
 
-export const OPTION_ITEMS = [
+export const OPTION_ITEMS: OptionItem[] = [
   {
     id: uuidv4(),
     title: 'Popular',

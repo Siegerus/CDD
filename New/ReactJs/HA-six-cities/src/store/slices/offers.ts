@@ -29,10 +29,10 @@ const offersSlice = createSlice({
       };
     },
     sortByScale: (state: OffersState, action: PayloadAction<SortField>) => {
-      const { field, reverse, initial } = action.payload;
+      const { sortField, reverse, initial } = action.payload;
 
       const sorted = [...state.offers].sort((a, b) =>
-        a[field] > b[field] === reverse ? -1 : 1
+        a[sortField] > b[sortField] === reverse ? -1 : 1
       );
       return {
         ...state,
