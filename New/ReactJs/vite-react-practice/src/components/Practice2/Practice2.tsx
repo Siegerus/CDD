@@ -33,6 +33,7 @@ import AxiosComponent from './Axios/AxiosComponent';
 import ValidateComponent from './Validate/ValidateComponent';
 import CustomHookComponent from './CustomHook/CustomHookComponent';
 import FormComponent from './Form/FormComponent';
+import TestApp from './Tests/TestApp';
 
 const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 export const TABS = [
@@ -123,6 +124,7 @@ const Practice2 = () => {
 					<Route path="axios-component" element={<AxiosComponent />} />
 					<Route path="validate-component" element={<ValidateComponent />} />
 					<Route path="form" element={<FormComponent />} />
+					<Route path="test-component" element={<TestApp />} />
 					<Route
 						path="custom-hook-component"
 						element={<CustomHookComponent />}
