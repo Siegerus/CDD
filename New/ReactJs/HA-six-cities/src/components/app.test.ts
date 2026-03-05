@@ -30,7 +30,7 @@ describe('Function: isOffersFiltered', () => {
     // Arrange подготовка
     const fakeOffer = makeFakeOffer();
 
-    const result = fakeOffer;
+    const result = () => fakeOffer;
 
     expect(result).toBe(true);
   });
