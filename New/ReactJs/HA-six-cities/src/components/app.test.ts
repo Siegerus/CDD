@@ -1,4 +1,5 @@
 import { internet, name } from 'faker';
+import { describe, it, expect } from 'vitest';
 
 const makeFakeOffer = () => ({
   id: name.title(),
