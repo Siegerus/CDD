@@ -8,7 +8,7 @@ import { useAppSelector } from '../hooks/store';
 import { selectOffers } from '../store/selectors/offers';
 
 type HeaderProps = {
-  authState?: typeof AuthState;
+  authState?: (typeof AuthState)[keyof typeof AuthState];
   isLoginPage?: boolean;
   isMainPage?: boolean;
 };
