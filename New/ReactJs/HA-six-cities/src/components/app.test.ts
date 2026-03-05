@@ -1,7 +1,7 @@
 import { internet, name } from 'faker';
 import { describe, it, expect } from 'vitest';
 
-console.log('!');
+console.log('!!!');
 
 const makeFakeOffer = () => ({
   id: name.title(),
@@ -38,4 +38,3 @@ describe('Function: isOffersFiltered', () => {
     expect(result).toBe(true);
   });
 });
-
