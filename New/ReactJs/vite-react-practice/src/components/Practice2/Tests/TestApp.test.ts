@@ -29,17 +29,13 @@ describe('Function: isOffersFiltered', () => {
 	it('Should filter by active city', () => {
 		// Arrange подготовка
 		const fakeOffer = makeFakeOffer();
-		
+		// Act действие
 		function returnToTestTrue() {
 			return fakeOffer === fakeOffer;
 		}
-
+		// Accert проверка
 		const result = returnToTestTrue();
 
 		expect(result).toBe(true);
 	});
 });
-
-describe('Test', () => {});
-
-export {};

@@ -1,8 +1,6 @@
 import { internet, name } from 'faker';
 import { describe, it, expect } from 'vitest';
 
-console.log('!!!');
-
 const makeFakeOffer = () => ({
   id: name.title(),
   title: 'Beautiful & luxurious studio at great location',
@@ -32,7 +30,7 @@ describe('Function: isOffersFiltered', () => {
   it('Should filter by active city', () => {
     // Arrange подготовка
     const fakeOffer = makeFakeOffer();
-
+    //Act
     const result = () => true;
 
     expect(result).toBe(true);
