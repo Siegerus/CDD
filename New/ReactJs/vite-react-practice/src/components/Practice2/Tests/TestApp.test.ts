@@ -25,8 +25,8 @@ const makeFakeOffer = () => ({
 	isActive: false,
 });
 
-describe('Function: isOffersFiltered', () => {
-	it('Should filter by active city', () => {
+describe('Function: returnToTestTrue', () => {
+	it('Should return true to testing', () => {
 		// Arrange подготовка
 		const fakeOffer = makeFakeOffer();
 		// Act действие
@@ -37,5 +37,18 @@ describe('Function: isOffersFiltered', () => {
 		const result = returnToTestTrue();
 
 		expect(result).toBe(true);
+	});
+
+	it('Should return false to testing', () => {
+		// Arrange подготовка
+		const fakeOffer = makeFakeOffer();
+		// Act действие
+		function returnToTestTrue() {
+			return fakeOffer !== fakeOffer;
+		}
+		// Accert проверка
+		const result = returnToTestTrue();
+
+		expect(result).toBe(false);
 	});
 });

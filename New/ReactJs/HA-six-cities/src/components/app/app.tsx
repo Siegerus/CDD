@@ -1,23 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useCallback, useMemo } from 'react';
-import LoginPage from '../pages/login-page/login-page';
-import FavoritesPage from '../pages/favorites-page/favorites-page';
-import OfferPage from '../pages/offer-page/offer-page';
-import PrivateRoute from './private-route';
-import ErrorPage from '../pages/404-page/404-page';
-import MainPage from '../pages/main-page/main-page';
-import { AppRoute, getAuthState } from '../constants';
-import { SortField, Offer } from '../types/types';
-import { offersActions } from '../store/slices/offers';
-import { useAppSelector } from '../hooks/store';
-import { useActionCreators } from '../hooks/store';
+import LoginPage from '../../pages/login-page/login-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
+import OfferPage from '../../pages/offer-page/offer-page';
+import PrivateRoute from '../private-route';
+import ErrorPage from '../../pages/404-page/404-page';
+import MainPage from '../../pages/main-page/main-page';
+import { AppRoute, getAuthState } from '../../constants';
+import { SortField, Offer } from '../../types/types';
+import { offersActions } from '../../store/slices/offers';
+import { useAppSelector } from '../../hooks/store';
+import { useActionCreators } from '../../hooks/store';
 import {
   selectOffers,
   selectActiveCard,
   selectLoadingStatus,
   getNavs,
   getActiveNav,
-} from '../store/selectors/offers';
+} from '../../store/selectors/offers';
 
 function App(): JSX.Element {
   const navs = useAppSelector(getNavs);
