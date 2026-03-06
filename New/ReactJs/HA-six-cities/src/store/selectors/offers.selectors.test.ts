@@ -26,10 +26,12 @@ describe('Offers selectors', () => {
 
     expect(result).toBe(state.offers.navs);
   });
-  it('Should return navs within getState from state', () => {
+  it('Should return active-nav within getState from state', () => {
+    const activeNav = state.offers.navs.find((nav) => nav.isActive === true);
+
     const result = getNavs(state);
 
-    expect(result).toBe(state.offers.navs);
+    expect(result).toContain(activeNav);
   });
 
   it('Should return active-card from state', () => {
