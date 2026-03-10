@@ -5,9 +5,9 @@ import { State, Offer } from '../../types/types';
 import { APIRoute } from '../../constants';
 
 export const fetchOffers = createAsyncThunk<
-  Offer[],
-  undefined,
-  { state: State; extra: AxiosInstance }
+  Offer[], // тип возвращаемого значения
+  undefined, // тип для параметра _arg
+  { state: State; extra: AxiosInstance } // тип для thunkApi его можно типизировать отдельно (в файле hooks)
 >('data/fetchOffers', async (_arg, { extra: api }) => {
   //другие параметры, кроме api и _arg - getState, dispatch, fulfillWithValue, rejectWithValue
   const { data } = await api.get<Offer[]>(APIRoute.OFFERS);

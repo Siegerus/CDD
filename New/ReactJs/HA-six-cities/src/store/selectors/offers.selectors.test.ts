@@ -1,17 +1,18 @@
+import { makeFakeOffer } from '../../utils/makeFakeOffer';
 import { LoadingStatus, NAV_ITEMS } from '../../constants';
 import {
   selectOffers,
   selectNavs,
   selectActiveCard,
   selectLoadingStatus,
-  getNavs,
+  getActiveNav,
 } from '../selectors/offers';
 
 describe('Offers selectors', () => {
   const state = {
     offers: {
       navs: NAV_ITEMS,
-      offers: [],
+      offers: [makeFakeOffer()],
       acitveCard: '',
       loadingStatus: LoadingStatus.IDLE,
     },
@@ -27,11 +28,11 @@ describe('Offers selectors', () => {
     expect(result).toBe(state.offers.navs);
   });
   it('Should return active-nav within getState from state', () => {
-    const activeNav = state.offers.navs.find((nav) => nav.isActive === true);
+    const activeNav = state.offers.navs.filter((nav) => nav.isActive);
 
-    const result = getNavs(state);
+    const result = getActiveNav(state);
 
-    expect(result).toContain(activeNav);
+    expect(result).toEqual(activeNav);
   });
 
   it('Should return active-card from state', () => {

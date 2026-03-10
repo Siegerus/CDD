@@ -31,32 +31,35 @@ describe('Just group to testing tets', () => {
     // 'it' - сам тестовый случай
     it('Should return true to testing', () => {
       // Arrange подготовка
-
       const fakeOffer = makeFakeOffer();
       function returnToTestTrue() {
         return fakeOffer === fakeOffer;
       }
       // Act действие
-
       const result = returnToTestTrue();
       // Accert проверка
-
       expect(result).toBe(true);
     });
 
-    it('Should return true to testing', () => {
-      // Arrange подготовка
-
+    it('Should return false to testing', () => {
       const fakeOffer = makeFakeOffer();
       function returnToTestTrue() {
-        return fakeOffer === fakeOffer;
+        return fakeOffer !== fakeOffer;
       }
-      // Act действие
 
       const result = returnToTestTrue();
-      // Accert проверка
 
       expect(result).toBe(false);
     });
   });
+});
+
+beforeAll(() => {
+  // код, который будет выполнятся перед всеми тестами
+  console.log('beforeAll in "testing.test.ts"');
+});
+
+beforeEach(() => {
+  // код, который будет выполнятся перед каждым из тестов
+  console.log('beforeEach "testing.test.ts"');
 });

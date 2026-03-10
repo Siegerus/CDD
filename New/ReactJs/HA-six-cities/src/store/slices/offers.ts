@@ -71,7 +71,6 @@ const offersSlice = createSlice({
       .addCase(
         fetchOffers.fulfilled,
         (state: OffersState, action: PayloadAction<Offer[]>) => {
-          console.log('offers fetched!');
           return {
             ...state,
             offers: action.payload,

@@ -593,17 +593,6 @@ const CITIES = [
 
 //--------------------
 //--------------------
-type TObj = {
-	key: string;
-	key2?: string;
-};
-const tObj: TObj = {
-	key: 'val',
-};
-
-const { key2 = 'va2', key: testt } = tObj;
-
-console.log(key2);
 
 //--------------------
 

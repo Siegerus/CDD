@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from '../../hooks/store';
 import { Review } from '../../types/types';
 import { APIRoute } from '../../constants';
 
+// Тут у createAppAsyncThunk тип для thunkApi не указали, т.к. типизировали всё в файле hooks
 export const fetchComments = createAppAsyncThunk<Review[], string>(
   'data/fetchComments',
   async (id: string, { extra: api }) => {
