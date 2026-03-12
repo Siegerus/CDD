@@ -5,7 +5,7 @@ import { createAPI } from '../../services/api';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { State } from '../../types/types';
 import { Action } from 'redux';
-import { makeFakeOffer } from '../../utils/makeFakeOffer';
+import { makeFakeOffer } from '../../utils/mocks/makeFakeOffer';
 import { APIRoute } from '../../constants';
 import { offersActions } from '../slices/offers';
 
@@ -16,7 +16,7 @@ describe('Offers async actions', () => {
   // имитация стора с @jedmao/redux-mock-store
   const mockStoreCreator = configureMockStore<
     State,
-    Action,
+    Action<string>,
     ThunkDispatch<State, ReturnType<typeof createAPI>, Action>
   >(middleware);
 

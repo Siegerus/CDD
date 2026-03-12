@@ -1,8 +1,4 @@
-import React from 'react';
-
-type Props = {};
-
-const LoadingSpinner = (props: Props) => {
+const LoadingSpinner = () => {
   return (
     <div
       style={{

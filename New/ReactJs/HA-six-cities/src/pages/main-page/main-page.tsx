@@ -3,7 +3,7 @@ import Header from '../../components/header';
 import NavItem from '../../components/nav-item';
 import CitiesMap from '../../components/cities-map';
 import SortingList from '../../components/sorting-list';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import LoadingSpinner from '../../components/loading-spinner';
 import { NavItemType, Offer, SortField } from '../../types/types';
 import { LoadingStatus, AuthState } from '../../constants';
 

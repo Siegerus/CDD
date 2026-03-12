@@ -1,0 +1,16 @@
+import { Review } from '../../types/types';
+
+export const makeFakeComments = (): Review => {
+  return {
+    id: 'uuidv4()',
+    date: '2019-05-08T14:13:56.569Z',
+    user: {
+      name: 'Max',
+      avatarUrl: '../../markup/img/avatar-max.jpg',
+      isPro: false,
+    },
+    comment:
+      'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    rating: 4,
+  };
+};

@@ -1,4 +1,4 @@
-import { makeFakeOffer } from '../../utils/makeFakeOffer';
+import { makeFakeOffer } from '../../utils/mocks/makeFakeOffer';
 import { LoadingStatus, NAV_ITEMS } from '../../constants';
 import {
   selectOffers,

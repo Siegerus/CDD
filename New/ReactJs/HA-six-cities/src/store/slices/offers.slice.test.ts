@@ -1,5 +1,5 @@
 import { NAV_ITEMS, LoadingStatus } from '../../constants';
-import { makeFakeOffer } from '../../utils/makeFakeOffer';
+import { makeFakeOffer } from '../../utils/mocks/makeFakeOffer';
 import { offersSlice, offersActions } from '../slices/offers';
 import { commentsActions } from './comments';
 

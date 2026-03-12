@@ -12,7 +12,7 @@ const NavItem = ({
   id,
 }: NavItemProps): JSX.Element => {
   return (
-    <li className="locations__item">
+    <li className="locations__item" data-testid="nav-item container">
       <a
         className={
           isActive

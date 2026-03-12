@@ -4,6 +4,7 @@ import { Icon } from 'leaflet';
 import { OptionItem } from './types/types';
 
 export const OFFERS_COUNT = 111;
+export const COMMENT_TEXT_AMOUNT = 50;
 
 export const AppRoute = {
   ROOT: '/',

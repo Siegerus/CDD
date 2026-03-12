@@ -7,7 +7,10 @@ type LogoProps = {
 
 const Logo = ({ isMainPage }: LogoProps): JSX.Element => {
   return isMainPage ? (
-    <a className="header__logo-link header__logo-link--active">
+    <a
+      className="header__logo-link header__logo-link--active"
+      data-testid="logo-link">
+      {/* data-testid для теста */}
       <img
         className="header__logo"
         src="img/logo.svg"
@@ -16,7 +19,10 @@ const Logo = ({ isMainPage }: LogoProps): JSX.Element => {
         height="41"></img>
     </a>
   ) : (
-    <Link to={AppRoute.ROOT} className="header__logo-link">
+    <Link
+      to={AppRoute.ROOT}
+      className="header__logo-link"
+      data-testid="logo-link">
       <img
         className="header__logo"
         src="img/logo.svg"

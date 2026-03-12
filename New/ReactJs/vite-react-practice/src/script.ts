@@ -594,6 +594,24 @@ const CITIES = [
 //--------------------
 //--------------------
 
+function fun(a: number, b: number): number[] {
+	return [a, b];
+}
+
+const decorator = (f: (a: number, b: number) => number[]) => {
+	function wrapper(...args: number[]) {
+		let a = ++args[0];
+		let b = ++args[1];
+		return f(a, b);
+	}
+	return wrapper;
+};
+
+const f = decorator(fun);
+const decoratedFun = f(1, 2);
+
+console.log(decoratedFun);
+
 //--------------------
 
 // // Пример класса с типами

@@ -13,7 +13,9 @@ const Reviews = ({ authState, comments }: ReviewsProps) => {
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
         Reviews &middot;
-        <span className="reviews__amount">{comments.length}</span>
+        <span className="reviews__amount" data-testid="reviews-counter">
+          {comments.length}
+        </span>
       </h2>
       <ReviewsList comments={comments} />
       {authState === AuthState.AUTH && <Form />}

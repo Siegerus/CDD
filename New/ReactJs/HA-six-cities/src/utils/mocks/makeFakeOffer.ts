@@ -1,6 +1,4 @@
-import { internet } from 'faker';
-import { v4 as uidd } from 'uuid';
-import { Offer } from '../types/types';
+import { Offer } from '../../types/types';
 
 export const makeFakeOffer = (): Offer => ({
   id: 'uidd()',
