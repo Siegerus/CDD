@@ -9,7 +9,7 @@ type PrivateRouteType = {
 };
 // 'NoAuth' | 'Auth' | 'Unknow'
 const PrivateRoute = ({ children, authState, isReverse }: PrivateRouteType) => {
-  return authState === (isReverse ? AuthState.NO_AUTH : AuthState.AUTH) ? (
+  return authState === /* isReverse ? AuthState.NO_AUTH : */ AuthState.AUTH ? (
     children
   ) : (
     <Navigate to={isReverse ? AppRoute.ROOT : AppRoute.LOGIN} />

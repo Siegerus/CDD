@@ -1,5 +1,9 @@
-import { createMemoryHistory, MemoryHistory } from 'history';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import {
+  createMemoryHistory,
+  MemoryHistory,
+  createBrowserHistory,
+} from 'history';
+import { BrowserRouter, MemoryRouter, Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import MockAdapter from 'axios-mock-adapter';
 import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
@@ -10,19 +14,25 @@ import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import { Provider } from 'react-redux';
 
-export function withHistory(component: JSX.Element, history?: MemoryHistory) {
-  const memoryHistory = history ?? createMemoryHistory();
+// export function withHistory(component: JSX.Element, history?: MemoryHistory) {
+//   const memoryHistory = history ?? createMemoryHistory();
 
-  return <BrowserRouter>{component}</BrowserRouter>;
+//   return <MemoryRouter>{component}</MemoryRouter>;
+// }
+
+export function withHistory(component: JSX.Element, history?: string) {
+  const route = [history ?? '/'];
+
+  return <MemoryRouter initialEntries={route}>{component}</MemoryRouter>; // MemoryRouter что бы имитировать BrowserRouter
 }
 
+// HOC обёртка со стором, что бы можно было обернуть нужный к-нт и имитировать стор
 type ComponentWithMockStore = {
   withStoreComponent: JSX.Element;
   mockStore: MockStore;
   mockAxiosAdapter: MockAdapter;
 };
 
-// HOC обёртка со стором, что бы можно было обернуть нужный к-нт и имитировать стор
 export function withStore(
   component: JSX.Element,
   initialState: Partial<State> = {} // хелпер Partial, что бы сделать поля от типа State опциональными. Таким образом тс даст заполнить его частично, передать часть стора.
