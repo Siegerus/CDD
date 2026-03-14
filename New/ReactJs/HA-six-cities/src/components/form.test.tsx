@@ -33,11 +33,30 @@ describe('Component: Form', () => {
     // userEvent позволяет имитировать приближённое к настоящему поведение пользоватяям
     // метод type позволяет имитировать ввод текста
     await userEvent.type(
-      screen.getByTestId(commentElementTestId), // 1й аргумент - элемент, куда вводится текст
+      screen.getByTestId('commentElement'), // 1й аргумент - элемент, куда вводится текст
       expectedCommentValue // 2й - значение, которое вводится
     );
 
     // После того, как сымитировали ввод, проверяем, что это значение есть в документе
     expect(screen.getByDisplayValue(expectedCommentValue)).toBeInTheDocument();
+  });
+
+  it('Should render correctly, when user click button', async () => {
+    const commentElementTestId = 'commentElement';
+    const expectedValueText = 'Lorem ipsum dolor sit amet consectetur';
+    const { withStoreComponent } = withStore(<Form />, {});
+    const preparedComponent = withHistory(withStoreComponent);
+
+    render(preparedComponent);
+    await userEvent.type(
+      screen.getByTestId(commentElementTestId),
+      expectedValueText
+    );
+    await userEvent.click(screen.getByRole('button'));
+
+    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(
+      screen.queryByDisplayValue(expectedValueText)
+    ).not.toBeInTheDocument();
   });
 });

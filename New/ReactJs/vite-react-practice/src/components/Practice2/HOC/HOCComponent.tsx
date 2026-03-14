@@ -4,12 +4,12 @@ import InnerComponent from './InnerComponent';
 
 type Props = {};
 
-const InnerComponentWrapper = withMyHOC(InnerComponent); // оборачиваем к-т в HOC
+const InnerComponentWithHOC = withMyHOC(InnerComponent); // оборачиваем к-т в HOC
 
 const HOCComponent = (props: Props) => {
 	return (
 		<>
-			<InnerComponentWrapper />
+			<InnerComponentWithHOC />
 		</>
 	);
 };

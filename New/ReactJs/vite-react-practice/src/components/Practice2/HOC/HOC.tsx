@@ -28,7 +28,7 @@ function withMyHOC<T>( // ф-ция, которая принимает к-т, к
 							onClick={() => setisVisiblevalue(!isVisiblevalue)}
 							style={{ cursor: 'pointer' }}>
 							Hellow from HOC!
-							{isVisiblevalue ? ' Clicked from HOC' : ''}
+							{isVisiblevalue ? ' --- Clicked! Click again to hide...' : ''}
 						</p>
 					)}
 				/>

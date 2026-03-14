@@ -53,7 +53,9 @@ const Header = memo(function Header({
                       <span className="header__user-name user__name">
                         Oliver.conner@gmail.com
                       </span>
-                      <span className="header__favorite-count">
+                      <span
+                        className="header__favorite-count"
+                        data-testid="counter">
                         {favoritesOffersCount}
                       </span>
                     </>

@@ -1,4 +1,4 @@
-import createRate from '../utils/createRate';
+import { createRate } from '../utils/createRate';
 import { Review } from '../types/types';
 
 type ReviewsListProps = {
@@ -7,7 +7,7 @@ type ReviewsListProps = {
 
 const ReviewsList = ({ comments }: ReviewsListProps) => {
   return (
-    <ul className="reviews__list">
+    <ul className="reviews__list" data-testid="reviews-container">
       {comments.map((review) => {
         return (
           <ReviewItem

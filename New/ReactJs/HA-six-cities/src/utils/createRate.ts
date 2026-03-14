@@ -1,4 +1,4 @@
-export default function createRate(rateValue: number): string | undefined {
+function createRate(rateValue: number): string | undefined {
   switch (rateValue) {
     case 5:
       return '100%';
@@ -16,3 +16,5 @@ export default function createRate(rateValue: number): string | undefined {
       break;
   }
 }
+
+export { createRate };

@@ -1,7 +1,7 @@
 import { generatePath, Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthState } from '../constants';
 import { Offer } from '../types/types';
-import createRate from '../utils/createRate';
+import { createRate } from '../utils/createRate';
 
 type CitiesCardProps = {
   authState?: (typeof AuthState)[keyof typeof AuthState];

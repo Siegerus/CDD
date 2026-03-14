@@ -16,6 +16,7 @@ describe('Component: Logo', () => {
     expect(screen.getByTestId(logoLinkDataTestId)).toBeInTheDocument();
     expect(screen.getByAltText(expectedAltText)).toBeInTheDocument();
   });
+
   it('Should render correctly on favorite page', () => {
     const expectedIsMainPageProp = false;
     const expectedAltText = '6 cities logo';
@@ -23,6 +24,7 @@ describe('Component: Logo', () => {
     const preperedComponent = withHistory(
       <Logo isMainPage={expectedIsMainPageProp} />
     );
+
     render(preperedComponent);
 
     expect(screen.getByTestId(logoLinkDataTestId)).toBeInTheDocument();

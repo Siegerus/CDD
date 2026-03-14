@@ -3,7 +3,7 @@ import {
   MemoryHistory,
   createBrowserHistory,
 } from 'history';
-import { BrowserRouter, MemoryRouter, Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import MockAdapter from 'axios-mock-adapter';
 import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
@@ -16,7 +16,6 @@ import { Provider } from 'react-redux';
 
 // export function withHistory(component: JSX.Element, history?: MemoryHistory) {
 //   const memoryHistory = history ?? createMemoryHistory();
-
 //   return <MemoryRouter>{component}</MemoryRouter>;
 // }
 

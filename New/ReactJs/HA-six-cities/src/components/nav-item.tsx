@@ -12,8 +12,9 @@ const NavItem = ({
   id,
 }: NavItemProps): JSX.Element => {
   return (
-    <li className="locations__item" data-testid="nav-item container">
+    <li className="locations__item">
       <a
+        data-testid="navigate-item"
         className={
           isActive
             ? 'locations__item-link tabs__item tabs__item--active'

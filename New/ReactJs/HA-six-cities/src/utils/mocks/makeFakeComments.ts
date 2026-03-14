@@ -1,8 +1,9 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Review } from '../../types/types';
 
 export const makeFakeComments = (): Review => {
   return {
-    id: 'uuidv4()',
+    id: uuidv4(),
     date: '2019-05-08T14:13:56.569Z',
     user: {
       name: 'Max',
