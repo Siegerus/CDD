@@ -20,7 +20,7 @@ export const AuthState = {
   UNKNOWN: 'Unknow',
 } as const;
 
-export const getAuthState = () => AuthState.AUTH;
+export const getAuthState = () => AuthState.NO_AUTH;
 
 export enum APIRoute {
   OFFERS = '/offer-by-id.json',

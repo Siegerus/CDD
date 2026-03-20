@@ -594,23 +594,157 @@ const CITIES = [
 //--------------------
 //--------------------
 
-function fun(a: number, b: number): number[] {
-	return [a, b];
+// const nums = [9, 1, 3, 5, 7, 2];
+
+// Алгоритм сортировки
+// function toSort(arr: number[]): number[] {
+// 	// debugger;
+// 	const n = arr.length;
+// 	for (let i = 0; i < n - 1; i++) {
+// 		let firstIndex = i;
+
+// 		for (let j = i + 1; j < n; j++) {
+// 			if (arr[j] < arr[firstIndex]) {
+// 				firstIndex = j;
+// 			}
+// 		}
+// 		if (firstIndex !== i) {
+// 			let temp = arr[i];
+// 			arr[i] = arr[firstIndex];
+// 			arr[firstIndex] = temp;
+// 		}
+// 	}
+// 	return arr;
+// }
+// console.log(toSort(nums));
+
+//  Дерево N размера. Обход
+const expectedSum = 59;
+const tree = [
+	{
+		value: 5,
+		children1: [
+			{
+				value: 4,
+				children2: [
+					{ value: 7, children3: [] },
+					{ value: 11, children3: [{ value: 5, children4: [] }] },
+				],
+			},
+			{
+				value: 3,
+				children2: [{ value: 4, children3: [] }],
+			},
+			{
+				value: 7,
+				children2: [
+					{ value: 1, children3: [] },
+					{ value: 12, children3: [] },
+				],
+			},
+		],
+	},
+];
+
+const nums = [9, 1, 3, 5, 7, 2];
+
+function toSort(arr: number[]) {
+	for (let i = 0; i < arr.length - 1; i++) {
+		let minIndex = i;
+
+		for (let j = i + 1; arr.length - 1; j++) {
+			if (arr[j] < arr[i]) {
+				minIndex = j;
+			}
+		}
+
+		if (minIndex !== i) {
+			let temp = arr[i];
+			arr[i] = arr[minIndex];
+			arr[minIndex] = temp;
+		}
+	}
+	return arr;
 }
 
-const decorator = (f: (a: number, b: number) => number[]) => {
-	function wrapper(...args: number[]) {
-		let a = ++args[0];
-		let b = ++args[1];
-		return f(a, b);
-	}
-	return wrapper;
-};
+// console.log(toSort(nums));
 
-const f = decorator(fun);
-const decoratedFun = f(1, 2);
+// function countDuplicates(array, startPosition) {
+// 	// сначала предположим, что число встречается всего один раз
+// 	let lastPosition = startPosition;
 
-console.log(decoratedFun);
+// 	// последнее проверенное число — то же самое, что и в начале повторений. И мы не прошли массив полностью...
+// 	while (
+// 		array[startPosition] === array[lastPosition] &&
+// 		lastPosition < array.length
+// 	) {
+// 		// ...подвигаем указатель на последнее одинаковое число
+// 		lastPosition++;
+// 	}
+
+// 	// а как только числа перестали совпадать, вернём длину отрезка с дубликатами
+// 	return lastPosition - startPosition;
+// }
+
+// function countMostFrequent(firstArray, secondArray) {
+// 	let result = 0;
+// 	// храним указатели на текущие элементы в массиве
+// 	let firstPointer = 0;
+// 	let secondPointer = 0;
+
+// 	// пока не закончился один из наших массивов
+// 	while (
+// 		firstPointer < firstArray.length &&
+// 		secondPointer < secondArray.length
+// 	) {
+// 		// если в первом массиве текущее число меньше, чем во втором, то нужно сначала посчитать количество этих чисел
+// 		if (firstArray[firstPointer] < secondArray[secondPointer]) {
+// 			// посчитаем дубликаты, начиная с текущего указателя
+// 			const dup1 = countDuplicates(firstArray, firstPointer);
+
+// 			// если получилось больше дубликатов, чем уже было, то запомним это число как текущий результат
+// 			result = Math.max(result, dup1);
+// 			// и подвигаем указатель внутри первого массива
+// 			firstPointer += dup1;
+// 			// если в массивах числа совпадают, то ...
+// 		} else if (firstArray[firstPointer] === secondArray[secondPointer]) {
+// 			// ...посчитаем их количество в каждом массиве
+// 			const dup1 = countDuplicates(firstArray, firstPointer);
+// 			const dup2 = countDuplicates(secondArray, secondPointer);
+
+// 			// если нужно, обновим результат и подвигаем каждый из указателей
+// 			result = Math.max(result, dup1 + dup2);
+// 			firstPointer += dup1;
+// 			secondPointer += dup2;
+// 			// если же во втором массиве число больше, чем в первом, то сделаем над ним те же операции, что над первым
+// 		} else {
+// 			const dup2 = countDuplicates(secondArray, secondPointer);
+
+// 			result = Math.max(result, dup2);
+// 			secondPointer += dup2;
+// 		}
+// 	}
+
+// 	// если один из массивов закончился, значит нужно досчитать дубликаты в оставшемся массиве подобным образом, пока не закончится и второй
+// 	while (firstPointer < firstArray.length) {
+// 		const dup1 = countDuplicates(firstArray, firstPointer);
+
+// 		result = Math.max(result, dup1);
+// 		firstPointer += dup1;
+// 	}
+
+// 	while (secondPointer < secondArray.length) {
+// 		const dup2 = countDuplicates(secondArray, secondPointer);
+
+// 		result = Math.max(result, dup2);
+// 		secondPointer += dup2;
+// 	}
+
+// 	return result;
+// }
+
+// console.log(countMostFrequent([1, 2, 2, 3], [0, 2, 4, 4]));
+// console.log(countMostFrequent([], [0, 0]));
 
 //--------------------
 

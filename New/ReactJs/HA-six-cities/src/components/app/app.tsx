@@ -61,60 +61,59 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.ROOT}
-          element={
-            <MainPage
-              isMainPage
+    <Routes>
+      <Route
+        index
+        path={AppRoute.ROOT}
+        element={
+          <MainPage
+            isMainPage
+            authState={getAuthState()}
+            activeNavs={navs}
+            onNavClickHandle={onNavClickHandle}
+            onMouseEnterHandle={onMouseEnterHandle}
+            filteredByCity={getFilteredOffers}
+            onSortinbyScaleHandle={sortinbyScaleHandle}
+            onClickFavoriteHandle={onClickFavoriteHandle}
+            currentCity={currentCity}
+            activeCard={activeCard}
+            loadingStatus={loadingStatus}
+          />
+        }
+      />
+      <Route
+        path={AppRoute.LOGIN}
+        element={
+          <PrivateRoute authState={getAuthState()} isReverse>
+            <LoginPage isLoginPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.FAVORTES}
+        element={
+          <PrivateRoute authState={getAuthState()} isReverse={false}>
+            <FavoritesPage
               authState={getAuthState()}
-              activeNavs={navs}
-              onNavClickHandle={onNavClickHandle}
-              onMouseEnterHandle={onMouseEnterHandle}
-              filteredByCity={getFilteredOffers}
-              onSortinbyScaleHandle={sortinbyScaleHandle}
-              onClickFavoriteHandle={onClickFavoriteHandle}
               currentCity={currentCity}
-              activeCard={activeCard}
-              loadingStatus={loadingStatus}
-            />
-          }
-        />
-        <Route
-          path={AppRoute.LOGIN}
-          element={
-            <PrivateRoute authState={getAuthState()} isReverse>
-              <LoginPage isLoginPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.FAVORTES}
-          element={
-            <PrivateRoute authState={getAuthState()} isReverse={false}>
-              <FavoritesPage
-                authState={getAuthState()}
-                currentCity={currentCity}
-                offers={getFilteredOffers}
-              />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.OFFER}
-          element={
-            <OfferPage
               offers={getFilteredOffers}
-              authState={getAuthState()}
-              activeCard={activeCard}
-              onMouseEnterHandle={onMouseEnterHandle}
             />
-          }
-        />
-        <Route path={AppRoute.PAGE404} element={<ErrorPage />} />
-      </Routes>
-    </BrowserRouter>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.OFFER}
+        element={
+          <OfferPage
+            offers={getFilteredOffers}
+            authState={getAuthState()}
+            activeCard={activeCard}
+            onMouseEnterHandle={onMouseEnterHandle}
+          />
+        }
+      />
+      <Route path={AppRoute.PAGE404} element={<ErrorPage />} />
+    </Routes>
   );
 }
 

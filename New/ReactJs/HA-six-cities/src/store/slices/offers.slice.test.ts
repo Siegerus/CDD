@@ -143,10 +143,11 @@ describe('Offers slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('Sould switch "loadingStatus" to "SUCCESS", set "offers" to array with "fetchOffers"', () => {
+  it('Sould switch "loadingStatus" to "SUCCESS", put fetched data to "offers" array with "fetchOffers"', () => {
+    const fakeOffer = makeFakeOffer();
     const expectedState = {
       navs: NAV_ITEMS,
-      offers: [makeFakeOffer()],
+      offers: [fakeOffer],
       acitveCard: '',
       loadingStatus: LoadingStatus.SUCCESS,
     };
@@ -154,7 +155,7 @@ describe('Offers slice', () => {
     const result = offersSlice.reducer(
       undefined,
       // в вызове fulfilled теже аргументы, которые в createAsyncThunk(возвращаемое значение,"название самого action??",_arg, которые передаётся в payloadCreator)
-      offersActions.fetchOffers.fulfilled([makeFakeOffer()], '', undefined)
+      offersActions.fetchOffers.fulfilled([fakeOffer], '', undefined)
     );
 
     expect(result).toEqual(expectedState);

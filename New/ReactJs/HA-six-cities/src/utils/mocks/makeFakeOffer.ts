@@ -1,12 +1,13 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Offer } from '../../types/types';
 
 export const makeFakeOffer = (): Offer => ({
-  id: 'uidd()',
+  id: uuidv4(),
   title: 'Beautiful & luxurious studio at great location',
   type: 'apartment',
   price: 120,
   city: {
-    name: 'Amsterdam',
+    name: 'Paris',
     location: {
       latitude: 52.37454,
       longitude: 4.897976,
