@@ -618,56 +618,35 @@ const CITIES = [
 // }
 // console.log(toSort(nums));
 
-//  Дерево N размера. Обход
-const expectedSum = 59;
-const tree = [
-	{
-		value: 5,
-		children1: [
-			{
-				value: 4,
-				children2: [
-					{ value: 7, children3: [] },
-					{ value: 11, children3: [{ value: 5, children4: [] }] },
-				],
-			},
-			{
-				value: 3,
-				children2: [{ value: 4, children3: [] }],
-			},
-			{
-				value: 7,
-				children2: [
-					{ value: 1, children3: [] },
-					{ value: 12, children3: [] },
-				],
-			},
-		],
-	},
-];
-
 const nums = [9, 1, 3, 5, 7, 2];
 
-function toSort(arr: number[]) {
-	for (let i = 0; i < arr.length - 1; i++) {
-		let minIndex = i;
-
-		for (let j = i + 1; arr.length - 1; j++) {
-			if (arr[j] < arr[i]) {
-				minIndex = j;
-			}
-		}
-
-		if (minIndex !== i) {
-			let temp = arr[i];
-			arr[i] = arr[minIndex];
-			arr[minIndex] = temp;
+// o(n^2) - 1000 эл - 1 000 000 итераций
+function numsSum(nums, target) {
+	for (let i = 0; i < nums.length; i++) {
+		for (let j = i + 1; j < nums.length; j++) {
+			if (nums[i] + nums[j] === target) return [i, j];
 		}
 	}
-	return arr;
 }
 
-// console.log(toSort(nums));
+// O(n) - 1000 - 1000 итераций
+function twoSum(nums, target) {
+	debugger;
+	const map = new Map(); // ключ → число, значение → индекс
+	// const map = {};
+
+	for (let i = 0; i < nums.length; i++) {
+		const complement = target - nums[i]; // то, чего не хватает
+
+		if (map.has(complement)) {
+			return [map.get(complement), i];
+		}
+
+		map.set(nums[i], i); // сохраняем число с его индексом
+	}
+}
+
+console.log(twoSum(nums, 7)); //  [3, 5]
 
 // function countDuplicates(array, startPosition) {
 // 	// сначала предположим, что число встречается всего один раз

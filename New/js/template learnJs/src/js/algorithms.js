@@ -52,7 +52,6 @@ console.log(bfsInDeep(graf, "a")); // Set(6) {'a', 'c', 'f', 'e', 'g', …}
 
 // Алгоритм обхода графа в глубину рекурсией
 function bfsInDeepRecourse(graf, start, visited = new Set()) {
-  // debugger;
   if (visited.has(start)) return;
 
   visited.add(start);
@@ -189,7 +188,99 @@ tree.insert(4);
 tree.insert(6);
 tree.insert(11);
 tree.insert(4);
-
 tree.search(3);
-
 tree.printVisual();
+
+//  Дерево N размера. Обход
+const expectedSum = 59;
+const treee = [
+  {
+    value: 5,
+    children: [
+      {
+        value: 4,
+        children: [
+          { value: 7, children: [] },
+          { value: 11, children: [{ value: 5, children: [] }] },
+        ],
+      },
+      {
+        value: 3,
+        children: [{ value: 4, children: [] }],
+      },
+      {
+        value: 7,
+        children: [
+          { value: 1, children: [] },
+          { value: 12, children: [] },
+        ],
+      },
+    ],
+  },
+];
+
+// Рекурсия
+function recursive(tree) {
+  let sum = 0;
+  if (!tree.length) {
+    return sum;
+  }
+
+  for (const node of tree) {
+    sum += node.value;
+    sum += recursive(node.children);
+  }
+
+  return sum;
+}
+
+// Итерация
+function iterative(tree) {
+  // debugger;
+  let sum = 0;
+  const stack = [...tree];
+
+  while (stack.length) {
+    const node = stack.pop();
+    sum += node.value;
+    stack.push(...node.children);
+  }
+
+  return sum;
+}
+
+console.log(iterative(tree));
+console.log(recursive(tree));
+
+// Хэш таблицы
+// Дан массив чисел nums и целевое значение target.
+// Нужно найти индексы двух чисел, которые в сумме дают target.
+
+const nums = [9, 1, 3, 5, 7, 2];
+
+// o(n^2) - 1000 эл - 1 000 000 итераций
+function numsSum(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) return [i, j];
+    }
+  }
+}
+
+// O(n) - 1000 - 1000 итераций
+function twoSum(nums, target) {
+  const map = new Map(); // ключ → число, значение → индекс
+  // const map = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i]; // то, чего не хватает
+
+    if (map.has(complement)) {
+      return [map.get(complement), i];
+    }
+
+    map.set(nums[i], i); // сохраняем число с его индексом
+  }
+}
+
+console.log(twoSum(nums, 7)); //  [3, 5]
