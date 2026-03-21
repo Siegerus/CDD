@@ -618,35 +618,51 @@ const CITIES = [
 // }
 // console.log(toSort(nums));
 
-const nums = [9, 1, 3, 5, 7, 2];
+// const nums = [9, 1, 3, 5, 7, 2];
 
-// o(n^2) - 1000 эл - 1 000 000 итераций
-function numsSum(nums, target) {
-	for (let i = 0; i < nums.length; i++) {
-		for (let j = i + 1; j < nums.length; j++) {
-			if (nums[i] + nums[j] === target) return [i, j];
+// function numsSumToo(arr: number[], target: number): number[] | undefined {
+// 	const map = new Map();
+
+// 	for (let i = 0; i < arr.length; i++) {
+// 		// 1. Каждую итерацию находим, что останется от target, если отнять от неё элемент массива.
+// 		const diff = target - arr[i];
+
+// 		if (map.has(diff)) {
+// 			// 3. Если среди коллекции есть diff, то останется к нему добавить и сам элемент arr[i].
+// 			// Суммой этих 2х чисел и есть наш target. Возвращаем индексы этих двух чисел
+// 			return [map.get(diff), i];
+// 		}
+// 		// 2. Записываем индекс каждого элемента массива в коллекцию. Эелемент - ключ, индекс - значение.
+// 		map.set(arr[i], i);
+// 	}
+// }
+
+// console.log(numsSumToo(nums, 11)); // [0, 5]
+
+// Алгоритим перестановок
+
+function permutations(arr: any) {
+	const result: any = [];
+
+	function backtrack(start = 0) {
+		if (start === arr.length - 1) {
+			result.push([...arr]);
+			return;
+		}
+
+		// start - фиксируем позицию
+		for (let i = start; i < arr.length; i++) {
+			[arr[start], arr[i]] = [arr[i], arr[start]]; // обмен местами
+			backtrack(start + 1); // рекурсивно работаем со следующей позицией
+			[arr[start], arr[i]] = [arr[i], arr[start]]; // возвращаем назад, чтобы не было наложений перестановок
 		}
 	}
+
+	backtrack();
+	return result;
 }
 
-// O(n) - 1000 - 1000 итераций
-function twoSum(nums, target) {
-	debugger;
-	const map = new Map(); // ключ → число, значение → индекс
-	// const map = {};
-
-	for (let i = 0; i < nums.length; i++) {
-		const complement = target - nums[i]; // то, чего не хватает
-
-		if (map.has(complement)) {
-			return [map.get(complement), i];
-		}
-
-		map.set(nums[i], i); // сохраняем число с его индексом
-	}
-}
-
-console.log(twoSum(nums, 7)); //  [3, 5]
+console.log(permutations(['a', 'b', 'c', 'd']));
 
 // function countDuplicates(array, startPosition) {
 // 	// сначала предположим, что число встречается всего один раз
