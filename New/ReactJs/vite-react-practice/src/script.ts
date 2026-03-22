@@ -594,75 +594,22 @@ const CITIES = [
 //--------------------
 //--------------------
 
-// const nums = [9, 1, 3, 5, 7, 2];
+const nums = [9, 1, 3, 5, 7, 2];
 
-// Алгоритм сортировки
-// function toSort(arr: number[]): number[] {
-// 	// debugger;
-// 	const n = arr.length;
-// 	for (let i = 0; i < n - 1; i++) {
-// 		let firstIndex = i;
+const coins = [25, 10, 5, 2, 1];
 
-// 		for (let j = i + 1; j < n; j++) {
-// 			if (arr[j] < arr[firstIndex]) {
-// 				firstIndex = j;
-// 			}
-// 		}
-// 		if (firstIndex !== i) {
-// 			let temp = arr[i];
-// 			arr[i] = arr[firstIndex];
-// 			arr[firstIndex] = temp;
-// 		}
-// 	}
-// 	return arr;
-// }
-// console.log(toSort(nums));
-
-// const nums = [9, 1, 3, 5, 7, 2];
-
-// function numsSumToo(arr: number[], target: number): number[] | undefined {
-// 	const map = new Map();
-
-// 	for (let i = 0; i < arr.length; i++) {
-// 		// 1. Каждую итерацию находим, что останется от target, если отнять от неё элемент массива.
-// 		const diff = target - arr[i];
-
-// 		if (map.has(diff)) {
-// 			// 3. Если среди коллекции есть diff, то останется к нему добавить и сам элемент arr[i].
-// 			// Суммой этих 2х чисел и есть наш target. Возвращаем индексы этих двух чисел
-// 			return [map.get(diff), i];
-// 		}
-// 		// 2. Записываем индекс каждого элемента массива в коллекцию. Эелемент - ключ, индекс - значение.
-// 		map.set(arr[i], i);
-// 	}
-// }
-
-// console.log(numsSumToo(nums, 11)); // [0, 5]
-
-// Алгоритим перестановок
-
-function permutations(arr: any) {
-	const result: any = [];
-
-	function backtrack(start = 0) {
-		if (start === arr.length - 1) {
-			result.push([...arr]);
-			return;
-		}
-
-		// start - фиксируем позицию
-		for (let i = start; i < arr.length; i++) {
-			[arr[start], arr[i]] = [arr[i], arr[start]]; // обмен местами
-			backtrack(start + 1); // рекурсивно работаем со следующей позицией
-			[arr[start], arr[i]] = [arr[i], arr[start]]; // возвращаем назад, чтобы не было наложений перестановок
+function coinChangeGreedy(sum) {
+	const result = [];
+	for (let coin of coins) {
+		while (sum >= coin) {
+			sum -= coin;
+			result.push(coin);
 		}
 	}
-
-	backtrack();
 	return result;
 }
 
-console.log(permutations(['a', 'b', 'c', 'd']));
+console.log(coinChangeGreedy(63));
 
 // function countDuplicates(array, startPosition) {
 // 	// сначала предположим, что число встречается всего один раз

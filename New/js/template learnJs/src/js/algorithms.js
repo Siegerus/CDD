@@ -308,7 +308,7 @@ function numsSumToo(arr, target) {
 
 console.log(numsSumToo(nums, 11)); // [0, 5]
 
-// Алгоритим перестановок
+// Алгоритим перестановки
 function permutations(arr) {
   const result = [];
 
@@ -318,7 +318,7 @@ function permutations(arr) {
       return;
     }
 
-    // start - фиксируем позицию
+    // start - фиксируем позицию. (a,b,c - элемент а фиксируем, остальные перебираем. Потом b фиксируем и т.д)
     for (let i = start; i < arr.length; i++) {
       [arr[start], arr[i]] = [arr[i], arr[start]]; // обмен местами
       backtrack(start + 1); // рекурсивно работаем со следующей позицией
@@ -330,3 +330,51 @@ function permutations(arr) {
   return result;
 }
 // console.log(permutations(['a', 'b', 'c', 'd']));
+// 0: (4) ['a', 'b', 'c', 'd']
+// 1: (4) ['a', 'b', 'd', 'c']
+// 2: (4) ['a', 'c', 'b', 'd']
+// 3: (4) ['a', 'c', 'd', 'b']
+// 4: (4) ['a', 'd', 'c', 'b']
+// ...............
+
+// Алгоритим сочитания
+function combinations(arr, k) {
+  const result = [];
+
+  function backtrack(start = 0, current = []) {
+    if (current.length === k) {
+      result.push([...current]);
+      return;
+    }
+    for (let i = start; i < arr.length; i++) {
+      current.push(arr[i]);
+      backtrack(i + 1, current);
+      current.pop();
+    }
+  }
+
+  backtrack();
+  return result;
+}
+
+// console.log(combinations(['a', 'b', 'c', 'd'], 2));
+// 0: (2) ['a', 'b']
+// 1: (2) ['a', 'c']
+// 2: (2) ['a', 'd']
+// 3: (2) ['b', 'c']
+// 4: (2) ['b', 'd']
+// 5: (2) ['c', 'd']
+
+// Размещения
+// Ф-ция нахождения факториала
+function factorial(n) {
+  return n <= 1 ? 1 : n * factorial(n - 1);
+}
+// Сама ф-ция размещения
+function arrangements(n, k) {
+  debugger;
+  return factorial(n) / factorial(n - k);
+}
+
+const permutationsCount = factorial(5);
+console.log(arrangements(5, 3)); // 60
