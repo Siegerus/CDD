@@ -594,8 +594,9 @@ const CITIES = [
 //--------------------
 //--------------------
 
-const nums = [9, 1, 3, 5, 7, 2];
-
+const nums = [9, 1, 3, 5, 7, -2];
+const nums2 = [12, 20, 44, 53, 130, 461, 286, 565, 721, 911];
+const numbs = [5, 12, 1, 8, 42, -3, 0];
 const coins = [25, 10, 5, 2, 1];
 
 function coinChangeGreedy(sum) {
@@ -608,9 +609,62 @@ function coinChangeGreedy(sum) {
 	}
 	return result;
 }
+// console.log(coinChangeGreedy(63));
 
-console.log(coinChangeGreedy(63));
+// // Быстрая сортировка (сортировка Хоара)
+// function quickSort(arr) {
+// 	if (arr.length <= 1) return arr;
 
+// const mid = Math.floor(arr.length / 2);
+// 	const pivot = arr[mid];
+// 	let left = [];
+// 	let right = [];
+
+// 	for (let i = 0; i < arr.length; i++) {
+// 		if (i === mid) continue;
+
+// 		if (arr[i] < pivot) {
+// 			left.push(arr[i]);
+// 		} else right.push(arr[i]);
+// 	}
+// 	return quickSort(left).concat(pivot, quickSort(right));
+
+// }
+// console.log(quickSort(numbs)); //
+
+// quickSortPointers
+function partition(arr, left, right) {
+	const mid = Math.floor((left + right) / 2);
+	const pivot = arr[mid];
+	let i = left - 1;
+	let j = right + 1;
+
+	while (true) {
+		do {
+			i++;
+		} while (arr[i] < pivot);
+		do {
+			j--;
+		} while (arr[j] > pivot);
+
+		if (i >= j) return j;
+
+		[arr[i], arr[j]] = [arr[j], arr[i]];
+	}
+}
+
+function quickSortPointers(arr, left = 0, right = arr.length - 1) {
+	// debugger;
+	if (left >= right) return;
+
+	const pivotIndex = partition(arr, left, right);
+	quickSortPointers(arr, left, pivotIndex);
+	quickSortPointers(arr, pivotIndex + 1, right);
+	return arr;
+}
+console.log(quickSortPointers(numbs)); // [-3, 0, 1, 5, 8, 12, 42]
+
+// console.log(quickSortPointers(numbs));
 // function countDuplicates(array, startPosition) {
 // 	// сначала предположим, что число встречается всего один раз
 // 	let lastPosition = startPosition;

@@ -1,6 +1,43 @@
+// Минммальный и максимальный элемент в массиве
+// Линейный поиск
+
+// const nums = [9, 1, 3, 5, 7, -2];
+function findMin(arr) {
+  let min = arr[0];
+  let max = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < min) {
+      min = arr[i];
+    } else if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  return { min, max };
+}
+
+console.log(findMin(nums)); // {min: -2, max: 9}
+
+// Бинарный поиск. Работает только с упорядоченным массивом
+const nums2 = [12, 20, 44, 53, 130, 461, 286, 565, 721, 911];
+
+function bynarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+
+    const midElement = arr[mid];
+
+    if (midElement === target) return midElement;
+    else if (midElement < target) left = mid + 1;
+    else right = mid - 1;
+  }
+}
+console.log(bynarySearch(nums2, 44)); //
+
 //Алгоритм сортировки
 function toSort(arr) {
-  // debugger;
   const n = arr.length;
   for (let i = 0; i < n - 1; i++) {
     let firstIndex = i;
@@ -19,6 +56,76 @@ function toSort(arr) {
   return arr;
 }
 console.log(toSort(nums));
+
+// Пузырьковая сортировка
+const numbs = [5, 12, 1, 8, 42, -3, 0];
+
+function bubleSort(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j + 1];
+        arr[j + 1] = arr[j];
+        arr[j] = temp;
+      }
+    }
+  }
+
+  return arr;
+}
+console.log(bubleSort(numbs)); // (7) [-3, 0, 1, 5, 8, 12, 42]
+
+// Быстрая сортировка (сортировка Хоара) с созданием массивов
+function quickSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const pivot = arr[mid];
+  let left = [];
+  let right = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (i === mid) continue;
+
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else right.push(arr[i]);
+  }
+  return quickSort(left).concat(pivot, quickSort(right));
+}
+console.log(quickSort(numbs)); // (7) [-3, 0, 1, 5, 8, 12, 42]
+
+// Быстрая сортировка (сортировка Хоара) с созданием указателей (более оптимален).
+function partition(arr, left, right) {
+  const mid = Math.floor((left + right) / 2);
+  const pivot = arr[mid];
+  let i = left - 1;
+  let j = right + 1;
+
+  while (true) {
+    do {
+      i++;
+    } while (arr[i] < pivot);
+    do {
+      j--;
+    } while (arr[j] > pivot);
+
+    if (i >= j) return j;
+
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function quickSortPointers(arr, left = 0, right = arr.length - 1) {
+  // debugger;
+  if (left >= right) return;
+
+  const pivotIndex = partition(arr, left, right);
+  quickSortPointers(arr, left, pivotIndex);
+  quickSortPointers(arr, pivotIndex + 1, right);
+  return arr;
+}
+console.log(quickSortPointers(numbs)); // [-3, 0, 1, 5, 8, 12, 42]
 
 // Граф
 const graf = {
