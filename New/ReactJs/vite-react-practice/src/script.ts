@@ -599,7 +599,7 @@ const nums2 = [12, 20, 44, 53, 130, 461, 286, 565, 721, 911];
 const numbs = [5, 12, 1, 8, 42, -3, 0];
 const coins = [25, 10, 5, 2, 1];
 
-function coinChangeGreedy(sum) {
+function coinChangeGreedy(sum: any) {
 	const result = [];
 	for (let coin of coins) {
 		while (sum >= coin) {
@@ -633,7 +633,7 @@ function coinChangeGreedy(sum) {
 // console.log(quickSort(numbs)); //
 
 // quickSortPointers
-function partition(arr, left, right) {
+function partition(arr:any, left:any, right:any) {
 	const mid = Math.floor((left + right) / 2);
 	const pivot = arr[mid];
 	let i = left - 1;
@@ -653,7 +653,7 @@ function partition(arr, left, right) {
 	}
 }
 
-function quickSortPointers(arr, left = 0, right = arr.length - 1) {
+function quickSortPointers(arr: any, left = 0, right = arr.length - 1) {
 	// debugger;
 	if (left >= right) return;
 

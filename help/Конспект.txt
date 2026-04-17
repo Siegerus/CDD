@@ -288,6 +288,18 @@ background: linear-gradient(-45deg,#070716 50%, #ffc61a 50%)
 	Так же желательно указывать область действия(scope) пример - "chore(Gruntfile.js)/ add watch task"
 	еще пример "git switch -c feature/add-login-page" - Вместо дефиса может быть нижнее подчеркивание.
 
+
+Warning: you are leaving 2 commits behind, not connected to
+any of your branches:
+
+  fb66c6a chore/set-visibility
+  9b6ee08 future/btn-logic-add
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> fb66c6a
+
 41.   npm init - инициализация менеджера пакетов.
       "npm install --global gulp-cli"  - установка утилиты, которая позволяет работать с галпом  через терминал  При первом запуске делаем сначала глобально.   
       "npm install  gulp-cli --save-dev" - Пслеэтго уснавливем уже локльно в проект.
@@ -1420,3 +1432,7 @@ outline : 4px solid green !Important; для обнаружения выпира
      "селектор" {animation: "имя анимации ..."}
      @keyframes "имя анимации" {from{} to{}}
      У селектора должно быть или transition или animation.
+
+
+108.React композиция. Если от к-та требуется немного вариативности по стилям, то композируем пропсами. 
+    Если много и во многих местах используется - пропс с классом и делаем в модуле к-та глобальные классы.
