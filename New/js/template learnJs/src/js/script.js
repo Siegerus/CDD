@@ -3784,7 +3784,13 @@ const CITIES = [
 // }
 // console.log(f());
 
-console.log();
+
+const testObj ={
+  num: 10,
+  res : this.num * 2
+}
+
+console.log(testObj);
 console.log();
 console.log();
 console.log();
