@@ -1,78 +1,4 @@
-﻿footer
-	padding: 14px 23px 39px 23px
-	position: relative
-	.footer_line
-		margin: 0 auto
-		width: 299px
-		height: 4px
-		background-color: $first_color
-	.links_wrapper
-
-	.social_block
-		position: absolute
-		top: 51px
-		display: flex
-		justify-content: center
-		width: 160px
-	.social_links
-		justify-content: center
-		align-items: center
-		margin: 0  4px
-		display: flex
-		width: 32px
-		height: 32px
-		background-color: #070716
-		border-radius: 100px
-		i
-			color: #fff
-			
-			
-	.footer_main_links
-		display: flex
-		justify-content: center
-		margin: 34px auto 0 auto
-		
-	.main_links_item
-		padding: 0 23px
-		display: block
-		text-decoration: none
-		font-size: 15px
-		font-weight: 300
-		text-transform: uppercase
-		color: #070716
-		text-decoration: none
-		text-align: center
-	.footer_sublinks
-		margin-top: 15px
-		display: flex
-		justify-content: center
-	.sublinks_item	
-		padding: 0 11px
-		display: block
-		text-decoration: none
-		font-size: 11px
-		font-weight: 300
-		text-transform: uppercase
-		color: #999999
-	.store_block
-		position: absolute
-		top: 52px
-		right: 23px
-		img
-			display: block
-			width: 296px
-			height: 27px
-		
-	.russian
-		margin-top: 19px
-		font-size: 11px
-		font-weight: 400
-		text-transform: uppercase
-		color: #1fbad6
-		text-align: center
-
-
-1. Главный файл - это всегда index.html
+﻿1. Главный файл - это всегда index.html
 2. Не называть на кирилице, не называть транслитом
 3. Для запуска локального сервера, что бы не обновлять постояяно страницу в браузере, запускается локальный север (Нажать go live  внизу в VSCode)
 
@@ -1470,4 +1396,6 @@ outline : 4px solid green !Important; для обнаружения выпира
 109. Адаптация картинок.
      Делаем обёртку для img и задаём ей w и h как в разметке,а потом, при уменьшении media - maxw и maxh. Внутри сначала делаем - img {maxwidth 100% maxheight 100% objfit cover},
      что бы не перебивать w и h внутри разметки. Потом, при уменьшении media - img {width 100% height 100%}
+
+110. Для обновления browserliste в vite  ---  npm up caniuse-lite --recursive
     

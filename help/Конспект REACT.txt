@@ -390,5 +390,3 @@ error    Anchor used as a button. Anchors are primarily expected to navigate. Us
 error    Avoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element              jsx-a11y/no-static-element-interactions
 Ответ.
 Делаем так, например: role="button" tabIndex={0} onKeyDown={() => onClickHandler(i)} href="google.com".
-
-ПОДДЕРЖИ МЕНЯ ПО ССЫЛКАМ: тутhttps://new.donatepay.ru/@UlyaGrechka или тут https://www.donationalerts.com/r/ulyagrechka
