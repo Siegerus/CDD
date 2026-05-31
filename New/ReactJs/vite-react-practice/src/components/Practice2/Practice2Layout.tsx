@@ -14,6 +14,7 @@ const Practice2Layout = () => {
 			<Link to="tabs">to tabs</Link>
 			<Link to="accordeon">to accordeon</Link>
 			<Link to="animation-fade">to animation-fade</Link>
+			<Link to="animation2">to animation2</Link>
 			<Link to="use-params-linking"> to use-params-linking</Link>
 			<Link to="children"> to children</Link>
 			<Link to="sort-filter-cards"> to sort-filter-cards</Link>

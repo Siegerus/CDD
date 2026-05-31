@@ -1,0 +1,40 @@
+.elem {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	max-width: 132px;
+	min-height: 111px;
+	margin: 0 auto;
+	margin-top: 22px;
+	background-color: purple;
+	border: 1px solid black;
+	border-radius: 20px;
+
+	&_hidding {
+		animation: fadeOut 1s forwards;
+	}
+
+	&_showing {
+		animation: fadeIn 1s forwards;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}

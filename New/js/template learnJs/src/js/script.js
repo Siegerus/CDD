@@ -3784,13 +3784,54 @@ const CITIES = [
 // }
 // console.log(f());
 
+const numbersss = [10,13,17,64,73,87,91,112];
+const numbs = [5, 12, 1, 8, 42, -3, 0];
 
-const testObj ={
-  num: 10,
-  res : this.num * 2
+// бинарный поиск
+function toBinarySearch(arr, target) {
+ 
+};
+
+// console.log(toBinarySearch(numbersss, 91) );
+
+
+
+
+// линейный поиск
+function linearSearch(arr, target) {
+  
 }
 
-console.log(testObj);
+// сортировка Хоара с созданием массивов
+
+function toHoarSort(arr) {
+if(arr.length < 1) return arr
+
+const mid = Math.floor(arr.length / 2) 
+const pivot = arr[mid];
+
+let left = [];
+let right = [];
+
+
+for(let i = 0; i < arr.length; i++) {
+   if (i === mid) continue;
+  if(arr[i] < pivot) left.push(arr[i])
+  if(arr[i] > pivot) right.push(arr[i])
+}
+
+return toHoarSort(left).concat(pivot, toHoarSort(right))
+
+}
+
+console.log(toHoarSort(numbs));
+
+
+
+
+console.log();
+console.log();
+console.log();
 console.log();
 console.log();
 console.log();

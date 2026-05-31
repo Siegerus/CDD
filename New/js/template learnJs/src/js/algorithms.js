@@ -20,18 +20,22 @@ console.log(findMin(nums)); // {min: -2, max: 9}
 // Бинарный поиск. Работает только с упорядоченным массивом
 const nums2 = [12, 20, 44, 53, 130, 461, 286, 565, 721, 911];
 
+// Суть в том, что если target > чем элемент(число) посередине, то target находится справа и начинать поиск можно с середины в правую сторону  
+// else if (midElement < target) start = mid + 1;
+// Если target < чем элемент(число) посередине меньше, то, соответственно, target - слева и можно двигаться от мида влево
+// else end = mid - 1 (наинаем двигаться влево от энда, который будет равен mid, пока энд не станет равен start, т.е. 0)
 function bynarySearch(arr, target) {
-  let left = 0;
-  let right = arr.length - 1;
+  let start = 0;
+  let end = arr.length - 1;
 
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
+  while (start <= end) {
+    const mid = Math.floor((start + end) / 2);
 
     const midElement = arr[mid];
 
     if (midElement === target) return midElement;
-    else if (midElement < target) left = mid + 1;
-    else right = mid - 1;
+    else if (midElement < target) start = mid + 1;
+    else end = mid - 1;
   }
 }
 console.log(bynarySearch(nums2, 44)); //

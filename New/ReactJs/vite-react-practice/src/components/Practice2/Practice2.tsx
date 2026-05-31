@@ -12,6 +12,7 @@ import Sandbox from './Sandbox/Sandbox';
 import Tabs from './Tabs/Tabs';
 import Accordeon from './Accordeon/Accordeon';
 import AnimationFade from './Animation/AnimationFade';
+import Animation2 from './Animation/Animation2';
 import UseParamsLinking from './UseParams/UseParamsLinking';
 import Children from './Children/Children';
 import SortFilterCards from './SortFilterCards/SortFilterCards';
@@ -75,6 +76,7 @@ const Practice2 = () => {
 					<Route path="tabs" element={<Tabs />} />
 					<Route path="accordeon" element={<Accordeon />} />
 					<Route path="animation-fade" element={<AnimationFade />} />
+					<Route path="animation2" element={<Animation2 />} />
 					<Route path="dynamic-page" element={<DinamicLayout />}>
 						<Route path=":id" element={<InnerDinamic ids={array} />} />
 					</Route>

@@ -2,6 +2,10 @@
     width: 150px;
     height: 150px;
     background-color: #fff;
+    //animation: fadeIn 1s forwards; если не меняем начальный класс анимации, что не совсем корректно
+}
+
+.fadeIn { // если не меняем начальный класс анимации у елемента
     animation: fadeIn 1s forwards;
 }
 

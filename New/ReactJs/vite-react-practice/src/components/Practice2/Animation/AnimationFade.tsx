@@ -6,26 +6,28 @@ const AnimationFade = (props: Props) => {
 	const [isVisibleElement, setIsVisibleElement] = useState(true);
 	const [isFadeIn, setIsFadeIn] = useState(true);
 
+	// Вариант с появлением и исчезновением прина жатии на одну и ту же кнопку
 	const buttonClickHandle = () => {
-		setIsFadeIn(!isFadeIn);
-		setIsVisibleElement(true);
+		setIsFadeIn((prevState) => !prevState); // меняем имеенно "анимацию появления" элемента
+		setIsVisibleElement(true); // видимость вседа в true
 	};
 
 	const animationEndHandle = (e: AnimationEvent<HTMLElement>) => {
+		// а вот после завершения  "анимацию появления" видимость становится false
 		if (e.animationName === styles.fadeOut) setIsVisibleElement(false);
 	};
 
-	const setFadeOutClass = (): string => {
-		let targetClassName: string[] = [];
-		if (!isFadeIn) targetClassName.push(styles.fadeOut);
-		return targetClassName.join('');
+	const setFadeClass = (): string => {
+		// добавляем классы анимации, взависимости от стейта "анимацию появления"
+		if (isFadeIn) return styles.fadeIn;
+		return styles.fadeOut;
 	};
 
 	return (
 		<>
 			{isVisibleElement && (
 				<div
-					className={`${styles.box} ${setFadeOutClass()}`}
+					className={`${styles.box} ${setFadeClass()}`}
 					onAnimationEnd={animationEndHandle}>
 					Sandbox
 				</div>
@@ -38,3 +40,44 @@ const AnimationFade = (props: Props) => {
 };
 
 export default AnimationFade;
+
+// import React, { useState, AnimationEvent } from 'react';
+// import styles from './animation.module.scss';
+
+// type Props = {};
+// const AnimationFade = (props: Props) => {
+// 	const [isVisibleElement, setIsVisibleElement] = useState(true);
+// 	const [isFadeIn, setIsFadeIn] = useState(true);
+
+// 	const buttonClickHandle = () => {
+// 		setIsFadeIn(!isFadeIn);
+// 		setIsVisibleElement(true);
+// 	};
+
+// 	const animationEndHandle = (e: AnimationEvent<HTMLElement>) => {
+// 		if (e.animationName === styles.fadeOut) setIsVisibleElement(false);
+// 	};
+
+// 	const setFadeOutClass = (): string => {
+// 		let targetClassName: string[] = [];
+// 		if (!isFadeIn) targetClassName.push(styles.fadeOut);
+// 		return targetClassName.join('');
+// 	};
+
+// 	return (
+// 		<>
+// 			{isVisibleElement && (
+// 				<div
+// 					className={`${styles.box} ${setFadeOutClass()}`}
+// 					onAnimationEnd={animationEndHandle}>
+// 					Sandbox
+// 				</div>
+// 			)}
+// 			<button type="button" onClick={buttonClickHandle}>
+// 				Click
+// 			</button>
+// 		</>
+// 	);
+// };
+
+// export default AnimationFade;
