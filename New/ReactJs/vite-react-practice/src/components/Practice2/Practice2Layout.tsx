@@ -37,6 +37,7 @@ const Practice2Layout = () => {
 			<Link to="validate-component"> to validate-component</Link>
 			<Link to="custom-hook-component"> to custom-hook-component</Link>
 			<Link to="form"> to form</Link>
+			<Link to="validation"> to validation</Link>
 			<Link to="test-component"> to test-component</Link>
 
 			<Link to="sandbox"> to sandbox</Link>
